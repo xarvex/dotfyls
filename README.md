@@ -7,6 +7,7 @@ Personal [WezTerm] configuration I use, includes my own plugin
 Main repository lives on [GitLab](https://gitlab.com/dotfyls/wezterm).
 Mirror can be found through [GitHub](https://github.com/Xarvex/dotfyls-wezterm).
 
+
 ## Prerequisites
 
 - [WezTerm]
