@@ -1,0 +1,72 @@
+#!/bin/sh
+
+readonly USEROVERRIDES=user-overrides.js
+
+readonly ARKENFOX=arkenfox
+readonly ARKENFOX_UPDATER="$ARKENFOX"/updater.sh
+readonly ARKENFOX_CLEANER="$ARKENFOX"/prefsCleaner.sh
+
+readonly NARSIL=narsil
+readonly NARSIL_USERJS="$NARSIL"/user.js
+
+readonly GEN=generated
+readonly GENOVERRIDES="$GEN"/user-overrides.js
+
+read_profile() {
+    profiles=~/.mozilla/firefox/profiles.ini
+
+    if [ "$(grep -c '^\[Profile' "$profiles")" -eq '1' ]; then
+        found_ini="$(grep '^\[Profile' -A 4 "$profiles")"
+    else
+        grep --color=never -E '^Default=[^1]|^\[Profile[0-9]*\]|^Name=|^Path=' "$profiles"
+        printf 'Select profile number: '
+        read -r profile_number
+        printf '\n'
+        if expr "$profile_number" : '^(0|[1-9][0-9]*)$' > /dev/null; then
+            if ! found_ini="$(grep "^\[Profile$profile_number" -A 4 "$profiles")"; then
+                printf 'Profile %s did not exist!\n' "$profile_number"
+                exit 1
+            fi
+        else
+            printf 'Invalid selection!\n'
+            exit 1
+        fi
+    fi
+
+    profile_path=$(sed -n 's/^Path=\(.\+\)$/\1/p' << EOF
+$found_ini
+EOF
+)
+    [ "$(sed -n 's/^IsRelative=\([01]\)$/\1/p' << EOF
+$found_ini
+EOF
+)" = '1' ] && profile_path="$(dirname "$profiles")/$profile_path"
+
+    printf '%s\n' "$profile_path"
+}
+
+
+
+if ! [ -d "$ARKENFOX" ]; then
+    mkdir -p "$ARKENFOX"
+    curl -sL "$(curl -s https://api.github.com/repos/arkenfox/user.js/releases/latest | jq -r .tarball_url)" | tar -xz -C "$ARKENFOX" --strip-components 1
+fi
+
+if [ -d "$NARSIL" ]; then
+    git -C "$NARSIL" pull -q
+else
+    mkdir -p "$NARSIL"
+    git clone -q https://git.nixnet.services/Narsil/desktop_user.js.git "$NARSIL"
+    curl -sL https://git.nixnet.services/Narsil/desktop_user.js/raw/branch/master/user.js > "$NARSIL_USERJS"
+fi
+
+mkdir -p "$GEN"
+cp "$NARSIL_USERJS" "$GENOVERRIDES"
+printf '\n\n%s' "$(cat "$USEROVERRIDES")" >> "$GENOVERRIDES"
+
+profile="$(read_profile)"
+"$ARKENFOX_UPDATER" -p "$profile" -o "$(readlink -f "$GENOVERRIDES")"
+cleaner=$(readlink -f "$ARKENFOX_CLEANER")
+ln "$cleaner" "$profile"/prefsCleaner.sh
+"$profile"/prefsCleaner.sh
+rm -f "$profile"/prefsCleaner.sh
