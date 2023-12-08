@@ -66,7 +66,6 @@ printf '\n\n%s' "$(cat "$USEROVERRIDES")" >> "$GENOVERRIDES"
 
 profile="$(read_profile)"
 "$ARKENFOX_UPDATER" -p "$profile" -o "$(readlink -f "$GENOVERRIDES")"
-cleaner=$(readlink -f "$ARKENFOX_CLEANER")
-ln "$cleaner" "$profile"/prefsCleaner.sh
-"$profile"/prefsCleaner.sh
-rm -f "$profile"/prefsCleaner.sh
+sed -i 's/BASH_SOURCE\[0\]/1/g' "$ARKENFOX_CLEANER"
+sed -i 's/$(pwd)/$2/g' "$ARKENFOX_CLEANER" # is not meant to expand
+"$ARKENFOX_CLEANER" "$profile"/prefsCleaner.sh "$profile" -d
