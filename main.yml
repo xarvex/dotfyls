@@ -18,14 +18,9 @@
     - role: desktop
       tags:
         - desktop
-    - role: development_c
+    - role: develop
       tags:
-        - development
-        - development_c
-    - role: development_go
-      tags:
-        - development
-        - development_go
+        - develop
     - role: distrobox
       tags:
         - distrobox

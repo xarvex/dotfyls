@@ -1,5 +1,5 @@
 ---
-- name: Development - C | Install
+- name: Develop - C | Install
   ansible.builtin.dnf:
     name:
       - clang

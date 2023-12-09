@@ -1,5 +1,5 @@
 ---
-- name: Development - Go | Install
+- name: Develop - Go | Install
   ansible.builtin.dnf:
     name:
       - golang

@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: c_fedora.yml
+  tags:
+    - develop_c
+  when: ansible_distribution == 'Fedora'
