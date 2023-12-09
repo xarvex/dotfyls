@@ -5,12 +5,12 @@
     chdir: '{{ dotfyls_role_files }}'
   register: result
   changed_when: "'Distrobox \\'fastfetch\\' successfully created.' in result.stderr"
-- name: Fastfetch | Config Directory
+- name: Fastfetch | Config directory
   ansible.builtin.file:
     path: '{{ dotfyls_xdg_config_home }}/fastfetch'
     state: directory
     mode: '0755'
-- name: Fastfetch | Config Link
+- name: Fastfetch | Config link
   ansible.builtin.file:
     src: '{{ dotfyls_role_files }}/config.jsonc'
     path: '{{ dotfyls_xdg_config_home }}/fastfetch/config.jsonc'

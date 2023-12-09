@@ -1,7 +1,7 @@
 ---
 - ansible.builtin.import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-- name: Neovim | Config
+- name: Neovim | Config pull
   ansible.builtin.git:
     repo: 'git@gitlab.com:dotfyls/neovim.git'
     dest: '{{ dotfyls_xdg_config_home }}/nvim'

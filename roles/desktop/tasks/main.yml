@@ -1,5 +1,5 @@
 ---
-- name: Desktop | Display Rules
+- name: Desktop | Display rules
   ansible.builtin.copy:
     src: '{{ dotfyls_role_files }}/80-display.rules'
     dest: /etc/udev/rules.d/80-display.rules
@@ -7,7 +7,7 @@
     owner: root
     group: root
   become: true
-- name: Desktop | USB Wakeup Rules
+- name: Desktop | USB wakeup rules
   ansible.builtin.copy:
     src: '{{ dotfyls_role_files }}/90-usb-wakeup.rules'
     dest: /etc/udev/rules.d/90-usb-wakeup.rules
