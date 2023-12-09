@@ -1,0 +1,21 @@
+---
+- name: Desktop | Display Rules
+  ansible.builtin.copy:
+    src: '{{ dotfyls_role_files }}/80-display.rules'
+    dest: /etc/udev/rules.d/80-display.rules
+    mode: '0644'
+    owner: root
+    group: root
+  become: true
+- name: Desktop | USB Wakeup Rules
+  ansible.builtin.copy:
+    src: '{{ dotfyls_role_files }}/90-usb-wakeup.rules'
+    dest: /etc/udev/rules.d/90-usb-wakeup.rules
+    mode: '0644'
+    owner: root
+    group: root
+  become: true
+- ansible.builtin.import_tasks: gnome.yml
+  when: dotfyls_host_environment_is_gnome
+- ansible.builtin.import_tasks: kde.yml
+  when: dotfyls_host_environment_is_kde

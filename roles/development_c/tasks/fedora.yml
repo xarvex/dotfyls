@@ -1,0 +1,8 @@
+---
+- name: Development - C | Install
+  ansible.builtin.dnf:
+    name:
+      - clang
+      - clang-tools-extra
+      - make
+  become: true

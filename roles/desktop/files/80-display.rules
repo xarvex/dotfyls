@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="module", KERNEL=="i915", RUN+="/usr/bin/proptest -M i915 -D /dev/dri/card1 317 connector 312 1"

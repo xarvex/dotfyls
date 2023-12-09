@@ -1,0 +1,7 @@
+---
+- name: Distrobox | Install
+  ansible.builtin.dnf:
+    name:
+      - distrobox
+      - podman
+  become: true

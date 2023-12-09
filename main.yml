@@ -1,0 +1,38 @@
+---
+- name: Dotfyls Setup
+  hosts:
+    - localhost
+
+  vars:
+    dotfyls_role_files: '{{ role_path }}/files'
+
+  pre_tasks:
+    - ansible.builtin.import_tasks: pre_tasks/detect_desktop.yml
+      tags:
+        - desktop
+    - ansible.builtin.import_tasks: pre_tasks/extract_xdg.yml
+      tags:
+        - always
+
+  roles:
+    - role: desktop
+      tags:
+        - desktop
+    - role: development_c
+      tags:
+        - development
+        - development_c
+    - role: development_go
+      tags:
+        - development
+        - development_go
+    - role: distrobox
+      tags:
+        - distrobox
+    - role: essential
+    - role: fastfetch
+      tags:
+        - fastfetch
+    - role: neovim
+      tags:
+        - neovim

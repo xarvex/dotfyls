@@ -1,0 +1,10 @@
+---
+- name: Neovim | Install
+  ansible.builtin.dnf:
+    name:
+      - fd-find
+      - neovim
+      - nodejs
+      - ripgrep
+      - yarnpkg
+  become: true

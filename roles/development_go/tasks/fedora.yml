@@ -1,0 +1,7 @@
+---
+- name: Development - Go | Install
+  ansible.builtin.dnf:
+    name:
+      - golang
+      - make
+  become: true

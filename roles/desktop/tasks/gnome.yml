@@ -1,0 +1,4 @@
+---
+- name: Desktop - GNOME | Configure
+  ansible.builtin.shell:
+    cmd: 'echo "hello"'
