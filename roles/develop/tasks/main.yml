@@ -1,3 +1,4 @@
 ---
 - ansible.builtin.import_tasks: c.yml
 - ansible.builtin.import_tasks: go.yml
+- ansible.builtin.import_tasks: rust.yml

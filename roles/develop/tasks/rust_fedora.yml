@@ -1,0 +1,7 @@
+---
+- name: Develop - Rust | Install
+  ansible.builtin.dnf:
+    name:
+      - cargo
+      - rust
+  become: true

@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: rust_fedora.yml
+  tags:
+    - develop_rust
+  when: ansible_distribution == 'Fedora'
