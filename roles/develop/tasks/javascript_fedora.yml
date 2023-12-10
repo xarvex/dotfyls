@@ -1,0 +1,5 @@
+---
+- name: Develop - JavaScript | Install
+  ansible.builtin.dnf:
+    name: nodejs
+  become: true

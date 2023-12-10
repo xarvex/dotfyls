@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: javascript_fedora.yml
+  tags:
+    - develop_javascript
+  when: ansible_distribution == 'Fedora'
