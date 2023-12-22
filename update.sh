@@ -11,7 +11,6 @@ readonly NARSIL_USERJS="$NARSIL"/user.js
 
 readonly GEN=generated
 readonly GEN_ARKENFOX_CLEANER="$GEN"/arkenfox-prefsCleaner.sh
-readonly GENOVERRIDES="$GEN"/user-overrides.js
 
 read_profile() {
     profiles=~/.mozilla/firefox/profiles.ini
@@ -62,11 +61,8 @@ else
 fi
 
 mkdir -p "$GEN"
-cp "$NARSIL_USERJS" "$GENOVERRIDES"
-printf '\n\n%s' "$(cat "$USEROVERRIDES")" >> "$GENOVERRIDES"
-
 profile="$(read_profile)"
-"$ARKENFOX_UPDATER" -p "$profile" -o "$(readlink -f "$GENOVERRIDES")"
+"$ARKENFOX_UPDATER" -p "$profile" -o "$(readlink -f "$NARSIL_USERJS"),$(readlink -f "$USEROVERRIDES")"
 sed 's/{BASH_SOURCE\[0\]}/{DOTFYLS_ARKENFOX_CLEANER}\/prefsCleaner.sh/g' "$ARKENFOX_CLEANER"\
     | sed 's/(pwd)/{DOTFYLS_ARKENFOX_CLEANER}/g'\
     > "$GEN_ARKENFOX_CLEANER"
