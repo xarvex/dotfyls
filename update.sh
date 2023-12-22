@@ -10,6 +10,7 @@ readonly NARSIL=narsil
 readonly NARSIL_USERJS="$NARSIL"/user.js
 
 readonly GEN=generated
+readonly GEN_ARKENFOX_CLEANER="$GEN"/arkenfox-prefsCleaner.sh
 readonly GENOVERRIDES="$GEN"/user-overrides.js
 
 read_profile() {
@@ -66,6 +67,8 @@ printf '\n\n%s' "$(cat "$USEROVERRIDES")" >> "$GENOVERRIDES"
 
 profile="$(read_profile)"
 "$ARKENFOX_UPDATER" -p "$profile" -o "$(readlink -f "$GENOVERRIDES")"
-sed -i 's/BASH_SOURCE\[0\]/1/g' "$ARKENFOX_CLEANER"
-sed -i 's/$(pwd)/$2/g' "$ARKENFOX_CLEANER" # is not meant to expand
-"$ARKENFOX_CLEANER" "$profile"/prefsCleaner.sh "$profile" -d
+sed 's/{BASH_SOURCE\[0\]}/{DOTFYLS_ARKENFOX_CLEANER}\/prefsCleaner.sh/g' "$ARKENFOX_CLEANER"\
+    | sed 's/(pwd)/{DOTFYLS_ARKENFOX_CLEANER}/g'\
+    > "$GEN_ARKENFOX_CLEANER"
+chmod u+x "$GEN_ARKENFOX_CLEANER"
+DOTFYLS_ARKENFOX_CLEANER="$profile" "$GEN_ARKENFOX_CLEANER" -d
