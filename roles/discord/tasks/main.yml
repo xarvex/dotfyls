@@ -1,0 +1,14 @@
+---
+- ansible.builtin.import_tasks: fedora.yml
+  when: ansible_distribution == 'Fedora'
+- name: Discord | Config directory
+  ansible.builtin.file:
+    path: '{{ dotfyls_xdg_config_home }}/discord'
+    state: directory
+    mode: '0755'
+- name: Discord | Config link
+  ansible.builtin.file:
+    src: '{{ dotfyls_role_files }}/settings.json'
+    path: '{{ dotfyls_xdg_config_home }}/discord/settings.json'
+    state: link
+    mode: '0644'
