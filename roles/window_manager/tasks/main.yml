@@ -1,0 +1,5 @@
+---
+- ansible.builtin.import_tasks: wayland.yml
+  when: dotfyls_host_environment_is_wayland
+- ansible.builtin.import_tasks: xorg.yml
+  when: dotfyls_host_environment_is_xorg

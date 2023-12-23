@@ -10,6 +10,9 @@
     - ansible.builtin.import_tasks: pre_tasks/detect_desktop.yml
       tags:
         - desktop
+    - ansible.builtin.import_tasks: pre_tasks/detect_window_manager.yml
+      tags:
+        - window_manager
     - ansible.builtin.import_tasks: pre_tasks/extract_xdg.yml
       tags:
         - always
@@ -31,3 +34,6 @@
     - role: neovim
       tags:
         - neovim
+    - role: window_manager
+      tags:
+        - window_manager

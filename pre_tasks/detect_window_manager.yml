@@ -1,0 +1,13 @@
+---
+- name: Detect Window Manager | Default values
+  ansible.builtin.set_fact:
+    dotfyls_host_environment_is_wayland: false
+    dotfyls_host_environment_is_xorg: false
+- name: Detect Window Manager | Wayland
+  ansible.builtin.set_fact:
+    dotfyls_host_environment_is_wayland: true
+  when: 'ansible_env["XDG_SESSION_TYPE"] == "wayland"'
+- name: Detect Window Manager | Xorg
+  ansible.builtin.set_fact:
+    dotfyls_host_environment_is_xorg: true
+  when: 'ansible_env["XDG_SESSION_TYPE"] == "x11"'
