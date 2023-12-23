@@ -1,7 +1,5 @@
 ---
 - name: Develop - Rust | Install
   ansible.builtin.dnf:
-    name:
-      - cargo
-      - rust
+    name: rustup
   become: true
