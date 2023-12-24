@@ -1,15 +1,20 @@
 #!/bin/sh
 
+dir="$(dirname "$0")"
+readonly dir
+
+echo "${dir}"
+
 readonly USEROVERRIDES=user-overrides.js
 
-readonly ARKENFOX=arkenfox
+readonly ARKENFOX="${dir}"/arkenfox
 readonly ARKENFOX_UPDATER="${ARKENFOX}"/updater.sh
 readonly ARKENFOX_CLEANER="${ARKENFOX}"/prefsCleaner.sh
 
-readonly NARSIL=narsil
+readonly NARSIL="${dir}"/narsil
 readonly NARSIL_USERJS="${NARSIL}"/user.js
 
-readonly GEN=generated
+readonly GEN="${dir}"/generated
 readonly GEN_ARKENFOX_CLEANER="${GEN}"/arkenfox-prefsCleaner.sh
 
 read_profile() {
