@@ -3,7 +3,7 @@
 dir="$(dirname "$0")"
 readonly dir
 
-readonly USEROVERRIDES=user-overrides.js
+readonly USEROVERRIDES="${dir}"/user-overrides.js
 
 readonly ARKENFOX="${dir}"/arkenfox
 readonly ARKENFOX_UPDATER="${ARKENFOX}"/updater.sh
