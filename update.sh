@@ -3,8 +3,6 @@
 dir="$(dirname "$0")"
 readonly dir
 
-echo "${dir}"
-
 readonly USEROVERRIDES=user-overrides.js
 
 readonly ARKENFOX="${dir}"/arkenfox
