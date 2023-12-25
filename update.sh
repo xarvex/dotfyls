@@ -63,11 +63,13 @@ else
     curl -sL https://git.nixnet.services/Narsil/desktop_user.js/raw/branch/master/user.js > "${NARSIL_USERJS}"
 fi
 
+silent="$([ -n "${DOTFYLS_NONINTERACTIVE}" ] && [ "${DOTFYLS_NONINTERACTIVE}" -eq '1' ] && printf -- '-s')"
+
 mkdir -p "${GEN}"
 profile="$(read_profile)"
-"${ARKENFOX_UPDATER}" -p "${profile}" -o "$(readlink -f "${NARSIL_USERJS}"),$(readlink -f "${USEROVERRIDES}")"
+"${ARKENFOX_UPDATER}" "${silent}" -p "${profile}" -o "$(readlink -f "${NARSIL_USERJS}"),$(readlink -f "${USEROVERRIDES}")"
 sed 's/{BASH_SOURCE\[0\]}/{DOTFYLS_ARKENFOX_CLEANER}\/prefsCleaner.sh/g' "${ARKENFOX_CLEANER}"\
     | sed 's/(pwd)/{DOTFYLS_ARKENFOX_CLEANER}/g'\
     > "${GEN_ARKENFOX_CLEANER}"
 chmod u+x "${GEN_ARKENFOX_CLEANER}"
-DOTFYLS_ARKENFOX_CLEANER="${profile}" "${GEN_ARKENFOX_CLEANER}" -d
+DOTFYLS_ARKENFOX_CLEANER="${profile}" "${GEN_ARKENFOX_CLEANER}" "${silent}" -d
