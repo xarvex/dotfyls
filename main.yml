@@ -34,6 +34,9 @@
     - role: fastfetch
       tags:
         - fastfetch
+    - role: firefox
+      tags:
+        - firefox
     - role: neovim
       tags:
         - neovim

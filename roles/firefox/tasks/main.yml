@@ -1,0 +1,9 @@
+---
+- ansible.builtin.import_tasks: fedora.yml
+  when: ansible_distribution == 'Fedora'
+- name: Firefox | Setup pull
+  ansible.builtin.git:
+    repo: 'git@gitlab.com:dotfyls/firefox.git'
+    dest: '{{ dotfyls_role_files }}'
+- name: Firefox | Setup execute
+  ansible.builtin.shell: 'DOTFYLS_NONINTERACTIVE=1 {{ dotfyls_role_files }}/update.sh'
