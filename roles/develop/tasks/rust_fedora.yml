@@ -1,5 +1,8 @@
 ---
 - name: Develop - Rust | Install
   ansible.builtin.dnf:
-    name: rustup
+    name:
+      - musl-gcc
+      - musl-libc-static
+      - rustup
   become: true
