@@ -1,7 +1,5 @@
 ---
 - ansible.builtin.import_tasks: go_fedora.yml
-  tags:
-    - develop_go
   when: ansible_distribution == 'Fedora'
 - name: Develop - Go | Install gofumpt
   ansible.builtin.shell:
