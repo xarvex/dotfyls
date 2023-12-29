@@ -6,7 +6,7 @@ if ! [ -f "${bin}" ]; then
     ln -s "$(readlink -f "${0}")" "${bin}"
 fi
 
-[ -z "${DOTFYLS_DISTRIBUTION}" ] && DOTFYLS_DISTRIBUTION="$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower(${2) }')"
+[ -z "${DOTFYLS_DISTRIBUTION}" ] && DOTFYLS_DISTRIBUTION="$(awk '/^ID=/' /etc/*-release | awk -F '=' '{ print tolower($2) }')"
 readonly DOTFYLS_DISTRIBUTION
 
 if [ "${DOTFYLS_DISTRIBUTION}" = fedora ]; then
