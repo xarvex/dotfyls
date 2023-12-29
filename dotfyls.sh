@@ -1,9 +1,9 @@
 #!/bin/sh
 
-XDG_BIN_HOME="${HOME}"/.local/bin # no environment variable exists
+bin="${HOME}"/.local/bin/dotfyls # no XDG environment variable exists
 
-if ! [ -f "${XDG_BIN_HOME}"/dotfyls ]; then
-    ln -s "$(readlink -f "${0}")" "${XDG_BIN_HOME}"/dotfyls
+if ! [ -f "${bin}" ]; then
+    ln -s "$(readlink -f "${0}")" "${bin}"
 fi
 
 [ -z "${DOTFYLS_DISTRIBUTION}" ] && DOTFYLS_DISTRIBUTION="$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower(${2) }')"
