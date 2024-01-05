@@ -5,12 +5,12 @@ readonly self
 dir="$(dirname "${self}")"
 readonly dir
 
-if [ "${DOTFYLS_UPDATER_ACTIVE}" ]; then
+if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     printf '%s\n' 'Updating dotfyls repository..'
     git -C "${DOTFYLS_DIR}" pull --ff-only
     DOTFYLS_UPDATER_ACTIVE=0 DOTFYLS_UPDATED=1 exec "${DOTFYLS_SCRIPT}" # re-execute original script
     exit 1 # should not reach this point
-elif [ ! "${DOTFYLS_UPDATED}" ]; then
+elif [ ! "${DOTFYLS_UPDATED}" = 1 ]; then
     printf '%s\n' 'Checking for updates..'
     if git remote show origin | grep 'local out of date' > /dev/null; then
         printf '%s\n' 'There are updates to fetch!'
