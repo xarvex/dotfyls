@@ -4,10 +4,12 @@ dir="$(readlink -f "$(dirname "${0}")")"
 readonly dir
 
 if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
+    printf '%s\n' 'Updating dotfyls repository..'
     git pull "${DOTFYLS_DIR}" --ff-only
     exit 0
 else
     if git remote show origin | grep 'local out of date' > /dev/null; then
+        printf '%s\n' 'dotfyls repository has updates to fetch'
         script="$(mktemp)"
         readonly script
         cp "${0}" "${script}"
