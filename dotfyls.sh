@@ -28,7 +28,7 @@ fi
 readonly bin="${HOME}"/.local/bin/dotfyls # no XDG environment variable exists
 
 if ! [ -f "${bin}" ]; then
-    ln -s "$(readlink -f "${0}")" "${bin}"
+    ln -s "$(readlink -f "${self}")" "${bin}"
 fi
 
 [ -z "${DOTFYLS_DISTRIBUTION}" ] && DOTFYLS_DISTRIBUTION="$(awk '/^ID=/' /etc/*-release | awk -F '=' '{ print tolower($2) }')"
