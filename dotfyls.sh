@@ -1,6 +1,8 @@
 #!/bin/sh
 
-dir="$(readlink -f "$(dirname "${0}")")"
+self="$(readlink -f "${0}")"
+readonly self
+dir="$(dirname "${self}")"
 readonly dir
 
 if [ "${DOTFYLS_UPDATER_ACTIVE}" ]; then
@@ -16,7 +18,7 @@ elif ! [ "${DOTFYLS_UPDATED}" ]; then
         readonly script
         cp "${0}" "${script}"
         chmod u+x "${script}"
-        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${0}" DOTFYLS_DIR="${dir}" exec "${script}"
+        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${self}" DOTFYLS_DIR="${dir}" exec "${script}"
         exit 1 # should not reach this point
     fi
 fi
