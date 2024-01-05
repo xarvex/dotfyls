@@ -7,10 +7,7 @@ if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     git pull "${DOTFYLS_DIR}" --ff-only
     exit 0
 else
-    git fetch
-    if awk '/branch/ && /behind/' << EOF | grep . > /dev/null; then
-$(git status --porcelain)
-EOF
+    if git remote show origin | grep 'up to date' > /dev/null; then
         script="$(mktemp)"
         readonly script
         cp "${0}" "${script}"
