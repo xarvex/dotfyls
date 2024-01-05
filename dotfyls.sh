@@ -8,7 +8,7 @@ readonly dir
 if [ "${DOTFYLS_UPDATER_ACTIVE}" ]; then
     printf '%s\n' 'Updating dotfyls repository..'
     git -C "${DOTFYLS_DIR}" pull --ff-only
-    DOTFYLS_UPDATED=1 exec "${DOTFYLS_SCRIPT}" # re-execute original script
+    DOTFYLS_UPDATER_ACTIVE=0 DOTFYLS_UPDATED=1 exec "${DOTFYLS_SCRIPT}" # re-execute original script
     exit 1 # should not reach this point
 elif [ ! "${DOTFYLS_UPDATED}" ]; then
     printf '%s\n' 'Checking for updates..'
