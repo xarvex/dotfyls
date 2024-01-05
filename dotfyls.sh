@@ -9,7 +9,7 @@ if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
 else
     git fetch
     if awk '/branch/ && /behind/' << EOF | grep . > /dev/null; then
-$(git status)
+$(git status --porcelain)
 EOF
         script="$(mktemp)"
         readonly script
