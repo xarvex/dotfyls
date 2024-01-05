@@ -5,8 +5,9 @@ readonly dir
 
 if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     printf '%s\n' 'Updating dotfyls repository..'
-    git -C "${DOTFYLS_DIR}" pull --ff-only
-    exit 0
+    git pull "${DOTFYLS_DIR}" --ff-only
+    exec "${DOTFYLS_SCRIPT}" # re-execute original script
+    exit 1 # should not reach this point
 else
     if git remote show origin | grep 'local out of date' > /dev/null; then
         printf '%s\n' 'dotfyls repository has updates to fetch'
@@ -14,7 +15,7 @@ else
         readonly script
         cp "${0}" "${script}"
         chmod u+x "${script}"
-        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_DIR="${dir}" exec "${script}"
+        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${0}" DOTFYLS_DIR="${dir}" exec "${script}"
         exit 1 # should not reach this point
     fi
 fi
