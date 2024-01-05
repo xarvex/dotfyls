@@ -1,5 +1,25 @@
 #!/bin/sh
 
+dir="$(readlink -f "$(dirname "${0}")")"
+readonly dir
+
+if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
+    git pull "${DOTFYLS_DIR}" --ff-only
+    exit 0
+else
+    git fetch
+    if awk '/branch/ && /behind/' << EOF | grep . > /dev/null; then
+$(git status)
+EOF
+        script="$(mktemp)"
+        readonly script
+        cp "${0}" "${script}"
+        chmod u+x "${script}"
+        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_DIR="${dir}" exec "${script}"
+        exit 1 # should not reach this point
+    fi
+fi
+
 readonly bin="${HOME}"/.local/bin/dotfyls # no XDG environment variable exists
 
 if ! [ -f "${bin}" ]; then
