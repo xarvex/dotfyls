@@ -13,13 +13,15 @@ if [ "${DOTFYLS_UPDATER_ACTIVE}" ]; then
 elif ! [ "${DOTFYLS_UPDATED}" ]; then
     printf '%s\n' 'Checking for updates..'
     if git remote show origin | grep 'local out of date' > /dev/null; then
-        printf '%s\n' 'dotfyls repository has updates to fetch'
+        printf '%s\n' 'There are updates to fetch!'
         script="$(mktemp)"
         readonly script
         cp "${0}" "${script}"
         chmod u+x "${script}"
         DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${self}" DOTFYLS_DIR="${dir}" exec "${script}"
         exit 1 # should not reach this point
+    else
+        printf '%s\n' 'Already up to date!'
     fi
 fi
 
