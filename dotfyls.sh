@@ -3,12 +3,12 @@
 dir="$(readlink -f "$(dirname "${0}")")"
 readonly dir
 
-if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
+if [ "${DOTFYLS_UPDATER_ACTIVE}" ]; then
     printf '%s\n' 'Updating dotfyls repository..'
     git -C "${DOTFYLS_DIR}" pull --ff-only
     DOTFYLS_UPDATED=1 exec "${DOTFYLS_SCRIPT}" # re-execute original script
     exit 1 # should not reach this point
-elif ! [ "${DOTFYLS_UPDATED}" = 1 ]; then
+elif ! [ "${DOTFYLS_UPDATED}" ]; then
     printf '%s\n' 'Checking for updates..'
     if git remote show origin | grep 'local out of date' > /dev/null; then
         printf '%s\n' 'dotfyls repository has updates to fetch'
