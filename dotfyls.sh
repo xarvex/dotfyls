@@ -7,7 +7,7 @@ if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     git pull "${DOTFYLS_DIR}" --ff-only
     exit 0
 else
-    if git remote show origin | grep 'up to date' > /dev/null; then
+    if git remote show origin | grep 'local out of date' > /dev/null; then
         script="$(mktemp)"
         readonly script
         cp "${0}" "${script}"
