@@ -11,6 +11,8 @@ Mirror can be found through [GitHub](https://github.com/Xarvex/dotfyls-wezterm).
 ## Prerequisites
 
 - [WezTerm]
+- [Iosevka](https://github.com/be5invis/Iosevka) - Iosevka Term SS14 (JetBrains Mono Style)
+- [Nerd Font Symbols](https://github.com/ryanoasis/nerd-fonts) - NerdFontsSymbolsOnly (certain symbols such as TOML are new additions, and not bundled with [WezTerm])
 
 
 [WezTerm]: https://wezfurlong.org/wezterm
