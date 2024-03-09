@@ -1,5 +1,5 @@
 ---
-- name: Essential - DNF | Config copy
+- name: Package Manager - DNF | Config copy
   ansible.builtin.copy:
     src: '{{ dotfyls_role_files }}/dnf.conf'
     dest: /etc/dnf/dnf.conf
