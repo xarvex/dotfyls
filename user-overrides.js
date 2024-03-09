@@ -40,6 +40,7 @@ user_pref("browser.eme.ui.enabled", true);
 
 user_pref("dom.webaudio.enabled", true);
 user_pref("webgl.disabled", false);
+user_pref("webgl.enable-webgl2", true);
 
 user_pref("javascript.options.wasm", true);
 user_pref("javascript.options.asmjs", true);
