@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dir="$(dirname "$0")"
+dir="$(dirname "$(readlink -f "$0")")"
 readonly dir
 
 readonly USEROVERRIDES="${dir}"/user-overrides.js
@@ -67,9 +67,9 @@ silent="$([ -n "${DOTFYLS_NONINTERACTIVE}" ] && [ "${DOTFYLS_NONINTERACTIVE}" -e
 
 mkdir -p "${GEN}"
 profile="$(read_profile)"
-"${ARKENFOX_UPDATER}" "${silent}" -p "${profile}" -o "$(readlink -f "${NARSIL_USERJS}"),$(readlink -f "${USEROVERRIDES}")"
+"${ARKENFOX_UPDATER}" -p "${profile}" -o "${NARSIL_USERJS},${USEROVERRIDES}" "${silent}"
 sed 's/{BASH_SOURCE\[0\]}/{DOTFYLS_ARKENFOX_CLEANER}\/prefsCleaner.sh/g' "${ARKENFOX_CLEANER}"\
     | sed 's/(pwd)/{DOTFYLS_ARKENFOX_CLEANER}/g'\
     > "${GEN_ARKENFOX_CLEANER}"
 chmod u+x "${GEN_ARKENFOX_CLEANER}"
-DOTFYLS_ARKENFOX_CLEANER="${profile}" "${GEN_ARKENFOX_CLEANER}" "${silent}" -d
+DOTFYLS_ARKENFOX_CLEANER="${profile}" "${GEN_ARKENFOX_CLEANER}" -d "${silent}"

@@ -1,3 +1,5 @@
+user_pref("__user-overrides.js.parrot", "First setting gets ignored for some reason");
+
 user_pref("identity.fxaccounts.enabled", true);
 
 user_pref("extensions.systemAddon.update.enabled", true);
