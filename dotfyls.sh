@@ -41,7 +41,7 @@ else
 fi
 
 if command -v ansible-playbook > /dev/null; then
-    ansible-playbook main.yml -K
+    ansible-playbook "$(dirname "$(readlink -f "${0}")")"/main.yml -K
 else
     printf '%s\n' 'ansible-playbook not found on system PATH. Cannot execute playbook.'
 fi
