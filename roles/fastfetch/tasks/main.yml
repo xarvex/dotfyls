@@ -1,6 +1,6 @@
 ---
 - name: Fastfetch | Install (Distrobox Arch)
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: distrobox-assemble create
     chdir: '{{ dotfyls_role_files }}'
   register: result

@@ -2,10 +2,10 @@
 - ansible.builtin.import_tasks: rust_fedora.yml
   when: ansible_distribution == 'Fedora'
 - name: Develop - Rust | Initialize rustup
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: rustup-init -y
     creates: ~/.rustup
 - name: Develop - Rust | Configure musl target (static libc)
-  ansible.builtin.shell: rustup target add x86_64-unknown-linux-musl
+  ansible.builtin.command: rustup target add x86_64-unknown-linux-musl
   register: result
   changed_when: "'installing' in result.stderr"

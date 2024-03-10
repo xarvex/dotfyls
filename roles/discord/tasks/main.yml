@@ -11,7 +11,7 @@
     path: '{{ dotfyls_xdg_config_home }}/discord/settings.json'
   register: stat_result
 - name: Discord | Config compare
-  ansible.builtin.shell: "jq -s '.[0] as $config | .[1] as $dotfyls | reduce ($dotfyls | keys_unsorted[]) as $k (true; . and $config[$k] == $dotfyls[$k])' {{ dotfyls_xdg_config_home }}/discord/settings.json {{ dotfyls_role_files }}/settings.json"
+  ansible.builtin.command: "jq -s '.[0] as $config | .[1] as $dotfyls | reduce ($dotfyls | keys_unsorted[]) as $k (true; . and $config[$k] == $dotfyls[$k])' {{ dotfyls_xdg_config_home }}/discord/settings.json {{ dotfyls_role_files }}/settings.json"
   register: compare_result
   when: stat_result.stat.exists
 - name: Discord | Config sync
