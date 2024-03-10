@@ -9,13 +9,17 @@
 - name: Discord | Config check
   ansible.builtin.stat:
     path: '{{ dotfyls_xdg_config_home }}/discord/settings.json'
-  register: result
+  register: stat_result
+- name: Discord | Config compare
+  ansible.builtin.shell: "jq -s '.[0] as $config | .[1] as $dotfyls | reduce ($dotfyls | keys_unsorted[]) as $k (true; . and $config[$k] == $dotfyls[$k])' {{ dotfyls_xdg_config_home }}/discord/settings.json {{ dotfyls_role_files }}/settings.json"
+  register: compare_result
+  when: stat_result.stat.exists
 - name: Discord | Config sync
   ansible.builtin.shell: "jq -s '.[0] * .[1]' {{ dotfyls_xdg_config_home }}/discord/settings.json {{ dotfyls_role_files }}/settings.json > {{ dotfyls_xdg_config_home }}/discord/settings.json.tmp && mv {{ dotfyls_xdg_config_home }}/discord/settings.json.tmp {{ dotfyls_xdg_config_home }}/discord/settings.json"
-  when: result.stat.exists
+  when: stat_result.stat.exists and compare_result.stdout == "false"
 - name: Discord | Config copy
   ansible.builtin.copy:
     src: '{{ dotfyls_role_files }}/settings.json'
     dest: '{{ dotfyls_xdg_config_home }}/discord/settings.json'
     mode: '0644'
-  when: result.stat.exists == False
+  when: stat_result.stat.exists == False
