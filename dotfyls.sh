@@ -5,6 +5,8 @@ readonly self
 dir="$(dirname "${self}")"
 readonly dir
 
+cd "${dir}" || exit 1
+
 if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     printf '%s\n' 'Updating dotfyls repository..'
     git -C "${DOTFYLS_DIR}" pull --ff-only
@@ -41,7 +43,7 @@ else
 fi
 
 if command -v ansible-playbook > /dev/null; then
-    ansible-playbook "$(dirname "$(readlink -f "${0}")")"/main.yml -K
+    ansible-playbook main.yml -K
 else
     printf '%s\n' 'ansible-playbook not found on system PATH. Cannot execute playbook.'
 fi
