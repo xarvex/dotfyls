@@ -9,7 +9,7 @@ cd "${dir}" || exit 1
 
 if [ "${DOTFYLS_UPDATER_ACTIVE}" = 1 ]; then
     printf '%s\n' 'Updating dotfyls repository..'
-    git -C "${DOTFYLS_DIR}" pull --ff-only
+    git pull --ff-only
     DOTFYLS_UPDATER_ACTIVE=0 DOTFYLS_UPDATED=1 exec "${DOTFYLS_SCRIPT}" # re-execute original script
     exit 1 # should not reach this point
 elif [ ! "${DOTFYLS_UPDATED}" = 1 ]; then
@@ -18,9 +18,9 @@ elif [ ! "${DOTFYLS_UPDATED}" = 1 ]; then
         printf '%s\n' 'There are updates to fetch!'
         script="$(mktemp)"
         readonly script
-        cp "${0}" "${script}"
+        cp "${self}" "${script}"
         chmod u+x "${script}"
-        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${self}" DOTFYLS_DIR="${dir}" exec "${script}"
+        DOTFYLS_UPDATER_ACTIVE=1 DOTFYLS_SCRIPT="${self}" exec "${script}"
         exit 1 # should not reach this point
     else
         printf '%s\n' 'Already up to date!'
