@@ -1,0 +1,22 @@
+---
+- name: Create Environment | Config directory
+  ansible.builtin.file:
+    path: '{{ ansible_user_dir }}/.config/environment.d'
+    state: directory
+    mode: '0755'
+- name: Create Environment | Config link
+  ansible.builtin.file:
+    src: '{{ role_path }}/files/xdg.conf'
+    path: '{{ ansible_user_dir }}/.config/environment.d/xdg.conf'
+    state: link
+    mode: '0644'
+- name: Create Environment | Config compare
+  ansible.builtin.script: '{{ role_path }}/files/compare.sh {{ ansible_user_dir }}/.config/environment.d/xdg.conf'
+  register: result
+  changed_when: false
+  failed_when: 'result.stderr != "" or result.rc not in [0, 1]'
+- name: Create Environment | Prompt restart
+  ansible.builtin.debug:
+    msg: This machine must be restarted for environment variables to take effect
+  when: result.rc != 0
+  failed_when: true

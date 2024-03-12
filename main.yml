@@ -7,7 +7,10 @@
     dotfyls_role_files: '{{ role_path }}/files'
 
   pre_tasks:
-    - ansible.builtin.import_tasks: pre_tasks/detect_desktop.yml
+    - ansible.builtin.import_role:
+        name: _pre-create_environment
+      tags:
+        - always
     - ansible.builtin.import_role:
         name: _pre-detect_desktop
       tags:
