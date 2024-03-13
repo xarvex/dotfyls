@@ -3,8 +3,8 @@
   when: ansible_distribution == 'Fedora'
 - name: Develop - Rust | Initialize rustup
   ansible.builtin.command:
-    cmd: rustup-init -y
-    creates: ~/.rustup
+    cmd: rustup-init -qy --no-modify-path
+    creates: "{{ ansible_env['RUSTUP_HOME'] }}"
 - name: Develop - Rust | Configure musl target (static libc)
   ansible.builtin.command: rustup target add x86_64-unknown-linux-musl
   register: result

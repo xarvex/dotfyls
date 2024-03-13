@@ -4,12 +4,19 @@
     path: '{{ ansible_user_dir }}/.config/environment.d'
     state: directory
     mode: '0755'
-- name: Create Environment | Config link
+- name: Create Environment | Config link (10-xdg.conf)
   ansible.builtin.file:
     src: '{{ role_path }}/files/10-xdg.conf'
     path: '{{ ansible_user_dir }}/.config/environment.d/10-xdg.conf'
     state: link
     mode: '0644'
+- name: Create Environment | Config link (11-develop_rust.conf)
+  ansible.builtin.file:
+    src: '{{ role_path }}/files/11-develop_rust.conf'
+    path: '{{ ansible_user_dir }}/.config/environment.d/11-develop_rust.conf'
+    state: link
+    mode: '0644'
+  when: "'develop_rust' not in ansible_skip_tags and ('develop_rust' in ansible_run_tags or 'all' in ansible_run_tags)"
 - name: Create Environment | Config compare
   ansible.builtin.script: '{{ role_path }}/files/compare.sh {{ ansible_user_dir }}/.config/environment.d/*.conf'
   register: result
