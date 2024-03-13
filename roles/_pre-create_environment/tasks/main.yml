@@ -28,7 +28,7 @@
   ansible.builtin.script: '{{ role_path }}/files/compare.sh {{ ansible_user_dir }}/.config/environment.d/*.conf'
   register: result
   changed_when: false
-  failed_when: 'result.stderr != "" or result.rc not in [0, 1]'
+  failed_when: result.stderr != '' or result.rc not in [0, 1]
 - name: Create Environment | Prompt restart
   ansible.builtin.debug:
     msg: This machine must be restarted for environment variables to take effect

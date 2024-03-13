@@ -19,7 +19,7 @@
     state: link
     mode: '0644'
 - name: Zsh | Default
-  ansible.builtin.shell: 'chsh -s "$(which zsh)" "${SUDO_USER}"'
+  ansible.builtin.shell: chsh -s "$(which zsh)" "${SUDO_USER}"
   become: true
   register: result
   changed_when: "'not changed' not in result.stderr"

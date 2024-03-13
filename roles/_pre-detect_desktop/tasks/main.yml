@@ -6,8 +6,8 @@
 - name: Detect Desktop | GNOME
   ansible.builtin.set_fact:
     dotfyls_host_environment_is_gnome: true
-  when: 'ansible_env["XDG_CURRENT_DESKTOP"] == "GNOME"'
+  when: ansible_env['XDG_CURRENT_DESKTOP'] == 'GNOME'
 - name: Detect Desktop | KDE
   ansible.builtin.set_fact:
     dotfyls_host_environment_is_kde: true
-  when: 'ansible_env["XDG_CURRENT_DESKTOP"] == "KDE"'
+  when: ansible_env['XDG_CURRENT_DESKTOP'] == 'KDE'

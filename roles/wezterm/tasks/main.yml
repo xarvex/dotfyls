@@ -3,5 +3,5 @@
   when: ansible_distribution == 'Fedora'
 - name: Wezterm | Config pull
   ansible.builtin.git:
-    repo: 'git@gitlab.com:dotfyls/wezterm.git'
+    repo: git@gitlab.com:dotfyls/wezterm.git
     dest: '{{ dotfyls_xdg_config_home }}/wezterm'

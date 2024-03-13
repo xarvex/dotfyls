@@ -4,7 +4,7 @@
     dotfyls_xdg_config_home: '{{ ansible_user_dir }}/.config'
 - name: Extract XDG | Check config home
   ansible.builtin.set_fact:
-    dotfyls_xdg_config_home: '{{ ansible_env["XDG_CONFIG_HOME"] }}'
+    dotfyls_xdg_config_home: "{{ ansible_env['XDG_CONFIG_HOME'] }}"
   when:
-    - 'ansible_env["XDG_CONFIG_HOME"] is defined'
-    - 'ansible_env["XDG_CONFIG_HOME"] != ""'
+    - ansible_env['XDG_CONFIG_HOME'] is defined
+    - ansible_env['XDG_CONFIG_HOME'] != ''
