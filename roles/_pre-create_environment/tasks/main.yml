@@ -4,26 +4,17 @@
     path: '{{ ansible_user_dir }}/.config/environment.d'
     state: directory
     mode: '0755'
-- name: Create Environment | Config link (10-xdg.conf)
+- name: Create Environment | Config link
   ansible.builtin.file:
-    src: '{{ role_path }}/files/10-xdg.conf'
-    path: '{{ ansible_user_dir }}/.config/environment.d/10-xdg.conf'
+    src: '{{ role_path }}/files/{{ item.name }}.conf'
+    path: '{{ ansible_user_dir }}/.config/environment.d/{{ item.name }}.conf'
     state: link
     mode: '0644'
-- name: Create Environment | Config link (11-develop_rust.conf)
-  ansible.builtin.file:
-    src: '{{ role_path }}/files/11-develop_rust.conf'
-    path: '{{ ansible_user_dir }}/.config/environment.d/11-develop_rust.conf'
-    state: link
-    mode: '0644'
-  when: "'develop_rust' not in ansible_skip_tags and ('develop_rust' in ansible_run_tags or 'all' in ansible_run_tags)"
-- name: Create Environment | Config link (11-zsh.conf)
-  ansible.builtin.file:
-    src: '{{ role_path }}/files/11-zsh.conf'
-    path: '{{ ansible_user_dir }}/.config/environment.d/11-zsh.conf'
-    state: link
-    mode: '0644'
-  when: "'zsh' not in ansible_skip_tags and ('zsh' in ansible_run_tags or 'all' in ansible_run_tags)"
+  when: item.tag not in ansible_skip_tags and (item.tag in ansible_run_tags or 'all' in ansible_run_tags or item.tag == 'always')
+  with_items:
+    - { name: 10-xdg, tag: always }
+    - { name: 11-develop_rust, tag: develop_rust }
+    - { name: 11-zsh, tag: zsh }
 - name: Create Environment | Config compare
   ansible.builtin.script: '{{ role_path }}/files/compare.sh {{ ansible_user_dir }}/.config/environment.d/*.conf'
   register: result
