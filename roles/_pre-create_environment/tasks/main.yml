@@ -6,8 +6,8 @@
     mode: '0755'
 - name: Create Environment | Config link
   ansible.builtin.file:
-    src: '{{ role_path }}/files/xdg.conf'
-    path: '{{ ansible_user_dir }}/.config/environment.d/xdg.conf'
+    src: '{{ role_path }}/files/10-xdg.conf'
+    path: '{{ ansible_user_dir }}/.config/environment.d/10-xdg.conf'
     state: link
     mode: '0644'
 - name: Create Environment | Config compare
