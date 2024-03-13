@@ -52,3 +52,6 @@
     - role: window_manager
       tags:
         - window_manager
+    - role: zsh
+      tags:
+        - zsh
