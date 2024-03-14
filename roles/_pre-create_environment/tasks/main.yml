@@ -13,6 +13,7 @@
   when: item.tag not in ansible_skip_tags and (item.tag in ansible_run_tags or 'all' in ansible_run_tags or item.tag == 'always')
   with_items:
     - { name: 10-xdg, tag: always }
+    - { name: 11-develop_go, tag: develop_go }
     - { name: 11-develop_rust, tag: develop_rust }
     - { name: 11-zsh, tag: zsh }
 - name: Create Environment | Config compare

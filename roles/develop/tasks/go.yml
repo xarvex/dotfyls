@@ -2,7 +2,7 @@
 - ansible.builtin.import_tasks: go_fedora.yml
   when: ansible_distribution == 'Fedora'
 - name: Develop - Go | Install gofumpt
-  ansible.builtin.shell: go install -x mvdan.cc/gofumpt@latest 2>&1 | grep {{ ansible_env['HOME'] }}/go/bin/gofumpt
+  ansible.builtin.shell: go install -x mvdan.cc/gofumpt@latest 2>&1 | grep {{ ansible_env['GOPATH'] }}/bin/gofumpt
   register: result
   changed_when: result.rc == 0
   failed_when: result.rc not in [0, 1]
