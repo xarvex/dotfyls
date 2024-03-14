@@ -12,8 +12,6 @@ SAVEHIST=1000
 bindkey -v
 
 if command -v nvim > /dev/null; then
-    export EDITOR=nvim
-    export VISUAL="${EDITOR}"
     nvim() {
         command nvim "${1:-${PWD}}" "${@:2}"
     }

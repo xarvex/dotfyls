@@ -15,6 +15,7 @@
     - { name: 10-xdg, tag: always }
     - { name: 11-develop_go, tag: develop_go }
     - { name: 11-develop_rust, tag: develop_rust }
+    - { name: 11-neovim, tag: neovim }
     - { name: 11-zsh, tag: zsh }
     - { name: 90-path, tag: always }
 - name: Create Environment | Config compare
