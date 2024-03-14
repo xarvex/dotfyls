@@ -30,5 +30,6 @@ if [ "${latest}" -lt "$(stat -c %Z /proc)" ]; then
 elif [ -f "${output}" ] && diff --brief "${output}".tmp "${output}" > /dev/null; then
     rm "${output}".tmp
 else
+    rm "${output}".tmp
     exit 1
 fi
