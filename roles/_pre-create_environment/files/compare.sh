@@ -25,7 +25,7 @@ for arg in "${@}"; do
     [ "${timestamp}" -gt "${latest}" ] && latest="${timestamp}"
 done
 
-if [ "${latest}" -lt "$(stat -c %Z /proc)" ]; then
+if [ "${latest}" -lt "$(grep btime < /proc/stat | awk '{print $2}')" ]; then
     mv "${output}".tmp "${output}"
 elif [ -f "${output}" ] && diff --brief "${output}".tmp "${output}" > /dev/null; then
     rm "${output}".tmp
