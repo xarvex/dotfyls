@@ -21,7 +21,7 @@ for arg in "${@}"; do
         fi
     done < "${arg}"
 
-    timestamp="$(stat -c %Z "${arg}")"
+    timestamp="$(stat -c %Z "$(readlink -f "${arg}")")"
     [ "${timestamp}" -gt "${latest}" ] && latest="${timestamp}"
 done
 
