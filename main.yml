@@ -37,6 +37,9 @@
     - role: distrobox
       tags:
         - distrobox
+    - role: essential
+      tags:
+        - essential
     - role: fastfetch
       tags:
         - fastfetch

@@ -18,6 +18,7 @@
     - { name: 11-xdg-develop_javascript, tag: develop_javascript }
     - { name: 11-xdg-develop_python, tag: develop_python }
     - { name: 11-xdg-develop_rust, tag: develop_rust }
+    - { name: 11-xdg-essential, tag: essential }
     - { name: 11-xdg-zsh, tag: zsh }
     - { name: 97-path-develop_go, tag: develop_go }
     - { name: 98-path-develop_rust, tag: develop_rust }

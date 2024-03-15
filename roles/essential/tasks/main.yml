@@ -1,0 +1,7 @@
+---
+- ansible.builtin.import_tasks: fedora.yml
+  when: ansible_distribution == 'Fedora'
+- name: Essential - Wget | Config create
+  ansible.builtin.shell:
+    cmd: printf '%s\n' "hsts-file = ${XDG_CACHE_HOME}/wget-hosts" > "${WGETRC}"
+    creates: "{{ ansible_env['WGETRC'] }}"

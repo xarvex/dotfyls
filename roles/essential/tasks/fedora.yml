@@ -1,0 +1,15 @@
+---
+- name: Essential | Install
+  ansible.builtin.dnf:
+    name: '{{ item }}'
+  become: true
+  loop: # using a loop means clarity on what is installed
+    - coreutils
+    - findutils
+    - gawk
+    - git
+    - grep
+    - man-db
+    - perl-interpreter
+    - sed
+    - wget
