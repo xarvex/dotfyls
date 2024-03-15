@@ -18,7 +18,7 @@
     - { name: zshrc, become: .zshrc, mode: '0644' }
   loop_control:
     label: '{{ item.name }}'
-- name: Zsh | Default
+- name: Zsh | Configure default
   ansible.builtin.shell: chsh -s "$(which zsh)" "${SUDO_USER}"
   become: true
   register: result
