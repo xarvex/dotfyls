@@ -6,5 +6,4 @@
       - neovim
       - nodejs
       - ripgrep
-      - yarnpkg
   become: true
