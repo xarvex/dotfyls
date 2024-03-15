@@ -6,6 +6,7 @@ compinit -d "${XDG_CACHE_HOME}"/zsh/zcompdump-"${ZSH_VERSION}"
 
 HISTFILE="${XDG_STATE_HOME}"/zsh/history
 HISTSIZE=1000
+# shellcheck disable=SC2034
 SAVEHIST=1000
 [ -d "$(dirname "${HISTFILE}")" ] || mkdir -p "$(dirname "${HISTFILE}")"
 
