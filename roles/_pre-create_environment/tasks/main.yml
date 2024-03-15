@@ -12,14 +12,16 @@
     mode: '0644'
   when: item.tag not in ansible_skip_tags and (item.tag in ansible_run_tags or 'all' in ansible_run_tags or item.tag == 'always')
   loop:
+    - { name: 10-editor-neovim, tag: neovim }
     - { name: 10-xdg, tag: always }
-    - { name: 11-develop_go, tag: develop_go }
-    - { name: 11-develop_javascript, tag: develop_javascript }
-    - { name: 11-develop_python, tag: develop_python }
-    - { name: 11-develop_rust, tag: develop_rust }
-    - { name: 11-neovim, tag: neovim }
-    - { name: 11-zsh, tag: zsh }
-    - { name: 90-path, tag: always }
+    - { name: 11-xdg-develop_go, tag: develop_go }
+    - { name: 11-xdg-develop_javascript, tag: develop_javascript }
+    - { name: 11-xdg-develop_python, tag: develop_python }
+    - { name: 11-xdg-develop_rust, tag: develop_rust }
+    - { name: 11-xdg-zsh, tag: zsh }
+    - { name: 97-path-develop_go, tag: develop_go }
+    - { name: 98-path-develop_rust, tag: develop_rust }
+    - { name: 99-path, tag: always }
   loop_control:
     label: '{{ item.name }}'
 - name: Create Environment | Config compare
