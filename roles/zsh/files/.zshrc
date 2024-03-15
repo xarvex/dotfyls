@@ -17,3 +17,8 @@ if command -v nvim > /dev/null; then
     }
     alias vim=nvim
 fi
+
+if command -v fastfetch > /dev/null; then
+    alias neofetch=fastfetch
+    fastfetch
+fi
