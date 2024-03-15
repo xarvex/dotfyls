@@ -8,13 +8,15 @@
     mode: '0755'
 - name: Zsh | Config link
   ansible.builtin.file:
-    src: '{{ dotfyls_role_files }}/{{ item }}'
-    path: '{{ dotfyls_xdg_config_home }}/zsh/{{ item }}'
+    src: '{{ dotfyls_role_files }}/{{ item.name }}'
+    path: '{{ dotfyls_xdg_config_home }}/zsh/{{ item.become }}'
     state: link
     mode: '0644'
   loop:
-    - .zshenv
-    - .zshrc
+    - { name: zshenv, become: .zshenv }
+    - { name: zshrc, become: .zshrc }
+  loop_control:
+    label: '{{ item.name }}'
 - name: Zsh | Default
   ansible.builtin.shell: chsh -s "$(which zsh)" "${SUDO_USER}"
   become: true
