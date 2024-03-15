@@ -43,7 +43,7 @@ else
 fi
 
 if command -v ansible-playbook > /dev/null; then
-    ansible-playbook main.yml -K
+    ANSIBLE_HOME="${XDG_CONFIG_HOME}"/ansible ansible-playbook main.yml -K
 else
     printf '%s\n' 'ansible-playbook not found on system PATH. Cannot execute playbook.'
 fi
