@@ -10,6 +10,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 [ -d "$(dirname "${HISTFILE}")" ] || mkdir -p "$(dirname "${HISTFILE}")"
 
+stty stop undef # disable Ctrl-S freezing
 bindkey -v
 
 for file in "${ZDOTDIR}"/commands/**/*.zsh; do
