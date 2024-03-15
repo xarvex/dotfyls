@@ -12,7 +12,7 @@
     path: '{{ dotfyls_xdg_config_home }}/zsh/{{ item }}'
     state: link
     mode: '0644'
-  with_items:
+  loop:
     - .zshenv
     - .zshrc
 - name: Zsh | Default
