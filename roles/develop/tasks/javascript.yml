@@ -1,3 +1,10 @@
 ---
 - ansible.builtin.import_tasks: javascript_fedora.yml
   when: ansible_distribution == 'Fedora'
+- name: Develop - Javascript | Config link
+- name: Develop - JavaScript | Config link
+  ansible.builtin.file:
+    src: '{{ dotfyls_role_files }}/npmrc'
+    path: "{{ ansible_env['NPM_CONFIG_USERCONFIG'] }}"
+    state: link
+    mode: '0644'
