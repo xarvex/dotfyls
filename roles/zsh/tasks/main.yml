@@ -13,6 +13,7 @@
     state: link
     mode: '0644'
   loop:
+    - { name: commands, become: commands }
     - { name: zshenv, become: .zshenv }
     - { name: zshrc, become: .zshrc }
   loop_control:
