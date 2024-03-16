@@ -2,10 +2,6 @@
 
 stty stop undef # disable Ctrl-S freezing
 
-for file in "${ZDOTDIR}"/commands/**/*.zsh; do
-    (( ${+commands[${file:t:r}]} )) && source "${file}"
-done
-
 ZINIT_HOME="${XDG_DATA_HOME}"/zinit/zinit.git
 [ -d "${ZINIT_HOME}" ] || mkdir -p "$(dirname ${ZINIT_HOME})"
 [ -d "${ZINIT_HOME}"/.git ] || git clone https://github.com/zdharma-continuum/zinit.git "${ZINIT_HOME}"
@@ -19,6 +15,10 @@ zinit wait lucid for \
     atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' zdharma-continuum/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
     atload'!_zsh_autosuggest_start' zsh-users/zsh-autosuggestions
+
+for file in "${ZDOTDIR}"/commands/**/*.zsh; do
+    (( ${+commands[${file:t:r}]} )) && source "${file}"
+done
 
 [[ -r "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh ]] &&
     source "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh
