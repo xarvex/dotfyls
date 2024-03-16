@@ -27,9 +27,13 @@ zinit wait lucid for \
     blockf zsh-users/zsh-completions \
     atload'!_zsh_autosuggest_start' zsh-users/zsh-autosuggestions
 
+setopt warncreateglobal # only warn for my own code
+
 for file in "${ZDOTDIR}"/commands/**/*.zsh; do
     (( ${+commands[${file:t:r}]} )) && source "${file}"
 done
+
+unsetopt warncreateglobal
 
 [[ -r "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh ]] &&
     source "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh
