@@ -20,6 +20,9 @@ bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
+zinit ice depth'1'
+zinit load MichaelAquilina/zsh-you-should-use
+
 zinit wait lucid for \
     atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' zdharma-continuum/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
