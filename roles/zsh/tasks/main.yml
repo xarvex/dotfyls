@@ -14,6 +14,7 @@
     mode: '{{ item.mode }}'
   loop:
     - { name: commands, become: commands, mode: '0755' }
+    - { name: p10k.zsh, become: p10k.zsh, mode: '0644' }
     - { name: zshenv, become: .zshenv, mode: '0644' }
     - { name: zshrc, become: .zshrc, mode: '0644' }
   loop_control:

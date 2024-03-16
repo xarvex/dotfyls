@@ -1,8 +1,24 @@
-autoload -U compinit
+stty stop undef # disable Ctrl-S freezing
 
-[ -d "${XDG_CACHE_HOME}"/zsh ] || mkdir -p "${XDG_CACHE_HOME}"/zsh
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}"/zsh/zcompcache
-compinit -d "${XDG_CACHE_HOME}"/zsh/zcompdump-"${ZSH_VERSION}"
+for file in "${ZDOTDIR}"/commands/**/*.zsh; do
+    if (( ${+commands[${file:t:r}]} )); then
+        # shellcheck disable=SC1090
+        source "${file}"
+    fi
+done
+
+if [[ -r "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh ]]; then
+  source "${XDG_CACHE_HOME}"/p10k-instant-prompt-"${(%):-%n}".zsh
+fi
+
+ZINIT_HOME="${XDG_DATA_HOME}"/zinit/zinit.git
+[ -d "${ZINIT_HOME}" ] || mkdir -p "$(dirname ${ZINIT_HOME})"
+[ -d "${ZINIT_HOME}"/.git ] || git clone https://github.com/zdharma-continuum/zinit.git "${ZINIT_HOME}"
+source "${ZINIT_HOME}"/zinit.zsh
+
+zinit ice depth"1"
+zinit light romkatv/powerlevel10k
+[[ -f "${ZDOTDIR}"/p10k.zsh ]] && source "${ZDOTDIR}"/p10k.zsh
 
 HISTFILE="${XDG_STATE_HOME}"/zsh/history
 HISTSIZE=1000
@@ -16,9 +32,9 @@ zle_highlight=( 'paste:none' )
 
 bindkey -v
 
-for file in "${ZDOTDIR}"/commands/**/*.zsh; do
-    if (( ${+commands[${file:t:r}]} )); then
-        # shellcheck disable=SC1090
-        source "${file}"
-    fi
-done
+[ -d "${XDG_CACHE_HOME}"/zsh ] || mkdir -p "${XDG_CACHE_HOME}"/zsh
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}"/zsh/zcompcache
+autoload -U compinit
+compinit -d "${XDG_CACHE_HOME}"/zsh/zcompdump-"${ZSH_VERSION}"
+
+zinit cdreplay -q
