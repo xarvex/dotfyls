@@ -1,4 +1,4 @@
-# shellcheck disable=SC1090,SC1091,SC1094,SC2086,SC2296
+# shellcheck disable=SC1090,SC1091,SC1094,SC2034,SC2086,SC2296
 
 stty stop undef # disable Ctrl-S freezing
 
@@ -27,12 +27,10 @@ done
 
 HISTFILE="${XDG_STATE_HOME}"/zsh/history
 HISTSIZE=10000
-# shellcheck disable=SC2034
 SAVEHIST=10000
 [ -d "$(dirname ${HISTFILE})" ] || mkdir -p "$(dirname ${HISTFILE})"
 setopt histignorealldups histignorespace histreduceblanks incappendhistory
 
-# shellcheck disable=SC2034
 zle_highlight=( 'paste:none' )
 
 bindkey -v
