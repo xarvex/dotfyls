@@ -1,2 +1,0 @@
-alias neofetch=fastfetch
-fastfetch
