@@ -11,7 +11,6 @@ zinit ice depth'1'
 zinit light romkatv/powerlevel10k
 [[ -f "${ZDOTDIR}"/p10k.zsh ]] && source "${ZDOTDIR}"/p10k.zsh
 
-zinit snippet OMZ::plugins/git/git.plugin.zsh
 zinit load zsh-users/zsh-history-substring-search
 zinit ice wait atload'_history_substring_search_config'
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
