@@ -17,7 +17,7 @@ zle_highlight=( 'paste:none' )
 bindkey -v
 
 for file in "${ZDOTDIR}"/commands/**/*.zsh; do
-    if command -v "${file:t:r}" > /dev/null; then
+    if (( ${+commands[${file:t:r}]} )); then
         # shellcheck disable=SC1090
         source "${file}"
     fi

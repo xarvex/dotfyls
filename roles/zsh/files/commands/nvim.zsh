@@ -1,4 +1,4 @@
 alias vim=nvim
 nvim() {
-    command nvim "${1:-${PWD}}" "${@:2}"
+    "${commands[nvim]}" "${1:-${PWD}}" "${@:2}"
 }
