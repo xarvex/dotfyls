@@ -11,6 +11,15 @@ zinit ice depth'1'
 zinit light romkatv/powerlevel10k
 [[ -f "${ZDOTDIR}"/p10k.zsh ]] && source "${ZDOTDIR}"/p10k.zsh
 
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit load zsh-users/zsh-history-substring-search
+zinit ice wait atload'_history_substring_search_config'
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 zinit wait lucid for \
     atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' zdharma-continuum/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
