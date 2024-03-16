@@ -1,10 +1,9 @@
-# shellcheck disable=SC2086,SC2296
+# shellcheck disable=SC1090,SC1091,SC1094,SC2086,SC2296
 
 stty stop undef # disable Ctrl-S freezing
 
 for file in "${ZDOTDIR}"/commands/**/*.zsh; do
     if (( ${+commands[${file:t:r}]} )); then
-        # shellcheck disable=SC1090
         source "${file}"
     fi
 done
