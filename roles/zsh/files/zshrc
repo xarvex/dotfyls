@@ -23,10 +23,11 @@ zinit light romkatv/powerlevel10k
 [[ -f "${ZDOTDIR}"/p10k.zsh ]] && source "${ZDOTDIR}"/p10k.zsh
 
 HISTFILE="${XDG_STATE_HOME}"/zsh/history
-HISTSIZE=1000
+HISTSIZE=10000
 # shellcheck disable=SC2034
-SAVEHIST=1000
+SAVEHIST=10000
 [ -d "$(dirname ${HISTFILE})" ] || mkdir -p "$(dirname ${HISTFILE})"
+setopt histignorealldups histignorespace histreduceblanks incappendhistory
 
 # shellcheck disable=SC2034
 zle_highlight=( 'paste:none' )
