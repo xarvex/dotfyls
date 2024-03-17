@@ -1,0 +1,26 @@
+# vi: ft=zsh
+# shellcheck disable=SC2086,SC2154,SC2162
+
+zparseopts -D -E -F -- \
+    {y,-yes}=yes \
+    {C,-clear}=clear \
+    -noclear=noclear \
+    || return
+
+if (( !${#yes} )); then
+    read -qs "REPLY?Are you sure you'd like to reload? " && yes=true
+    print ${REPLY}
+fi
+
+if (( ${#yes} )) then
+    if (( ${#noclear} )); then
+        unset clear
+    elif (( !${#clear} )); then
+        read -qs 'REPLY?Clear? ' && clear=true
+        print ${REPLY}
+    fi
+
+    (( ${#clear} )) && clear
+
+    exec ${SHELL}
+fi

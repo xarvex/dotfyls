@@ -61,3 +61,5 @@ compinit -d "${zcompdump}"
 unset zcompdump
 
 zinit cdreplay -q
+
+autoload -U reload

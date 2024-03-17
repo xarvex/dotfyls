@@ -1,1 +1,1 @@
-
+fpath=( "${ZDOTDIR}"/functions "${fpath[@]}" )
