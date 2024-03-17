@@ -9,6 +9,7 @@ ZINIT_HOME="${XDG_DATA_HOME}"/zinit/zinit.git
 [ -d "${ZINIT_HOME}"/.git ] || git clone https://github.com/zdharma-continuum/zinit.git "${ZINIT_HOME}"
 declare -A ZINIT
 ZINIT[ZCOMPDUMP_PATH]="${zcompdump}"
+ZINIT[NO_ALIASES]=1
 source "${ZINIT_HOME}"/zinit.zsh
 
 zinit ice depth'1'
