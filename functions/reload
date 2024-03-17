@@ -20,7 +20,8 @@ if (( ${#yes} )) then
         print ${REPLY}
     fi
 
-    (( ${#clear} )) && clear
+    unset NOCLEAR
+    ( (( ${#clear} )) && clear ) || export NOCLEAR=1
 
     exec ${SHELL}
 fi

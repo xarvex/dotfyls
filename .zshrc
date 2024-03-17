@@ -32,6 +32,8 @@ zinit wait lucid for \
     blockf zsh-users/zsh-completions \
     atload'!_zsh_autosuggest_start' zsh-users/zsh-autosuggestions
 
+(( ${#NOCLEAR} )) || clear
+
 setopt warncreateglobal # only warn for my own code
 
 for file in "${ZDOTDIR}"/commands/**/*.zsh; do
