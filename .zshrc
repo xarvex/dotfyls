@@ -1,7 +1,5 @@
 # shellcheck disable=SC1090,SC1091,SC1094,SC2034,SC2086,SC2231,SC2296
 
-stty stop undef # disable Ctrl-S freezing
-
 zcompdump=${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}
 
 ZINIT_HOME=${XDG_DATA_HOME}/zinit/zinit.git
