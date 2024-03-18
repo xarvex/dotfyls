@@ -16,6 +16,9 @@ zinit ice depth'1'
 zinit light romkatv/powerlevel10k
 [[ -r ${ZDOTDIR}/p10k.zsh ]] && source ${ZDOTDIR}/p10k.zsh
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
 zinit load zsh-users/zsh-history-substring-search
 zinit ice wait atload'_history_substring_search_config'
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
@@ -52,8 +55,6 @@ SAVEHIST=10000
 setopt histignorealldups histignorespace histreduceblanks incappendhistory
 
 zle_highlight=( 'paste:none' )
-
-bindkey -v
 
 [[ -d ${XDG_CACHE_HOME}/zsh ]] || mkdir -p ${XDG_CACHE_HOME}/zsh
 zstyle ':completion:*' cache-path ${XDG_CACHE_HOME}/zsh/zcompcache
