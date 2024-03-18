@@ -10,7 +10,7 @@ ZINIT[ZCOMPDUMP_PATH]=${zcompdump}
 ZINIT[NO_ALIASES]=1
 source ${ZINIT_HOME}/zinit.zsh
 
-zinit ice depth'1'
+zinit ice depth=1
 zinit light romkatv/powerlevel10k
 [[ -r ${ZDOTDIR}/p10k.zsh ]] && source ${ZDOTDIR}/p10k.zsh
 
@@ -18,20 +18,20 @@ zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
 
 zinit load zsh-users/zsh-history-substring-search
-zinit ice wait atload'_history_substring_search_config'
+zinit ice wait atload=_history_substring_search_config
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd K history-substring-search-up
 bindkey -M vicmd J history-substring-search-down
 
-zinit ice depth'1'
+zinit ice depth=1
 zinit load MichaelAquilina/zsh-you-should-use
 
 zinit wait lucid for \
-    atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' zdharma-continuum/fast-syntax-highlighting \
+    atinit='ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' zdharma-continuum/fast-syntax-highlighting \
     blockf zsh-users/zsh-completions \
-    atload'!_zsh_autosuggest_start' zsh-users/zsh-autosuggestions
+    atload='!_zsh_autosuggest_start' zsh-users/zsh-autosuggestions
 
 (( ${#NOCLEAR} )) || clear
 
@@ -52,7 +52,7 @@ SAVEHIST=10000
 [[ -d "$(dirname ${HISTFILE})" ]] || mkdir -p "$(dirname ${HISTFILE})"
 setopt histignorealldups histignorespace histreduceblanks incappendhistory
 
-zle_highlight=( 'paste:none' )
+zle_highlight=( paste:none )
 
 [[ -d ${XDG_CACHE_HOME}/zsh ]] || mkdir -p ${XDG_CACHE_HOME}/zsh
 zstyle ':completion:*' cache-path ${XDG_CACHE_HOME}/zsh/zcompcache
