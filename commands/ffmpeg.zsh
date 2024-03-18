@@ -1,9 +1,9 @@
 ffmpeg_convert_mp3() {
-    if [ -z ${1} ]; then
+    if [[ -z ${1} ]]; then
         echo 'Input argument needs to be given'
         return 1
     fi
-    if [ -n ${2} ]; then
+    if [[ -n ${2} ]]; then
         echo 'Only one argument expected'
         return 1
     fi
@@ -12,11 +12,11 @@ ffmpeg_convert_mp3() {
 }
 
 ffmpeg_convert_mp4() {
-    if [ -z ${1} ]; then
+    if [[ -z ${1} ]]; then
         echo 'Input argument needs to be given'
         return 1
     fi
-    if [ -n ${2} ]; then
+    if [[ -n ${2} ]]; then
         echo 'Only one argument expected'
         return 1
     fi
