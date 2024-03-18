@@ -1,8 +1,10 @@
 ---
 - name: Distrobox | Install dependencies
   ansible.builtin.dnf:
-    name: podman
+    name: '{{ item }}'
   become: true
+  loop:
+    - podman
 - name: Distrobox | Download
   ansible.builtin.git:
     repo: https://github.com/89luca89/distrobox.git

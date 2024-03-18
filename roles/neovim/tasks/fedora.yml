@@ -1,9 +1,10 @@
 ---
 - name: Neovim | Install
   ansible.builtin.dnf:
-    name:
-      - fd-find
-      - neovim
-      - nodejs
-      - ripgrep
+    name: '{{ item }}'
   become: true
+  loop:
+    - neovim
+    - fd-find
+    - nodejs
+    - ripgrep

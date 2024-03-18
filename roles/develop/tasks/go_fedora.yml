@@ -1,7 +1,8 @@
 ---
 - name: Develop - Go | Install
   ansible.builtin.dnf:
-    name:
-      - golang
-      - make
+    name: '{{ item }}'
   become: true
+  loop:
+    - golang
+    - make

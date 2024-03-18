@@ -1,8 +1,8 @@
 ---
 - name: Develop - Rust | Install
   ansible.builtin.dnf:
-    name:
-      - musl-gcc
-      - musl-libc-static
-      - rustup
+    name: '{{ item }}'
   become: true
+  loop:
+    - rustup
+    - [ musl-gcc, musl-libc-static ]

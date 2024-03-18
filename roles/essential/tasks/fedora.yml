@@ -3,7 +3,7 @@
   ansible.builtin.dnf:
     name: '{{ item }}'
   become: true
-  loop: # using a loop means clarity on what is installed
+  loop:
     - coreutils
     - findutils
     - gawk
