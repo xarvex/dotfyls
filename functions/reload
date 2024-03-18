@@ -7,7 +7,7 @@ zparseopts -D -E -F -- \
     -noclear=noclear \
     || return
 
-if (( !${#yes} )); then
+if (( ! ${#yes} )); then
     read -qs "REPLY?Are you sure you'd like to reload? " && yes=true
     print ${REPLY}
 fi
@@ -15,7 +15,7 @@ fi
 if (( ${#yes} )) then
     if (( ${#noclear} )); then
         unset clear
-    elif (( !${#clear} )); then
+    elif (( ! ${#clear} )); then
         read -qs 'REPLY?Clear? ' && clear=true
         print ${REPLY}
     fi
