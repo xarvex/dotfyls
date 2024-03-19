@@ -5,6 +5,7 @@
   become: true
   loop:
     - podman
+  # 1.7.0 makes exporting binaries much cleaner
 - name: Distrobox | Download
   ansible.builtin.git:
     repo: https://github.com/89luca89/distrobox.git
