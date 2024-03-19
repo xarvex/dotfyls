@@ -1,7 +1,7 @@
 ---
 - ansible.builtin.import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
-- name: Fastfetch | Config link (thefuck)
+- name: QOL | Config link (thefuck)
   ansible.builtin.file:
     src: '{{ dotfyls_role_files }}/thefuck'
     path: '{{ dotfyls_xdg_config_home }}/thefuck'
