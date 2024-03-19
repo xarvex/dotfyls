@@ -52,6 +52,9 @@
     - role: package_manager
       tags:
         - package_manager
+    - role: qol
+      tags:
+        - qol
     - role: window_manager
       tags:
         - window_manager

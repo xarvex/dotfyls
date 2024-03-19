@@ -1,0 +1,10 @@
+---
+- name: QOL | Install
+  ansible.builtin.dnf:
+    name: '{{ item }}'
+  become: true
+  loop:
+    - bat
+    - thefuck
+    - tldr
+    - zoxide
