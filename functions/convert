@@ -1,0 +1,28 @@
+# vi: ft=zsh
+# shellcheck disable=SC2086,SC2128
+
+if [[ ${#} -lt 1 ]]; then
+    print 'Conversion argument expected'
+    return 2
+elif [[ ${#} -lt 2 ]]; then
+    print 'File input argument expected'
+    return 2
+elif [[ ${#} -gt 2 ]]; then
+    print 'Only two arguments expected'
+    return 2
+fi
+
+case ${1} in
+    mp3)
+        ffmpeg_options=( -codec:a libmp3lame -q:a 0 -map_metadata 0 -id3v2_version 3 -write_id3v1 1 )
+        ;;
+    mp4)
+        ffmpeg_options=( -vsync vfr -vf 'crop=trunc(iw/2)*2:trunc(ih/2)*2' )
+        ;;
+    *)
+        print 'Invalid conversion argument given'
+        return 2
+        ;;
+esac
+
+ffmpeg -i ${1} ${ffmpeg_options} ${2%.*}.${1}

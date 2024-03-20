@@ -1,0 +1,5 @@
+# vi: ft=zsh
+# shellcheck disable=SC2086
+
+distrobox-list | grep ${1}'[ |]\+Exited' > /dev/null
+return $?

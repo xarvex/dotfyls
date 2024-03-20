@@ -35,14 +35,6 @@ zinit wait lucid for \
 
 (( ${#NOCLEAR} )) || clear
 
-setopt warncreateglobal # only warn for my own code
-
-for file in ${ZDOTDIR}/commands/**/*.zsh; do
-    (( ${+commands[${file:t:r}]} )) && source ${file}
-done
-
-unsetopt warncreateglobal
-
 [[ -r ${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh ]] &&
     source ${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh
 
@@ -62,5 +54,9 @@ compinit -d ${zcompdump}
 unset zcompdump
 
 zinit cdreplay -q
+
+source ${ZDOTDIR}/alias.zsh
+
+(( ${+commands[fastfetch]} )) && fetch
 
 autoload -U reload
