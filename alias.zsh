@@ -6,6 +6,10 @@ if (( ${+commands[fastfetch]} )); then
     alias neofetch=fastfetch
     alias fetch=fastfetch
 
+    autoload -U distrobox-inactive distrobox-start
+    alias fastfetch='( (( ! ${#DISTROBOX_ENTER_PATH} )) && distrobox-inactive fastfetch && distrobox-start fastfetch 2> /dev/null ); ${commands[fastfetch]}'
+fi
+
 if (( ${+commands[git]} )); then
     alias ga='git add'
     alias gc='git commit'
@@ -34,5 +38,8 @@ if (( ${+commands[thefuck]} )); then
 fi
 
 if (( ${+commands[zoxide]} )); then
+    autoload -U distrobox-inactive distrobox-start
+    alias zoxide='( (( ! ${#DISTROBOX_ENTER_PATH} )) && distrobox-inactive zoxide && distrobox-start zoxide 2> /dev/null ); ${commands[zoxide]}'
+
     eval "$(zoxide init "$(basename ${SHELL})" --cmd cd)"
 fi
