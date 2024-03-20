@@ -29,7 +29,13 @@ if (( ${+commands[nvim]} )); then
     alias vim=nvim
 
     nvim() {
-        ${commands[nvim]} ${1:-${PWD}} ${@:2}
+        local fallback
+        if [[ -t 0 ]]; then
+            fallback=${PWD} # only use fallback when no stdin
+        fi
+
+        ${commands[nvim]} ${1:-${fallback}} ${@:2} <&0
+        return $?
     }
 fi
 
