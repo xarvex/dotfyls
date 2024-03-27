@@ -13,6 +13,7 @@ user_pref("browser.safebrowsing.downloads.remote.enabled", true);
 user_pref("security.OCSP.enabled", 1);
 user_pref("security.OCSP.require", false);
 
+user_pref("browser.display.use_document_fonts", 1);
 user_pref("browser.display.use_system_colors", true);
 user_pref("widget.non-native-theme.enabled", false);
 user_pref("privacy.resistFingerprinting", false);
