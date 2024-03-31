@@ -2,6 +2,12 @@ if (( ${+commands[bat]} )); then
     alias cat=bat
 fi
 
+if (( ${+commands[eza]} )); then
+    alias ls='eza --icons=auto'
+    alias ll='eza -la --git'
+    alias tree='eza -TL 2 --icons=auto'
+fi
+
 if (( ${+commands[fastfetch]} )); then
     alias neofetch=fastfetch
     alias fetch=fastfetch
@@ -18,11 +24,6 @@ if (( ${+commands[git]} )); then
     alias gp='git push'
     alias gs='git status'
     alias gup='git log -p @{push}.. $@'
-fi
-
-if (( ${+commands[ls]} )); then
-    alias ls='ls --color=auto'
-    alias ll='ls -lA --color=auto'
 fi
 
 if (( ${+commands[nvim]} )); then
