@@ -25,4 +25,4 @@ case ${1} in
         ;;
 esac
 
-ffmpeg -i ${1} ${ffmpeg_options} ${2%.*}.${1}
+ffmpeg -i ${2} ${ffmpeg_options} ${2%.*}.${1}
