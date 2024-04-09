@@ -7,6 +7,7 @@ fi
 if (( ${+commands[eza]} )); then
     alias ls='eza --icons=auto'
     alias ll='eza -la --git'
+    alias l.='eza -d .* --icons=auto'
     alias tree='eza -TL 2 --icons=auto'
 fi
 
