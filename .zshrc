@@ -55,6 +55,10 @@ unset zcompdump
 
 zinit cdreplay -q
 
+zmodload zsh/parameter
+setopt autocd
+setopt extendedglob
+
 source ${ZDOTDIR}/alias.zsh
 
 (( ${+commands[fastfetch]} )) && fetch
