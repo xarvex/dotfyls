@@ -63,4 +63,5 @@ source ${ZDOTDIR}/alias.zsh
 
 (( ${+commands[fastfetch]} )) && fetch
 
+autoload -U convert
 autoload -U reload
