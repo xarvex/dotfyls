@@ -13,6 +13,10 @@ elif [[ ${#} -gt 2 ]]; then
 fi
 
 case ${1} in
+    gif)
+        ffmpeg -i ${2} -vf "fps=10,palettegen=stats_mode=full" -y /tmp/ffmpeg-convert-palette-${$}.png
+        ffmpeg_options=( -i /tmp/ffmpeg-convert-palette-${$}.png -lavfi "fps=10 [x]; [x][1:v] paletteuse=dither=sierra2_4a" )
+        ;;
     mp3)
         ffmpeg_options=( -codec:a libmp3lame -q:a 0 -map_metadata 0 -id3v2_version 3 -write_id3v1 1 )
         ;;
