@@ -1,8 +1,8 @@
 # shellcheck disable=SC1090,SC1091,SC1094,SC2034,SC2086,SC2231,SC2296
 
-zcompdump=${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}
+zcompdump=${XDG_CACHE_HOME:-${HOME}/.local/cache}/zsh/zcompdump-${ZSH_VERSION}
 
-ZINIT_HOME=${XDG_DATA_HOME}/zinit/zinit.git
+ZINIT_HOME=${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git
 [[ -d ${ZINIT_HOME} ]] || mkdir -p "$(dirname ${ZINIT_HOME})"
 [[ -d ${ZINIT_HOME}/.git ]] || git clone https://github.com/zdharma-continuum/zinit.git ${ZINIT_HOME} && (( ! ${#NOCLEAR} )) && clear
 declare -A ZINIT
@@ -35,10 +35,10 @@ zinit wait lucid for \
 
 (( ${#NOCLEAR} )) || clear
 
-[[ -r ${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh ]] &&
-    source ${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh
+[[ -r ${XDG_CACHE_HOME:-${HOME}/.local/cache}/p10k-instant-prompt-${(%):-%n}.zsh ]] &&
+    source ${XDG_CACHE_HOME:-${HOME}/.local/cache}/p10k-instant-prompt-${(%):-%n}.zsh
 
-HISTFILE=${XDG_STATE_HOME}/zsh/history
+HISTFILE=${XDG_STATE_HOME:-${HOME}/.local/share}/zsh/history
 HISTSIZE=10000
 SAVEHIST=10000
 [[ -d "$(dirname ${HISTFILE})" ]] || mkdir -p "$(dirname ${HISTFILE})"
@@ -46,8 +46,8 @@ setopt histignorealldups histignorespace histreduceblanks incappendhistory
 
 zle_highlight=( paste:none )
 
-[[ -d ${XDG_CACHE_HOME}/zsh ]] || mkdir -p ${XDG_CACHE_HOME}/zsh
-zstyle ':completion:*' cache-path ${XDG_CACHE_HOME}/zsh/zcompcache
+[[ -d ${XDG_CACHE_HOME:-${HOME}/.local/cache}/zsh ]] || mkdir -p ${XDG_CACHE_HOME:-${HOME}/.local/cache}/zsh
+zstyle ':completion:*' cache-path ${XDG_CACHE_HOME:-${HOME}/.local/cache}/zsh/zcompcache
 autoload -U compinit
 compinit -d ${zcompdump}
 
