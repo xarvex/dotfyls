@@ -12,7 +12,7 @@ source ${ZINIT_HOME}/zinit.zsh
 
 zinit ice depth=1
 zinit light romkatv/powerlevel10k
-[[ -r ${ZDOTDIR}/p10k.zsh ]] && source ${ZDOTDIR}/p10k.zsh
+[[ -r ${ZDOTDIR:-${HOME}}/p10k.zsh ]] && source ${ZDOTDIR:-${HOME}}/p10k.zsh
 
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
@@ -59,7 +59,7 @@ zmodload zsh/parameter
 setopt autocd
 setopt extendedglob
 
-source ${ZDOTDIR}/alias.zsh
+source ${ZDOTDIR:-${HOME}}/alias.zsh
 
 (( ${+commands[fastfetch]} )) && fetch
 
