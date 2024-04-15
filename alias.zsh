@@ -26,6 +26,7 @@ if (( ${+commands[git]} )); then
     alias gds='git diff --staged'
     alias gp='git push'
     alias gs='git status'
+    alias gl='git log'
     alias gup='git log -p @{push}.. $@'
 fi
 
