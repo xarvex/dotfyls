@@ -24,10 +24,11 @@ if (( ${+commands[git]} )); then
     alias gc='git commit'
     alias gd='git diff'
     alias gds='git diff --staged'
+    alias gdup='git log -p @{push}..'
     alias gp='git push'
     alias gs='git status'
     alias gl='git log'
-    alias gup='git log -p @{push}.. $@'
+    alias glup='git log @{push}..'
 fi
 
 if (( ${+commands[nvim]} )); then
