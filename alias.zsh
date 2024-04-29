@@ -29,6 +29,10 @@ if (( ${+commands[git]} )); then
     alias gs='git status'
     alias gl='git log'
     alias glup='git log @{push}..'
+
+    gpr() {
+        git fetch ${2:-origin} pull/${1}/head && git checkout FETCH_HEAD
+    }
 fi
 
 if (( ${+commands[nvim]} )); then
