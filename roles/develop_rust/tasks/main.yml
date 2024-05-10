@@ -1,5 +1,5 @@
 ---
-- ansible.builtin.import_tasks: rust_fedora.yml
+- ansible.builtin.import_tasks: fedora.yml
   when: ansible_distribution == 'Fedora'
 - name: Develop - Rust | Initialize rustup
   ansible.builtin.command:
