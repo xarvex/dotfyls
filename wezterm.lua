@@ -16,6 +16,8 @@ local font = "Iosevka Term SS14"
 M.font = wezterm.font(font, { stretch = "SemiExpanded" })
 M.font_size = 14.0
 
+M.warn_about_missing_glyphs = false
+
 M.window_frame = {
     font = wezterm.font(font, { stretch = "SemiExpanded", weight = "Bold" }),
     font_size = 12.0,
