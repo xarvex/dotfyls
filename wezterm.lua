@@ -34,7 +34,5 @@ wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_co
     presentation = { font_size_multiplier = 1.8 },
     presentation_full = { font_size_multiplier = 2.2 }
 })
--- nice retro bar, but only works with one theme
--- wezterm.plugin.require("https://github.com/nekowinston/wezterm-bar").apply_to_config(M)
 
 return M
