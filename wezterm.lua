@@ -5,11 +5,7 @@ local M = wezterm.config_builder and wezterm.config_builder() or {}
 
 M.check_for_updates = false
 
-M.color_scheme = "Tomorrow Night Eighties"
-M.colors = {
-    background = "black",
-    tab_bar = { inactive_tab_edge = "black" }
-}
+M.color_scheme = "duskfox"
 
 M.window_background_opacity = 0.4
 
