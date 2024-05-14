@@ -1,2 +1,5 @@
 # keeping SSH hosts private
 ssh.lua
+
+# WezTerm does not watch for changes in a directory
+generated_*

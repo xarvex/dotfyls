@@ -5,7 +5,14 @@ local M = wezterm.config_builder and wezterm.config_builder() or {}
 
 M.check_for_updates = false
 
-M.color_scheme = "duskfox"
+-- colorscheme sync with Neovim
+local file = io.open(wezterm.config_dir .. "/generated_neovim_colorscheme", "r")
+if file then
+    M.color_scheme = file:read("*l") -- read first line without newline
+    file:close()
+else
+    M.color_scheme = "carbonfox" -- default
+end
 
 M.enable_tab_bar = false
 
