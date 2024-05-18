@@ -42,7 +42,7 @@ HISTFILE=${XDG_STATE_HOME:-${HOME}/.local/share}/zsh/history
 HISTSIZE=10000
 SAVEHIST=10000
 [[ -d "$(dirname ${HISTFILE})" ]] || mkdir -p "$(dirname ${HISTFILE})"
-setopt histignorealldups histignorespace histreduceblanks incappendhistory
+setopt histignorealldups histignorespace histreduceblanks incappendhistory sharehistory
 
 zle_highlight=( paste:none )
 
