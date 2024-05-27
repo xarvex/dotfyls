@@ -16,7 +16,7 @@ end
 
 M.enable_tab_bar = false
 
-M.window_background_opacity = 0.4
+M.window_background_opacity = 0.85
 
 local font = "Iosevka Term SS14"
 
