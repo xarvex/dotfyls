@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, pkgs-unstable, specialArgs, user, ... }:
+{ inputs, lib, pkgs, specialArgs, user, ... }:
 
 let
   mkNixosConfiguration =
@@ -6,7 +6,7 @@ let
     lib.nixosSystem {
       inherit pkgs;
 
-      specialArgs = specialArgs // { inherit host pkgs-unstable user; };
+      specialArgs = specialArgs // { inherit host user; };
 
       modules = [
         ./${host}
@@ -20,7 +20,7 @@ let
             useGlobalPkgs = true;
             useUserPackages = true;
 
-            extraSpecialArgs = specialArgs // { inherit host pkgs-unstable user; };
+            extraSpecialArgs = specialArgs // { inherit host user; };
 
             users.${user} = {
               imports = [
