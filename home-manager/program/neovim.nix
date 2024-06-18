@@ -18,5 +18,11 @@ in
       recursive = true;
       source = nvim.self;
     };
+
+    custom.persist.directories = [
+      ".config/nvim"
+      ".local/share/nvim"
+      ".local/state/nvim"
+    ];
   };
 }

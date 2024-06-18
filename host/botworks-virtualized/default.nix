@@ -18,4 +18,14 @@
       PartOf = [ "graphical-session.target" ];
     };
   };
+
+  /*
+    custom.disk = {
+    main = "/dev/vda";
+    swapsize = "4G";
+    };
+  */
+
+  networking.hostId = "3bb44cc9";
+  boot.zfs.devNodes = "/dev/disk/by-partuuid";
 }

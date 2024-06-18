@@ -33,6 +33,8 @@ let
 
         (lib.mkAliasOptionModule [ "usr" ] [ "users" "users" user ])
         (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" user ])
+
+        inputs.impermanence.nixosModules.impermanence
       ];
     };
 in

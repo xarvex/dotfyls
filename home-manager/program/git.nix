@@ -7,5 +7,7 @@
     programs.git = {
       enable = true;
     };
+
+    custom.persist.directories = [ ".config/systemd" ]; # maintenance timers
   };
 }

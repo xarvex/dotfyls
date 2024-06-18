@@ -41,5 +41,7 @@
 
       systemd.variables = [ "all" ];
     };
+
+    custom.persist.directories = [ ".cache/hyprland" ]; # crash reports
   };
 }

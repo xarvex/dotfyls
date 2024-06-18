@@ -7,5 +7,7 @@
     programs.zsh = {
       enable = true;
     };
+
+    custom.persist.files = [ ".local/state/zsh/history" ];
   };
 }

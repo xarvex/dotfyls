@@ -6,5 +6,7 @@
   config = lib.mkIf config.custom.program.fastfetch.enable {
     programs.fastfetch.enable = true;
     xdg.configFile."fastfetch/config.jsonc".source = ./config.jsonc;
+
+    custom.persist.files = [ ".config/fastfetch/config.jsonc" ];
   };
 }

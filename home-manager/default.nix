@@ -1,7 +1,8 @@
-{ config, pkgs, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 {
   imports = [
+    ./persist.nix
     ./program
     ./terminal.nix
     ./window-manager
