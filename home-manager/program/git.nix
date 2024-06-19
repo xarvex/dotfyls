@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options.custom.program.git.enable = lib.mkEnableOption "Git" // { default = true; };

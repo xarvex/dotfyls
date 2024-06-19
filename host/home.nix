@@ -1,4 +1,4 @@
-{ inputs, pkgs, specialArgs, user, ... }:
+{ inputs, pkgs, ... }:
 
 let
   mkHomeConfiguration =

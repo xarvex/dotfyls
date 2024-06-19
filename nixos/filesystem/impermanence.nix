@@ -1,4 +1,4 @@
-{ config, inputs, lib, user, ... }:
+{ config, user, ... }:
 
 let
   cfg = config.custom.persist;

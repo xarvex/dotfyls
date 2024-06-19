@@ -1,6 +1,6 @@
 # DO NOT IMPORT
 # THIS DOES NOT WORK AND IS HERE IF I EVER FIX IT
-{ config, inputs, lib, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.custom.disk;

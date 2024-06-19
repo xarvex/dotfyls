@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options.custom.program.zsh.enable = lib.mkEnableOption "Zsh" // { default = true; };
