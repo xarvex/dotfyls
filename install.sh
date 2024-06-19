@@ -50,7 +50,7 @@ fi
 confirm 'This will format the entire disk. All data will be destroyed, proceed?' || exit 2
 
 printf '%s\n' 'Clearing partitions...'
-sudo blkdiscard -f "${disk}"
+sudo wipefs -a "${disk}"
 
 printf '%s\n' 'Creating partitions...'
 sudo sgdisk -n3:1M:+1G -t3:EF00 "${disk}"
