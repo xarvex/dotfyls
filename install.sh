@@ -87,7 +87,7 @@ printf '%s\n' 'Mounting / (ZFS)...'
 sudo mount -t zfs zroot/root /mnt
 
 printf '%s\n' 'Mounting /boot (EFI)...'
-sudo mount --mkdir "${bootdisk}" /mnt/boot
+sudo mount -o umask=077 --mkdir "${bootdisk}" /mnt/boot
 
 printf '%s\n' 'Creating /nix (ZFS)...'
 printf '%s\n' 'Mounting /nix (ZFS)...'
