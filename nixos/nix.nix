@@ -2,6 +2,8 @@
 
 {
   nix = {
+    channel.enable = false;
+
     gc = {
       automatic = true;
       dates = "daily";
