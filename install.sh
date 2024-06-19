@@ -126,4 +126,4 @@ printf '%s' 'Specify rev to install (default: main): '
 read -r rev
 
 printf '%s\n' 'Running install...'
-sudo nixos-install --flake gitlab:dotfyls/dotfyls/"${rev:-main}"#"${host}"
+sudo nixos-install --no-root-password --flake gitlab:dotfyls/dotfyls/"${rev:-main}"#"${host}"
