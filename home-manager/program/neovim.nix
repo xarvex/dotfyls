@@ -19,10 +19,6 @@ in
       source = nvim.self;
     };
 
-    custom.persist.directories = [
-      ".config/nvim"
-      ".local/share/nvim"
-      ".local/state/nvim"
-    ];
+    custom.persist.directories = [ ".local/share/nvim" ".local/state/nvim" ];
   };
 }
