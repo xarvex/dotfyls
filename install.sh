@@ -54,7 +54,7 @@ sudo wipefs -a "${disk}"
 
 printf '%s\n' 'Creating partitions...'
 sudo sgdisk -n3:1M:+1G -t3:EF00 "${disk}"
-sudo sgdisk -n2:0:+16G -t2:8200 "${disk}"
+sudo sgdisk -n2:0:+$(($(grep MemTotal /proc/meminfo | awk '{print $2}') * 2))K -t2:8200 "${disk}"
 sudo sgdisk -n1:0:0 -t1:BF01 "${disk}"
 
 printf '%s\n' 'Notifying kernel...'
