@@ -24,6 +24,7 @@ let
 
             users.${user} = {
               imports = [
+                inputs.neovim.homeManagerModules.default
                 ./${host}/home.nix
                 ../home-manager
               ];

@@ -7,6 +7,7 @@ let
       inherit pkgs;
 
       modules = [
+        inputs.neovim.homeManagerModules.default
         ./${host}/home.nix
         ../home-manager
         ../overlay
