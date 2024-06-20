@@ -62,11 +62,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1718868458,
-        "narHash": "sha256-/pl9sF/hig1lTPIAKGfQ/zae3AAz9Vmo+unW4ngM+04=",
+        "lastModified": 1718869109,
+        "narHash": "sha256-84LBKcXw0VBANyFaWrQr1iJvbQ8oW1BkFN3ntGnGbRA=",
         "owner": "dotfyls",
         "repo": "neovim",
-        "rev": "506f648c77fcf77af2932040af63fdd75fbd43be",
+        "rev": "612c7b1456c546b5deb3966af63211bd2fea6fed",
         "type": "gitlab"
       },
       "original": {
