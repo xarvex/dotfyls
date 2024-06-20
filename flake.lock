@@ -80,11 +80,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1718919643,
-        "narHash": "sha256-cdtQWCMd6/YbLe3tmaMdI6XKjh0l5g3CFXbe53vZ5yM=",
+        "lastModified": 1718920258,
+        "narHash": "sha256-jGMtJwGPWowtfTEz/2SYm8nkOnKsw9CoBbVZoPQ3Yn4=",
         "owner": "dotfyls",
         "repo": "neovim",
-        "rev": "243643f4fb9bdc6eb3d42c9718b851922530461c",
+        "rev": "bf738be2238522be9dc9c7aaa0a97c32efdd4fb6",
         "type": "gitlab"
       },
       "original": {
