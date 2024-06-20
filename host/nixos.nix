@@ -25,6 +25,7 @@ let
             users.${user} = {
               imports = [
                 inputs.neovim.homeManagerModules.default
+                inputs.wezterm.homeManagerModules.default
                 ./${host}/home.nix
                 ../home-manager
               ];

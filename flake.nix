@@ -15,6 +15,10 @@
       url = "gitlab:dotfyls/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wezterm = {
+      url = "gitlab:dotfyls/wezterm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, self, ... }@inputs:

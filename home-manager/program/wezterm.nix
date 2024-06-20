@@ -6,7 +6,5 @@
   config = lib.mkIf config.custom.program.wezterm.enable {
     programs.wezterm.enable = true;
     custom.terminal.package = lib.mkDefault pkgs.wezterm;
-
-    custom.persist.directories = [ ".config/wezterm" ];
   };
 }
