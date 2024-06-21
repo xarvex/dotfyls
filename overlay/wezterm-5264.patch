@@ -1,0 +1,16 @@
+diff --git a/window/src/os/wayland/window.rs b/window/src/os/wayland/window.rs
+index 64095e7cd..da034591f 100644
+--- a/window/src/os/wayland/window.rs
++++ b/window/src/os/wayland/window.rs
+@@ -1111,6 +1111,11 @@ impl WaylandWindowInner {
+         if self.window.is_none() {
+             return;
+         }
++
++        if self.frame_callback.is_some() {
++            self.events.dispatch(WindowEvent::NeedRepaint);
++        }
++
+         // The window won't be visible until we've done our first paint,
+         // so we unconditionally queue a NeedRepaint event
+         self.do_paint().unwrap();
