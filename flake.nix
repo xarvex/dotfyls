@@ -21,6 +21,11 @@
       };
 
     flake.homeManagerModules.default = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.wezterm.enable {
+      home.packages = with pkgs; [
+        iosevka-bin
+        (iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; }) # JetBrains Mono style
+      ];
+
       xdg.configFile.wezterm = {
         recursive = true;
         source = ./.;
