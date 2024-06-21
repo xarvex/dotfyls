@@ -181,11 +181,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1718919372,
-        "narHash": "sha256-2NARVxnm1Jgg95WoP75zV+wR+Fq9A7rTmV7oplE+efE=",
+        "lastModified": 1718950399,
+        "narHash": "sha256-lsp89xPDDWJqJtFVxqvjqTn87S+gFFGRGgSmaL3jRtg=",
         "owner": "dotfyls",
         "repo": "wezterm",
-        "rev": "7168cbd3b56d46fc34b101a5f1251b644972621e",
+        "rev": "3d68a33460fab2eaba60cabd6bbbac6f8bc2993f",
         "type": "gitlab"
       },
       "original": {
