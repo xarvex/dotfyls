@@ -7,6 +7,5 @@
     ./neovim.nix
     ./spotify.nix
     ./wezterm.nix
-    ./zsh.nix
   ];
 }

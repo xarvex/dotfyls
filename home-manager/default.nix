@@ -5,6 +5,7 @@
     ./persist.nix
     ./programs
     ./terminal.nix
+    ./shells
     ./window-managers
   ];
 

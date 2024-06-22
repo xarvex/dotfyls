@@ -7,7 +7,7 @@
     ./filesystem
     ./nix.nix
     ./persist.nix
-    ./programs.nix
+    ./shells.nix
     ./users.nix
     ./window-managers.nix
   ];
