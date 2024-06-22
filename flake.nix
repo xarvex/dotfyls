@@ -40,7 +40,7 @@
       };
     in
     {
-      nixosConfigurations = import ./host/nixos.nix commonArgs;
-      homeConfigurations = import ./host/home.nix commonArgs;
+      nixosConfigurations = import ./hosts/nixos.nix commonArgs;
+      homeConfigurations = import ./hosts/home.nix commonArgs;
     };
 }

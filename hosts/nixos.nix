@@ -12,7 +12,7 @@ let
         ./${host}
         ./${host}/hardware.nix
         ../nixos
-        ../overlay
+        ../overlays
 
         inputs.home-manager.nixosModules.home-manager
         {

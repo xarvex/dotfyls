@@ -3,9 +3,9 @@
 {
   imports = [
     ./persist.nix
-    ./program
+    ./programs
     ./terminal.nix
-    ./window-manager
+    ./window-managers
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

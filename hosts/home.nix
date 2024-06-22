@@ -11,7 +11,7 @@ let
         inputs.wezterm.homeManagerModules.default
         ./${host}/home.nix
         ../home-manager
-        ../overlay
+        ../overlays
       ];
     };
 in
