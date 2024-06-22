@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 {
+  custom.harden.enable = true;
+
   services = {
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;

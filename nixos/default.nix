@@ -3,6 +3,7 @@
 {
   imports = [
     ./configuration.nix
+    ./harden.nix
     ./filesystem
     ./nix.nix
     ./persist.nix

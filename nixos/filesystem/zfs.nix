@@ -4,7 +4,7 @@
   boot = {
     supportedFilesystems.zfs = true;
     zfs.devNodes = lib.mkDefault "/dev/disk/by-id";
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    kernelPackages = lib.mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;
   };
 
   services.zfs = {
