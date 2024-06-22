@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 {
-  options.custom.program.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
+  options.custom.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
 
-  config = lib.mkIf config.custom.program.neovim.enable {
+  config = lib.mkIf config.custom.programs.neovim.enable {
     programs.neovim = {
       enable = true;
       defaultEditor = true;

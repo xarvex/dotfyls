@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 {
-  options.custom.program.git.enable = lib.mkEnableOption "Git" // { default = true; };
+  options.custom.programs.git.enable = lib.mkEnableOption "Git" // { default = true; };
 
-  config = lib.mkIf config.custom.program.git.enable {
+  config = lib.mkIf config.custom.programs.git.enable {
     programs.git = {
       enable = true;
     };

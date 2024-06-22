@@ -5,11 +5,11 @@
     ./keybind.nix
   ];
 
-  options.custom.window-manager.hyprland = {
+  options.custom.window-managers.hyprland = {
     enable = lib.mkEnableOption "Hyprland" // { default = true; };
   };
 
-  config = lib.mkIf config.custom.window-manager.hyprland.enable {
+  config = lib.mkIf config.custom.window-managers.hyprland.enable {
     home.packages = with pkgs; [
       cliphist
       wl-clipboard
