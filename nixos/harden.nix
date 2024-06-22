@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.harden.enable = lib.mkEnableOption "Enable system hardening" // { default = false; };
+  options.custom.harden.enable = lib.mkEnableOption "Enable system hardening" // { default = true; };
 
   config = lib.mkIf config.custom.harden.enable {
     boot.kernelPackages =
