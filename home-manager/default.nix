@@ -4,7 +4,7 @@
   imports = [
     ./persist.nix
     ./programs
-    ./terminal.nix
+    ./terminals
     ./shells
     ./window-managers
   ];

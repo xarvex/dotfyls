@@ -1,6 +1,10 @@
 { lib, ... }:
 
 {
+  imports = [
+    ./wezterm.nix
+  ];
+
   options.custom.terminal = {
     default = lib.mkOption {
       type = lib.types.str;
