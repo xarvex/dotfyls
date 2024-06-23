@@ -7,7 +7,7 @@ lib.mkIf config.custom.window-managers.hyprland.enable {
     bind = [
       "$mod_ALT, F4, exit,"
 
-      "$mod, Return, exec, [float;tile] ${config.custom.terminal.start}"
+      "$mod, Return, exec, [float;tile] ${config.custom.terminal.start.${config.custom.terminal.default}}"
     ];
     bindm = [
       "$mod, mouse:272, moveWindow"
