@@ -1,6 +1,6 @@
 { config, lib, ... }:
 
-lib.mkIf config.custom.window-managers.hyprland.enable {
+lib.mkIf config.custom.desktop.hyprland.enable {
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
 

@@ -2,11 +2,11 @@
 
 {
   imports = [
+    ./desktop
     ./persist.nix
     ./programs
     ./terminals
     ./shells
-    ./window-managers
   ];
 
   home = {
