@@ -5,6 +5,7 @@
 
   config = lib.mkIf config.custom.terminals.wezterm.enable {
     programs.wezterm.enable = true;
+
     custom.terminal = {
       default = lib.mkDefault "wezterm";
       start.wezterm = lib.getExe pkgs.wezterm;
