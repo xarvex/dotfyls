@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.harden.enable = lib.mkEnableOption "Enable system hardening" // { default = true; };
+  options.custom.security.harden.kernel = lib.mkEnableOption "Enable kernel security hardening" // { default = true; };
 
-  config = lib.mkIf config.custom.harden.enable {
+  config = lib.mkIf config.custom.security.harden.kernel {
     boot = {
       # Use hardened kernel compatible with ZFS
       kernelPackages =
@@ -63,36 +63,6 @@
         "net.ipv4.conf.all.send_redirects" = false;
         "net.ipv4.conf.default.send_redirects" = false;
       };
-
-      blacklistedKernelModules = [
-        # Obscure network protocols
-        "ax25"
-        "netrom"
-        "rose"
-
-        # Old or rare or insufficiently audited filesystems
-        "adfs"
-        "affs"
-        "bfs"
-        "befs"
-        "cramfs"
-        "efs"
-        "erofs"
-        "exofs"
-        "freevxfs"
-        "f2fs"
-        "hfs"
-        "hpfs"
-        "jfs"
-        "minix"
-        "nilfs2"
-        "ntfs"
-        "omfs"
-        "qnx4"
-        "qnx6"
-        "sysv"
-        "ufs"
-      ];
     };
   };
 }
