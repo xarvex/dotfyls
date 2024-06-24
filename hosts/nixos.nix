@@ -1,31 +1,37 @@
-{ inputs, lib, pkgs, specialArgs, user, ... }:
+{ inputs, lib, pkgs, user, ... }:
 
 let
+  specialArgs = { inherit user; };
   mkNixosConfiguration =
     host:
     lib.nixosSystem {
       inherit pkgs;
 
-      specialArgs = specialArgs // { inherit host user; };
+      specialArgs = specialArgs;
 
       modules = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.impermanence.nixosModules.impermanence
+
         ./${host}
         ./${host}/hardware.nix
         ../nixos
         ../overlays
 
-        inputs.home-manager.nixosModules.home-manager
         {
+          networking.hostName = host;
+
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
 
-            extraSpecialArgs = specialArgs // { inherit host user; };
+            extraSpecialArgs = specialArgs;
 
             users.${user} = {
               imports = [
                 inputs.neovim.homeManagerModules.default
                 inputs.wezterm.homeManagerModules.default
+
                 ./${host}/home.nix
                 ../home-manager
               ];
@@ -35,8 +41,6 @@ let
 
         (lib.mkAliasOptionModule [ "usr" ] [ "users" "users" user ])
         (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" user ])
-
-        inputs.impermanence.nixosModules.impermanence
       ];
     };
 in

@@ -21,20 +21,17 @@
     };
   };
 
-  outputs = { nixpkgs, self, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let
-      system = "x86_64-linux";
       commonArgs = {
         inherit (nixpkgs) lib;
-        inherit self inputs nixpkgs;
+        inherit inputs nixpkgs;
 
         pkgs = import nixpkgs {
-          inherit system;
+          system = "x86_64-linux";
 
           config.allowUnfree = true;
         };
-
-        specialArgs = { inherit self inputs; };
 
         user = "xarvex";
       };
