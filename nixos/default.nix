@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./boot.nix
     ./configuration.nix
     ./desktop.nix
     ./harden.nix
