@@ -1,4 +1,4 @@
-# All things security.
+# All things security. Very much TODO.
 # Configurations in harden are optional (though enabled by default).
 # Configurations outside of that are required.
 # What did you expect from a cybersecurity guy?
