@@ -6,7 +6,7 @@
   ];
 
   options.custom.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland" // { default = true; };
+    enable = lib.mkEnableOption "Enable Hyprland (home-manager)" // { default = true; };
   };
 
   config = lib.mkIf config.custom.desktop.hyprland.enable {

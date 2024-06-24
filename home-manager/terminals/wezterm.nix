@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.terminals.wezterm.enable = lib.mkEnableOption "WezTerm" // { default = true; };
+  options.custom.terminals.wezterm.enable = lib.mkEnableOption "Enable WezTerm (home-manager)" // { default = true; };
 
   config = lib.mkIf config.custom.terminals.wezterm.enable {
     programs.wezterm.enable = true;
