@@ -2,6 +2,7 @@
 
 {
   boot = {
+    loader.systemd-boot.editor = false; # prevent editing boot parameters
     blacklistedKernelModules = [
       # Obscure network protocols
       "ax25"
