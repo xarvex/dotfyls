@@ -3,6 +3,7 @@
 {
   imports = [
     ./dunst.nix
+    ./discord.nix
     ./fastfetch
     ./git.nix
     ./neovim.nix
