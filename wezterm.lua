@@ -6,6 +6,7 @@ require("keys").apply_to_config(M)
 
 M.check_for_updates = false
 
+M.enable_kitty_keyboard = true
 M.enable_tab_bar = false
 
 M.warn_about_missing_glyphs = false
