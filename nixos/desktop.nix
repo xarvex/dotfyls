@@ -7,6 +7,17 @@
   };
 
   config = lib.mkMerge [
+    {
+      services.xserver = {
+        updateDbusEnvironment = true;
+        xkb = {
+          layout = "us";
+          variant = "";
+        };
+        excludePackages = [ pkgs.xterm ];
+      };
+    }
+
     (lib.mkIf config.custom.desktop.hyprland.enable {
       programs.hyprland.enable = true;
 
