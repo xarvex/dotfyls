@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   nix =
@@ -12,6 +12,8 @@
       inherit nixPath;
 
       channel.enable = false;
+
+      package = pkgs.nixVersions.latest;
 
       gc = {
         automatic = true;
