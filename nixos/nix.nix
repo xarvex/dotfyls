@@ -1,19 +1,30 @@
 { ... }:
 
 {
-  nix = {
-    channel.enable = false;
+  nix =
+    let
+      nixPath = [
+        "nixpkgs=flake:nixpkgs"
+        "/nix/var/nix/profiles/per-user/root/channels"
+      ];
+    in
+    {
+      inherit nixPath;
 
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 14d";
-    };
+      channel.enable = false;
 
-    settings = {
-      auto-optimise-store = true;
-      use-xdg-base-directories = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 14d";
+      };
+
+      settings = {
+        nix-path = nixPath;
+
+        auto-optimise-store = true;
+        use-xdg-base-directories = true;
+        experimental-features = [ "nix-command" "flakes" ];
+      };
     };
-  };
 }
