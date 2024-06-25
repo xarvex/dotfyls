@@ -28,16 +28,16 @@
     })
 
     (lib.mkIf config.custom.desktop.sddm.enable {
-      environment.systemPackages = with pkgs; [
-        (catppuccin-sddm.override { flavor = "mocha"; })
-      ];
-
       services.displayManager.sddm = {
         enable = true;
         wayland.enable = true;
         package = pkgs.kdePackages.sddm;
         theme = "catppuccin-mocha";
       };
+
+      environment.systemPackages = with pkgs; [
+        (catppuccin-sddm.override { flavor = "mocha"; })
+      ];
 
       systemd.tmpfiles.rules = [
         "d /var/lib/sddm 0755 root root - -"
