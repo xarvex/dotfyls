@@ -7,7 +7,7 @@
     ./configuration.nix
     ./desktop.nix
     ./filesystem
-    ./graphics.nix
+    ./graphics
     ./localization.nix
     ./nix.nix
     ./persist.nix
