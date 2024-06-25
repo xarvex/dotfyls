@@ -62,6 +62,11 @@
         # Ignore outgoing ICMP redirects (this is ipv4 only)
         "net.ipv4.conf.all.send_redirects" = false;
         "net.ipv4.conf.default.send_redirects" = false;
+
+        # Hinders security, but necessary for most Electron apps
+        # Relevant when using the hardened kernel
+        # See: https://github.com/NixOS/nixpkgs/issues/97682
+        "kernel.unprivileged_userns_clone" = 1;
       };
     };
   };
