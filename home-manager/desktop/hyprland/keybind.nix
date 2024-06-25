@@ -10,8 +10,8 @@ lib.mkIf config.custom.desktop.hyprland.enable {
       "$mod, Return, exec, [float;tile] ${config.custom.terminal.start.${config.custom.terminal.default}}"
     ];
     bindm = [
-      "$mod, mouse:272, moveWindow"
-      "$mod, mouse:273, resizeWindow"
+      "$mod, mouse:272, movewindow"
+      "$mod, mouse:273, resizewindow"
     ];
   };
 }
