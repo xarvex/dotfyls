@@ -25,6 +25,8 @@
         enable = true;
         extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       };
+
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
     })
 
     (lib.mkIf config.custom.desktop.sddm.enable {
