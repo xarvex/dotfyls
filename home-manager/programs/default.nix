@@ -9,5 +9,6 @@
     ./neovim.nix
     ./spotify.nix
     ./waybar.nix
+    ./xwaylandvideobridge.nix
   ];
 }

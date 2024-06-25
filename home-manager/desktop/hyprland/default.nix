@@ -3,6 +3,7 @@
 {
   imports = [
     ./keybind.nix
+    ./rules.nix
   ];
 
   options.custom.desktop.hyprland = {
@@ -39,7 +40,10 @@
         ];
       };
 
-      systemd.variables = [ "--all" ];
+      systemd = {
+        enableXdgAutostart = true;
+        variables = [ "--all" ];
+      };
     };
 
     custom.persist.directories = [ ".cache/hyprland" ]; # crash reports
