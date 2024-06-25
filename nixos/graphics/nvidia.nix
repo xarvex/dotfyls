@@ -1,14 +1,21 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.graphics.nvidia.enable = lib.mkEnableOption "Enable NVIDIA graphics";
+  options.custom.graphics.nvidia = {
+    enable = lib.mkEnableOption "Enable NVIDIA graphics";
+    blacklistCompeting = lib.mkEnableOption "Blacklist competing graphics drivers" // { default = true; };
+  };
 
   config = lib.mkIf config.custom.graphics.nvidia.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    # Use NVIDIA framebuffer
-    # See: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters
-    boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
+    boot = {
+      # Use NVIDIA framebuffer
+      # See: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters
+      kernelParams = [ "nvidia-drm.fbdev=1" ];
+    } // lib.optionalAttrs config.custom.graphics.nvidia.blacklistCompeting {
+      blacklistedKernelModules = [ "amdgpu" "i915" ];
+    };
 
     hardware = {
       nvidia = {
