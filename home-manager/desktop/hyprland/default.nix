@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./keybind.nix
+    ./keybinds.nix
     ./rules.nix
   ];
 
