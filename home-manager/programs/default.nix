@@ -8,6 +8,7 @@
     ./firefox.nix
     ./git.nix
     ./neovim.nix
+    ./prismlauncher.nix
     ./rofi.nix
     ./spotify.nix
     ./waybar.nix
