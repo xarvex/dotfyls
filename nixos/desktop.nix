@@ -16,6 +16,8 @@
         };
         excludePackages = [ pkgs.xterm ];
       };
+
+      security.polkit.enable = true;
     }
 
     (lib.mkIf config.custom.desktop.hyprland.enable {
