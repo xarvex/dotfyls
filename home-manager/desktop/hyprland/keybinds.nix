@@ -8,6 +8,10 @@ lib.mkIf config.custom.desktop.hyprland.enable {
       "$mod_ALT, F4, exit,"
 
       "$mod, Return, exec, [float;tile] ${config.custom.terminal.start.${config.custom.terminal.default}}"
+    ]
+    ++ lib.optionals config.custom.programs.rofi.enable [
+      "$mod_SHIFT, Return, exec, rofi -show drun"
+      "$mod_CTRL, v, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
     ];
     bindm = [
       "$mod, mouse:272, movewindow"
