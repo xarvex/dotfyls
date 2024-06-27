@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    persistwd = {
+      url = "gitlab:/xarvex/persistwd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim = {
       url = "gitlab:dotfyls/neovim";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -8,6 +8,8 @@
   };
 
   config = {
+    security.shadow.persistwd.enable = true;
+
     users = {
       mutableUsers = false;
       users = {

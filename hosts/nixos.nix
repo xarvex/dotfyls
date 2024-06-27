@@ -12,6 +12,7 @@ let
       modules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.impermanence.nixosModules.impermanence
+        inputs.persistwd.nixosModules.default
 
         ./${host}
         ./${host}/hardware.nix
