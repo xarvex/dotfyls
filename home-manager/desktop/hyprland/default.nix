@@ -2,12 +2,19 @@
 
 {
   imports = [
+    ./idle.nix
     ./keybinds.nix
+    ./lock.nix
     ./rules.nix
   ];
 
   options.custom.desktop.hyprland = {
     enable = lib.mkEnableOption "Enable Hyprland (home-manager)" // { default = true; };
+    lock = lib.mkOption {
+      type = lib.types.str;
+      default = "pidof hyprlock || hyprlock";
+      description = "Lock command to use";
+    };
   };
 
   config = lib.mkIf config.custom.desktop.hyprland.enable {
