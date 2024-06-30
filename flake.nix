@@ -2,28 +2,45 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    dotfyls-neovim = {
+      url = "gitlab:dotfyls/neovim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
 
-    impermanence.url = "github:nix-community/impermanence";
+    dotfyls-wezterm = {
+      url = "gitlab:dotfyls/wezterm";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    impermanence.url = "github:nix-community/impermanence";
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     persistwd = {
-      url = "gitlab:/xarvex/persistwd";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:xarvex/persistwd";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
 
-    neovim = {
-      url = "gitlab:dotfyls/neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    wezterm = {
-      url = "gitlab:dotfyls/wezterm";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    systems.url = "github:nix-systems/default";
   };
 
   outputs = { nixpkgs, ... }@inputs:
@@ -47,8 +64,8 @@
 
       # Must not only be common, but common place!
       commonModules = host: [
-        inputs.neovim.homeManagerModules.default
-        inputs.wezterm.homeManagerModules.default
+        inputs.dotfyls-neovim.homeManagerModules.default
+        inputs.dotfyls-wezterm.homeManagerModules.default
 
         ./home-manager
         ./hosts/${host}/home.nix
