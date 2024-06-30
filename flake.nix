@@ -1,5 +1,5 @@
 {
-  description = "Nixos config flake";
+  description = "Xarvex's Nix configuration";
 
   inputs = {
     dotfyls-neovim = {
