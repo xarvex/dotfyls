@@ -30,9 +30,9 @@ if [ -b /dev/vda ]; then
     printf '\n%s\n' 'Virtual disk found, selecting /dev/vda'
 
     disk=/dev/vda
-    bootdisk=${disk}3
-    swapdisk=${disk}2
-    zfsdisk=${disk}1
+    boot_disk=${disk}3
+    swap_disk=${disk}2
+    zfs_disk=${disk}1
 else
     while [ ! -L "${disk}" ]; do
         printf '\n%s\n\n%s' \
@@ -42,9 +42,9 @@ else
 
         disk=/dev/disk/by-id/"${disk_id}"
     done
-    bootdisk="${disk}"-part3
-    swapdisk="${disk}"-part2
-    zfsdisk="${disk}"-part1
+    boot_disk="${disk}"-part3
+    swap_disk="${disk}"-part2
+    zfs_disk="${disk}"-part1
 fi
 
 confirm 'This will format the entire disk. All data will be destroyed, proceed?' || exit 2
@@ -62,11 +62,11 @@ sudo sgdisk -p "${disk}" > /dev/null
 sleep 5
 
 printf '%s\n' 'Enabling swap...'
-sudo mkswap "${swapdisk}" --label SWAP
-sudo swapon "${swapdisk}"
+sudo mkswap "${swap_disk}" --label SWAP
+sudo swapon "${swap_disk}"
 
 printf '%s\n' 'Configuring boot...'
-sudo mkfs.fat -F 32 "${bootdisk}" -n NIXBOOT
+sudo mkfs.fat -F 32 "${boot_disk}" -n NIXBOOT
 
 printf '%s\n' 'Creating zpool...'
 sudo zpool create -f \
@@ -78,7 +78,7 @@ sudo zpool create -f \
     -O xattr=sa \
     -O normalization=formD \
     -O mountpoint=none \
-    zroot "${zfsdisk}"
+    zroot "${zfs_disk}"
 
 printf '%s\n' 'Creating / (ZFS)...'
 sudo zfs create -o mountpoint=legacy zroot/root
@@ -87,7 +87,7 @@ printf '%s\n' 'Mounting / (ZFS)...'
 sudo mount -t zfs zroot/root /mnt
 
 printf '%s\n' 'Mounting /boot (EFI)...'
-sudo mount -o umask=077 --mkdir "${bootdisk}" /mnt/boot
+sudo mount -o umask=077 --mkdir "${boot_disk}" /mnt/boot
 
 printf '%s\n' 'Creating /nix (ZFS)...'
 printf '%s\n' 'Mounting /nix (ZFS)...'
@@ -109,7 +109,7 @@ if confirm 'Restore from persist snapshot?'; then
     read -r snapshot_path
 
     printf '%s\n' 'Restoring /persist (ZFS)...'
-    # sudo doesn't affect redirects
+    # sudo doesn't affect redirects.
     # shellcheck disable=SC2024
     sudo zfs receive -o mountpoint=legacy zroot/persist < "${snapshot_path}"
 else
