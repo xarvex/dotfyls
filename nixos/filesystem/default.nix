@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # ./disko.nix # DO NOT IMPORT
     ./impermanence.nix
     ./zfs.nix
   ];
