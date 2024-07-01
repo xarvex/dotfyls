@@ -5,7 +5,7 @@
 
   config = lib.mkIf config.custom.security.harden.kernel {
     boot = {
-      # Use hardened kernel compatible with ZFS
+      # Use hardened kernel compatible with ZFS.
       kernelPackages =
         let
           latestCompatibleVersion = config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
@@ -16,24 +16,24 @@
         builtins.head orderedCompatiblePackages;
 
       kernelParams = [
-        # Don't merge slabs
+        # Don't merge slabs.
         "slab_nomerge"
 
-        # Overwrite free'd pages
+        # Overwrite free'd pages.
         "page_poison=1"
 
-        # Enable page allocator randomization
+        # Enable page allocator randomization.
         "page_alloc.shuffle=1"
 
-        # Disable debugfs
+        # Disable debugfs.
         "debugfs=off"
       ];
 
       kernel.sysctl = {
-        # Hide kptrs even for processes with CAP_SYSLOG
+        # Hide kptrs even for processes with CAP_SYSLOG.
         "kernel.kptr_restrict" = 2;
 
-        # Disable bpf() JIT (to eliminate spray attacks)
+        # Disable bpf() JIT (to eliminate spray attacks).
         "net.core.bpf_jit_enable" = false;
 
         # Disable ftrace debugging
@@ -47,11 +47,11 @@
         "net.ipv4.conf.default.log_martians" = true;
         "net.ipv4.conf.default.rp_filter" = "1";
 
-        # Ignore broadcast ICMP (mitigate SMURF)
+        # Ignore broadcast ICMP (mitigate SMURF).
         "net.ipv4.icmp_echo_ignore_broadcasts" = true;
 
-        # Ignore incoming ICMP redirects (note: default is needed to ensure that the
-        # setting is applied to interfaces added after the sysctls are set)
+        # Ignore incoming ICMP redirects (note: default is needed to ensure that
+        # the setting is applied to interfaces added after the sysctls are set).
         "net.ipv4.conf.all.accept_redirects" = false;
         "net.ipv4.conf.all.secure_redirects" = false;
         "net.ipv4.conf.default.accept_redirects" = false;
@@ -59,12 +59,12 @@
         "net.ipv6.conf.all.accept_redirects" = false;
         "net.ipv6.conf.default.accept_redirects" = false;
 
-        # Ignore outgoing ICMP redirects (this is ipv4 only)
+        # Ignore outgoing ICMP redirects (this is IPv4 only).
         "net.ipv4.conf.all.send_redirects" = false;
         "net.ipv4.conf.default.send_redirects" = false;
 
-        # Hinders security, but necessary for most Electron apps
-        # Relevant when using the hardened kernel
+        # Hinders security, but necessary for most Electron apps.
+        # Relevant when using the hardened kernel.
         # See: https://github.com/NixOS/nixpkgs/issues/97682
         "kernel.unprivileged_userns_clone" = 1;
       };

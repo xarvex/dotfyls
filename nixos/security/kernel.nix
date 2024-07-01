@@ -2,14 +2,16 @@
 
 {
   boot = {
-    loader.systemd-boot.editor = false; # prevent editing boot parameters
+    # Disallow editing boot parameters.
+    loader.systemd-boot.editor = false;
+
     blacklistedKernelModules = [
-      # Obscure network protocols
+      # Obscure network protocols:
       "ax25"
       "netrom"
       "rose"
 
-      # Old or rare or insufficiently audited filesystems
+      # Old or rare or insufficiently audited filesystems:
       "adfs"
       "affs"
       "bfs"

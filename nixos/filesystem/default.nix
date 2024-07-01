@@ -42,6 +42,6 @@
   swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
   zramSwap.enable = true;
 
-  # sudo cannot store that it has been ran
+  # sudo cannot store that it has been ran.
   security.sudo.extraConfig = "Defaults lecture=never";
 }

@@ -10,7 +10,7 @@
     services.xserver.videoDrivers = [ "nvidia" ];
 
     boot = {
-      # Use NVIDIA framebuffer
+      # Use NVIDIA framebuffer.
       # See: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters
       kernelParams = [ "nvidia-drm.fbdev=1" ];
     } // lib.optionalAttrs config.custom.graphics.nvidia.blacklistCompeting {

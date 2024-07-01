@@ -10,7 +10,7 @@
         ];
       });
 
-      # until release made and available
+      # Use until release made and available with fix.
       wezterm = prev.wezterm.overrideAttrs (o: {
         # https://github.com/wez/wezterm/pull/5264
         patches = (o.patches or [ ]) ++ [ ./wezterm-5264.patch ];
