@@ -1,14 +1,14 @@
 { config, lib, ... }:
 
 {
-  options.custom.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
+  options.dotfyls.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
 
-  config = lib.mkIf config.custom.programs.neovim.enable {
+  config = lib.mkIf config.dotfyls.programs.neovim.enable {
     programs.neovim = {
       enable = true;
       defaultEditor = true;
     };
 
-    custom.persist.directories = [ ".local/share/nvim" ".local/state/nvim" ];
+    dotfyls.persist.directories = [ ".local/share/nvim" ".local/state/nvim" ];
   };
 }

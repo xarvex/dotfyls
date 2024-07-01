@@ -5,7 +5,7 @@
     ./wezterm.nix
   ];
 
-  options.custom.terminal =
+  options.dotfyls.terminal =
     let
       terminals = [ "wezterm" ];
     in

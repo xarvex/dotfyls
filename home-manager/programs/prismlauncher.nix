@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.programs.prismlauncher.enable = lib.mkEnableOption "Prism Launcher" // { default = true; };
+  options.dotfyls.programs.prismlauncher.enable = lib.mkEnableOption "Prism Launcher" // { default = true; };
 
-  config = lib.mkIf config.custom.programs.prismlauncher.enable {
+  config = lib.mkIf config.dotfyls.programs.prismlauncher.enable {
     home.packages = with pkgs; [ (prismlauncher.override { withWaylandGLFW = true; }) ];
 
-    custom.persist.directories = [ ".local/share/PrismLauncher" ];
+    dotfyls.persist.directories = [ ".local/share/PrismLauncher" ];
   };
 }

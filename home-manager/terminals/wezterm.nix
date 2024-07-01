@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.terminals.wezterm.enable = lib.mkEnableOption "WezTerm" // { default = true; };
+  options.dotfyls.terminals.wezterm.enable = lib.mkEnableOption "WezTerm" // { default = true; };
 
-  config = lib.mkIf config.custom.terminals.wezterm.enable {
+  config = lib.mkIf config.dotfyls.terminals.wezterm.enable {
     programs.wezterm.enable = true;
 
-    custom.terminal = rec {
+    dotfyls.terminal = rec {
       default = lib.mkDefault "wezterm";
       start.wezterm = lib.getExe pkgs.wezterm;
       exec.wezterm = "${start.wezterm} start";

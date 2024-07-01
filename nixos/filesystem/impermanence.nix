@@ -1,8 +1,8 @@
 { config, user, ... }:
 
 let
-  cfg = config.custom.persist;
-  hmCfg = config.hm.custom.persist;
+  cfg = config.dotfyls.persist;
+  hmCfg = config.hm.dotfyls.persist;
 in
 {
   environment.persistence = {

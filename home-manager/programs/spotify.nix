@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.programs.spotify.enable = lib.mkEnableOption "Spotify" // { default = true; };
+  options.dotfyls.programs.spotify.enable = lib.mkEnableOption "Spotify" // { default = true; };
 
-  config = lib.mkIf config.custom.programs.spotify.enable {
+  config = lib.mkIf config.dotfyls.programs.spotify.enable {
     home.packages = with pkgs; [ spotify ];
   };
 }

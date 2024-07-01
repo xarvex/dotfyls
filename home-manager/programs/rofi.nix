@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.programs.rofi.enable = lib.mkEnableOption "Rofi" // { default = true; };
+  options.dotfyls.programs.rofi.enable = lib.mkEnableOption "Rofi" // { default = true; };
 
-  config = lib.mkIf config.custom.programs.rofi.enable {
+  config = lib.mkIf config.dotfyls.programs.rofi.enable {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;

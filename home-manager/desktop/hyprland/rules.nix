@@ -1,8 +1,8 @@
 { config, lib, ... }:
 
-lib.mkIf config.custom.desktop.hyprland.enable {
+lib.mkIf config.dotfyls.desktop.hyprland.enable {
   wayland.windowManager.hyprland.settings.windowrulev2 = [ ]
-    ++ lib.optionals config.custom.programs.xwaylandvideobridge.enable [
+    ++ lib.optionals config.dotfyls.programs.xwaylandvideobridge.enable [
     "opacity 0.0 override,class:^(xwaylandvideobridge)$"
     "noanim,class:^(xwaylandvideobridge)$"
     "noinitialfocus,class:^(xwaylandvideobridge)$"

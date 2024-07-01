@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 let
-  lock = config.custom.desktop.hyprland.lock;
+  lock = config.dotfyls.desktop.hyprland.lock;
 in
-lib.mkIf config.custom.desktop.hyprland.enable {
+lib.mkIf config.dotfyls.desktop.hyprland.enable {
   services.hypridle = {
     enable = true;
 

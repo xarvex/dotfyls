@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.security.harden.kernel = lib.mkEnableOption "kernel security hardening" // { default = true; };
+  options.dotfyls.security.harden.kernel = lib.mkEnableOption "kernel security hardening" // { default = true; };
 
-  config = lib.mkIf config.custom.security.harden.kernel {
+  config = lib.mkIf config.dotfyls.security.harden.kernel {
     boot = {
       # Use hardened kernel compatible with ZFS.
       kernelPackages =

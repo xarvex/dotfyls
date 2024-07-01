@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 {
-  options.custom.programs.dunst.enable = lib.mkEnableOption "Dunst" // { default = true; };
+  options.dotfyls.programs.dunst.enable = lib.mkEnableOption "Dunst" // { default = true; };
 
-  config = lib.mkIf config.custom.programs.dunst.enable {
+  config = lib.mkIf config.dotfyls.programs.dunst.enable {
     services.dunst = {
       enable = true;
       # TODO: theme

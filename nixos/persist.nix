@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  options.custom.persist = {
+  options.dotfyls.persist = {
     files = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
@@ -21,7 +21,7 @@
     };
   };
 
-  config.custom.persist = {
+  config.dotfyls.persist = {
     files = [ "/etc/machine-id" ];
     directories = [ "/var/log" ];
   };

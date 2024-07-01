@@ -1,13 +1,13 @@
 { config, lib, ... }:
 
 {
-  options.custom.shells.zsh.enable = lib.mkEnableOption "Zsh" // { default = true; };
+  options.dotfyls.shells.zsh.enable = lib.mkEnableOption "Zsh" // { default = true; };
 
-  config = lib.mkIf config.custom.shells.zsh.enable {
+  config = lib.mkIf config.dotfyls.shells.zsh.enable {
     programs.zsh = {
       enable = true;
     };
 
-    custom.persist.files = [ ".local/state/zsh/history" ];
+    dotfyls.persist.files = [ ".local/state/zsh/history" ];
   };
 }

@@ -1,8 +1,8 @@
 { config, lib, pkgs, user, ... }:
 
 {
-  options.custom.desktop = {
-    hyprland.enable = lib.mkEnableOption "Hyprland" // { default = config.hm.custom.desktop.hyprland.enable; };
+  options.dotfyls.desktop = {
+    hyprland.enable = lib.mkEnableOption "Hyprland" // { default = config.hm.dotfyls.desktop.hyprland.enable; };
     sddm.enable = lib.mkEnableOption "SDDM" // { default = true; };
   };
 
@@ -20,7 +20,7 @@
       security.polkit.enable = true;
     }
 
-    (lib.mkIf config.custom.desktop.hyprland.enable {
+    (lib.mkIf config.dotfyls.desktop.hyprland.enable {
       programs.hyprland.enable = true;
 
       xdg.portal = {
@@ -31,7 +31,7 @@
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
     })
 
-    (lib.mkIf config.custom.desktop.sddm.enable {
+    (lib.mkIf config.dotfyls.desktop.sddm.enable {
       services.displayManager.sddm = {
         enable = true;
         wayland.enable = true;
