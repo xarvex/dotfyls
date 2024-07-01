@@ -2,8 +2,8 @@
 
 {
   options.custom.desktop = {
-    hyprland.enable = lib.mkEnableOption "Enable Hyprland (NixOS)" // { default = config.hm.custom.desktop.hyprland.enable; };
-    sddm.enable = lib.mkEnableOption "Enable SDDM (NixOS)" // { default = true; };
+    hyprland.enable = lib.mkEnableOption "Hyprland" // { default = config.hm.custom.desktop.hyprland.enable; };
+    sddm.enable = lib.mkEnableOption "SDDM" // { default = true; };
   };
 
   config = lib.mkMerge [

@@ -5,19 +5,19 @@
     files = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Files to persist in root filesystem";
+      description = "Files to persist in root filesystem.";
     };
 
     directories = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Directories to persist in root filesystem";
+      description = "Directories to persist in root filesystem.";
     };
 
     cache = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Directories to persist in root filesystem, but not to snapshot";
+      description = "Directories to persist in root filesystem, but not to snapshot.";
     };
   };
 

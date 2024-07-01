@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  options.custom.programs.neovim.enable = lib.mkEnableOption "Enable Neovim (home-manager)" // { default = true; };
+  options.custom.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
 
   config = lib.mkIf config.custom.programs.neovim.enable {
     programs.neovim = {

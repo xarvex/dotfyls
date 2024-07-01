@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.security.harden.kernel = lib.mkEnableOption "Enable kernel security hardening" // { default = true; };
+  options.custom.security.harden.kernel = lib.mkEnableOption "kernel security hardening" // { default = true; };
 
   config = lib.mkIf config.custom.security.harden.kernel {
     boot = {

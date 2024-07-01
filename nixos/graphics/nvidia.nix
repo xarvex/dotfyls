@@ -2,8 +2,8 @@
 
 {
   options.custom.graphics.nvidia = {
-    enable = lib.mkEnableOption "Enable NVIDIA graphics";
-    blacklistCompeting = lib.mkEnableOption "Blacklist competing graphics drivers" // { default = true; };
+    enable = lib.mkEnableOption "NVIDIA graphics";
+    blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // { default = true; };
   };
 
   config = lib.mkIf config.custom.graphics.nvidia.enable {

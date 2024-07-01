@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  options.custom.programs.dunst.enable = lib.mkEnableOption "Enable Dunst (home-manager)" // { default = true; };
+  options.custom.programs.dunst.enable = lib.mkEnableOption "Dunst" // { default = true; };
 
   config = lib.mkIf config.custom.programs.dunst.enable {
     services.dunst = {

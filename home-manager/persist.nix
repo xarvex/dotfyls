@@ -5,19 +5,19 @@
     files = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Files to persist in home filesystem";
+      description = "Files to persist in home filesystem.";
     };
 
     directories = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Directories to persist in home filesystem";
+      description = "Directories to persist in home filesystem.";
     };
 
     cache = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
-      description = "Directories to persist in home filesystem, but not to snapshot";
+      description = "Directories to persist in home filesystem, but not to snapshot.";
     };
   };
 

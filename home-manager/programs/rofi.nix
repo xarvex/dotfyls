@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.programs.rofi.enable = lib.mkEnableOption "Enable Rofi (home-manager)" // { default = true; };
+  options.custom.programs.rofi.enable = lib.mkEnableOption "Rofi" // { default = true; };
 
   config = lib.mkIf config.custom.programs.rofi.enable {
     programs.rofi = {

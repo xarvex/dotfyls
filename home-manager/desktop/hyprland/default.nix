@@ -9,11 +9,11 @@
   ];
 
   options.custom.desktop.hyprland = {
-    enable = lib.mkEnableOption "Enable Hyprland (home-manager)" // { default = true; };
+    enable = lib.mkEnableOption "Hyprland" // { default = true; };
     lock = lib.mkOption {
       type = lib.types.str;
       default = "pidof hyprlock || hyprlock";
-      description = "Lock command to use";
+      description = "Lock command to use.";
     };
   };
 
