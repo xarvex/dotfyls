@@ -43,7 +43,7 @@
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, self, ... }@inputs:
     let
       # Change this if you aren't me!
       user = "xarvex";
@@ -54,6 +54,10 @@
       homeManagerHosts = {
         botworks-virtualized = "x86_64-linux";
       };
+      overlays = [
+        "fastfetch"
+        "wezterm"
+      ];
 
       unfreePkgs = [
         "discord"
@@ -70,6 +74,7 @@
         ./home-manager
         ./hosts/${host}/home.nix
       ];
+      overlaysModule = { nixpkgs.overlays = [ self.overlays.default ]; };
 
       mkNixosConfiguration = host: system: nixpkgs.lib.nixosSystem {
         pkgs = import nixpkgs {
@@ -86,9 +91,10 @@
           inputs.persistwd.nixosModules.default
 
           ./nixos
-          ./overlays
           ./hosts/${host}
           ./hosts/${host}/hardware.nix
+
+          overlaysModule
 
           {
             networking.hostName = host;
@@ -118,12 +124,16 @@
         extraSpecialArgs = { inherit user; };
 
         modules = commonModules host ++ [
-          ../overlays
+          overlaysModule
         ];
       };
     in
     {
       nixosConfigurations = builtins.mapAttrs mkNixosConfiguration nixosHosts;
       homeConfigurations = builtins.mapAttrs mkHomeConfiguration homeManagerHosts;
+
+      overlays = nixpkgs.lib.genAttrs overlays (overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; })
+        # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
+        // { default = final: prev: nixpkgs.lib.mergeAttrsList (nixpkgs.lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
     };
 }
