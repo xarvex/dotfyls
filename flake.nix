@@ -43,97 +43,64 @@
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = { nixpkgs, self, ... }@inputs:
+  outputs = { home-manager, nixpkgs, self, ... }@inputs:
     let
-      # Change this if you aren't me!
-      user = "xarvex";
+      inherit (nixpkgs) lib;
+
+      hosts =
+        let
+          inherit nixpkgs home-manager;
+
+          user = "xarvex"; # Change this if you aren't me!
+
+          nixosModules = with inputs; [
+            impermanence.nixosModules.impermanence
+            persistwd.nixosModules.default
+          ];
+          homeManagerModules = with inputs; [
+            dotfyls-neovim.homeManagerModules.default
+            dotfyls-wezterm.homeManagerModules.default
+          ];
+
+          overlays = [ self.overlays.default ];
+
+          unfreePkgs = [
+            "discord"
+            "spotify"
+          ];
+        in
+        {
+          botworks-virtualized = {
+            inherit home-manager homeManagerModules nixosModules nixpkgs overlays unfreePkgs user;
+
+            system = "x86_64-linux";
+          };
+        };
 
       nixosHosts = {
-        botworks-virtualized = "x86_64-linux";
+        inherit (hosts)
+          botworks-virtualized;
       };
       homeManagerHosts = {
-        botworks-virtualized = "x86_64-linux";
-      };
-      overlays = [
-        "fastfetch"
-        "wezterm"
-      ];
-
-      unfreePkgs = [
-        "discord"
-        "spotify"
-      ];
-
-      allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) unfreePkgs;
-
-      # Must not only be common, but common place!
-      commonModules = host: [
-        inputs.dotfyls-neovim.homeManagerModules.default
-        inputs.dotfyls-wezterm.homeManagerModules.default
-
-        ./home-manager
-        ./hosts/${host}/home.nix
-      ];
-      overlaysModule = { nixpkgs.overlays = [ self.overlays.default ]; };
-
-      mkNixosConfiguration = host: system: nixpkgs.lib.nixosSystem {
-        pkgs = import nixpkgs {
-          inherit system;
-
-          config = { inherit allowUnfreePredicate; };
-        };
-
-        specialArgs = { inherit user; };
-
-        modules = [
-          inputs.home-manager.nixosModules.home-manager
-          inputs.impermanence.nixosModules.impermanence
-          inputs.persistwd.nixosModules.default
-
-          ./nixos
-          ./hosts/${host}
-          ./hosts/${host}/hardware.nix
-
-          overlaysModule
-
-          {
-            networking.hostName = host;
-
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-
-              extraSpecialArgs = { inherit user; };
-
-              users.${user}.imports = commonModules host;
-            };
-          }
-
-          (nixpkgs.lib.mkAliasOptionModule [ "usr" ] [ "users" "users" user ])
-          (nixpkgs.lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" user ])
-        ];
-      };
-
-      mkHomeConfiguration = host: system: inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-
-          config = { inherit allowUnfreePredicate; };
-        };
-
-        extraSpecialArgs = { inherit user; };
-
-        modules = commonModules host ++ [
-          overlaysModule
-        ];
+        inherit (hosts)
+          botworks-virtualized;
       };
     in
     {
-      nixosConfigurations = builtins.mapAttrs mkNixosConfiguration nixosHosts;
-      homeConfigurations = builtins.mapAttrs mkHomeConfiguration homeManagerHosts;
+      nixosConfigurations = builtins.mapAttrs self.lib.system.mkNixosConfiguration nixosHosts;
+      homeConfigurations = builtins.mapAttrs self.lib.system.mkHomeConfiguration homeManagerHosts;
 
-      overlays = nixpkgs.lib.genAttrs overlays (overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; })
+      overlays =
+        let
+          overlays = [
+            "fastfetch"
+            "wezterm"
+          ];
+        in
+        lib.genAttrs overlays (overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; })
         # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
-        // { default = final: prev: nixpkgs.lib.mergeAttrsList (nixpkgs.lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
+        // { default = final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
+
+      lib = import ./lib;
     };
 }
