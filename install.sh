@@ -2,9 +2,19 @@
 
 set -e
 
+reset=$(tput sgr0)
+# black=$(tput setaf 0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+# white=$(tput setaf 7)
+
 confirm() {
     while true; do
-        printf '%s' "${1} [y/N] "
+        printf "${red}%s${reset}" "${1} [y/N] "
         read -r response
         case ${response} in
             '' ) return 1;;
@@ -14,20 +24,20 @@ confirm() {
     done
 }
 
-cat << EOF
-WARNING: the entire disk will be formatted
+printf "${yellow}%s${reset}\n\n" "WARNING: the entire disk will be formatted"
 
-ZFS datasets:
+cat << EOF
+${cyan}ZFS datasets:
     - zroot/root (mounted at / with blank snapshot)
     - zroot/nix (mounted at /nix)
     - zroot/tmp (mounted at /tmp)
     - zroot/persist (mounted at /persist)
-    - zroot/persist/cache (mounted at /persist/cache)
+    - zroot/persist/cache (mounted at /persist/cache)${reset}
 
 EOF
 
 if [ -b /dev/vda ]; then
-    printf '\n%s\n' 'Virtual disk found, selecting /dev/vda'
+    printf "\n${green}%s${reset}\n" 'Virtual disk found, selecting /dev/vda'
 
     disk=/dev/vda
     boot_disk=${disk}3
@@ -35,7 +45,7 @@ if [ -b /dev/vda ]; then
     zfs_disk=${disk}1
 else
     while [ ! -L "${disk}" ]; do
-        printf '\n%s\n\n%s' \
+        printf "\n%s\n\n${magenta}%s${reset}" \
             "$(lsblk -pdo NAME,SIZE,VENDOR,MODEL,SERIAL,ID-LINK)" \
             'Enter disk ID to be formatted: '
         read -r disk_id
@@ -49,26 +59,26 @@ fi
 
 confirm 'This will format the entire disk. All data will be destroyed, proceed?' || exit 2
 
-printf '%s\n' 'Clearing partitions...'
+printf "${blue}%s${reset}\n" 'Clearing partitions...'
 sudo wipefs -a "${disk}"
 
-printf '%s\n' 'Creating partitions...'
+printf "${blue}%s${reset}\n" 'Creating partitions...'
 sudo sgdisk -n3:1M:+1G -t3:EF00 "${disk}"
 sudo sgdisk -n2:0:+$(($(grep MemTotal /proc/meminfo | awk '{print $2}') * 2))K -t2:8200 "${disk}"
 sudo sgdisk -n1:0:0 -t1:BF01 "${disk}"
 
-printf '%s\n' 'Notifying kernel...'
+printf "${blue}%s${reset}\n" 'Notifying kernel...'
 sudo sgdisk -p "${disk}" > /dev/null
 sleep 5
 
-printf '%s\n' 'Enabling swap...'
+printf "${blue}%s${reset}\n" 'Enabling swap...'
 sudo mkswap "${swap_disk}" --label SWAP
 sudo swapon "${swap_disk}"
 
-printf '%s\n' 'Configuring boot...'
+printf "${blue}%s${reset}\n" 'Configuring boot...'
 sudo mkfs.fat -F 32 "${boot_disk}" -n NIXBOOT
 
-printf '%s\n' 'Creating zpool...'
+printf "${blue}%s${reset}\n" 'Creating zpool...'
 sudo zpool create -f \
     -o ashift=12 \
     -o autotrim=on \
@@ -80,50 +90,50 @@ sudo zpool create -f \
     -O mountpoint=none \
     zroot "${zfs_disk}"
 
-printf '%s\n' 'Creating / (ZFS)...'
+printf "${blue}%s${reset}\n" 'Creating / (ZFS)...'
 sudo zfs create -o mountpoint=legacy zroot/root
 sudo zfs snapshot zroot/root@blank
-printf '%s\n' 'Mounting / (ZFS)...'
+printf "${blue}%s${reset}\n" 'Mounting / (ZFS)...'
 sudo mount -t zfs zroot/root /mnt
 
-printf '%s\n' 'Mounting /boot (EFI)...'
+printf "${blue}%s${reset}\n" 'Mounting /boot (EFI)...'
 sudo mount -o umask=077 --mkdir "${boot_disk}" /mnt/boot
 
-printf '%s\n' 'Creating /nix (ZFS)...'
-printf '%s\n' 'Mounting /nix (ZFS)...'
+printf "${blue}%s${reset}\n" 'Creating /nix (ZFS)...'
+printf "${blue}%s${reset}\n" 'Mounting /nix (ZFS)...'
 sudo zfs create -o mountpoint=legacy zroot/nix
 sudo mount --mkdir -t zfs zroot/nix /mnt/nix
 
-printf '%s\n' 'Creating /tmp (ZFS)...'
+printf "${blue}%s${reset}\n" 'Creating /tmp (ZFS)...'
 sudo zfs create -o mountpoint=legacy zroot/tmp
-printf '%s\n' 'Mounting /tmp (ZFS)...'
+printf "${blue}%s${reset}\n" 'Mounting /tmp (ZFS)...'
 sudo mount --mkdir -t zfs zroot/tmp /mnt/tmp
 
-printf '%s\n' 'Creating /cache (ZFS)...'
+printf "${blue}%s${reset}\n" 'Creating /cache (ZFS)...'
 sudo zfs create -o mountpoint=legacy zroot/cache
-printf '%s\n' 'Mounting /cache (ZFS)...'
+printf "${blue}%s${reset}\n" 'Mounting /cache (ZFS)...'
 sudo mount --mkdir -t zfs zroot/cache /mnt/cache
 
 if confirm 'Restore from persist snapshot?'; then
-    printf '%s\n' 'Enter full path to snapshot: '
+    printf "${magenta}%s${reset}" 'Enter full path to snapshot: '
     read -r snapshot_path
 
-    printf '%s\n' 'Restoring /persist (ZFS)...'
+    printf "${blue}%s${reset}\n" 'Restoring /persist (ZFS)...'
     # sudo doesn't affect redirects.
     # shellcheck disable=SC2024
     sudo zfs receive -o mountpoint=legacy zroot/persist < "${snapshot_path}"
 else
-    printf '%s\n' 'Creating /persist (ZFS)...'
+    printf "${blue}%s${reset}\n" 'Creating /persist (ZFS)...'
     sudo zfs create -o mountpoint=legacy zroot/persist
 fi
-printf '%s\n' 'Mounting /persist (ZFS)...'
+printf "${blue}%s${reset}\n" 'Mounting /persist (ZFS)...'
 sudo mount --mkdir -t zfs zroot/persist /mnt/persist
 
-printf '%s' 'Specify host to install: '
+printf "${magenta}%s${reset}" 'Specify host to install: '
 read -r host
 
-printf '%s' 'Specify rev to install (default: main): '
+printf "${magenta}%s${reset}" 'Specify rev to install (default: main): '
 read -r rev
 
-printf '%s\n' 'Running install...'
+printf "${blue}%s${reset}\n" 'Running install...'
 nix-shell --extra-experimental-features 'nix-command flakes' -p git --command "sudo nixos-install --no-root-password --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
