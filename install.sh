@@ -126,4 +126,4 @@ printf '%s' 'Specify rev to install (default: main): '
 read -r rev
 
 printf '%s\n' 'Running install...'
-nix-shell -p git nixFlakes --command "sudo nixos-install --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
+nix-shell --extra-experimental-features 'nix-command flakes' -p git --command "sudo nixos-install --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
