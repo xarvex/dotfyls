@@ -87,7 +87,9 @@
       };
     in
     {
-      nixosConfigurations = builtins.mapAttrs self.lib.system.mkNixosConfiguration nixosHosts;
+      nixosConfigurations = builtins.mapAttrs self.lib.system.mkNixosConfiguration nixosHosts
+        # Keep installer separate for now.
+        // { installer = lib.nixosSystem { modules = [ ./hosts/installer ]; }; };
       homeConfigurations = builtins.mapAttrs self.lib.system.mkHomeConfiguration homeManagerHosts;
 
       overlays =
