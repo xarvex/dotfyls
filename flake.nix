@@ -102,5 +102,11 @@
         // { default = final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
 
       lib = import ./lib;
+
+      # Aggregate for export convenience.
+      homeManagerModules = with inputs; {
+        inherit (dotfyls-neovim.homeManagerModules) neovim;
+        inherit (dotfyls-wezter.homeManagerModules) wezterm;
+      };
     };
 }
