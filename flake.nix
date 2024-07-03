@@ -53,11 +53,11 @@
 
           nixosModules = with inputs; [
             impermanence.nixosModules.impermanence
-            persistwd.nixosModules.default
+            persistwd.nixosModules.persistwd
           ];
           homeManagerModules = with inputs; [
-            dotfyls-neovim.homeManagerModules.default
-            dotfyls-wezterm.homeManagerModules.default
+            dotfyls-neovim.homeManagerModules.neovim
+            dotfyls-wezterm.homeManagerModules.wezterm
           ];
 
           overlays = [ self.overlays.default ];

@@ -13,11 +13,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718920258,
-        "narHash": "sha256-jGMtJwGPWowtfTEz/2SYm8nkOnKsw9CoBbVZoPQ3Yn4=",
+        "lastModified": 1719976409,
+        "narHash": "sha256-uUBspTVxDtazxurOZM9z9pnfpMc6eJkxC2JiPhC7AF8=",
         "owner": "dotfyls",
         "repo": "neovim",
-        "rev": "bf738be2238522be9dc9c7aaa0a97c32efdd4fb6",
+        "rev": "de322dedf9a659fac99426bec2411b0dfe7cb0be",
         "type": "gitlab"
       },
       "original": {
@@ -39,11 +39,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1719340162,
-        "narHash": "sha256-TcyEPK8cdbhH2ikAnzFaaqyh2foknxmejMMzlrETZLI=",
+        "lastModified": 1719976530,
+        "narHash": "sha256-QzAjVTpY/rQU8jbrkanBilbR31jQf9KAMHO0BWP4RFw=",
         "owner": "dotfyls",
         "repo": "wezterm",
-        "rev": "cd1752bda73fdb8869c6a41e569ee9beb9507b91",
+        "rev": "d5765c580dbf2a44522a19810133ab776f93e799",
         "type": "gitlab"
       },
       "original": {
