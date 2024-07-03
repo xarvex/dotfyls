@@ -11,6 +11,7 @@
     ./prismlauncher.nix
     ./rofi.nix
     ./spotify.nix
+    ./ventoy.nix
     ./waybar.nix
     ./xwaylandvideobridge.nix
   ];
