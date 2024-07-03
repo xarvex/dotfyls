@@ -49,8 +49,6 @@
 
       hosts =
         let
-          inherit nixpkgs home-manager;
-
           user = "xarvex"; # Change this if you aren't me!
 
           nixosModules = with inputs; [
