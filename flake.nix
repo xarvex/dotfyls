@@ -17,19 +17,27 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        packages.default = pkgs.wezterm; # will be bundled with config
+        packages = rec {
+          default = wezterm;
+
+          wezterm = pkgs.wezterm; # will be bundled with config
+        };
       };
 
-    flake.homeManagerModules.default = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.wezterm.enable {
-      home.packages = with pkgs; [
-        # JetBrains Mono style
-        (iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; })
-      ];
+    flake.homeManagerModules = rec {
+      default = wezterm;
 
-      xdg.configFile.wezterm = {
-        recursive = true;
-        source = ./.;
-      };
-    });
+      wezterm = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.wezterm.enable {
+        home.packages = with pkgs; [
+          # JetBrains Mono style
+          (iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; })
+        ];
+
+        xdg.configFile.wezterm = {
+          recursive = true;
+          source = ./.;
+        };
+      });
+    };
   };
 }
