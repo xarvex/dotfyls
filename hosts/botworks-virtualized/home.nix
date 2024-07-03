@@ -1,4 +1,6 @@
 { lib, ... }: {
+  dotfyls.terminals.alacritty.enable = true;
+
   wayland.windowManager.hyprland.settings = {
     animations.enabled = lib.mkForce false;
     decoration = {

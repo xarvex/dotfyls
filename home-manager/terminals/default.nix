@@ -2,12 +2,16 @@
 
 {
   imports = [
+    ./alacritty
     ./wezterm.nix
   ];
 
   options.dotfyls.terminal =
     let
-      terminals = [ "wezterm" ];
+      terminals = [
+        "alacritty"
+        "wezterm"
+      ];
     in
     {
       default = lib.mkOption {
