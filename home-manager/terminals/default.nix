@@ -26,6 +26,7 @@
         default = { };
         example = lib.literalExpression ''
           {
+            alacritty = lib.getExe pkgs.alacritty;
             wezterm = lib.getExe pkgs.wezterm;
           };
         '';
@@ -37,6 +38,7 @@
         default = { };
         example = lib.literalExpression ''
           {
+            alacritty = "$${lib.getExe pkgs.alacritty} -e";
             wezterm = "$${lib.getExe pkgs.wezterm} start";
           };
         '';
