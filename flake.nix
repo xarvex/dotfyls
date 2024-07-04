@@ -93,6 +93,7 @@
       overlays =
         let
           overlays = [
+            "evil-winrm"
             "fastfetch"
             "wezterm"
           ];
