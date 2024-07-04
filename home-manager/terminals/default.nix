@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   imports = [
@@ -16,6 +16,7 @@
     {
       default = lib.mkOption {
         type = lib.types.enum terminals;
+        default = "wezterm";
         example = "wezterm";
         description = "Default terminal to use.";
       };
@@ -42,4 +43,6 @@
         description = "Attribute set of terminals and commands to execute other programs.";
       };
     };
+
+  config.dotfyls.terminals.${config.dotfyls.terminal.default}.enable = lib.mkDefault true;
 }
