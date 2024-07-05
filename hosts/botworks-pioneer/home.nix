@@ -1,0 +1,3 @@
+{ ... }: {
+  dotfyls.terminal.default = "alacritty";
+}

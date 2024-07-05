@@ -68,6 +68,11 @@
           ];
         in
         {
+          botworks-pioneer = {
+            inherit home-manager homeManagerModules nixosModules nixpkgs overlays unfreePkgs user;
+
+            system = "x86_64-linux";
+          };
           botworks-virtualized = {
             inherit home-manager homeManagerModules nixosModules nixpkgs overlays unfreePkgs user;
 
@@ -77,10 +82,12 @@
 
       nixosHosts = {
         inherit (hosts)
+          botworks-pioneer
           botworks-virtualized;
       };
       homeManagerHosts = {
         inherit (hosts)
+          botworks-pioneer
           botworks-virtualized;
       };
     in
