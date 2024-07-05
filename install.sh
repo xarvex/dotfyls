@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -e
+set -eu
 
 reset=$(tput sgr0)
 # black=$(tput setaf 0)
@@ -44,7 +44,7 @@ if [ -b /dev/vda ]; then
     swap_disk=${disk}2
     zfs_disk=${disk}1
 else
-    while [ ! -L "${disk}" ]; do
+    while [ ! -L "${disk:-}" ]; do
         printf "\n%s\n\n${magenta}%s${reset}" \
             "$(lsblk -pdo NAME,SIZE,VENDOR,MODEL,SERIAL,ID-LINK)" \
             'Enter disk ID to be formatted: '
