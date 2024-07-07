@@ -9,6 +9,7 @@
     ./filesystem
     ./graphics
     ./localization.nix
+    ./networking.nix
     ./nix.nix
     ./persist.nix
     ./security
