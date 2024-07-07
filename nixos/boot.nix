@@ -1,10 +1,13 @@
 { ... }:
 {
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot = {
-      enable = true;
-      memtest86.enable = true;
+  boot = {
+    initrd.systemd.enable = true;
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        memtest86.enable = true;
+      };
     };
   };
 }
