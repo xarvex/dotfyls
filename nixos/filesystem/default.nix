@@ -12,7 +12,7 @@
       fsType = "tmpfs";
       options = [
         "defaults"
-        "size=10G"
+        "size=1G"
         "mode=755"
       ];
       neededForBoot = true;
