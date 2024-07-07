@@ -27,6 +27,10 @@
       device = "zroot/nix";
       fsType = "zfs";
     };
+    "/tmp" = {
+      device = "zroot/tmp";
+      fsType = "zfs";
+    };
     "/persist" = {
       device = "zroot/persist";
       fsType = "zfs";
@@ -38,6 +42,9 @@
       neededForBoot = true;
     };
   };
+
+  # Clear, as /tmp is a ZFS dataset.
+  boot.tmp.cleanOnBoot = true;
 
   swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
   zramSwap.enable = true;
