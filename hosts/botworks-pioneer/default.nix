@@ -1,7 +1,11 @@
 { ... }:
 
 {
-  dotfyls.power.management = true;
+  dotfyls = {
+    power.management = true;
+    # Currently hardened kernel means suspending cuts power to laptop.
+    security.harden.kernel.replace = false;
+  };
 
   hardware.enableRedistributableFirmware = true;
 
