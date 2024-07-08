@@ -43,12 +43,15 @@
         (catppuccin-sddm.override { flavor = "mocha"; })
       ];
 
-      systemd.tmpfiles.rules = [
-        "d /var/lib/sddm 0755 root root - -"
+      systemd = {
+        services."autovt@tty1".enable = false;
+        tmpfiles.rules = [
+          "d /var/lib/sddm 0755 root root - -"
 
-        # Not really last, but allows specifying as default user on each boot
-        "f+ /var/lib/sddm/state.conf - - - - ${builtins.replaceStrings ["\n"] ["\\n"] (lib.generators.toINI { } { Last.User = user; })}"
-      ];
+          # Not really last, but allows specifying as default user on each boot
+          "f+ /var/lib/sddm/state.conf - - - - ${builtins.replaceStrings ["\n"] ["\\n"] (lib.generators.toINI { } { Last.User = user; })}"
+        ];
+      };
     })
   ];
 }
