@@ -3,8 +3,8 @@
 {
   dotfyls = {
     power.management = true;
-    # Currently hardened kernel means suspending cuts power to laptop.
-    security.harden.kernel.replace = false;
+    # Currently hardened kernel packages means suspending cuts power to laptop.
+    security.harden.kernel.packages = false;
   };
 
   hardware.enableRedistributableFirmware = true;

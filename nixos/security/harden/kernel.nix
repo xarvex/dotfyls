@@ -3,7 +3,7 @@
 {
   options.dotfyls.security.harden.kernel = {
     enable = lib.mkEnableOption "kernel security hardening" // { default = true; };
-    replace = lib.mkEnableOption "hardened kernel" // { default = true; };
+    packages = lib.mkEnableOption "hardened kernel packages" // { default = true; };
   };
 
   config =
@@ -12,8 +12,8 @@
     in
     lib.mkIf cfg.enable {
       boot = {
-        # Use hardened kernel compatible with ZFS.
-        kernelPackages = lib.mkIf cfg.replace (
+        # Use hardened kernel packages compatible with ZFS.
+        kernelPackages = lib.mkIf cfg.packages (
           let
             latestCompatibleVersion = config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
             hardenedPackages = lib.filterAttrs (name: packages: lib.hasSuffix "_hardened" name && (builtins.tryEval packages).success) pkgs.linuxKernel.packages;
