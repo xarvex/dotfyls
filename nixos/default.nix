@@ -12,6 +12,7 @@
     ./networking.nix
     ./nix.nix
     ./persist.nix
+    ./power.nix
     ./security
     ./shells.nix
     ./users.nix
