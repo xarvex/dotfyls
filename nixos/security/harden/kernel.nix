@@ -4,6 +4,7 @@
   options.dotfyls.security.harden.kernel = {
     enable = lib.mkEnableOption "kernel security hardening" // { default = true; };
     packages = lib.mkEnableOption "hardened kernel packages" // { default = true; };
+    poison = lib.mkEnableOption "poisoning of free'd pages" // { default = true; };
   };
 
   config =
@@ -28,7 +29,7 @@
           "slab_nomerge"
 
           # Overwrite free'd pages.
-          "page_poison=1"
+          "page_poison=${if cfg.poison then "on" else "off"}"
 
           # Enable page allocator randomization.
           "page_alloc.shuffle=1"
