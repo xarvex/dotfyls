@@ -26,7 +26,7 @@ lib.mkIf config.dotfyls.desktop.hyprland.enable {
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 6 * 60;
+          timeout = 15 * 60;
           on-timeout = "systemctl suspend";
         }
       ];
