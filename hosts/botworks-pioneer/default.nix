@@ -3,8 +3,11 @@
 {
   dotfyls = {
     power.management = true;
-    # Currently hardened kernel packages means suspending cuts power to laptop.
-    security.harden.kernel.packages = false;
+    # Causes suspending to suddenly cut power.
+    security.harden.kernel = {
+      packages = false;
+      poison = false;
+    };
   };
 
   hardware.enableRedistributableFirmware = true;
