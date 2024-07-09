@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -10,9 +10,6 @@
   ];
 
   home = {
-    username = user;
-    homeDirectory = "/home/${user}";
-
     packages = with pkgs; [
       nil
       nixpkgs-fmt

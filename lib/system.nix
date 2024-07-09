@@ -9,9 +9,16 @@ let
 
   mkOverlaysModule = overlays: { nixpkgs = { inherit overlays; }; };
 
-  commonHomeManagerModules = host: [
+  commonHomeManagerModules = host: user: [
     ../home-manager
     ../hosts/${host}/home.nix
+
+    {
+      home = {
+        username = user;
+        homeDirectory = "/home/${user}";
+      };
+    }
   ];
 in
 {
@@ -40,9 +47,7 @@ in
             useGlobalPkgs = true;
             useUserPackages = true;
 
-            extraSpecialArgs = { inherit user; };
-
-            users.${user}.imports = commonHomeManagerModules host ++ homeManagerModules;
+            users.${user}.imports = commonHomeManagerModules host user ++ homeManagerModules;
           };
         }
 
@@ -54,8 +59,6 @@ in
   mkHomeConfiguration = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
     pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
-    extraSpecialArgs = { inherit user; };
-
-    modules = [ (mkOverlaysModule overlays) ] ++ commonHomeManagerModules host ++ homeManagerModules;
+    modules = [ (mkOverlaysModule overlays) ] ++ commonHomeManagerModules host user ++ homeManagerModules;
   };
 }
