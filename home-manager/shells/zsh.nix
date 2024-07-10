@@ -6,6 +6,7 @@
   config = lib.mkIf config.dotfyls.shells.zsh.enable {
     programs.zsh = {
       enable = true;
+      # TODO: init programs (fetch)
     };
 
     dotfyls.persist.files = [ ".local/state/zsh/history" ];

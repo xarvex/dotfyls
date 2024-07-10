@@ -52,6 +52,32 @@
         "type": "gitlab"
       }
     },
+    "dotfyls-zsh": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720598347,
+        "narHash": "sha256-HZOkt7xlcNgti1Ycy7B4+abQw7y0WAlaQyQRDs9svPQ=",
+        "owner": "dotfyls",
+        "repo": "zsh",
+        "rev": "a0787b9b13b7a866ddc98654abdd18b0ab2d2b08",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "dotfyls",
+        "repo": "zsh",
+        "type": "gitlab"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -163,6 +189,7 @@
       "inputs": {
         "dotfyls-neovim": "dotfyls-neovim",
         "dotfyls-wezterm": "dotfyls-wezterm",
+        "dotfyls-zsh": "dotfyls-zsh",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

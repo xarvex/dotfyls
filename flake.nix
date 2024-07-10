@@ -20,6 +20,15 @@
       };
     };
 
+    dotfyls-zsh = {
+      url = "gitlab:dotfyls/zsh";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
@@ -58,6 +67,7 @@
           homeManagerModules = with inputs; [
             dotfyls-neovim.homeManagerModules.neovim
             dotfyls-wezterm.homeManagerModules.wezterm
+            dotfyls-zsh.homeManagerModules.zsh
           ];
 
           overlays = [ self.overlays.default ];
@@ -115,6 +125,7 @@
       homeManagerModules = with inputs; {
         inherit (dotfyls-neovim.homeManagerModules) neovim;
         inherit (dotfyls-wezter.homeManagerModules) wezterm;
+        inherit (dotfyls-zsh.homeManagerModules) zsh;
       };
     };
 }
