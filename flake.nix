@@ -124,7 +124,7 @@
       # Aggregate for export convenience.
       homeManagerModules = with inputs; {
         inherit (dotfyls-neovim.homeManagerModules) neovim;
-        inherit (dotfyls-wezter.homeManagerModules) wezterm;
+        inherit (dotfyls-wezterm.homeManagerModules) wezterm;
         inherit (dotfyls-zsh.homeManagerModules) zsh;
       };
     };
