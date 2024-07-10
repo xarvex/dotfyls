@@ -34,7 +34,7 @@
         in
         {
           programs.zsh = {
-            dotDir = "${config.xdg.configHome}/zsh";
+            dotDir = ".config/zsh";
             # Everything below becomes generated .zshrc:
 
             initExtraFirst = common "init-extra-first.zsh";
