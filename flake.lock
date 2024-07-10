@@ -39,11 +39,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720565086,
-        "narHash": "sha256-xa7mIQsaRl71xIizuLj36IFcaKZeHU2zyCDbNn+WcHU=",
+        "lastModified": 1720577034,
+        "narHash": "sha256-CP+Yt+TJLGug0eAqovoIEuNZaotFes2tzH6xd+qtkFM=",
         "owner": "dotfyls",
         "repo": "wezterm",
-        "rev": "a173cf35cdb7f2020866557672db22a1586b95ac",
+        "rev": "7c66ba4040447061b69dc33309e42c504aaafb84",
         "type": "gitlab"
       },
       "original": {
