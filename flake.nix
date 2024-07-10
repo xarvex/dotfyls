@@ -1,5 +1,5 @@
 {
-  description = "Personal Neovim";
+  description = "Personal WezTerm";
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
