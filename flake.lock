@@ -65,11 +65,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720679423,
-        "narHash": "sha256-ClNI88ev6NrmOMer7wucqsLRXr3NsvzRJKwoRrpTI6k=",
+        "lastModified": 1720717840,
+        "narHash": "sha256-kdMIJM+O2cpbbH36ZecXPCVO7aV+n3cnLKdgfjbxRRU=",
         "owner": "dotfyls",
         "repo": "zsh",
-        "rev": "659234a9c9ca732944d82e084c1d8468d76d5d03",
+        "rev": "af22016c471c86140437d9e846443d75ae13c0af",
         "type": "gitlab"
       },
       "original": {

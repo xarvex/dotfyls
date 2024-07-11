@@ -61,7 +61,6 @@
           user = "xarvex"; # Change this if you aren't me!
 
           nixosModules = with inputs; [
-            dotfyls-zsh.nixosModules.zsh
             impermanence.nixosModules.impermanence
             persistwd.nixosModules.persistwd
           ];
