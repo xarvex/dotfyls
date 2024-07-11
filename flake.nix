@@ -38,6 +38,11 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     persistwd = {
@@ -62,12 +67,14 @@
 
           nixosModules = with inputs; [
             impermanence.nixosModules.impermanence
+            nix-index-database.nixosModules.nix-index
             persistwd.nixosModules.persistwd
           ];
           homeManagerModules = with inputs; [
             dotfyls-neovim.homeManagerModules.neovim
             dotfyls-wezterm.homeManagerModules.wezterm
             dotfyls-zsh.homeManagerModules.zsh
+            nix-index-database.hmModules.nix-index
           ];
 
           overlays = [ self.overlays.default ];
