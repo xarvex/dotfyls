@@ -9,6 +9,9 @@
       # TODO: init programs (fetch)
     };
 
-    dotfyls.persist.files = [ ".local/state/zsh/history" ];
+    dotfyls.persist = {
+      files = [ ".local/state/zsh/history" ];
+      cacheDirectories = [ ".cache/zsh" ];
+    };
   };
 }
