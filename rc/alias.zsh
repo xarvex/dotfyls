@@ -1,5 +1,3 @@
-unalias ${(k)aliases} ${(k)galiases} ${(k)saliases}
-
 if (( ${+commands[bat]} )); then
     alias cat=bat
 fi
