@@ -38,7 +38,11 @@
             # Everything below becomes generated .zshrc:
 
             initExtraFirst = common "init-extra-first.zsh";
+
             defaultKeymap = "viins";
+            localVariables = {
+              HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE = 1;
+            };
 
             initExtraBeforeCompInit = common "init-extra-before-comp-init.zsh";
 
