@@ -10,7 +10,7 @@
     };
 
     dotfyls.persist = {
-      files = [ ".local/state/zsh/history" ];
+      directories = [ ".local/state/zsh" ];
       cacheDirectories = [ ".cache/zsh" ];
     };
   };
