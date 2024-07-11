@@ -1,3 +1,5 @@
-# shellcheck disable=SC2206
+# shellcheck disable=SC2086,SC2206
 
-fpath=( ${ZDOTDIR}/functions ${fpath[@]} )
+source ${ZDOTDIR:-${HOME}}/common/env-extra.zsh
+
+fpath=( ${ZDOTDIR:-${HOME}}/functions ${fpath[@]} )

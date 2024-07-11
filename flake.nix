@@ -35,6 +35,9 @@
         {
           programs.zsh = {
             dotDir = ".config/zsh";
+
+            envExtra = common "env-extra.zsh";
+
             # Everything below becomes generated .zshrc:
 
             initExtraFirst = common "init-extra-first.zsh";
