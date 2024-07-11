@@ -14,7 +14,12 @@
       description = "Directories to persist in home filesystem.";
     };
 
-    cache = lib.mkOption {
+    cacheFiles = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
+      description = "Files to persist in home filesystem, but not to snapshot.";
+    };
+    cacheDirectories = lib.mkOption {
       type = with lib.types; listOf str;
       default = [ ];
       description = "Directories to persist in home filesystem, but not to snapshot.";
@@ -23,6 +28,6 @@
 
   config.dotfyls.persist = {
     directories = [ "Desktop" "Documents" "Pictures" ];
-    cache = [ ".cache/nix" ".cache/nixpkgs-review" ];
+    cacheDirectories = [ ".cache/nix" ".cache/nixpkgs-review" ];
   };
 }

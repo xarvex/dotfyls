@@ -18,8 +18,12 @@ in
 
     "/persist/cache" = {
       hideMounts = true;
-      directories = cfg.cache;
-      users.${user}.directories = hmCfg.cache;
+      files = cfg.cacheFiles;
+      directories = cfg.cacheDirectories;
+      users.${user} = {
+        files = hmCfg.cacheFiles;
+        directories = hmCfg.cacheDirectories;
+      };
     };
   };
 }
