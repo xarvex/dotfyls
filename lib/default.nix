@@ -1,3 +1,3 @@
 {
-  system = import ./system.nix;
+  configuration = import ./configuration.nix;
 }

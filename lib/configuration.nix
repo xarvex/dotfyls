@@ -22,7 +22,7 @@ let
   ];
 in
 {
-  mkNixosConfiguration = host: { home-manager, homeManagerModules, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
+  mkNixos = host: { home-manager, homeManagerModules, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
     let
       inherit (nixpkgs) lib;
     in
@@ -56,7 +56,7 @@ in
       ] ++ nixosModules;
     };
 
-  mkHomeConfiguration = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
+  mkHomeManager = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
     pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
     modules = [ (mkOverlaysModule overlays) ] ++ commonHomeManagerModules host user ++ homeManagerModules;
