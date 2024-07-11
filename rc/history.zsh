@@ -1,5 +1,5 @@
 HISTSIZE=10000
-SAVEHIST=10000
+SAVEHIST=${HISTSIZE}
 HISTFILE=${XDG_STATE_HOME:-${HOME}/.local/share}/zsh/history
 
 [[ -d "$(dirname ${HISTFILE})" ]] || mkdir -p "$(dirname ${HISTFILE})"
