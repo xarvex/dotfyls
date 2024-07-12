@@ -3,7 +3,7 @@
 {
   options.dotfyls.kernels = {
     variant = lib.mkOption {
-      type = lib.types.enum [ "hardened" "stable" "zen" ];
+      type = lib.types.enum [ "hardened" "lqx" "stable" "xanmod" "zen" ];
       default = "stable";
       example = "hardened";
       description = "Variant of kernel to use.";
@@ -22,8 +22,10 @@
 
       kernelFilters = {
         hardened = kernel: kernel.isHardened;
+        lqx = kernel: kernel.pname == "linux-lqx";
         stable = kernel: kernel.pname == "linux" && kernel.meta.branch != "testing";
-        zen = kernel: kernel.isZen;
+        xanmod = kernel: kernel.pname == "linux-xanmod";
+        zen = kernel: kernel.pname == "linux-zen";
       };
 
       kernelPackagesFor = filter: version:
