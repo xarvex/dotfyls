@@ -9,7 +9,7 @@
       settings = pkgs.lib.importTOML ./alacritty.toml;
     };
 
-    dotfyls.terminal = rec {
+    dotfyls.terminals = rec {
       start.alacritty = lib.getExe pkgs.alacritty;
       exec.alacritty = "${start.alacritty} -e";
     };

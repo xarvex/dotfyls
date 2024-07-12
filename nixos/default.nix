@@ -7,7 +7,7 @@
     ./configuration.nix
     ./desktop.nix
     ./kernels.nix
-    ./filesystem
+    ./filesystems
     ./graphics
     ./localization.nix
     ./networking.nix

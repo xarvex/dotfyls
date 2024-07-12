@@ -6,18 +6,15 @@
     ./zfs.nix
   ];
 
-  options.dotfyls.filesystem = {
-    main = lib.mkOption {
-      type = lib.types.enum [ "zfs" ];
-      default = "zfs";
-      example = "zfs";
-      description = "Main filesystem to use.";
-    };
-    # TODO: toggle tmpfs
+  options.dotfyls.mainFilesystem = lib.mkOption {
+    type = lib.types.enum [ "zfs" ];
+    default = "zfs";
+    example = "zfs";
+    description = "Main filesystem to use.";
   };
 
   config = {
-    dotfyls.filesystems.${config.dotfyls.filesystem.main}.enable = true;
+    dotfyls.filesystems.${config.dotfyls.mainFilesystem}.enable = true;
 
     fileSystems = {
       "/" = {
