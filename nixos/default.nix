@@ -6,6 +6,7 @@
     ./boot.nix
     ./configuration.nix
     ./desktop.nix
+    ./kernels.nix
     ./filesystem
     ./graphics
     ./localization.nix

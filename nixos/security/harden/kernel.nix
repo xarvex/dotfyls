@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options.dotfyls.security.harden.kernel = {
@@ -12,13 +12,10 @@
       cfg = config.dotfyls.security.harden.kernel;
     in
     lib.mkIf cfg.enable {
-      boot = {
-        # Use hardened kernel packages compatible with ZFS.
-        kernelPackages = lib.mkIf cfg.packages (
-          pkgs.lib.dotfyls.kernel.latestCompatible "hardened"
-            config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version
-        );
+      # Use hardened kernel packages compatible with ZFS.
+      dotfyls.kernels.variant = lib.mkIf cfg.packages (lib.mkDefault "hardened");
 
+      boot = {
         kernelParams = [
           # Don't merge slabs.
           "slab_nomerge"

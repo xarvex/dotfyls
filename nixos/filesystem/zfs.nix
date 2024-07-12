@@ -17,7 +17,6 @@
           devNodes = lib.mkDefault "/dev/disk/by-id";
           package = lib.mkIf cfg.unstable pkgs.zfs_unstable;
         };
-        kernelPackages = lib.mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;
       };
 
       services.zfs = {
@@ -27,5 +26,7 @@
 
       # https://github.com/openzfs/zfs/issues/10891
       systemd.services.systemd-udev-settle.enable = false;
+
+      dotfyls.kernels.version = lib.mkIf (!cfg.unstable) config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
     };
 }

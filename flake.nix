@@ -123,7 +123,6 @@
           overlays = [
             "evil-winrm"
             "fastfetch"
-            "lib"
             "wezterm"
           ];
         in
