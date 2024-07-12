@@ -83,18 +83,22 @@
             "discord"
             "spotify"
           ];
+
+          defaultHost = system: {
+            inherit
+              home-manager
+              homeManagerModules
+              nixosModules
+              nixpkgs
+              overlays
+              system
+              unfreePkgs
+              user;
+          };
         in
         {
-          botworks-pioneer = {
-            inherit home-manager homeManagerModules nixosModules nixpkgs overlays unfreePkgs user;
-
-            system = "x86_64-linux";
-          };
-          botworks-virtualized = {
-            inherit home-manager homeManagerModules nixosModules nixpkgs overlays unfreePkgs user;
-
-            system = "x86_64-linux";
-          };
+          botworks-pioneer = defaultHost "x86_64-linux";
+          botworks-virtualized = defaultHost "x86_64-linux";
         };
 
       nixosHosts = {
