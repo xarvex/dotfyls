@@ -15,13 +15,8 @@
       boot = {
         # Use hardened kernel packages compatible with ZFS.
         kernelPackages = lib.mkIf cfg.packages (
-          let
-            latestCompatibleVersion = config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
-            hardenedPackages = lib.filterAttrs (name: packages: lib.hasSuffix "_hardened" name && (builtins.tryEval packages).success) pkgs.linuxKernel.packages;
-            compatiblePackages = builtins.filter (packages: builtins.compareVersions packages.kernel.version latestCompatibleVersion <= 0) (builtins.attrValues hardenedPackages);
-            orderedCompatiblePackages = builtins.sort (x: y: builtins.compareVersions x.kernel.version y.kernel.version > 0) compatiblePackages;
-          in
-          builtins.head orderedCompatiblePackages
+          pkgs.lib.dotfyls.kernel.latestCompatible "hardened"
+            config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version
         );
 
         kernelParams = [
