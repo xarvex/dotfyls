@@ -81,6 +81,8 @@
 
           unfreePkgs = [
             "discord"
+            "nvidia-settings"
+            "nvidia-x11"
             "spotify"
           ];
 
