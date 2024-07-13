@@ -97,17 +97,20 @@
           };
         in
         {
+          botworks = defaultHost "x86_64-linux";
           botworks-pioneer = defaultHost "x86_64-linux";
           botworks-virtualized = defaultHost "x86_64-linux";
         };
 
       nixosHosts = {
         inherit (hosts)
+          botworks
           botworks-pioneer
           botworks-virtualized;
       };
       homeManagerHosts = {
         inherit (hosts)
+          botworks
           botworks-pioneer
           botworks-virtualized;
       };
