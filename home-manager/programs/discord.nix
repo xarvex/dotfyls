@@ -5,5 +5,7 @@
 
   config = lib.mkIf config.dotfyls.programs.discord.enable {
     home.packages = with pkgs; [ discord ];
+
+    dotfyls.persist.cacheDirectories = [ ".config/discord" ];
   };
 }
