@@ -7,7 +7,7 @@ lib.mkIf config.dotfyls.desktop.hyprland.enable {
     bind = [
       "$mod_ALT, F4, exit,"
 
-      "$mod, Return, exec, [float;tile] ${config.dotfyls.terminals.start.${config.dotfyls.defaultTerminal}}"
+      "$mod, Return, exec, ${config.dotfyls.terminals.start.${config.dotfyls.defaultTerminal}}"
     ]
     ++ lib.optionals config.dotfyls.programs.rofi.enable [
       "$mod_SHIFT, Return, exec, rofi -show drun"
