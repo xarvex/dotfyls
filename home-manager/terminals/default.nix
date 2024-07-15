@@ -24,6 +24,12 @@
       };
 
       terminals = {
+        fontSize = lib.mkOption {
+          type = lib.types.int;
+          default = 12;
+          example = 20;
+          description = "Font size to use.";
+        };
         start = lib.mkOption {
           type = with lib.types; lazyAttrsOf str;
           default = { };
