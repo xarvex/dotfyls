@@ -1,6 +1,6 @@
 { ... }: {
   dotfyls = {
-    defaultTerminal = "alacritty"; # WezTerm breaks on NVIDIA.
+    defaultTerminal = "kitty"; # WezTerm breaks on NVIDIA.
     desktop.displays = [{
       name = "DP-2";
       width = 3840;

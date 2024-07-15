@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty
+    ./kitty.nix
     ./wezterm.nix
   ];
 
@@ -10,6 +11,7 @@
     let
       terminals = [
         "alacritty"
+        "kitty"
         "wezterm"
       ];
     in
@@ -17,7 +19,7 @@
       defaultTerminal = lib.mkOption {
         type = lib.types.enum terminals;
         default = "wezterm";
-        example = "wezterm";
+        example = "kitty";
         description = "Default terminal to use.";
       };
 
@@ -28,6 +30,7 @@
           example = lib.literalExpression ''
             {
               alacritty = lib.getExe pkgs.alacritty;
+              kitty = lib.getExe pkgs.kitty;
               wezterm = lib.getExe pkgs.wezterm;
             };
           '';
@@ -40,6 +43,7 @@
           example = lib.literalExpression ''
             {
               alacritty = "$${lib.getExe pkgs.alacritty} -e";
+              kitty = lib.getExe pkgs.kitty;
               wezterm = "$${lib.getExe pkgs.wezterm} start";
             };
           '';
