@@ -14,6 +14,7 @@
     ./nix.nix
     ./persist.nix
     ./power.nix
+    ./programs.nix
     ./security
     ./shells.nix
     ./users.nix

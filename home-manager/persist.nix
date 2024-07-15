@@ -27,7 +27,7 @@
   };
 
   config.dotfyls.persist = {
-    directories = [ "Desktop" "Documents" "Pictures" ];
+    directories = [ "Desktop" "Documents" "Pictures" ".ssh" ];
     cacheDirectories = [ ".cache/nix" ".cache/nixpkgs-review" ];
   };
 }
