@@ -7,6 +7,7 @@
     ./fastfetch
     ./firefox.nix
     ./git.nix
+    ./gnupg.nix
     ./neovim.nix
     ./prismlauncher.nix
     ./rofi.nix
