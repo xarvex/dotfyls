@@ -42,6 +42,15 @@
           };
         };
 
+        monitor = (lib.forEach config.dotfyls.desktop.displays (display:
+          lib.concatStringsSep ", " ([
+            display.name
+            "${toString display.width}x${toString display.height}@${toString display.refresh}"
+            display.position
+            "1"
+          ] ++ lib.optionals display.vertical [ "transform, 1" ])
+        )) ++ [ ", preferred, auto, auto" ];
+
         exec-once = [
           "wl-paste --watch cliphist store"
         ];
