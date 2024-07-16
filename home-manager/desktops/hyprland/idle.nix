@@ -1,13 +1,13 @@
 { config, lib, ... }:
 
-lib.mkIf config.dotfyls.desktop.hyprland.enable {
+lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
   services.hypridle = {
     enable = true;
 
     settings = {
       general = {
         ignore_dbus_inhibit = false;
-        lock_cmd = config.dotfyls.desktop.hyprland.lock;
+        lock_cmd = config.dotfyls.desktops.desktops.hyprland.lock;
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };

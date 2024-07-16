@@ -1,6 +1,6 @@
 { config, lib, ... }:
 
-lib.mkIf config.dotfyls.desktop.hyprland.enable {
+lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
   wayland.windowManager.hyprland.settings.windowrulev2 = [ ]
     ++ lib.optionals config.dotfyls.programs.firefox.enable [
     "float, class:^(firefox)$, title:^(Picture-in-Picture)$"

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./desktop
+    ./desktops
     ./fonts.nix
     ./persist.nix
     ./programs

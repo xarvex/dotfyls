@@ -8,8 +8,8 @@
     ./rules.nix
   ];
 
-  options.dotfyls.desktop.hyprland = {
-    enable = lib.mkEnableOption "Hyprland" // { default = true; };
+  options.dotfyls.desktops.desktops.hyprland = {
+    enable = lib.mkEnableOption "Hyprland";
     lock = lib.mkOption {
       type = lib.types.str;
       default = "pidof hyprlock || hyprlock";
@@ -17,7 +17,7 @@
     };
   };
 
-  config = lib.mkIf config.dotfyls.desktop.hyprland.enable {
+  config = lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
     home.packages = with pkgs; [
       cliphist
       wl-clipboard
@@ -42,7 +42,7 @@
           };
         };
 
-        monitor = (lib.forEach config.dotfyls.desktop.displays (display:
+        monitor = (lib.forEach config.dotfyls.desktops.displays (display:
           lib.concatStringsSep ", " ([
             display.name
             "${toString display.width}x${toString display.height}@${toString display.refresh}"

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-lib.mkIf config.dotfyls.desktop.hyprland.enable {
+lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
 
