@@ -126,6 +126,7 @@
       overlays =
         let
           overlays = [
+            "discord"
             "evil-winrm"
             "fastfetch"
             "wezterm"
