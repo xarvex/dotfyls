@@ -129,6 +129,7 @@
             "discord"
             "evil-winrm"
             "fastfetch"
+            "lib"
             "wezterm"
           ];
         in
