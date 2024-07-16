@@ -1,8 +1,5 @@
 { config, lib, ... }:
 
-let
-  lock = config.dotfyls.desktop.hyprland.lock;
-in
 lib.mkIf config.dotfyls.desktop.hyprland.enable {
   services.hypridle = {
     enable = true;
@@ -10,7 +7,7 @@ lib.mkIf config.dotfyls.desktop.hyprland.enable {
     settings = {
       general = {
         ignore_dbus_inhibit = false;
-        lock_cmd = lock;
+        lock_cmd = config.dotfyls.desktop.hyprland.lock;
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
@@ -18,10 +15,10 @@ lib.mkIf config.dotfyls.desktop.hyprland.enable {
       listener = [
         {
           timeout = 5 * 60;
-          on-timeout = lock;
+          on-timeout = "loginctl lock-session";
         }
         {
-          timeout = 5.5 * 60;
+          timeout = 6.0 * 60;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }

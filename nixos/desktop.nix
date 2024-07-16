@@ -23,6 +23,8 @@
     (lib.mkIf config.dotfyls.desktop.hyprland.enable {
       programs.hyprland.enable = true;
 
+      security.pam.services.hyprlock = { };
+
       xdg.portal = {
         enable = true;
         extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

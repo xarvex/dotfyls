@@ -10,9 +10,14 @@
     services.xserver.videoDrivers = [ "nvidia" ];
 
     boot = {
-      # Use NVIDIA framebuffer.
       # See: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters
-      kernelParams = [ "nvidia-drm.fbdev=1" ];
+      kernelParams = [
+        # Use NVIDIA framebuffer.
+        "nvidia-drm.fbdev=1"
+
+        # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
+        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      ];
     } // lib.optionalAttrs config.dotfyls.graphics.nvidia.blacklistCompeting {
       blacklistedKernelModules = [ "amdgpu" "i915" ];
     };
