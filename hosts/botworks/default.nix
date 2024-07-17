@@ -2,7 +2,7 @@
 
 {
   dotfyls = {
-    displayManager.enable = false; # Breaks on NVIDIA.
+    displayManager.provider = "greetd"; # SDDM breaks on NVIDIA.
     graphics.nvidia.enable = true;
     security.harden.kernel.enable = false;
     filesystems.zfs.unstable = true;

@@ -29,5 +29,12 @@
     };
 
     security.polkit.enable = true;
+
+    environment.systemPackages = [
+      (pkgs.writeShellApplication {
+        name = "dotfyls-desktop";
+        text = cfg.desktops.${cfg.main}.command;
+      })
+    ];
   };
 }
