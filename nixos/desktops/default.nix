@@ -1,23 +1,28 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.desktops;
+in
 {
   imports = [
     ./hyprland.nix
+    ./locks.nix
   ];
 
   options.dotfyls.desktops = {
     enable = lib.mkEnableOption "desktops" // { default = config.hm.dotfyls.desktops.enable; };
-    main = lib.mkOption
-      {
-        type = lib.types.enum [ "hyprland" ];
-        default = "hyprland";
-        example = "hyprland";
-        description = "Main desktop to use.";
-      } // { default = config.hm.dotfyls.desktops.main; };
+    default = lib.mkOption {
+      type = lib.types.enum [ "hyprland" ];
+      default = config.hm.dotfyls.desktops.default;
+      example = "hyprland";
+      description = "Default desktop to use.";
+    };
+    launchCommand = pkgs.lib.dotfyls.mkCommandOption "launch default desktop"
+      // { default = cfg.desktops.${cfg.default}.command; };
   };
 
-  config = let cfg = config.dotfyls.desktops; in lib.mkIf cfg.enable {
-    dotfyls.desktops.desktops.${cfg.main}.enable = true;
+  config = lib.mkIf cfg.enable {
+    dotfyls.desktops.desktops.${cfg.default}.enable = true;
 
     services.xserver = {
       updateDbusEnvironment = true;
@@ -25,16 +30,9 @@
         layout = "us";
         variant = "";
       };
-      excludePackages = [ pkgs.xterm ];
+      excludePackages = with pkgs; [ xterm ];
     };
 
     security.polkit.enable = true;
-
-    environment.systemPackages = [
-      (pkgs.writeShellApplication {
-        name = "dotfyls-desktop";
-        text = cfg.desktops.${cfg.main}.command;
-      })
-    ];
   };
 }

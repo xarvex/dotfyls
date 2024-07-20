@@ -3,15 +3,17 @@
 {
   imports = [
     ./hyprland
+    ./idles
+    ./locks
   ];
 
   options.dotfyls.desktops = {
     enable = lib.mkEnableOption "desktops" // { default = true; };
-    main = lib.mkOption {
+    default = lib.mkOption {
       type = lib.types.enum [ "hyprland" ];
       default = "hyprland";
       example = "hyprland";
-      description = "Main desktop to use.";
+      description = "Default desktop to use.";
     };
     displays = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
@@ -56,6 +58,6 @@
   };
 
   config = let cfg = config.dotfyls.desktops; in lib.mkIf cfg.enable {
-    dotfyls.desktops.desktops.${cfg.main}.enable = true;
+    dotfyls.desktops.desktops.${cfg.default}.enable = true;
   };
 }

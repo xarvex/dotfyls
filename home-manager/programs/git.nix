@@ -21,7 +21,5 @@
         };
       };
     };
-
-    dotfyls.persist.directories = [ ".config/systemd" ]; # maintenance timers
   };
 }

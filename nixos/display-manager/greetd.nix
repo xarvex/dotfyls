@@ -11,7 +11,7 @@
         description = "Greeter to use.";
       };
       greeters = {
-        agreety.enable = lib.mkEnableOption "greetd greeter";
+        agreety.enable = lib.mkEnableOption "agreety greeter";
         tuigreet.enable = lib.mkEnableOption "tuigreet greeter";
       };
     };
@@ -19,9 +19,21 @@
 
   config = let cfg = config.dotfyls.displayManager.displayManager.greetd; in lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) (
     let
+      command = pkgs.lib.dotfyls.mkCommandExe "exec ${lib.getExe config.dotfyls.desktops.launchCommand} > /dev/null";
+      mkSystemctlCommand = verb: pkgs.lib.dotfyls.mkCommandExe {
+        runtimeInputs = with pkgs; [ systemd ];
+        text = "systemctl ${verb}";
+      };
+
       greeters = {
-        agreety.command = "${pkgs.greetd.greetd}/bin/agreety --cmd dotfyls-desktop";
-        tuigreet.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd dotfyls-desktop --time --user-menu";
+        agreety.command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${command}";
+        tuigreet.command = ''
+          ${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${command} \
+            --power-shutdown ${mkSystemctlCommand "poweroff"} \
+            --power-reboot ${mkSystemctlCommand "reboot"} \
+            --time --user-menu \
+            --theme 'text=cyan;border=magenta;prompt=green'
+        '';
       };
     in
     {

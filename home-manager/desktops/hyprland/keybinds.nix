@@ -29,7 +29,7 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
       "$mod_ALT_SHIFT, h, movetoworkspace, r-1"
       "$mod_ALT_SHIFT, l, movetoworkspace, r+1"
     ]
-    ++ lib.flatten (pkgs.lib.dotfyls.workspaces.genList (workspace: key: [
+    ++ lib.flatten (pkgs.lib.dotfyls.genWorkspaceList (workspace: key: [
       "$mod, ${key}, workspace, ${toString workspace}"
       "$mod_SHIFT, ${key}, movetoworkspace, ${toString workspace}"
     ]))

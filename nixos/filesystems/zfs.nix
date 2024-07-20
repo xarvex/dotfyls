@@ -27,6 +27,6 @@
       # https://github.com/openzfs/zfs/issues/10891
       systemd.services.systemd-udev-settle.enable = false;
 
-      dotfyls.kernels.version = lib.mkIf (!cfg.unstable) config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
+      dotfyls.kernels.version = if cfg.unstable then "6.9.9" else config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
     };
 }

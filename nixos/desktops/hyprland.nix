@@ -1,20 +1,27 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.desktops.desktops.hyprland;
+in
 {
+  imports = [
+    (lib.mkAliasOptionModule
+      [ "dotfyls" "desktops" "desktops" "hyprland" "package" ]
+      [ "programs" "hyprland" "package" ])
+  ];
+
   options.dotfyls.desktops.desktops.hyprland = {
     enable = lib.mkEnableOption "Hyprland" // { default = config.hm.dotfyls.desktops.desktops.hyprland.enable; };
-    command = lib.mkOption {
-      type = lib.types.str;
-      default = "dbus-run-session Hyprland";
-      example = "dbus-run-session Hyprland";
-      description = "Command to run Hyprland.";
+    command = pkgs.lib.dotfyls.mkCommandOption "Hyprland" // {
+      default = pkgs.lib.dotfyls.mkCommand {
+        runtimeInputs = [ cfg.package pkgs.dbus ];
+        text = "exec dbus-run-session Hyprland";
+      };
     };
   };
 
-  config = lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
+  config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     programs.hyprland.enable = true;
-
-    security.pam.services.hyprlock = { };
 
     xdg.portal = {
       enable = true;
