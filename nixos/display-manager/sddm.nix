@@ -20,11 +20,11 @@
       };
       default = {
         name = "catppuccin-mocha";
-        theme = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
+        package = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
       };
       example = {
         name = "catppuccin-mocha";
-        theme = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
+        package = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
       };
       description = "Theme to use for SDDM.";
     };
