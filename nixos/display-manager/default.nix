@@ -10,8 +10,8 @@
     enable = lib.mkEnableOption "display manager" // { default = config.dotfyls.desktops.enable; };
     provider = lib.mkOption {
       type = lib.types.enum [ "greetd" "sddm" ];
-      default = "sddm";
-      example = "greetd";
+      default = "greetd";
+      example = "sddm";
       description = "Display manager to use.";
     };
   };
