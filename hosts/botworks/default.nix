@@ -8,6 +8,4 @@
   };
 
   hardware.enableRedistributableFirmware = true;
-
-  networking.hostId = "ef01cd45";
 }

@@ -86,10 +86,11 @@
             "spotify"
           ];
 
-          defaultHost = system: {
+          defaultHost = id: system: {
             inherit
               home-manager
               homeManagerModules
+              id
               nixosModules
               nixpkgs
               overlays
@@ -99,9 +100,9 @@
           };
         in
         {
-          botworks = defaultHost "x86_64-linux";
-          botworks-pioneer = defaultHost "x86_64-linux";
-          botworks-virtualized = defaultHost "x86_64-linux";
+          botworks = defaultHost "ef01cd45" "x86_64-linux";
+          botworks-pioneer = defaultHost "3540bf30" "x86_64-linux";
+          botworks-virtualized = defaultHost "3bb44cc9" "x86_64-linux";
         };
 
       nixosHosts = {

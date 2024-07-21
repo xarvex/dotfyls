@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 {
+  dotfyls.filesystems.zfs.nodes = "by-partuuid";
+
   services = {
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
@@ -18,7 +20,4 @@
       PartOf = [ "graphical-session.target" ];
     };
   };
-
-  networking.hostId = "3bb44cc9";
-  boot.zfs.devNodes = "/dev/disk/by-partuuid";
 }

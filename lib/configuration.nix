@@ -22,7 +22,7 @@ let
   ];
 in
 {
-  mkNixos = host: { home-manager, homeManagerModules, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
+  mkNixos = host: { home-manager, homeManagerModules, id, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
     let
       inherit (nixpkgs) lib;
     in
@@ -41,7 +41,10 @@ in
         (mkOverlaysModule overlays)
 
         {
-          networking.hostName = host;
+          networking = {
+            hostId = id;
+            hostName = host;
+          };
 
           home-manager = {
             useGlobalPkgs = true;
