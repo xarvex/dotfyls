@@ -13,7 +13,7 @@
   };
 
   config = let cfg = config.dotfyls.filesystems.zfs; in lib.mkIf cfg.enable {
-    dotfyls.kernels.version = if cfg.unstable then "6.9.9" else config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
+    dotfyls.kernels.version = if cfg.unstable then "6.9.10" else config.boot.zfs.package.latestCompatibleLinuxPackages.kernel.version;
 
     boot = {
       supportedFilesystems.zfs = true;
