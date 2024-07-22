@@ -1,4 +1,5 @@
-{ ... }: {
+{ inputs, pkgs, ... }: {
+
   dotfyls = {
     defaultTerminal = "kitty"; # WezTerm breaks on NVIDIA.
     terminals.fontSize = 20;
