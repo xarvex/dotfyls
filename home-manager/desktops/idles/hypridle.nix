@@ -26,9 +26,9 @@ in
             text = "(sleep 15; rm /tmp/hypridle_lock) &";
           };
           beforeCommand = command: pkgs.lib.dotfyls.mkCommandExe {
-            runtimeInputs = [ cfg.package pkgs.procps ];
+            runtimeInputs = with pkgs; [ coreutils procps ];
             text = ''
-              [ -f /tmp/hypridle_lock ] || ${if lib.isString command then command else lib.getExe command}
+              [ -f /tmp/hypridle_lock ] || exec ${if lib.isString command then command else lib.getExe command}
             '';
           };
         in
@@ -44,8 +44,8 @@ in
             let
               cfg = config.dotfyls.desktops.idles.lock;
               lockSession = pkgs.lib.dotfyls.mkCommandExe {
-                runtimeInputs = with pkgs; [ coreutils systemd ];
-                text = "loginctl lock-session";
+                runtimeInputs = with pkgs; [ systemd ];
+                text = "exec loginctl lock-session";
               };
             in
             lib.mkIf cfg.enable {
@@ -53,7 +53,7 @@ in
                 lock_cmd = lib.getExe cfg.command;
                 before_sleep_cmd = pkgs.lib.dotfyls.mkCommandExe {
                   runtimeInputs = with pkgs; [ coreutils ];
-                  text = "touch /tmp/hypridle_lock; ${lockSession}";
+                  text = "touch /tmp/hypridle_lock; exec ${lockSession}";
                 };
               };
 
