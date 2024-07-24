@@ -35,6 +35,9 @@ in
         if [ "$#" = "0" ]; then
           exec ${lib.getExe cfg.selected.start}
         else
+          if [ "$1" = "-e" ]; then
+            shift
+          fi
           exec ${lib.getExe cfg.selected.exec} "$@"
         fi
       '');
