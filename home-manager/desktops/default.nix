@@ -15,6 +15,26 @@
       example = "hyprland";
       description = "Default desktop to use.";
     };
+
+    wayland.sessionVariables = lib.mkOption {
+      type = with lib.types; attrsOf (either int str);
+      default = {
+        NIXOS_OZONE_WL = 1;
+
+        EGL_BACKEND = "wayland";
+        SDL_VIDEODRIVER = "wayland";
+        CLUTTER_BACKEND = "wayland";
+        GDK_BACKEND = "wayland,x11,*";
+        QT_QPA_PLATFORM = "wayland;xcb";
+
+        MOZ_ENABLE_WAYLAND = 1;
+      };
+      description = ''
+        Environment variables that will be set for Wayland sessions.
+        The variable values must be as described in {manpage}`environment.d(5)`.
+      '';
+    };
+
     displays = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
         options = {

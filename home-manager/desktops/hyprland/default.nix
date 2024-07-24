@@ -66,10 +66,10 @@ in
       enable = true;
 
       settings = {
-        env = [
-          "GDK_BACKEND,wayland,x11,*"
-          "QT_QPA_PLATFORM,wayland;xcb"
-        ];
+        env = (
+          let sessionVariables = config.dotfyls.desktops.wayland.sessionVariables; in
+          (builtins.map (name: "${name}, ${toString sessionVariables.${name}}") (builtins.attrNames sessionVariables))
+        );
 
         input = {
           kb_layout = "us";
