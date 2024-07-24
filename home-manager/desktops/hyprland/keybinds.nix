@@ -36,6 +36,9 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
     ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
       "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
+    ++ lib.optionals config.dotfyls.programs.discord.enable [
+      "$mod, d, exec, Discord"
+    ]
     ++ lib.optionals config.dotfyls.programs.firefox.enable [
       "$mod, w, exec, firefox"
     ]
