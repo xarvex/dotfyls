@@ -33,8 +33,8 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
       "$mod, ${key}, workspace, ${toString workspace}"
       "$mod_SHIFT, ${key}, movetoworkspace, ${toString workspace}"
     ]))
-    ++ lib.optionals config.dotfyls.terminals.${config.dotfyls.defaultTerminal}.enable [
-      "$mod, Return, exec, ${config.dotfyls.terminals.start.${config.dotfyls.defaultTerminal}}"
+    ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
+      "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
     ++ lib.optionals config.dotfyls.programs.firefox.enable [
       "$mod, w, exec, firefox"

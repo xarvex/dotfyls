@@ -1,9 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.dotfyls.terminals.terminals.kitty;
+in
 {
-  options.dotfyls.terminals.kitty.enable = lib.mkEnableOption "kitty";
+  imports = [
+    (lib.mkAliasOptionModule
+      [ "dotfyls" "terminals" "terminals" "kitty" "package" ]
+      [ "programs" "kitty" "package" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.terminals.kitty.enable {
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".config/kitty" ];
+
     programs.kitty = {
       enable = true;
 
@@ -19,14 +28,6 @@
       extraConfig = ''
         include themes.conf
       '';
-    };
-
-    dotfyls = {
-      terminals = rec {
-        start.kitty = lib.getExe pkgs.kitty;
-        exec.kitty = start.kitty;
-      };
-      persist.cacheDirectories = [ ".config/kitty" ];
     };
   };
 }

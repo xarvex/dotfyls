@@ -138,7 +138,7 @@
         # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
         // { default = final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
 
-      lib = import ./lib;
+      lib = import ./lib { inherit lib self; };
 
       # Aggregate for export convenience.
       homeManagerModules = with inputs; {

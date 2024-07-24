@@ -1,3 +1,5 @@
+{ self }:
+
 let
   mkPkgs = { nixpkgs, system, unfreePkgs }: import nixpkgs {
     inherit system;
@@ -26,10 +28,10 @@ in
     let
       inherit (nixpkgs) lib;
     in
-    lib.nixosSystem {
+    lib.nixosSystem rec {
       pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
-      specialArgs = { inherit user; };
+      specialArgs = { inherit self user; };
 
       modules = [
         home-manager.nixosModules.home-manager
@@ -50,6 +52,8 @@ in
             useGlobalPkgs = true;
             useUserPackages = true;
 
+            extraSpecialArgs = specialArgs;
+
             users.${user}.imports = commonHomeManagerModules host user ++ homeManagerModules;
           };
         }
@@ -61,6 +65,8 @@ in
 
   mkHomeManager = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
     pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
+
+    extraSpecialArgs = { inherit self; };
 
     modules = [ (mkOverlaysModule overlays) ] ++ commonHomeManagerModules host user ++ homeManagerModules;
   };

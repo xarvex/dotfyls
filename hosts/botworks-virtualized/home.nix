@@ -1,5 +1,5 @@
 { lib, ... }: {
-  dotfyls.terminals.alacritty.enable = true;
+  dotfyls.terminals.default = "alacritty";
 
   wayland.windowManager.hyprland.settings = {
     animations.enabled = lib.mkForce false;

@@ -1,62 +1,59 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, self, ... }:
 
+let
+  cfg = config.dotfyls.terminals;
+in
 {
   imports = [
     ./alacritty
     ./kitty.nix
     ./wezterm.nix
+
+    (self.lib.mkSelectorModule [ "dotfyls" "terminals" ]
+      {
+        name = "default";
+        default = "wezterm";
+        description = "Default terminal to use.";
+      }
+      {
+        alacritty = "Alacritty";
+        kitty = "kitty";
+        wezterm = "WezTerm";
+      }
+      (_: terminal: {
+        start = pkgs.lib.dotfyls.mkCommandOption "start terminal"
+          // lib.optionalAttrs terminal.enable { default = terminal.package; };
+        exec = pkgs.lib.dotfyls.mkCommandOption "start terminal executing command"
+          // lib.optionalAttrs terminal.enable { default = terminal.start; };
+      }))
   ];
 
-  options.dotfyls =
-    let
-      terminals = [
-        "alacritty"
-        "kitty"
-        "wezterm"
-      ];
-    in
-    {
-      defaultTerminal = lib.mkOption {
-        type = lib.types.enum terminals;
-        default = "wezterm";
-        example = "kitty";
-        description = "Default terminal to use.";
-      };
-
-      terminals = {
-        fontSize = lib.mkOption {
-          type = lib.types.int;
-          default = 12;
-          example = 20;
-          description = "Font size to use.";
-        };
-        start = lib.mkOption {
-          type = with lib.types; lazyAttrsOf str;
-          default = { };
-          example = lib.literalExpression ''
-            {
-              alacritty = lib.getExe pkgs.alacritty;
-              kitty = lib.getExe pkgs.kitty;
-              wezterm = lib.getExe pkgs.wezterm;
-            };
-          '';
-          description = "Attribute set of terminals and commands to start.";
-        };
-
-        exec = lib.mkOption {
-          type = with lib.types; lazyAttrsOf str;
-          default = { };
-          example = lib.literalExpression ''
-            {
-              alacritty = "$${lib.getExe pkgs.alacritty} -e";
-              kitty = lib.getExe pkgs.kitty;
-              wezterm = "$${lib.getExe pkgs.wezterm} start";
-            };
-          '';
-          description = "Attribute set of terminals and commands to execute other programs.";
-        };
-      };
+  options.dotfyls.terminals = {
+    xdgExec = pkgs.lib.dotfyls.mkCommandOption "replace xdg-terminal-exec"
+      // lib.optionalAttrs cfg.selected.enable {
+      default = (pkgs.lib.dotfyls.mkNamedCommand "xdg-terminal-exec" ''
+        if [ "$#" = "0" ]; then
+          exec ${lib.getExe cfg.selected.start}
+        else
+          exec ${lib.getExe cfg.selected.exec} "$@"
+        fi
+      '');
     };
 
-  config.dotfyls.terminals.${config.dotfyls.defaultTerminal}.enable = lib.mkDefault true;
+    fontSize = lib.mkOption {
+      type = lib.types.int;
+      default = 12;
+      example = 20;
+      description = "Font size to use for terminals.";
+    };
+  };
+
+  config = {
+    home.packages = [ cfg.xdgExec ];
+
+    dconf.settings = {
+      "org/cinnamon/desktop/applications/terminal" = { exec = lib.getExe cfg.xdgExec; };
+      "org/gnome/desktop/applications/terminal" = { exec = lib.getExe cfg.xdgExec; };
+    };
+  };
 }

@@ -7,6 +7,8 @@
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
+
+      terminal = (lib.mkIf (config.dotfyls.terminals.xdgExec != null) (lib.getExe config.dotfyls.terminals.xdgExec));
     };
   };
 }

@@ -1,3 +1,3 @@
 { ... }: {
-  dotfyls.defaultTerminal = "alacritty";
+  dotfyls.terminals.default = "alacritty";
 }

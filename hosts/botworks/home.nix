@@ -1,9 +1,7 @@
-{ inputs, pkgs, ... }: {
+{ ... }:
 
+{
   dotfyls = {
-    defaultTerminal = "kitty"; # WezTerm breaks on NVIDIA.
-    terminals.fontSize = 20;
-
     desktops = {
       displays = [{
         name = "DP-2";
@@ -11,6 +9,16 @@
         height = 2160;
         refresh = 144;
       }];
+    };
+
+    terminals = {
+      default = "kitty"; # WezTerm breaks on NVIDIA.
+      fontSize = 20;
+
+      terminals = {
+        alacritty.enable = true;
+        wezterm.enable = true;
+      };
     };
   };
 }

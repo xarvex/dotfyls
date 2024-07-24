@@ -1,9 +1,20 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.terminals.terminals.alacritty;
+in
 {
-  options.dotfyls.terminals.alacritty.enable = lib.mkEnableOption "Alacritty";
+  imports = [
+    (lib.mkAliasOptionModule
+      [ "dotfyls" "terminals" "terminals" "alacritty" "package" ]
+      [ "programs" "alacritty" "package" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.terminals.alacritty.enable {
+  config = lib.mkIf cfg.enable {
+    dotfyls.terminals.terminals.alacritty = {
+      exec = lib.mkDefault (pkgs.lib.dotfyls.mkCommand ''exec ${lib.getExe cfg.start} -e "$@"'');
+    };
+
     programs.alacritty = {
       enable = true;
       settings = pkgs.lib.importTOML ./alacritty.toml // {
@@ -12,11 +23,6 @@
           size = config.dotfyls.terminals.fontSize;
         };
       };
-    };
-
-    dotfyls.terminals = rec {
-      start.alacritty = lib.getExe pkgs.alacritty;
-      exec.alacritty = "${start.alacritty} -e";
     };
   };
 }
