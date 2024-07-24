@@ -24,7 +24,7 @@ let
   ];
 in
 {
-  mkNixos = host: { home-manager, homeManagerModules, id, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
+  mkNixosConfiguration = host: { home-manager, homeManagerModules, id, nixosModules, nixpkgs, overlays, system, unfreePkgs, user, ... }:
     let
       inherit (nixpkgs) lib;
     in
@@ -63,7 +63,7 @@ in
       ] ++ nixosModules;
     };
 
-  mkHomeManager = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
+  mkHomeManagerConfiguration = host: { home-manager, homeManagerModules, nixpkgs, overlays, system, unfreePkgs, user, ... }: home-manager.lib.homeManagerConfiguration {
     pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
     extraSpecialArgs = { inherit self; };

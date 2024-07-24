@@ -1,6 +1,8 @@
 { lib, self }:
 
-{
-  configuration = import ./configuration.nix { inherit self; };
-  modules = import ./modules.nix { inherit lib; };
-}
+# WARNING: later elements replace duplicates
+lib.mergeAttrsList [
+  (import ./configurations.nix { inherit self; })
+  (import ./desktops.nix { inherit lib; })
+  (import ./modules.nix { inherit lib; })
+]
