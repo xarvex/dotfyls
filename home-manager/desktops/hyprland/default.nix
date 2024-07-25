@@ -67,7 +67,10 @@ in
 
       settings = {
         env = (
-          let sessionVariables = config.dotfyls.desktops.wayland.sessionVariables; in
+          let
+            sessionVariables = config.dotfyls.desktops.wayland.sessionVariables
+              // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; };
+          in
           (builtins.map (name: "${name}, ${toString sessionVariables.${name}}") (builtins.attrNames sessionVariables))
         );
 

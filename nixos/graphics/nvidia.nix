@@ -27,10 +27,13 @@
         modesetting.enable = true;
         powerManagement.enable = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
+        package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
       graphics.extraPackages = with pkgs; [
-        mesa.drivers
+        egl-wayland
+
+        mesa
+        libglvnd
         nvidia-vaapi-driver
         vaapiVdpau
 
