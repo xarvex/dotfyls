@@ -4,6 +4,7 @@
   imports = [
     ./desktops
     ./fonts.nix
+    ./media.nix
     ./persist.nix
     ./programs
     ./terminals

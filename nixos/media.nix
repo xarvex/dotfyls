@@ -1,12 +1,26 @@
-{ ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.dotfyls.media;
+  hmCfg = config.hm.dotfyls.media;
+in
 {
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+  options.dotfyls.media = {
+    enable = lib.mkEnableOption "media" // { default = hmCfg.enable; };
+    audio.enable = lib.mkEnableOption "audo" // { default = hmCfg.audio.enable; };
   };
 
-  hardware.pulseaudio.enable = false;
+  config = lib.mkIf cfg.enable {
+    services.pipewire = {
+      enable = true;
+      audio = { inherit (cfg.audio) enable; };
+    } // lib.optionalAttrs cfg.audio.enable {
+      wireplumber.enable = true;
+      pulse.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+    };
+  };
 }
