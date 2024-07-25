@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./audio.nix
     ./boot.nix
     ./configuration.nix
     ./desktops
@@ -11,6 +10,7 @@
     ./filesystems
     ./graphics
     ./localization.nix
+    ./media.nix
     ./networking.nix
     ./nix.nix
     ./persist.nix
