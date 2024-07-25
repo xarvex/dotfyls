@@ -2,6 +2,8 @@
 
 {
   dotfyls = {
+    programs.openrgb.enable = true;
+
     desktops = {
       wayland.sessionVariables = options.dotfyls.desktops.wayland.sessionVariables.default
         // { NIXOS_OZONE_WL = ""; };

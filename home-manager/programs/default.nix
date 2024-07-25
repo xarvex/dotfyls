@@ -10,6 +10,7 @@
     ./gnupg.nix
     ./nemo.nix
     ./neovim.nix
+    ./openrgb.nix
     ./prismlauncher.nix
     ./rofi.nix
     ./spotify.nix
