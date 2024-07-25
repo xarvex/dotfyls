@@ -11,6 +11,9 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
     "dimaround, class:^(org.gnupg.pinentry-), floating: 1"
     "stayfocused, class:^(org.gnupg.pinentry-)"
   ]
+    ++ lib.optionals config.dotfyls.programs.openrgb.enable [
+    "float, class:^(openrgb)$"
+  ]
     ++ lib.optionals config.dotfyls.programs.xwaylandvideobridge.enable [
     "maxsize 1 1, class:^(xwaylandvideobridge)$"
     "noanim, class:^(xwaylandvideobridge)$"
