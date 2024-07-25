@@ -15,6 +15,8 @@ in
     // { default = hmCfg.enable; };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [ "/var/lib/OpenRGB" ];
+
     services.hardware.openrgb = {
       enable = true;
       package = lib.mkDefault pkgs.openrgb-with-all-plugins;
