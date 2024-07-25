@@ -20,8 +20,10 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
       "$mod_SHIFT, l, movewindow, r"
 
       "$mod, f, fullscreen, 0"
-      "$mod_SHIFT, f, fullscreen, 1"
       "$mod_ALT, f, fakefullscreen,"
+
+      "$mod, z, fullscreen, 1"
+      "$mod_ALT, z, togglefloating,"
 
       "$mod_ALT, h, workspace, m-1"
       "$mod_ALT, l, workspace, m+1"
