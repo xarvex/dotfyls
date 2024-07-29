@@ -9,9 +9,6 @@ readonly ARKENFOX="${dir}"/arkenfox
 readonly ARKENFOX_UPDATER="${ARKENFOX}"/updater.sh
 readonly ARKENFOX_CLEANER="${ARKENFOX}"/prefsCleaner.sh
 
-readonly NARSIL="${dir}"/narsil
-readonly NARSIL_USERJS="${NARSIL}"/user.js
-
 readonly GEN="${dir}"/generated
 readonly GEN_ARKENFOX_CLEANER="${GEN}"/arkenfox-prefsCleaner.sh
 
@@ -55,19 +52,11 @@ if ! [ -d "${ARKENFOX}" ]; then
     curl -sL "$(curl -s https://api.github.com/repos/arkenfox/user.js/releases/latest | jq -r .tarball_url)" | tar -xz -C "${ARKENFOX}" --strip-components 1
 fi
 
-if [ -d "${NARSIL}" ]; then
-    git -C "${NARSIL}" pull -q
-else
-    mkdir -p "${NARSIL}"
-    git clone -q https://git.nixnet.services/Narsil/desktop_user.js.git "${NARSIL}"
-    curl -sL https://git.nixnet.services/Narsil/desktop_user.js/raw/branch/master/user.js > "${NARSIL_USERJS}"
-fi
-
 silent="$([ -n "${DOTFYLS_NONINTERACTIVE}" ] && [ "${DOTFYLS_NONINTERACTIVE}" -eq '1' ] && printf -- '-s')"
 
 mkdir -p "${GEN}"
 profile="$(read_profile)"
-"${ARKENFOX_UPDATER}" -p "${profile}" -o "${NARSIL_USERJS},${USEROVERRIDES}" "${silent}"
+"${ARKENFOX_UPDATER}" -p "${profile}" -o "${USEROVERRIDES}" "${silent}"
 sed 's/{BASH_SOURCE\[0\]}/{DOTFYLS_ARKENFOX_CLEANER}\/prefsCleaner.sh/g' "${ARKENFOX_CLEANER}"\
     | sed 's/(pwd)/{DOTFYLS_ARKENFOX_CLEANER}/g'\
     > "${GEN_ARKENFOX_CLEANER}"
