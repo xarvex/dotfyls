@@ -1,5 +1,31 @@
 {
   "nodes": {
+    "dotfyls-firefox": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1722284133,
+        "narHash": "sha256-nKmXAoO/sCCjlH8HHxVscgs83uYr6NTEqX2Wbn86Zdw=",
+        "owner": "dotfyls",
+        "repo": "firefox",
+        "rev": "9912cd1b1474865d6bce877fe4a5091e63874aff",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "dotfyls",
+        "repo": "firefox",
+        "type": "gitlab"
+      }
+    },
     "dotfyls-neovim": {
       "inputs": {
         "flake-parts": [
@@ -207,6 +233,7 @@
     },
     "root": {
       "inputs": {
+        "dotfyls-firefox": "dotfyls-firefox",
         "dotfyls-neovim": "dotfyls-neovim",
         "dotfyls-wezterm": "dotfyls-wezterm",
         "dotfyls-zsh": "dotfyls-zsh",

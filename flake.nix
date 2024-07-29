@@ -2,6 +2,15 @@
   description = "Xarvex's Nix configuration";
 
   inputs = {
+    dotfyls-firefox = {
+      url = "gitlab:dotfyls/firefox";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     dotfyls-neovim = {
       url = "gitlab:dotfyls/neovim";
       inputs = {
@@ -71,6 +80,7 @@
             persistwd.nixosModules.persistwd
           ];
           homeManagerModules = with inputs; [
+            dotfyls-firefox.homeManagerModules.firefox
             dotfyls-neovim.homeManagerModules.neovim
             dotfyls-wezterm.homeManagerModules.wezterm
             dotfyls-zsh.homeManagerModules.zsh
@@ -142,6 +152,7 @@
 
       # Aggregate for export convenience.
       homeManagerModules = with inputs; {
+        inherit (dotfyls-firefox.homeManagerModules) firefox;
         inherit (dotfyls-neovim.homeManagerModules) neovim;
         inherit (dotfyls-wezterm.homeManagerModules) wezterm;
         inherit (dotfyls-zsh.homeManagerModules) zsh;
