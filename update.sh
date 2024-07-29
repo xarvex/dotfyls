@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# IMPORTANT: this script is not maintained anymore, and is only used
+# on the off chance I have to use a system without Nix or Home Manager.
+
 dir="$(dirname "$(readlink -f "$0")")"
 readonly dir
 
