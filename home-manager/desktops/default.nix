@@ -85,5 +85,7 @@
 
   config = let cfg = config.dotfyls.desktops; in lib.mkIf cfg.enable {
     dotfyls.desktops.desktops.${cfg.default}.enable = true;
+
+    dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 }
