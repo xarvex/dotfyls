@@ -74,6 +74,8 @@ in
           (builtins.map (name: "${name}, ${toString sessionVariables.${name}}") (builtins.attrNames sessionVariables))
         );
 
+        xwayland.force_zero_scaling = true;
+
         input = {
           kb_layout = "us";
           follow_mouse = 1;
@@ -89,7 +91,7 @@ in
             display.name
             "${toString display.width}x${toString display.height}@${toString display.refresh}"
             display.position
-            "1"
+            (toString display.scale)
           ] ++ lib.optionals display.vertical [ "transform, 1" ])
         )) ++ [ ", preferred, auto, auto" ];
 

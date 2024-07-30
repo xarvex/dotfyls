@@ -45,8 +45,8 @@ in
 
     fontSize = lib.mkOption {
       type = lib.types.int;
-      default = 12;
-      example = 20;
+      default = 16;
+      example = 12;
       description = "Font size to use for terminals.";
     };
   };

@@ -60,6 +60,11 @@
             example = 60;
             description = "Refresh of the display.";
           };
+          scale = lib.mkOption {
+            type = with lib.types; either (enum [ "auto" ]) float;
+            default = "auto";
+            description = "Scale of the display.";
+          };
           position = lib.mkOption {
             type = lib.types.str;
             default = "0x0";

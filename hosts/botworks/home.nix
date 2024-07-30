@@ -16,9 +16,6 @@
       }];
     };
 
-    terminals = {
-      default = "kitty"; # WezTerm breaks on NVIDIA.
-      fontSize = 20;
-    };
+    terminals.default = "kitty"; # WezTerm breaks on NVIDIA.
   };
 }
