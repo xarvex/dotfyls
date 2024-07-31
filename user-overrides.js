@@ -4,6 +4,8 @@ user_pref("__user-overrides.js.cat", "START: Should we observe the box?");
 // These are user preferences not found in Arkenfox nor Narsil's user.js.
 user_pref("browser.bookmarks.addedImportButton", false);
 user_pref("browser.migrate.content-modal.import-all.enabled", false);
+user_pref("media.ffmpeg.encoder.enabled", true);
+user_pref("media.ffmpeg.vaapi.enabled", true);
 
 
 /*** [SECTION 0100]: STARTUP ***/
