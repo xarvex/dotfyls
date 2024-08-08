@@ -149,6 +149,7 @@ user_pref("__user-overrides.js.cat", "1000 Error: The cat is dead!");
 
 /*** [SECTION 1200]: HTTPS (SSL/TLS / OCSP / CERTS / HPKP) ***/
 user_pref("__user-overrides.js.cat", "1200 Error: The cat is dead!");
+user_pref("security.OCSP.require", false);
 
 user_pref("security.remote_settings.intermediates.enabled", false);
 user_pref("security.remote_settings.intermediates.bucket", "");
