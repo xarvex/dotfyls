@@ -1,9 +1,15 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.programs.ventoy;
+in
 {
-  options.dotfyls.programs.ventoy.enable = lib.mkEnableOption "Ventoy" // { default = true; };
+  options.dotfyls.programs.ventoy = {
+    enable = lib.mkEnableOption "Ventoy" // { default = config.dotfyls.desktops.enable; };
+    package = lib.mkPackageOption pkgs "Ventoy" { default = "ventoy-full"; };
+  };
 
-  config = lib.mkIf config.dotfyls.programs.ventoy.enable {
-    home.packages = with pkgs; [ ventoy-full ];
+  config = lib.mkIf cfg.enable {
+    home.packages = with cfg; [ package ];
   };
 }

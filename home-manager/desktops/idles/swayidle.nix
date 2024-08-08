@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "idles" "idles" "swayidle" "package" ]
-      [ "services" "swayidle" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "idles" "idles" "swayidle" ]
+      [ "services" "swayidle" ])
   ];
 
   options.dotfyls.desktops.idles.idles.swayidle.enable = lib.mkEnableOption "swayidle";

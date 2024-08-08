@@ -1,9 +1,36 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
-lib.mkMerge [
-  (lib.mkIf config.hm.dotfyls.shells.zsh.enable {
-    programs.zsh.enable = true;
+let
+  cfg = config.dotfyls.shells;
+  hmCfg = config.hm.dotfyls.shells;
+in
+{
+  imports = [
+    (self.lib.mkSelectorModule [ "dotfyls" "shells" ]
+      {
+        name = "default";
+        default = hmCfg.default;
+        description = "Default shell to use.";
+      }
+      [
+        "zsh"
+      ])
+  ];
 
-    usr.shell = pkgs.zsh;
-  })
-]
+  options.dotfyls.shells.shells = {
+    zsh = {
+      enable = lib.mkEnableOption "Zsh" // { default = hmCfg.zsh.enable; };
+      package = lib.mkPackageOption pkgs "zsh" { };
+    };
+  };
+
+  config = lib.mkMerge [
+    {
+      usr.shell = cfg.selected.package;
+    }
+
+    (lib.mkIf cfg.shells.zsh.enable {
+      programs.zsh.enable = true;
+    })
+  ];
+}

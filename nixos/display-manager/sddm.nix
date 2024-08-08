@@ -1,6 +1,15 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, self, user, ... }:
 
+let
+  cfg = config.dotfyls.displayManager.displayManager.sddm;
+in
 {
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "displayManager" "displayManager" "sddm" ]
+      [ "services" "displayManager" "sddm" ])
+  ];
+
   options.dotfyls.displayManager.displayManager.sddm = {
     enable = lib.mkEnableOption "SDDM";
     theme = lib.mkOption {
@@ -30,11 +39,11 @@
     };
   };
 
-  config = let cfg = config.dotfyls.displayManager.displayManager.sddm; in lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {
+  config = lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
-      package = pkgs.kdePackages.sddm;
+      package = lib.mkDefault pkgs.kdePackages.sddm;
       theme = cfg.theme.name;
     };
 

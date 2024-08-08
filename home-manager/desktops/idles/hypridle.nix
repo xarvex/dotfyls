@@ -1,13 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.idles.idles.hypridle;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "idles" "idles" "hypridle" "package" ]
-      [ "services" "hypridle" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "idles" "idles" "hypridle" ]
+      [ "services" "hypridle" ])
   ];
 
   options.dotfyls.desktops.idles.idles.hypridle.enable = lib.mkEnableOption "hypridle";

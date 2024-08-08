@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.firefox;
+in
 {
-  options.dotfyls.programs.firefox.enable = lib.mkEnableOption "Firefox" // { default = true; };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "firefox" ]
+      [ "programs" "firefox" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.programs.firefox.enable {
+  options.dotfyls.programs.firefox.enable = lib.mkEnableOption "Firefox" // { default = config.dotfyls.desktops.enable; };
+
+  config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
     };

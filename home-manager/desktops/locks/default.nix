@@ -19,21 +19,18 @@ in
       + (lib.concatStringsSep "\n" (
         let
           desktops = builtins.attrValues config.dotfyls.desktops.desktops;
-          lockFor = desktop: cfg.locks.${desktop.lock.provider};
         in
         lib.map
           (desktop: ''
             ${desktop.sessionName})
-              exec ${lib.getExe (lockFor desktop).command}
+              exec ${lib.getExe desktop.lock.selected.command}
               ;;
           '')
-          (builtins.filter (desktop: desktop.enable && desktop.lock.enable && (lockFor desktop).enable) desktops)
+          (builtins.filter (desktop: desktop.enable && desktop.lock.enable && desktop.lock.selected.enable) desktops)
       ))
       + ''
         esac
       '');
     };
   };
-
-  config.dotfyls.desktops.locks.locks.${config.dotfyls.desktops.desktops.${config.dotfyls.desktops.default}.lock.provider}.enable = lib.mkIf cfg.enable true;
 }

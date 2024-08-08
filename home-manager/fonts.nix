@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.fonts;
+in
 {
   options.dotfyls.fonts =
     let
@@ -20,7 +23,7 @@
       };
     in
     {
-      enable = lib.mkEnableOption "fonts" // { default = true; };
+      enable = lib.mkEnableOption "fonts" // { default = config.dotfyls.desktops.enable; };
       monospace = mkFontOption "monospace" // {
         default = {
           name = "Iosevka Term SS14 Extended";
@@ -35,7 +38,7 @@
       };
     };
 
-  config = let cfg = config.dotfyls.fonts; in lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [
       cfg.monospace.package
       cfg.emoji.package

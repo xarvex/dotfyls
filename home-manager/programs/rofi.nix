@@ -1,12 +1,22 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.rofi;
+in
 {
-  options.dotfyls.programs.rofi.enable = lib.mkEnableOption "Rofi" // { default = true; };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "rofi" ]
+      [ "programs" "rofi" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.programs.rofi.enable {
+  options.dotfyls.programs.rofi.enable = lib.mkEnableOption "Rofi";
+
+  config = lib.mkIf cfg.enable {
+    dotfyls.programs.rofi.package = lib.mkDefault pkgs.rofi-wayland;
+
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
 
       terminal = (lib.mkIf (config.dotfyls.terminals.xdgExec != null) (lib.getExe config.dotfyls.terminals.xdgExec));
     };

@@ -1,78 +1,40 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "desktops" "hyprland" "package" ]
-      [ "wayland" "windowManager" "hyprland" "package" ])
-
     ./keybinds.nix
     ./rules.nix
+
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "desktops" "hyprland" ]
+      [ "wayland" "windowManager" "hyprland" ])
   ];
 
-  options.dotfyls.desktops.desktops.hyprland = {
-    enable = lib.mkEnableOption "Hyprland";
-    sessionName = lib.mkOption {
-      type = lib.types.str;
-      default = "Hyprland";
-      description = "XDG desktop session name.";
-    };
-    idle = {
-      enable = lib.mkEnableOption "Hyprland idle" // { default = true; };
-      provider = lib.mkOption {
-        type = lib.types.enum [ "hypridle" "swayidle" ];
-        default = "hypridle";
-        example = "swayidle";
-        description = "Idler to use.";
-      };
-      displays =
-        let
-          mkCommandOption = state: pkgs.lib.dotfyls.mkCommandOption "idle displays ${state}"
-            // {
-            default = pkgs.lib.dotfyls.mkCommand {
-              runtimeInputs = [ cfg.package ];
-              text = "hyprctl dispatch dpms ${state}";
-            };
-          };
-        in
-        {
-          enable = lib.mkEnableOption "Hyprland display idle" // { default = true; };
-          onCommand = mkCommandOption "on";
-          offCommand = mkCommandOption "off";
-        };
-      suspend.enable = lib.mkEnableOption "Hyprland suspend idle" // { default = true; };
-    };
-    lock = {
-      enable = lib.mkEnableOption "Hyprland lock" // { default = true; };
-      provider = lib.mkOption {
-        type = lib.types.enum [ "hyprlock" "swaylock" ];
-        default = "hyprlock";
-        example = "swaylock";
-        description = "Locker to use.";
-      };
-    };
-  };
-
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
-    home.packages = with pkgs; [
-      cliphist
-      wl-clipboard
-    ];
+    dotfyls = {
+      programs = {
+        cliphist.enable = lib.mkDefault true;
+        dunst.enable = lib.mkDefault true;
+        gvfs.enable = lib.mkDefault true;
+        rofi.enable = lib.mkDefault true;
+        waybar.enable = lib.mkDefault true;
+        wl-clipboard.enable = true;
+      };
+
+      persist.cacheDirectories = [ ".cache/hyprland" ];
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
 
       settings = {
-        env = (
-          let
-            sessionVariables = config.dotfyls.desktops.wayland.sessionVariables
-              // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; };
-          in
-          (builtins.map (name: "${name}, ${toString sessionVariables.${name}}") (builtins.attrNames sessionVariables))
-        );
+        env = builtins.attrValues (builtins.mapAttrs
+          (name: value: "${name}, ${toString value}")
+          (config.dotfyls.desktops.wayland.sessionVariables
+            // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }));
 
         xwayland.force_zero_scaling = true;
 
@@ -95,9 +57,14 @@ in
           ] ++ lib.optionals display.vertical [ "transform, 1" ])
         )) ++ [ ", preferred, auto, auto" ];
 
-        exec-once = [
-          "wl-paste --watch cliphist store"
-        ];
+        exec-once =
+          let
+            cliphist = config.dotfyls.programs.cliphist.package;
+            wl-clipboard = config.dotfyls.programs.wl-clipboard.package;
+          in
+          [
+            "${lib.getExe' wl-clipboard "wl-paste"} -w ${lib.getExe cliphist} store"
+          ];
       };
 
       systemd = {
@@ -105,7 +72,5 @@ in
         variables = [ "--all" ];
       };
     };
-
-    dotfyls.persist.directories = [ ".cache/hyprland" ]; # crash reports
   };
 }

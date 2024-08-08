@@ -1,20 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, self, ... }:
 
 let
   cfg = config.dotfyls.terminals.terminals.wezterm;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "terminals" "terminals" "wezterm" "package" ]
-      [ "programs" "wezterm" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "terminals" "terminals" "wezterm" ]
+      [ "programs" "wezterm" ])
   ];
 
   config = lib.mkIf cfg.enable {
-    dotfyls.terminals.terminals.wezterm = {
-      exec = lib.mkDefault (pkgs.lib.dotfyls.mkCommand ''exec ${lib.getExe cfg.start} start "$@"'');
-    };
-
     programs.wezterm.enable = true;
   };
 }

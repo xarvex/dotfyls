@@ -1,20 +1,101 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, self, ... }:
 
+let
+  cfg = config.dotfyls.desktops;
+
+  desktops = {
+    hyprland =
+      let
+        cfg' = cfg.desktops.hyprland;
+      in
+      {
+        name = "Hyprland";
+        idler = {
+          default = "hypridle";
+          choices = [ "hypridle" "swayidle" ];
+        };
+        locker = {
+          default = "hyprlock";
+          choices = [ "hyprlock" "swaylock" ];
+        };
+        specialArgs =
+          let
+            mkDisplayCommand = state: pkgs.lib.dotfyls.mkCommand {
+              runtimeInputs = [ cfg'.package ];
+              text = "hyprctl dispatch dpms ${state}";
+            };
+          in
+          {
+            idle.displays = {
+              onCommand.default = mkDisplayCommand "on";
+              offCommand.default = mkDisplayCommand "off";
+            };
+          };
+      };
+  };
+in
 {
   imports = [
     ./hyprland
     ./idles
     ./locks
-  ];
+
+    (self.lib.mkSelectorModule [ "dotfyls" "desktops" ]
+      {
+        name = "default";
+        default = "hyprland";
+        description = "Default desktop to use.";
+      }
+      (builtins.mapAttrs (module: desktop: desktop.name) desktops))
+
+    (self.lib.mkCommonModules [ "dotfyls" "desktops" "desktops" ]
+      (desktop: dCfg: {
+        sessionName = lib.mkOption {
+          type = lib.types.str;
+          default = desktop.name;
+          description = "XDG desktop session name for ${desktop.name}.";
+        };
+
+        idle = {
+          enable = lib.mkEnableOption "${desktop.name} idle" // { default = true; };
+          displays = {
+            enable = lib.mkEnableOption "${desktop.name} display idle" // { default = true; };
+            onCommand = pkgs.lib.dotfyls.mkCommandOption "idle displays on";
+            offCommand = pkgs.lib.dotfyls.mkCommandOption "idle displays off";
+          };
+          suspend.enable = lib.mkEnableOption "${desktop.name} suspend idle" // { default = true; };
+        };
+        lock.enable = lib.mkEnableOption "${desktop.name} lock" // { default = true; };
+      })
+      desktops)
+  ]
+  ++ builtins.attrValues (builtins.mapAttrs
+    (module: desktop: self.lib.mkSelectorModule'
+      [ "dotfyls" "desktops" "idles" "idles" ]
+      [ "dotfyls" "desktops" "desktops" module "idle" ]
+      {
+        inherit (desktop.idler) default;
+
+        name = "provider";
+        description = "Idler to use for ${desktop.name}.";
+      }
+      desktop.idler.choices)
+    desktops)
+  ++ builtins.attrValues (builtins.mapAttrs
+    (module: desktop: self.lib.mkSelectorModule'
+      [ "dotfyls" "desktops" "locks" "locks" ]
+      [ "dotfyls" "desktops" "desktops" module "lock" ]
+      {
+        inherit (desktop.locker) default;
+
+        name = "provider";
+        description = "Locker to use for ${desktop.name}.";
+      }
+      desktop.locker.choices)
+    desktops);
 
   options.dotfyls.desktops = {
     enable = lib.mkEnableOption "desktops" // { default = true; };
-    default = lib.mkOption {
-      type = lib.types.enum [ "hyprland" ];
-      default = "hyprland";
-      example = "hyprland";
-      description = "Default desktop to use.";
-    };
 
     wayland.sessionVariables = lib.mkOption {
       type = with lib.types; attrsOf (either int str);
@@ -83,9 +164,7 @@
     };
   };
 
-  config = let cfg = config.dotfyls.desktops; in lib.mkIf cfg.enable {
-    dotfyls.desktops.desktops.${cfg.default}.enable = true;
-
+  config = lib.mkIf cfg.enable {
     dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 }

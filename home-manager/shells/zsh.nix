@@ -1,9 +1,16 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
+let
+  cfg = config.dotfyls.shells.shells.zsh;
+in
 {
-  options.dotfyls.shells.zsh.enable = lib.mkEnableOption "Zsh" // { default = true; };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "shells" "shells" "zsh" ]
+      [ "programs" "zsh" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.shells.zsh.enable {
+  config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
       # TODO: init programs (fetch)

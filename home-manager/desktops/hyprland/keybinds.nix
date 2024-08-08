@@ -39,17 +39,17 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
       "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
     ++ lib.optionals config.dotfyls.programs.discord.enable [
-      "$mod, d, exec, Discord"
+      "$mod, d, exec, ${lib.getExe config.dotfyls.programs.discord.package}"
     ]
     ++ lib.optionals config.dotfyls.programs.firefox.enable [
-      "$mod, w, exec, firefox"
+      "$mod, w, exec, ${lib.getExe config.dotfyls.programs.firefox.finalPackage}"
     ]
     ++ lib.optionals config.dotfyls.programs.nemo.enable [
-      "$mod, e, exec, nemo"
+      "$mod, e, exec, ${lib.getExe config.dotfyls.programs.nemo.package}"
     ]
     ++ lib.optionals config.dotfyls.programs.rofi.enable [
-      "$mod_SHIFT, Return, exec, rofi -show drun"
-      "$mod_SHIFT, v, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      "$mod_SHIFT, Return, exec, ${lib.getExe config.dotfyls.programs.rofi.finalPackage} -show drun"
+      "$mod_SHIFT, v, exec, cliphist list | ${lib.getExe config.dotfyls.programs.rofi.finalPackage} -dmenu | cliphist decode | wl-copy"
     ];
 
     binde = [

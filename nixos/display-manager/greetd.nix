@@ -1,46 +1,79 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
+let
+  cfg = config.dotfyls.displayManager.displayManager.greetd;
+in
 {
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "displayManager" "displayManager" "greetd" ]
+      [ "services" "greetd" ])
+
+    (self.lib.mkSelectorModule [ "dotfyls" "displayManager" "displayManager" "greetd" "greeter" ]
+      {
+        name = "provider";
+        default = "tuigreet";
+        description = "Greeter to use for greetd.";
+      }
+      {
+        agreety = "agreety";
+        tuigreet = "tuigreet";
+      })
+
+    (self.lib.mkCommonModules [ "dotfyls" "displayManager" "displayManager" "greetd" "greeter" "greeter" ]
+      (greeter: gCfg: {
+        startCommand = pkgs.lib.dotfyls.mkCommandOption "start ${greeter.name}";
+      })
+      {
+        agreety = {
+          name = "agreety";
+          specialArgs.startCommand.default = "${lib.getExe' cfg.package "agreety"} --cmd ${cfg.launchCommand}";
+        };
+        tuigreet =
+          let
+            cfg' = cfg.greeter.greeter.tuigreet;
+
+            mkSystemctlCommand = verb: pkgs.lib.dotfyls.mkCommand {
+              runtimeInputs = with pkgs; [ systemd ];
+              text = "systemctl ${verb}";
+            };
+          in
+          {
+            name = "tuigreet";
+            specialArgs = {
+              package = lib.mkPackageOption pkgs [ "greetd" "tuigreet" ] { };
+              theme = lib.mkOption {
+                type = lib.types.str;
+                default = "text=cyan;border=magenta;prompt=green";
+                example = "text=cyan;border=magenta;prompt=green";
+                description = "Theme used for tuigreet.";
+              };
+              shutdownCommand = pkgs.lib.dotfyls.mkCommandOption "shutdown for tuigreet"
+                // { default = mkSystemctlCommand "poweroff"; };
+              rebootCommand = pkgs.lib.dotfyls.mkCommandOption "reboot for tuigreet"
+                // { default = mkSystemctlCommand "reboot"; };
+              startCommand.default = pkgs.lib.dotfyls.mkCommand ''
+                ${lib.getExe cfg'.package} --cmd ${lib.getExe cfg.launchCommand} \
+                --power-shutdown ${lib.getExe cfg'.shutdownCommand} \
+                --power-reboot ${lib.getExe cfg'.rebootCommand} \
+                --time --user-menu \
+                --theme '${cfg'.theme}'
+              '';
+            };
+          };
+      })
+  ];
+
   options.dotfyls.displayManager.displayManager.greetd = {
     enable = lib.mkEnableOption "greetd";
-    greeters = {
-      provider = lib.mkOption {
-        type = lib.types.enum [ "agreety" "tuigreet" ];
-        default = "tuigreet";
-        example = "tuigreet";
-        description = "Greeter to use.";
-      };
-      greeters = {
-        agreety.enable = lib.mkEnableOption "agreety greeter";
-        tuigreet.enable = lib.mkEnableOption "tuigreet greeter";
-      };
-    };
+    launchCommand = pkgs.lib.dotfyls.mkCommandOption "launch default session"
+      // { default = pkgs.lib.dotfyls.mkCommand "exec ${lib.getExe config.dotfyls.desktops.launchCommand} > /dev/null"; };
   };
 
-  config = let cfg = config.dotfyls.displayManager.displayManager.greetd; in lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) (
-    let
-      command = pkgs.lib.dotfyls.mkCommandExe "exec ${lib.getExe config.dotfyls.desktops.launchCommand} > /dev/null";
-      mkSystemctlCommand = verb: pkgs.lib.dotfyls.mkCommandExe {
-        runtimeInputs = with pkgs; [ systemd ];
-        text = "systemctl ${verb}";
-      };
-
-      greeters = {
-        agreety.command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${command}";
-        tuigreet.command = ''
-          ${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${command} \
-            --power-shutdown ${mkSystemctlCommand "poweroff"} \
-            --power-reboot ${mkSystemctlCommand "reboot"} \
-            --time --user-menu \
-            --theme 'text=cyan;border=magenta;prompt=green'
-        '';
-      };
-    in
-    {
-      services.greetd = {
-        enable = true;
-        settings.default_session = greeters.${cfg.greeters.provider};
-      };
-    }
-  );
+  config = lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {
+    services.greetd = {
+      enable = true;
+      settings.default_session.command = lib.getExe cfg.greeter.selected.startCommand;
+    };
+  };
 }

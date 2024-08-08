@@ -19,13 +19,34 @@ in
         alacritty = "Alacritty";
         kitty = "kitty";
         wezterm = "WezTerm";
-      }
-      (_: terminal: {
-        start = pkgs.lib.dotfyls.mkCommandOption "start terminal"
-          // lib.optionalAttrs terminal.enable { default = terminal.package; };
-        exec = pkgs.lib.dotfyls.mkCommandOption "start terminal executing command"
-          // lib.optionalAttrs terminal.enable { default = terminal.start; };
-      }))
+      })
+
+    (self.lib.mkCommonModules [ "dotfyls" "terminals" "terminals" ]
+      (terminal: tCfg: {
+        start = pkgs.lib.dotfyls.mkCommandOption "start ${terminal.name}"
+          // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
+        exec = pkgs.lib.dotfyls.mkCommandOption "start ${terminal.name} executing command"
+          // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
+      })
+      {
+        alacritty = {
+          name = "Alacritty";
+          specialArgs = {
+            exec.default = pkgs.lib.dotfyls.mkCommand
+              ''exec ${lib.getExe cfg.terminals.alacritty.start} -e "$@"'';
+          };
+        };
+        kitty = {
+          name = "kitty";
+        };
+        wezterm = {
+          name = "WezTerm";
+          specialArgs = {
+            exec.default = pkgs.lib.dotfyls.mkCommand
+              ''exec ${lib.getExe cfg.terminals.wezterm.start} start "$@"'';
+          };
+        };
+      })
   ];
 
   options.dotfyls.terminals = {

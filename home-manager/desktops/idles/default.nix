@@ -43,7 +43,7 @@ in
                       exec ${lib.getExe desktop.idle.displays."${state}Command"}
                       ;;
                 '')
-                (builtins.filter (desktop: desktop.enable && desktop.idle.enable && cfg.idles.${desktop.idle.provider}.enable) desktops)
+                (builtins.filter (desktop: desktop.enable && desktop.idle.enable && desktop.idle.selected.enable) desktops)
             ))
             + ''
               esac
@@ -68,6 +68,4 @@ in
         };
       };
     };
-
-  config.dotfyls.desktops.idles.idles.${config.dotfyls.desktops.desktops.${config.dotfyls.desktops.default}.idle.provider}.enable = lib.mkIf cfg.enable true;
 }

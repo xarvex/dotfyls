@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 
+let
+  cfg = config.dotfyls.graphics.nvidia;
+in
 {
   options.dotfyls.graphics.nvidia = {
     enable = lib.mkEnableOption "NVIDIA graphics";
     blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // { default = true; };
   };
 
-  config = lib.mkIf config.dotfyls.graphics.nvidia.enable {
+  config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
 
     boot = {

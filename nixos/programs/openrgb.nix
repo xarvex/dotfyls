@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, self, user, ... }:
 
 let
   cfg = config.dotfyls.programs.openrgb;
@@ -6,13 +6,12 @@ let
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "programs" "openrgb" "package" ]
-      [ "services" "hardware" "openrgb" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "openrgb" ]
+      [ "services" "hardware" "openrgb" ])
   ];
 
-  options.dotfyls.programs.openrgb.enable = lib.mkEnableOption "OpenRGB"
-    // { default = hmCfg.enable; };
+  options.dotfyls.programs.openrgb.enable = lib.mkEnableOption "OpenRGB" // { default = hmCfg.enable; };
 
   config = lib.mkIf cfg.enable {
     dotfyls.persist.directories = [ "/var/lib/OpenRGB" ];

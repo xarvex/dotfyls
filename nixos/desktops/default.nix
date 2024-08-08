@@ -1,29 +1,33 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops;
+  hmCfg = config.hm.dotfyls.desktops;
 in
 {
   imports = [
     ./hyprland.nix
     ./locks.nix
+
+    (self.lib.mkSelectorModule [ "dotfyls" "desktops" ]
+      {
+        name = "default";
+        default = hmCfg.default;
+        example = "hyprland";
+        description = "Default desktop to use.";
+      }
+      [
+        "hyprland"
+      ])
   ];
 
   options.dotfyls.desktops = {
-    enable = lib.mkEnableOption "desktops" // { default = config.hm.dotfyls.desktops.enable; };
-    default = lib.mkOption {
-      type = lib.types.enum [ "hyprland" ];
-      default = config.hm.dotfyls.desktops.default;
-      example = "hyprland";
-      description = "Default desktop to use.";
-    };
+    enable = lib.mkEnableOption "desktops" // { default = hmCfg.enable; };
     launchCommand = pkgs.lib.dotfyls.mkCommandOption "launch default desktop"
-      // { default = cfg.desktops.${cfg.default}.command; };
+      // { default = cfg.selected.command; };
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.desktops.desktops.${cfg.default}.enable = true;
-
     services.xserver = {
       updateDbusEnvironment = true;
       xkb = {

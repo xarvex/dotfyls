@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.dunst;
+in
 {
-  options.dotfyls.programs.dunst.enable = lib.mkEnableOption "Dunst" // { default = true; };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "dunst" ]
+      [ "services" "dunst" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.programs.dunst.enable {
+  options.dotfyls.programs.dunst.enable = lib.mkEnableOption "Dunst";
+
+  config = lib.mkIf cfg.enable {
     services.dunst = {
       enable = true;
       # TODO: theme

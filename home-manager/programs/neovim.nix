@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.neovim;
+in
 {
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "neovim" ]
+      [ "programs" "neovim" ])
+  ];
+
   options.dotfyls.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
 
-  config = lib.mkIf config.dotfyls.programs.neovim.enable {
+  config = lib.mkIf cfg.enable {
     programs.neovim = {
       enable = true;
       defaultEditor = true;

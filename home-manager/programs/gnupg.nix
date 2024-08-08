@@ -1,20 +1,41 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.gnupg;
+in
 {
-  options.dotfyls.programs.gnupg.enable = lib.mkEnableOption "GnuPG" // { default = true; };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "gnupg" ]
+      [ "programs" "gpg" ])
+    (self.lib.mkAliasOptionModules
+      [ "dotfyls" "programs" "gnupg" "agent" ]
+      [ "services" "gpg-agent" ]
+      [ "pinentryPackage" ])
+  ];
 
-  config = lib.mkIf config.dotfyls.programs.gnupg.enable {
-    programs.gpg = {
-      enable = true;
-      homedir = "${config.xdg.dataHome}/gnupg";
-    };
-
-    services.gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryPackage = pkgs.pinentry-qt;
-    };
-
-    dotfyls.persist.directories = [ ".local/share/gnupg" ];
+  options.dotfyls.programs.gnupg = {
+    enable = lib.mkEnableOption "GnuPG" // { default = config.dotfyls.desktops.enable; };
+    agent.enable = lib.mkEnableOption "GnuPG agent" // { default = config.dotfyls.desktops.enable; };
   };
+
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      programs.gpg = {
+        enable = true;
+        homedir = "${config.xdg.dataHome}/gnupg";
+      };
+
+      dotfyls.persist.directories = [ ".local/share/gnupg" ];
+    }
+
+    (lib.mkIf cfg.agent.enable {
+      dotfyls.programs.gnupg.agent.pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
+
+      services.gpg-agent = lib.mkIf cfg.agent.enable {
+        enable = true;
+        enableSshSupport = true;
+      };
+    })
+  ]);
 }

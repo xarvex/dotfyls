@@ -1,17 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
+  hmCfg = config.hm.dotfyls.desktops.desktops.hyprland;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "desktops" "hyprland" "package" ]
-      [ "programs" "hyprland" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "desktops" "hyprland" ]
+      [ "programs" "hyprland" ])
   ];
 
   options.dotfyls.desktops.desktops.hyprland = {
-    enable = lib.mkEnableOption "Hyprland" // { default = config.hm.dotfyls.desktops.desktops.hyprland.enable; };
+    enable = lib.mkEnableOption "Hyprland" // { default = hmCfg.desktops.hyprland.enable; };
     command = pkgs.lib.dotfyls.mkCommandOption "Hyprland" // {
       default = pkgs.lib.dotfyls.mkCommand {
         runtimeInputs = [ cfg.package pkgs.dbus ];
@@ -21,6 +22,8 @@ in
   };
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
+    dotfyls.programs.gvfs.enable = lib.mkDefault true;
+
     programs.hyprland.enable = true;
 
     xdg.portal = {

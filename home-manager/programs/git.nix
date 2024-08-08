@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{ config, lib, self, ... }:
 
+let
+  cfg = config.dotfyls.programs.git;
+in
 {
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "git" ]
+      [ "programs" "git" ])
+  ];
+
   options.dotfyls.programs.git.enable = lib.mkEnableOption "Git" // { default = true; };
 
-  config = lib.mkIf config.dotfyls.programs.git.enable {
+  config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
       userName = "xarvex";

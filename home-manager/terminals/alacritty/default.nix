@@ -1,20 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.terminals.terminals.alacritty;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "terminals" "terminals" "alacritty" "package" ]
-      [ "programs" "alacritty" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "terminals" "terminals" "alacritty" ]
+      [ "programs" "alacritty" ])
   ];
 
   config = lib.mkIf cfg.enable {
-    dotfyls.terminals.terminals.alacritty = {
-      exec = lib.mkDefault (pkgs.lib.dotfyls.mkCommand ''exec ${lib.getExe cfg.start} -e "$@"'');
-    };
-
     programs.alacritty = {
       enable = true;
       settings = pkgs.lib.importTOML ./alacritty.toml // {
