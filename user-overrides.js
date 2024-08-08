@@ -135,7 +135,6 @@ user_pref("browser.urlbar.merino.enabled", false);
 /*** [SECTION 0900]: PASSWORDS ***/
 user_pref("__user-overrides.js.cat", "0900 Error: The cat is dead!");
 
-user_pref("signon.rememberSignons", false);
 user_pref("signon.generation.enabled", false);
 user_pref("signon.management.page.breach-alerts.enabled", false);
 user_pref("signon.management.page.breachAlertUrl", "");
