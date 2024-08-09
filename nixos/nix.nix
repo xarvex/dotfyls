@@ -2,10 +2,7 @@
 
 {
   nix = rec {
-    nixPath = [
-      "nixpkgs=flake:nixpkgs"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+    nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     channel.enable = false;
 

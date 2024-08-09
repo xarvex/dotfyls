@@ -6,7 +6,7 @@ in
 {
   options.dotfyls.programs.nemo = {
     enable = lib.mkEnableOption "Nemo" // { default = config.dotfyls.desktops.enable; };
-    package = lib.mkPackageOption pkgs "Nemo" { default = [ "cinnamon" "nemo-with-extensions" ]; };
+    package = lib.mkPackageOption pkgs "Nemo" { default = "nemo-with-extensions"; };
     extraPackages = self.lib.mkExtraPackagesOption "Nemo"
       // { default = with pkgs; [ webp-pixbuf-loader ]; };
   };
