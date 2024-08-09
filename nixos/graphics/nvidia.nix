@@ -12,18 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    boot = {
-      # See: https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers#Kernel_module_parameters
-      kernelParams = [
-        # Use NVIDIA framebuffer.
-        "nvidia-drm.fbdev=1"
-
-        # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
-        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-      ];
-    } // lib.optionalAttrs config.dotfyls.graphics.nvidia.blacklistCompeting {
-      blacklistedKernelModules = [ "amdgpu" "i915" ];
-    };
+    boot.blacklistedKernelModules = lib.mkIf cfg.blacklistCompeting [ "amdgpu" "i915" ];
 
     hardware = {
       nvidia = {
