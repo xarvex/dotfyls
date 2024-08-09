@@ -260,7 +260,7 @@ user_pref("app.update.auto", false);
 user_pref("extensions.update.enabled", false);
 user_pref("extensions.update.autoUpdateDefault", false);
 user_pref("extensions.getAddons.cache.enabled", false);
-user_pref("browser.search.update", false);
+// user_pref("browser.search.update", false);
 user_pref("accessibility.typeaheadfind", false);
 user_pref("clipboard.autocopy", false);
 // 0=none, 1-multi-line, 2=multi-line & single-line
