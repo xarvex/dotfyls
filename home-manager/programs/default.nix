@@ -17,6 +17,7 @@
     ./prismlauncher.nix
     ./rofi.nix
     ./spotify.nix
+    ./steam.nix
     ./ventoy.nix
     ./waybar.nix
     ./wl-clipboard.nix

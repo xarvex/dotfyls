@@ -94,6 +94,9 @@
             "nvidia-settings"
             "nvidia-x11"
             "spotify"
+            "steam"
+            "steam-original"
+            "steam-run"
           ];
 
           defaultHost = id: system: {
