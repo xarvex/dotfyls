@@ -1,4 +1,4 @@
-{ config, lib, pkgs, self, user, ... }:
+{ config, lib, self, user, ... }:
 
 let
   cfg = config.dotfyls.programs.openrgb;
@@ -23,10 +23,7 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.persist.directories = [ "/var/lib/OpenRGB" ];
 
-    services.hardware.openrgb = {
-      enable = true;
-      package = lib.mkDefault pkgs.openrgb-with-all-plugins;
-    };
+    services.hardware.openrgb.enable = true;
 
     systemd.services.openrgb.serviceConfig.ExecStart = lib.mkForce ''
       ${lib.getExe cfg.package} --server \
