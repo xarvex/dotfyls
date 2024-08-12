@@ -31,8 +31,6 @@ in
         --profile ${cfg.bootProfile}
     '';
 
-    boot.kernelModules = [ "i2c-dev" ];
-
     users.groups.i2c.members = [ user ];
   };
 }
