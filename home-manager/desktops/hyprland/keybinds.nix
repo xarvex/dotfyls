@@ -1,6 +1,16 @@
 { config, lib, self, ... }:
 
-lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyprland.enable) {
+let
+  cfg = config.dotfyls.desktops.desktops.hyprland;
+
+  withProgram = name: generator:
+    let
+      cfg' = config.dotfyls.programs.${name};
+      pkg = if (cfg' ? finalPackage) then cfg'.finalPackage else cfg'.package;
+    in
+    lib.optionals cfg'.enable (generator pkg);
+in
+lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
 
@@ -38,19 +48,21 @@ lib.mkIf (config.dotfyls.desktops.enable && config.dotfyls.desktops.desktops.hyp
     ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
       "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
-    ++ lib.optionals config.dotfyls.programs.discord.enable [
-      "$mod, d, exec, ${lib.getExe config.dotfyls.programs.discord.package}"
+    ++ withProgram "discord" (discord: [
+      "$mod, d, exec, ${lib.getExe discord}"
+    ])
+    ++ withProgram "firefox" (firefox: [
+      "$mod, w, exec, ${lib.getExe firefox}"
+    ])
+    ++ withProgram "nemo" (nemo: [
+      "$mod, e, exec, ${lib.getExe nemo}"
+    ])
+    ++ withProgram "rofi" (rofi: ([
+      "$mod_SHIFT, Return, exec, ${lib.getExe rofi} -show drun"
     ]
-    ++ lib.optionals config.dotfyls.programs.firefox.enable [
-      "$mod, w, exec, ${lib.getExe config.dotfyls.programs.firefox.finalPackage}"
-    ]
-    ++ lib.optionals config.dotfyls.programs.nemo.enable [
-      "$mod, e, exec, ${lib.getExe config.dotfyls.programs.nemo.package}"
-    ]
-    ++ lib.optionals config.dotfyls.programs.rofi.enable [
-      "$mod_SHIFT, Return, exec, ${lib.getExe config.dotfyls.programs.rofi.finalPackage} -show drun"
-      "$mod_SHIFT, v, exec, cliphist list | ${lib.getExe config.dotfyls.programs.rofi.finalPackage} -dmenu | cliphist decode | wl-copy"
-    ];
+    ++ withProgram "cliphist" (cliphist: withProgram "wl-clipboard" (wl-clipboard: [
+      "$mod_SHIFT, v, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
+    ]))));
 
     binde = [
       "$mod_CTRL, h, resizeactive, -20 0"
