@@ -1,44 +1,21 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.dotfyls.graphics.nvidia;
+  cfg = config.dotfyls.graphics.graphics.nvidia;
 in
 {
-  options.dotfyls.graphics.nvidia = {
-    enable = lib.mkEnableOption "NVIDIA graphics";
-    blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // { default = true; };
-  };
-
   config = lib.mkIf cfg.enable {
-    services.xserver.videoDrivers = [ "nvidia" ];
-
-    boot.blacklistedKernelModules = lib.mkIf cfg.blacklistCompeting [ "amdgpu" "i915" ];
-
-    hardware = {
-      nvidia = {
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
-      };
-      graphics.extraPackages = with pkgs; [
-        egl-wayland
-
-        mesa
-        libglvnd
-        nvidia-vaapi-driver
-        vaapiVdpau
-
-        vulkan-extension-layer
-        vulkan-loader
-        vulkan-validation-layers
-      ];
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
 
     environment.sessionVariables = {
-      LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      LIBVA_DRIVER_NAME = "nvidia";
       NVD_BACKEND = "direct";
 
       # https://discourse.nixos.org/t/drm-kernel-driver-nvidia-drm-in-use-nvk-requires-nouveau/42222/28

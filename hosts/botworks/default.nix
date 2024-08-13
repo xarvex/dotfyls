@@ -2,7 +2,8 @@
 
 {
   dotfyls = {
-    graphics.nvidia.enable = true;
+    graphics.provider = "nvidia";
+
     security.harden.kernel.enable = false;
     filesystems.zfs.unstable = true;
 
