@@ -1,4 +1,4 @@
-{ config, lib, self, ... }:
+{ config, inputs, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
@@ -13,8 +13,14 @@ in
       [ "wayland" "windowManager" "hyprland" ])
   ];
 
+  options.dotfyls.desktops.desktops.hyprland = {
+    explicitSync = lib.mkEnableOption "Hyprland explicit sync";
+  };
+
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
+      desktops.desktops.hyprland.package = inputs.nixpkgs-small.legacyPackages.${pkgs.system}.hyprland;
+
       programs = {
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
@@ -35,6 +41,11 @@ in
           (name: value: "${name}, ${toString value}")
           (config.dotfyls.desktops.wayland.sessionVariables
             // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }));
+
+        render = rec {
+          explicit_sync = if cfg.explicitSync then 1 else 0;
+          explicit_sync_kms = explicit_sync;
+        };
 
         xwayland.force_zero_scaling = true;
 

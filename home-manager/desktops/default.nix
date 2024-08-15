@@ -26,6 +26,7 @@ let
             };
           in
           {
+            startCommand.default = pkgs.lib.dotfyls.mkDbusSession cfg'.package;
             idle.displays = {
               onCommand.default = mkDisplayCommand "on";
               offCommand.default = mkDisplayCommand "off";
@@ -55,6 +56,7 @@ in
           default = desktop.name;
           description = "XDG desktop session name for ${desktop.name}.";
         };
+        startCommand = pkgs.lib.dotfyls.mkCommandOption "start ${desktop.name}";
 
         idle = {
           enable = lib.mkEnableOption "${desktop.name} idle" // { default = true; };
@@ -96,6 +98,8 @@ in
 
   options.dotfyls.desktops = {
     enable = lib.mkEnableOption "desktops" // { default = true; };
+    startCommand = pkgs.lib.dotfyls.mkCommandOption "start default desktop"
+      // { default = cfg.selected.startCommand; };
 
     wayland.sessionVariables = lib.mkOption {
       type = with lib.types; attrsOf (either int str);
@@ -103,11 +107,11 @@ in
         EGL_BACKEND = "wayland";
         GDK_BACKEND = "wayland,x11,*";
         QT_QPA_PLATFORM = "wayland;xcb";
-        SDL_VIDEODRIVER = "wayland";
+        SDL_VIDEODRIVER = "wayland,x11,windows";
         CLUTTER_BACKEND = "wayland";
 
         NIXOS_OZONE_WL = 1;
-        MOZ_ENABLE_WAYLAND = lib.mkIf config.dotfyls.programs.firefox.enable 1;
+        MOZ_ENABLE_WAYLAND = 1;
 
         QT_AUTO_SCREEN_SCALE_FACTOR = 1;
       };

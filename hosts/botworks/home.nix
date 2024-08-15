@@ -14,6 +14,8 @@
         height = 2160;
         refresh = 144;
       }];
+
+      desktops.hyprland.explicitSync = true;
     };
 
     terminals.default = "kitty"; # WezTerm breaks on NVIDIA.

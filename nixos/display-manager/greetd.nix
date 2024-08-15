@@ -27,7 +27,7 @@ in
       {
         agreety = {
           name = "agreety";
-          specialArgs.startCommand.default = "${lib.getExe' cfg.package "agreety"} --cmd ${cfg.launchCommand}";
+          specialArgs.startCommand.default = "${lib.getExe' cfg.package "agreety"} --cmd ${cfg.startCommand}";
         };
         tuigreet =
           let
@@ -53,7 +53,7 @@ in
               rebootCommand = pkgs.lib.dotfyls.mkCommandOption "reboot for tuigreet"
                 // { default = mkSystemctlCommand "reboot"; };
               startCommand.default = pkgs.lib.dotfyls.mkCommand ''
-                ${lib.getExe cfg'.package} --cmd ${lib.getExe cfg.launchCommand} \
+                ${lib.getExe cfg'.package} --cmd ${lib.getExe cfg.startCommand} \
                 --power-shutdown ${lib.getExe cfg'.shutdownCommand} \
                 --power-reboot ${lib.getExe cfg'.rebootCommand} \
                 --time --user-menu \
@@ -66,8 +66,8 @@ in
 
   options.dotfyls.displayManager.displayManager.greetd = {
     enable = lib.mkEnableOption "greetd";
-    launchCommand = pkgs.lib.dotfyls.mkCommandOption "launch default session"
-      // { default = pkgs.lib.dotfyls.mkCommand "exec ${lib.getExe config.dotfyls.desktops.launchCommand} > /dev/null"; };
+    startCommand = pkgs.lib.dotfyls.mkCommandOption "start default session"
+      // { default = pkgs.lib.dotfyls.mkCommand "exec ${lib.getExe config.dotfyls.desktops.startCommand} > /dev/null"; };
   };
 
   config = lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {

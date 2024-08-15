@@ -9,7 +9,7 @@ in
       modesetting.enable = true;
       powerManagement.enable = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
     environment.sessionVariables = {

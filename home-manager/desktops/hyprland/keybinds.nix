@@ -3,12 +3,12 @@
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
 
+  getPkg = cfg': if (cfg' ? finalPackage) then cfg'.finalPackage else cfg'.package;
   withProgram = name: generator:
     let
       cfg' = config.dotfyls.programs.${name};
-      pkg = if (cfg' ? finalPackage) then cfg'.finalPackage else cfg'.package;
     in
-    lib.optionals cfg'.enable (generator pkg);
+    lib.optionals cfg'.enable (generator (getPkg cfg'));
 in
 lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
@@ -30,7 +30,7 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
       "$mod_SHIFT, l, movewindow, r"
 
       "$mod, f, fullscreen, 0"
-      "$mod_ALT, f, fakefullscreen,"
+      "$mod_ALT, f, fullscreenstate, -1 2"
 
       "$mod, z, fullscreen, 1"
       "$mod_ALT, z, togglefloating,"
@@ -48,9 +48,6 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
       "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
-    ++ withProgram "discord" (discord: [
-      "$mod, d, exec, ${lib.getExe discord}"
-    ])
     ++ withProgram "firefox" (firefox: [
       "$mod, w, exec, ${lib.getExe firefox}"
     ])
@@ -62,7 +59,17 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     ]
     ++ withProgram "cliphist" (cliphist: withProgram "wl-clipboard" (wl-clipboard: [
       "$mod_SHIFT, v, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
-    ]))));
+    ]))))
+    ++ (
+      let
+        mkBinds = name: [
+          "$mod, d, exec, ${lib.getExe (getPkg config.dotfyls.programs.${name})}"
+        ];
+      in
+      if config.dotfyls.programs.vesktop.enable then mkBinds "vesktop"
+      else if config.dotfyls.programs.discord.enable then mkBinds "discord"
+      else [ ]
+    );
 
     binde = [
       "$mod_CTRL, h, resizeactive, -20 0"

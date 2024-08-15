@@ -195,6 +195,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-small": {
+      "locked": {
+        "lastModified": 1723555265,
+        "narHash": "sha256-bnqDQdQMcRFD/Z8uUEkDN5tAcdwmQ0XTw8I/hCrateo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "11555c7701430cc60e7fc48d5fac47fdda2bda00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "persistwd": {
       "inputs": {
         "flake-parts": [
@@ -232,6 +248,7 @@
         "impermanence": "impermanence",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-small": "nixpkgs-small",
         "persistwd": "persistwd",
         "systems": "systems"
       }

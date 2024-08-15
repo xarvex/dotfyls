@@ -15,6 +15,9 @@ rec {
     // { name = name; }
   );
 
+  mkDbusSession = pkg: mkNamedCommand "dbus-${pkg.pname}-session"
+    "exec ${lib.getExe' pkgs.dbus "dbus-run-session"} ${lib.getExe pkg}";
+
   mkCommandOption = action: lib.mkOption {
     type = lib.types.package;
     description = "Command used to ${action}.";
