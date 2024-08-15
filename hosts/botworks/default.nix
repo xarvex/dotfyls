@@ -5,7 +5,10 @@
     graphics.provider = "nvidia";
 
     security.harden.kernel.enable = false;
-    filesystems.zfs.unstable = true;
+    filesystems = {
+      encryption = false;
+      filesystems.zfs.unstable = true;
+    };
 
     programs.openrgb.bootProfile = ./openrgb/Overglow.orp;
   };

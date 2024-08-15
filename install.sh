@@ -57,6 +57,11 @@ else
     zfs_disk="${disk}"-part1
 fi
 
+encryption_options=()
+if confirm 'Use disk encryption?'; then
+    encryption_options=(-O encryption=aes-256-gcm -O keyformat=passphrase -O keylocation=prompt)
+fi
+
 confirm 'This will format the entire disk. All data will be destroyed, proceed?' || exit 2
 
 printf "${blue}%s${reset}\n" 'Clearing partitions...'

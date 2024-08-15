@@ -10,7 +10,6 @@
       packages = false;
       poison = false;
     };
-    filesystems.zfs.nodes = "by-partuuid";
   };
 
   # Intel Bay Trail CPU bug.

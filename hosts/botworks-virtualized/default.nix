@@ -1,8 +1,6 @@
 { lib, pkgs, ... }:
 
 {
-  dotfyls.filesystems.zfs.nodes = "by-partuuid";
-
   services = {
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
