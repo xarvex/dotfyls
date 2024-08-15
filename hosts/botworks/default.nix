@@ -9,6 +9,4 @@
 
     programs.openrgb.bootProfile = ./openrgb/Overglow.orp;
   };
-
-  hardware.enableRedistributableFirmware = true;
 }
