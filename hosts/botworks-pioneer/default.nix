@@ -2,6 +2,8 @@
 
 {
   dotfyls = {
+    graphics.provider = "intel";
+
     power.management = true;
     # Causes suspending to suddenly cut power.
     security.harden.kernel = {
