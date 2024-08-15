@@ -19,7 +19,7 @@
     ./spotify.nix
     ./steam.nix
     ./ventoy.nix
-    ./vesktop.nix
+    ./vesktop
     ./waybar.nix
     ./wl-clipboard.nix
     ./xwaylandvideobridge.nix
