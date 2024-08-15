@@ -56,7 +56,6 @@
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     persistwd = {
       url = "gitlab:xarvex/persistwd";
@@ -148,6 +147,7 @@
             "evil-winrm"
             "fastfetch"
             "lib"
+            "vulkan-validation-layers"
             "wezterm"
           ];
         in

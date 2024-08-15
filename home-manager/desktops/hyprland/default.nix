@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, self, ... }:
+{ config, lib, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
@@ -19,8 +19,6 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
-      desktops.desktops.hyprland.package = inputs.nixpkgs-small.legacyPackages.${pkgs.system}.hyprland;
-
       programs = {
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
