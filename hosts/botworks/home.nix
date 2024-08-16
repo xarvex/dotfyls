@@ -15,7 +15,8 @@
         refresh = 144;
       }];
 
-      desktops.hyprland.explicitSync = true;
+      # Revert when Firefox behaves:
+      # desktops.hyprland.explicitSync = true;
     };
 
     terminals.default = "kitty"; # WezTerm breaks on NVIDIA.
