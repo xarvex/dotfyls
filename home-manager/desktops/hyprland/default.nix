@@ -65,15 +65,6 @@ in
             (toString display.scale)
           ] ++ lib.optionals display.vertical [ "transform, 1" ])
         )) ++ [ ", preferred, auto, auto" ];
-
-        exec-once =
-          let
-            cliphist = config.dotfyls.programs.cliphist.package;
-            wl-clipboard = config.dotfyls.programs.wl-clipboard.package;
-          in
-          [
-            "${lib.getExe' wl-clipboard "wl-paste"} -w ${lib.getExe cliphist} store"
-          ];
       };
 
       systemd = {

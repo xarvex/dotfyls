@@ -1,15 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, self, ... }:
 
 let
   cfg = config.dotfyls.programs.cliphist;
 in
 {
-  options.dotfyls.programs.cliphist = {
-    enable = lib.mkEnableOption "cliphist";
-    package = lib.mkPackageOption pkgs "cliphist" { };
-  };
+  imports = [
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "programs" "cliphist" ]
+      [ "services" "cliphist" ])
+  ];
+
+  options.dotfyls.programs.cliphist.enable = lib.mkEnableOption "cliphist";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with cfg; [ package ];
+    services.cliphist.enable = true;
   };
 }
