@@ -58,23 +58,20 @@
             plugins = [
               {
                 name = "powerlevel10k";
-                file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-                src = pkgs.zsh-powerlevel10k;
+                file = "powerlevel10k.zsh-theme";
+                src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
               }
               {
-                name = "vi-mode";
-                file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-                src = pkgs.zsh-vi-mode;
+                name = "zsh-vi-mode";
+                src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
               }
               {
                 name = "you-should-use";
-                file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
-                src = pkgs.zsh-you-should-use;
+                src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
               }
               {
                 name = "fast-syntax-highlighting";
-                file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
-                src = pkgs.zsh-fast-syntax-highlighting;
+                src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
               }
             ];
 
