@@ -3,6 +3,7 @@
 {
   imports = [
     ./desktops
+    ./development
     ./fonts.nix
     ./media.nix
     ./persist.nix

@@ -140,6 +140,8 @@
         // { installer = lib.nixosSystem { modules = [ ./hosts/installer ]; }; };
       homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
 
+      templates = import ./templates;
+
       overlays =
         let
           overlays = [
