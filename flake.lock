@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720717840,
-        "narHash": "sha256-kdMIJM+O2cpbbH36ZecXPCVO7aV+n3cnLKdgfjbxRRU=",
+        "lastModified": 1723946326,
+        "narHash": "sha256-c+yQXEc4NLQHFrrydLMPDyH+n2VZHl0cJ5MDReYJ270=",
         "owner": "dotfyls",
         "repo": "zsh",
-        "rev": "af22016c471c86140437d9e846443d75ae13c0af",
+        "rev": "0c829de994bcb1705819bc5d23f0bbc17ca950fa",
         "type": "gitlab"
       },
       "original": {

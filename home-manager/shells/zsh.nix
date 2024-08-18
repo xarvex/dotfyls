@@ -10,10 +10,17 @@ in
       [ "programs" "zsh" ])
   ];
 
+  options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";
+
   config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
-      # TODO: init programs (fetch)
+      dotfyls = {
+        enable = true;
+        historySize = config.dotfyls.shells.historySize;
+      };
+
+      initExtraFirst = lib.mkBefore config.dotfyls.shells.finalInitBins;
     };
 
     dotfyls.persist = {
