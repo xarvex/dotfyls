@@ -30,9 +30,17 @@
 
       zsh = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.zsh.enable (
         let
-          common = path: builtins.readFile ./common/${path};
+          common' = path: ./common/${path};
+          common = path: builtins.readFile (common' path);
+
+          # From package source let-in:
+          cfg' = config.programs.zsh;
+          relToDotDir = file: (lib.optionalString (cfg'.dotDir != null) (cfg'.dotDir + "/")) + file;
+          zdotdir = "$HOME/" + lib.escapeShellArg cfg'.dotDir;
         in
         {
+          home.file."${relToDotDir ".p10k.zsh"}".source = common' "p10k.zsh";
+
           programs.zsh = {
             dotDir = ".config/zsh";
 
@@ -87,9 +95,9 @@
             };
             autocd = true;
 
-            initExtra = lib.concatStringsSep "\n" [
+            initExtra = lib.concatStringsSep "\n\n" [
               (common "init-extra.zsh")
-              (common "p10k.zsh")
+              "source ${zdotdir}/.p10k.zsh"
             ];
 
             syntaxHighlighting.enable = false; # Use zsh-fast-syntax-highlighting.
