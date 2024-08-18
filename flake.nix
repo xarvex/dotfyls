@@ -25,8 +25,7 @@
         };
       };
 
-    flake.
-    homeManagerModules = rec {
+    flake.homeManagerModules = rec {
       default = zsh;
 
       zsh = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.zsh.enable (
@@ -59,8 +58,8 @@
             plugins = [
               {
                 name = "powerlevel10k";
-                src = pkgs.zsh-powerlevel10k;
                 file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+                src = pkgs.zsh-powerlevel10k;
               }
               {
                 name = "vi-mode";
@@ -72,11 +71,6 @@
                 file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
                 src = pkgs.zsh-you-should-use;
               }
-              /* {
-                name = "completions";
-                file = "share/zsh-completions/zsh-completions.zsh";
-                src = pkgs.zsh-completions.src;
-              } */
               {
                 name = "fast-syntax-highlighting";
                 file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
