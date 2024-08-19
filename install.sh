@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-set -eu
+set -o errexit
+set -o nounset
+set -o pipefail
 
 reset=$(tput sgr0)
 # black=$(tput setaf 0)
