@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  dotfyls.terminals.default = "kitty";
+}
