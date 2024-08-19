@@ -144,4 +144,4 @@ printf "${magenta}%s${reset}" 'Specify rev to install (default: main): '
 read -r rev
 
 printf "${blue}%s${reset}\n" 'Running install...'
-nix-shell --extra-experimental-features 'nix-command flakes' -p git --command "sudo nixos-install --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
+nix-shell --extra-experimental-features 'nix-command flakes' -p git --command "sudo nixos-install --no-root-password --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
