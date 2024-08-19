@@ -10,6 +10,9 @@
       filesystems.zfs.unstable = true;
     };
 
-    programs.openrgb.bootProfile = ./openrgb/Overglow.orp;
+    programs.openrgb = {
+      sizes = ./openrgb/sizes.ors;
+      bootProfile = ./openrgb/Overglow.orp;
+    };
   };
 }

@@ -13,6 +13,11 @@ in
 
   options.dotfyls.programs.openrgb = {
     enable = lib.mkEnableOption "OpenRGB" // { default = hmCfg.enable; };
+    sizes = lib.mkOption {
+      type = with lib.types; nullOr path;
+      default = null;
+      description = "OpenRGB sizes file for devices.";
+    };
     bootProfile = lib.mkOption {
       type = with lib.types; nullOr path;
       default = null;
@@ -25,11 +30,18 @@ in
 
     services.hardware.openrgb.enable = true;
 
-    systemd.services.openrgb.serviceConfig.ExecStart = lib.mkForce ''
-      ${lib.getExe cfg.package} --server \
-        --server-port ${toString config.services.hardware.openrgb.server.port} \
-        --profile ${cfg.bootProfile}
-    '';
+    systemd = {
+      services.openrgb.serviceConfig.ExecStart = lib.mkForce ''
+        ${lib.getExe cfg.package} --server \
+          --server-port ${toString config.services.hardware.openrgb.server.port} \
+          --profile ${cfg.bootProfile}
+      '';
+
+      tmpfiles.rules = [
+        "d /var/lib/OpenRGB 0755 root root - -"
+        "L+ /var/lib/OpenRGB/sizes.ors - - - - ${cfg.sizes}"
+      ];
+    };
 
     users.groups.i2c.members = [ user ];
   };
