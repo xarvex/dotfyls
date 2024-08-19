@@ -93,6 +93,7 @@ sudo zpool create -f \
     -O xattr=sa \
     -O normalization=formD \
     -O mountpoint=none \
+    "${encryption_options[@]}" \
     zroot "${zfs_disk}"
 
 printf "${blue}%s${reset}\n" 'Creating / (ZFS)...'
