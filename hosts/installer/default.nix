@@ -1,7 +1,13 @@
-{ modulesPath, pkgs, ... }:
+# TODO: combine with rest of config
+{ lib, modulesPath, pkgs, ... }:
 
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
+
+  networking = {
+    wireless.enable = lib.mkImageMediaOverride false;
+    networkmanager.enable = true;
+  };
 
   environment.systemPackages = [
     (pkgs.writeShellApplication {
