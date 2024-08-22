@@ -1,8 +1,5 @@
 final: prev:
 
 prev.fastfetch.overrideAttrs (o: {
-  patches = (o.patches or [ ]) ++ [
-    ./nixos_old_small.patch
-    ./nixos_small.patch
-  ];
+  patches = (o.patches or [ ]) ++ [ ./nixos_small.patch ];
 })

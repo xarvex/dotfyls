@@ -153,7 +153,6 @@
             "evil-winrm"
             "fastfetch"
             "lib"
-            "vulkan-validation-layers"
             "wezterm"
           ];
         in
