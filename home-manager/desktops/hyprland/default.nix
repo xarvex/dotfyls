@@ -53,7 +53,7 @@ in
 
           touchpad = {
             disable_while_typing = true;
-            natural_scroll = false;
+            natural_scroll = true;
           };
         };
 
