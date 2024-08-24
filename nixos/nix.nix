@@ -22,4 +22,6 @@
       experimental-features = [ "nix-command" "flakes" ];
     };
   };
+
+  systemd.tmpfiles.rules = [ "R /nix/var/nix/profiles/per-user - - - 0" ];
 }
