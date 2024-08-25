@@ -20,7 +20,9 @@ in
       gb = "git branch";
 
       gc = "git commit";
-      gca = "git commit --amend";
+      gca = "git add --all && git commit";
+      gcam = "git add --all && git commit -m";
+      gcm = "git commit -m";
 
       gco = "git checkout";
 
