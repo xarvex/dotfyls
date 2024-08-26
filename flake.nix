@@ -2,6 +2,14 @@
   description = "Xarvex's Nix configuration";
 
   inputs = {
+    direnv = {
+      url = "github:xarvex/direnv";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     dotfyls-firefox = {
       url = "gitlab:dotfyls/firefox";
       inputs = {
