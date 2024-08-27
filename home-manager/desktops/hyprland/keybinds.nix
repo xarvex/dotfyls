@@ -40,6 +40,9 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
 
       "$mod_ALT_SHIFT, h, movetoworkspace, r-1"
       "$mod_ALT_SHIFT, l, movetoworkspace, r+1"
+
+      ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
+      ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
     ]
     ++ lib.flatten (self.lib.genWorkspaceList (workspace: key: [
       "$mod, ${key}, workspace, ${toString workspace}"
