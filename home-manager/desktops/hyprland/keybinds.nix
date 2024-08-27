@@ -1,4 +1,4 @@
-{ config, lib, self, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
@@ -45,6 +45,16 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
       "$mod, ${key}, workspace, ${toString workspace}"
       "$mod_SHIFT, ${key}, movetoworkspace, ${toString workspace}"
     ]))
+    ++ lib.optionals (config.dotfyls.media.audio.enable && config.dotfyls.media.wireplumber.enable) (
+      let
+        wireplumber = getPkg config.dotfyls.media.wireplumber;
+      in
+      [
+        ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ]
+    )
     ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
       "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
     ]
