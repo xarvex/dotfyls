@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.locks;
@@ -11,9 +11,9 @@ in
 
   options.dotfyls.desktops.locks = {
     enable = lib.mkEnableOption "desktop locks" // { default = true; };
-    command = pkgs.lib.dotfyls.mkCommandOption "lock"
+    command = self.lib.mkCommandOption "lock"
       // lib.optionalAttrs cfg.enable {
-      default = pkgs.lib.dotfyls.mkCommand (''
+      default = pkgs.dotfyls.mkCommand (''
         case $XDG_CURRENT_DESKTOP in
       ''
       + (lib.concatStringsSep "\n" (

@@ -158,9 +158,9 @@
           overlays = [
             "bat-extras"
             "discord"
+            "dotfyls"
             "evil-winrm"
             "fastfetch"
-            "lib"
             "wezterm"
           ];
         in

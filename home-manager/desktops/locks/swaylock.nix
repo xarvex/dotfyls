@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.locks.locks.hyprlock;
@@ -12,11 +12,11 @@ in
 
   options.dotfyls.desktops.locks.locks.swaylock = {
     enable = lib.mkEnableOption "swaylock";
-    command = pkgs.lib.dotfyls.mkCommandOption "invoke swaylock"
+    command = self.lib.mkCommandOption "invoke swaylock"
       // lib.optionalAttrs cfg.enable { default = pkgs.swaylock; };
   };
 
-  config = lib.mkIf config.dotfyls.desktops.locks.locks.swaylock.enable {
+  config = lib.mkIf cfg.enable {
     programs.swaylock = {
       enable = true;
 

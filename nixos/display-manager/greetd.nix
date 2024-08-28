@@ -22,7 +22,7 @@ in
 
     (self.lib.mkCommonModules [ "dotfyls" "displayManager" "displayManager" "greetd" "greeter" "greeter" ]
       (greeter: gCfg: {
-        startCommand = pkgs.lib.dotfyls.mkCommandOption "start ${greeter.name}";
+        startCommand = self.lib.mkCommandOption "start ${greeter.name}";
       })
       {
         agreety = {
@@ -33,7 +33,7 @@ in
           let
             cfg' = cfg.greeter.greeter.tuigreet;
 
-            mkSystemctlCommand = verb: pkgs.lib.dotfyls.mkCommand {
+            mkSystemctlCommand = verb: pkgs.dotfyls.mkCommand {
               runtimeInputs = with pkgs; [ systemd ];
               text = "systemctl ${verb}";
             };
@@ -48,11 +48,11 @@ in
                 example = "text=cyan;border=magenta;prompt=green";
                 description = "Theme used for tuigreet.";
               };
-              shutdownCommand = pkgs.lib.dotfyls.mkCommandOption "shutdown for tuigreet"
+              shutdownCommand = self.lib.mkCommandOption "shutdown for tuigreet"
                 // { default = mkSystemctlCommand "poweroff"; };
-              rebootCommand = pkgs.lib.dotfyls.mkCommandOption "reboot for tuigreet"
+              rebootCommand = self.lib.mkCommandOption "reboot for tuigreet"
                 // { default = mkSystemctlCommand "reboot"; };
-              startCommand.default = pkgs.lib.dotfyls.mkCommand ''
+              startCommand.default = pkgs.dotfyls.mkCommand ''
                 ${lib.getExe cfg'.package} --cmd ${lib.getExe cfg.startCommand} \
                 --power-shutdown ${lib.getExe cfg'.shutdownCommand} \
                 --power-reboot ${lib.getExe cfg'.rebootCommand} \
@@ -66,8 +66,8 @@ in
 
   options.dotfyls.displayManager.displayManager.greetd = {
     enable = lib.mkEnableOption "greetd";
-    startCommand = pkgs.lib.dotfyls.mkCommandOption "start default session"
-      // { default = pkgs.lib.dotfyls.mkCommand "exec ${lib.getExe config.dotfyls.desktops.startCommand} > /dev/null"; };
+    startCommand = self.lib.mkCommandOption "start default session"
+      // { default = pkgs.dotfyls.mkCommand "exec ${lib.getExe config.dotfyls.desktops.startCommand} > /dev/null"; };
   };
 
   config = lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {

@@ -12,4 +12,9 @@
     default = [ ];
     description = "Extra packages available to ${name}.";
   };
+
+  mkCommandOption = action: lib.mkOption {
+    type = lib.types.package;
+    description = "Command used to ${action}.";
+  };
 }

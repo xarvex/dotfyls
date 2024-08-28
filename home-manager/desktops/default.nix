@@ -20,13 +20,13 @@ let
         };
         specialArgs =
           let
-            mkDisplayCommand = state: pkgs.lib.dotfyls.mkCommand {
+            mkDisplayCommand = state: pkgs.dotfyls.mkCommand {
               runtimeInputs = [ cfg'.package ];
               text = "hyprctl dispatch dpms ${state}";
             };
           in
           {
-            startCommand.default = pkgs.lib.dotfyls.mkDbusSession cfg'.package;
+            startCommand.default = pkgs.dotfyls.mkDbusSession cfg'.package;
             idle.displays = {
               onCommand.default = mkDisplayCommand "on";
               offCommand.default = mkDisplayCommand "off";
@@ -56,14 +56,14 @@ in
           default = desktop.name;
           description = "XDG desktop session name for ${desktop.name}.";
         };
-        startCommand = pkgs.lib.dotfyls.mkCommandOption "start ${desktop.name}";
+        startCommand = self.lib.mkCommandOption "start ${desktop.name}";
 
         idle = {
           enable = lib.mkEnableOption "${desktop.name} idle" // { default = true; };
           displays = {
             enable = lib.mkEnableOption "${desktop.name} display idle" // { default = true; };
-            onCommand = pkgs.lib.dotfyls.mkCommandOption "idle displays on";
-            offCommand = pkgs.lib.dotfyls.mkCommandOption "idle displays off";
+            onCommand = self.lib.mkCommandOption "idle displays on";
+            offCommand = self.lib.mkCommandOption "idle displays off";
           };
           suspend.enable = lib.mkEnableOption "${desktop.name} suspend idle" // { default = true; };
         };
@@ -98,7 +98,7 @@ in
 
   options.dotfyls.desktops = {
     enable = lib.mkEnableOption "desktops" // { default = true; };
-    startCommand = pkgs.lib.dotfyls.mkCommandOption "start default desktop"
+    startCommand = self.lib.mkCommandOption "start default desktop"
       // { default = cfg.selected.startCommand; };
 
     wayland.sessionVariables = lib.mkOption {

@@ -10,7 +10,7 @@ in
     finalPackage = self.lib.mkFinalPackageOption "Vesktop" // {
       default = cfg.package.overrideAttrs (o:
         let
-          createState = pkgs.lib.dotfyls.mkCommand {
+          createState = pkgs.dotfyls.mkCommand {
             runtimeInputs = with pkgs; [ coreutils ];
             text = ''
               cat ${./state.json} > "${config.xdg.configHome}"/vesktop/state.json

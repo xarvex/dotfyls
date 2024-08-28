@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.idles;
@@ -23,14 +23,14 @@ in
       lock = {
         enable = lib.mkEnableOption "lock idles" // { default = config.dotfyls.desktops.locks.enable; };
         timeout = mkTimeoutOption "lock" (5 * 60);
-        command = pkgs.lib.dotfyls.mkCommandOption "lock idle"
+        command = self.lib.mkCommandOption "lock idle"
           // lib.optionalAttrs (cfg.enable && cfg.displays.enable) { default = config.dotfyls.desktops.locks.command; };
       };
       displays =
         let
-          mkCommandOption = state: pkgs.lib.dotfyls.mkCommandOption "idle displays ${state}"
+          mkCommandOption = state: self.lib.mkCommandOption "idle displays ${state}"
             // lib.optionalAttrs (cfg.enable && cfg.displays.enable) {
-            default = pkgs.lib.dotfyls.mkCommand (''
+            default = pkgs.dotfyls.mkCommand (''
               case $XDG_CURRENT_DESKTOP in
             ''
             + (lib.concatStringsSep "\n" (
@@ -59,9 +59,9 @@ in
       suspend = {
         enable = lib.mkEnableOption "suspend idles" // { default = true; };
         timeout = mkTimeoutOption "suspend" (cfg.lock.timeout + (10 * 60));
-        command = pkgs.lib.dotfyls.mkCommandOption "idle suspend"
+        command = self.lib.mkCommandOption "idle suspend"
           // lib.optionalAttrs (cfg.enable && cfg.suspend.enable) {
-          default = pkgs.lib.dotfyls.mkCommand {
+          default = pkgs.dotfyls.mkCommand {
             runtimeInputs = with pkgs; [ systemd ];
             text = "exec systemctl suspend";
           };

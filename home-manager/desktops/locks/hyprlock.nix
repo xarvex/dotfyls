@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.locks.locks.hyprlock;
@@ -12,9 +12,9 @@ in
 
   options.dotfyls.desktops.locks.locks.hyprlock = {
     enable = lib.mkEnableOption "hyprlock";
-    command = pkgs.lib.dotfyls.mkCommandOption "invoke hyprlock"
+    command = self.lib.mkCommandOption "invoke hyprlock"
       // lib.optionalAttrs cfg.enable {
-      default = pkgs.lib.dotfyls.mkCommand {
+      default = pkgs.dotfyls.mkCommand {
         runtimeInputs = [ cfg.package pkgs.procps ];
         text = "pidof hyprlock || exec hyprlock";
       };

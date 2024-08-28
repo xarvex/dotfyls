@@ -23,16 +23,16 @@ in
 
     (self.lib.mkCommonModules [ "dotfyls" "terminals" "terminals" ]
       (terminal: tCfg: {
-        start = pkgs.lib.dotfyls.mkCommandOption "start ${terminal.name}"
+        start = self.lib.mkCommandOption "start ${terminal.name}"
           // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
-        exec = pkgs.lib.dotfyls.mkCommandOption "start ${terminal.name} executing command"
+        exec = self.lib.mkCommandOption "start ${terminal.name} executing command"
           // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
       })
       {
         alacritty = {
           name = "Alacritty";
           specialArgs = {
-            exec.default = pkgs.lib.dotfyls.mkCommand
+            exec.default = pkgs.dotfyls.mkCommand
               ''exec ${lib.getExe cfg.terminals.alacritty.start} -e "$@"'';
           };
         };
@@ -42,7 +42,7 @@ in
         wezterm = {
           name = "WezTerm";
           specialArgs = {
-            exec.default = pkgs.lib.dotfyls.mkCommand
+            exec.default = pkgs.dotfyls.mkCommand
               ''exec ${lib.getExe cfg.terminals.wezterm.start} start "$@"'';
           };
         };
@@ -50,9 +50,9 @@ in
   ];
 
   options.dotfyls.terminals = {
-    xdgExec = pkgs.lib.dotfyls.mkCommandOption "replace xdg-terminal-exec"
+    xdgExec = self.lib.mkCommandOption "replace xdg-terminal-exec"
       // lib.optionalAttrs cfg.selected.enable {
-      default = (pkgs.lib.dotfyls.mkNamedCommand "xdg-terminal-exec" ''
+      default = (pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
         if [ "$#" = "0" ]; then
           exec ${lib.getExe cfg.selected.start}
         else
