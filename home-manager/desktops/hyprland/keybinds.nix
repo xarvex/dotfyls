@@ -2,13 +2,10 @@
 
 let
   cfg = config.dotfyls.desktops.desktops.hyprland;
+  pCfg = config.dotfyls.programs;
 
-  getPkg = cfg': if (cfg' ? finalPackage) then cfg'.finalPackage else cfg'.package;
-  withProgram = name: generator:
-    let
-      cfg' = config.dotfyls.programs.${name};
-    in
-    lib.optionals cfg'.enable (generator (getPkg cfg'));
+  withCfgPkg = cfg: generator:
+    lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
 in
 lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
@@ -48,40 +45,35 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
       "$mod, ${key}, workspace, ${toString workspace}"
       "$mod_SHIFT, ${key}, movetoworkspace, ${toString workspace}"
     ]))
-    ++ lib.optionals (config.dotfyls.media.audio.enable && config.dotfyls.media.wireplumber.enable) (
-      let
-        wireplumber = getPkg config.dotfyls.media.wireplumber;
-      in
-      [
-        ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioMicMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ]
-    )
-    ++ lib.optionals (config.dotfyls.terminals.xdgExec != null) [
-      "$mod, Return, exec, ${lib.getExe config.dotfyls.terminals.xdgExec}"
-    ]
-    ++ withProgram "firefox" (firefox: [
+    ++ lib.optionals config.dotfyls.media.audio.enable (withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
+      ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioMicMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    ]))
+    ++ withCfgPkg config.dotfyls.terminals.xdg-terminal-exec (xdg-terminal-exec: [
+      "$mod, Return, exec, ${lib.getExe xdg-terminal-exec}"
+    ])
+    ++ withCfgPkg pCfg.firefox (firefox: [
       "$mod, w, exec, ${lib.getExe firefox}"
     ])
-    ++ withProgram "nemo" (nemo: [
+    ++ withCfgPkg pCfg.nemo (nemo: [
       "$mod, e, exec, ${lib.getExe nemo}"
     ])
-    ++ withProgram "rofi" (rofi: ([
+    ++ withCfgPkg pCfg.rofi (rofi: ([
       "$mod_SHIFT, Return, exec, ${lib.getExe rofi} -show drun"
     ]
-    ++ withProgram "cliphist" (cliphist: withProgram "wl-clipboard" (wl-clipboard: [
+    ++ withCfgPkg pCfg.cliphist (cliphist: withCfgPkg pCfg.wl-clipboard (wl-clipboard: [
       "$mod_SHIFT, v, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
     ]))))
     ++ (
       let
         mkBinds = name: [
-          "$mod, d, exec, ${lib.getExe (getPkg config.dotfyls.programs.${name})}"
+          "$mod, d, exec, ${self.lib.getCfgExe pCfg.${name}}"
         ];
       in
-      if config.dotfyls.programs.vesktop.enable then mkBinds "vesktop"
-      else if config.dotfyls.programs.discord.enable then mkBinds "discord"
+      if pCfg.vesktop.enable then mkBinds "vesktop"
+      else if pCfg.discord.enable then mkBinds "discord"
       else [ ]
     );
 

@@ -18,7 +18,7 @@ in
     programs.rofi = {
       enable = true;
 
-      terminal = (lib.mkIf (config.dotfyls.terminals.xdgExec != null) (lib.getExe config.dotfyls.terminals.xdgExec));
+      terminal = (lib.mkIf config.dotfyls.terminals.xdg-terminal-exec.enable (self.lib.getCfgExe config.dotfyls.terminals.xdg-terminal-exec));
     };
   };
 }

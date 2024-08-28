@@ -50,18 +50,22 @@ in
   ];
 
   options.dotfyls.terminals = {
-    xdgExec = self.lib.mkCommandOption "replace xdg-terminal-exec"
-      // lib.optionalAttrs cfg.selected.enable {
-      default = (pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
-        if [ "$#" = "0" ]; then
-          exec ${lib.getExe cfg.selected.start}
-        else
-          if [ "$1" = "-e" ]; then
-            shift
+    enable = lib.mkEnableOption "terminals" // { default = true; };
+    xdg-terminal-exec = {
+      enable = lib.mkEnableOption "xdg-terminal-exec" // { default = true; };
+      package = self.lib.mkCommandOption "use as xdg-terminal-exec"
+        // lib.optionalAttrs cfg.selected.enable {
+        default = (pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
+          if [ "$#" = "0" ]; then
+            exec ${lib.getExe cfg.selected.start}
+          else
+            if [ "$1" = "-e" ]; then
+              shift
+            fi
+            exec ${lib.getExe cfg.selected.exec} "$@"
           fi
-          exec ${lib.getExe cfg.selected.exec} "$@"
-        fi
-      '');
+        '');
+      };
     };
 
     fontSize = lib.mkOption {
@@ -72,12 +76,12 @@ in
     };
   };
 
-  config = {
-    home.packages = [ cfg.xdgExec ];
+  config = lib.mkIf (cfg.enable && cfg.xdg-terminal-exec.enable) {
+    home.packages = [ (self.lib.getCfgPkg cfg.xdg-terminal-exec) ];
 
     dconf.settings = {
-      "org/cinnamon/desktop/applications/terminal" = { exec = lib.getExe cfg.xdgExec; };
-      "org/gnome/desktop/applications/terminal" = { exec = lib.getExe cfg.xdgExec; };
+      "org/cinnamon/desktop/applications/terminal" = { exec = self.lib.getCfgExe cfg.xdg-terminal-exec; };
+      "org/gnome/desktop/applications/terminal" = { exec = self.lib.getCfgExe cfg.xdg-terminal-exec; };
     };
   };
 }
