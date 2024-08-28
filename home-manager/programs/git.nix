@@ -15,13 +15,15 @@ in
   config = lib.mkIf cfg.enable {
     home.shellAliases = {
       ga = "git add";
-      gaa = "git add --all";
+      gai = "git add -N";
+      gaa = "git add -A";
+      gaai = "git add -AN";
 
       gb = "git branch";
 
       gc = "git commit";
-      gca = "git add --all && git commit";
-      gcam = "git add --all && git commit -m";
+      gca = "git commit -a";
+      gcam = "git commit -am";
       gcm = "git commit -m";
 
       gco = "git checkout";
@@ -46,12 +48,14 @@ in
 
     programs.git = {
       enable = true;
+
       userName = "xarvex";
       userEmail = "gitlab-github.8qs1z@slmail.me";
       signing = {
         signByDefault = true;
         key = null; # Allow GnuPG to decide.
       };
+
       extraConfig = {
         init = {
           defaultBranch = "main";
