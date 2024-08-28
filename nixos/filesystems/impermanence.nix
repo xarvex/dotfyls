@@ -13,9 +13,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # sudo cannot store that it has been ran.
-    security.sudo.extraConfig = "Defaults lecture=never";
-
     environment.persistence = {
       "/persist" = {
         hideMounts = true;
@@ -37,6 +34,9 @@ in
         };
       };
     };
+
+    # sudo cannot store that it has been ran.
+    security.sudo.extraConfig = "Defaults lecture=never";
 
     fileSystems = {
       "/" = lib.mkIf cfg.tmpfsRoot {

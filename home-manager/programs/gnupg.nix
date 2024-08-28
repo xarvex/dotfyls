@@ -21,12 +21,12 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
+      dotfyls.persist.directories = [ ".local/share/gnupg" ];
+
       programs.gpg = {
         enable = true;
         homedir = "${config.xdg.dataHome}/gnupg";
       };
-
-      dotfyls.persist.directories = [ ".local/share/gnupg" ];
     }
 
     (lib.mkIf cfg.agent.enable {

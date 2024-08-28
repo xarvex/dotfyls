@@ -5,13 +5,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-    };
-
     environment.sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -22,6 +15,13 @@ in
       # VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.${pkgs.stdenv.hostPlatform.linuxArch}.json";
       # https://discourse.nixos.org/t/vulkaninfo-failure/10143/2
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.${pkgs.stdenv.hostPlatform.linuxArch}.json";
+    };
+
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
     nix.settings = {

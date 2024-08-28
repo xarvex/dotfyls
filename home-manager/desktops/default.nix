@@ -4,35 +4,31 @@ let
   cfg = config.dotfyls.desktops;
 
   desktops = {
-    hyprland =
-      let
-        cfg' = cfg.desktops.hyprland;
-      in
-      {
-        name = "Hyprland";
-        idler = {
-          default = "hypridle";
-          choices = [ "hypridle" "swayidle" ];
-        };
-        locker = {
-          default = "hyprlock";
-          choices = [ "hyprlock" "swaylock" ];
-        };
-        specialArgs =
-          let
-            mkDisplayCommand = state: pkgs.dotfyls.mkCommand {
-              runtimeInputs = [ cfg'.package ];
-              text = "hyprctl dispatch dpms ${state}";
-            };
-          in
-          {
-            startCommand.default = pkgs.dotfyls.mkDbusSession cfg'.package;
-            idle.displays = {
-              onCommand.default = mkDisplayCommand "on";
-              offCommand.default = mkDisplayCommand "off";
-            };
-          };
+    hyprland = let hCfg = cfg.desktops.hyprland; in {
+      name = "Hyprland";
+      idler = {
+        default = "hypridle";
+        choices = [ "hypridle" "swayidle" ];
       };
+      locker = {
+        default = "hyprlock";
+        choices = [ "hyprlock" "swaylock" ];
+      };
+      specialArgs =
+        let
+          mkDisplayCommand = state: pkgs.dotfyls.mkCommand {
+            runtimeInputs = [ (self.lib.getCfgPkg hCfg) ];
+            text = "hyprctl dispatch dpms ${state}";
+          };
+        in
+        {
+          startCommand.default = pkgs.dotfyls.mkDbusSession (self.lib.getCfgPkg hCfg);
+          idle.displays = {
+            onCommand.default = mkDisplayCommand "on";
+            offCommand.default = mkDisplayCommand "off";
+          };
+        };
+    };
   };
 in
 {

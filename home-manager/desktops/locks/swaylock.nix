@@ -1,19 +1,19 @@
-{ config, lib, pkgs, self, ... }:
+{ config, lib, self, ... }:
 
 let
   cfg = config.dotfyls.desktops.locks.locks.hyprlock;
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "locks" "locks" "swaylock" "package" ]
-      [ "programs" "swaylock" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "locks" "locks" "swaylock" ]
+      [ "programs" "swaylock" ])
   ];
 
   options.dotfyls.desktops.locks.locks.swaylock = {
     enable = lib.mkEnableOption "swaylock";
     command = self.lib.mkCommandOption "invoke swaylock"
-      // lib.optionalAttrs cfg.enable { default = pkgs.swaylock; };
+      // lib.optionalAttrs cfg.enable { default = self.lib.getCfgPkg cfg; };
   };
 
   config = lib.mkIf cfg.enable {

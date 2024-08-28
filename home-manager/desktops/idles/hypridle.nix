@@ -1,6 +1,7 @@
 { config, lib, pkgs, self, ... }:
 
 let
+  cfg' = config.dotfyls.desktops.idles;
   cfg = config.dotfyls.desktops.idles.idles.hypridle;
 in
 {
@@ -42,15 +43,15 @@ in
 
           (
             let
-              cfg = config.dotfyls.desktops.idles.lock;
+              lCfg = cfg'.lock;
               lockSession = pkgs.dotfyls.mkCommandExe {
                 runtimeInputs = with pkgs; [ systemd ];
                 text = "exec loginctl lock-session";
               };
             in
-            lib.mkIf cfg.enable {
+            lib.mkIf lCfg.enable {
               general = {
-                lock_cmd = lib.getExe cfg.command;
+                lock_cmd = lib.getExe lCfg.command;
                 before_sleep_cmd = pkgs.dotfyls.mkCommandExe {
                   runtimeInputs = with pkgs; [ coreutils ];
                   text = "touch /tmp/hypridle_lock; exec ${lockSession}";
@@ -58,30 +59,29 @@ in
               };
 
               listener = [{
-                timeout = cfg.timeout;
+                timeout = lCfg.timeout;
                 on-timeout = beforeCommand lockSession;
               }];
             }
           )
 
           (
-            let cfg = config.dotfyls.desktops.idles.displays; in lib.mkIf cfg.enable {
-              general.after_sleep_cmd = pkgs.dotfyls.mkCommandExe "${afterSleepCommand}; ${lib.getExe cfg.onCommand}";
+            let dCfg = cfg'.displays; in lib.mkIf dCfg.enable {
+              general.after_sleep_cmd = pkgs.dotfyls.mkCommandExe "${afterSleepCommand}; ${lib.getExe dCfg.onCommand}";
 
               listener = [{
-                timeout = cfg.timeout;
-                on-timeout = beforeCommand cfg.offCommand;
-                on-resume = lib.getExe cfg.onCommand;
+                timeout = dCfg.timeout;
+                on-timeout = beforeCommand dCfg.offCommand;
+                on-resume = lib.getExe dCfg.onCommand;
               }];
             }
           )
 
           (
-            let cfg = config.dotfyls.desktops.idles.suspend;
-            in lib.mkIf cfg.enable {
+            let sCfg = cfg'.suspend; in lib.mkIf sCfg.enable {
               listener = [{
-                timeout = cfg.timeout;
-                on-timeout = beforeCommand cfg.command;
+                timeout = sCfg.timeout;
+                on-timeout = beforeCommand sCfg.command;
               }];
             }
           )

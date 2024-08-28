@@ -5,9 +5,9 @@ let
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [ "dotfyls" "desktops" "locks" "locks" "hyprlock" "package" ]
-      [ "programs" "hyprlock" "package" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "desktops" "locks" "locks" "hyprlock" ]
+      [ "programs" "hyprlock" ])
   ];
 
   options.dotfyls.desktops.locks.locks.hyprlock = {
@@ -15,7 +15,7 @@ in
     command = self.lib.mkCommandOption "invoke hyprlock"
       // lib.optionalAttrs cfg.enable {
       default = pkgs.dotfyls.mkCommand {
-        runtimeInputs = [ cfg.package pkgs.procps ];
+        runtimeInputs = [ (self.lib.getCfgPkg cfg) pkgs.procps ];
         text = "pidof hyprlock || exec hyprlock";
       };
     };

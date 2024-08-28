@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.fonts;
@@ -40,8 +40,8 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      cfg.monospace.package
-      cfg.emoji.package
+      (self.lib.getCfgPkg cfg.monospace)
+      (self.lib.getCfgPkg cfg.emoji)
       (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ];
 

@@ -29,7 +29,7 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.persist.cacheDirectories = [ ".config/vesktop/sessionData" ];
 
-    home.packages = with cfg; [ finalPackage ];
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
 
     xdg.configFile = {
       "vesktop/settings.json".source = ./settings.json;

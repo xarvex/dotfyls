@@ -13,6 +13,11 @@ in
   options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist = {
+      directories = [ ".local/state/zsh" ];
+      cacheDirectories = [ ".cache/zsh" ];
+    };
+
     programs.zsh = {
       enable = true;
       dotfyls = {
@@ -21,11 +26,6 @@ in
       };
 
       initExtraFirst = lib.mkBefore config.dotfyls.shells.finalInitBins;
-    };
-
-    dotfyls.persist = {
-      directories = [ ".local/state/zsh" ];
-      cacheDirectories = [ ".cache/zsh" ];
     };
   };
 }

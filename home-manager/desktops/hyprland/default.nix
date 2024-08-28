@@ -8,7 +8,7 @@ in
     ./keybinds.nix
     ./rules.nix
 
-    (self.lib.mkAliasPackageModule
+    (self.lib.mkAliasPackageModule'
       [ "dotfyls" "desktops" "desktops" "hyprland" ]
       [ "wayland" "windowManager" "hyprland" ])
   ];
@@ -19,6 +19,8 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
+      persist.cacheDirectories = [ ".cache/hyprland" ];
+
       programs = {
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
@@ -27,8 +29,6 @@ in
         waybar.enable = lib.mkDefault true;
         wl-clipboard.enable = true;
       };
-
-      persist.cacheDirectories = [ ".cache/hyprland" ];
     };
 
     wayland.windowManager.hyprland = {

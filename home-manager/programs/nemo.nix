@@ -12,6 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with cfg; [ package ] ++ extraPackages;
+    home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
   };
 }

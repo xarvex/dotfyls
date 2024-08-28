@@ -2,14 +2,15 @@
 
 {
   dotfyls = {
-    graphics.provider = "intel";
-
-    power.management = true;
     # Causes suspending to suddenly cut power.
     security.harden.kernel = {
       packages = false;
       poison = false;
     };
+
+    graphics.provider = "intel";
+
+    power.management = true;
   };
 
   # Intel Bay Trail CPU bug.

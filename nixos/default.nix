@@ -6,9 +6,9 @@
     ./configuration.nix
     ./desktops
     ./display-manager
-    ./kernels.nix
     ./filesystems
     ./graphics
+    ./kernels.nix
     ./localization.nix
     ./media.nix
     ./networking.nix

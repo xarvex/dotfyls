@@ -1,5 +1,5 @@
 # TODO: make own version
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.programs.sl;
@@ -12,7 +12,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with cfg; [ package ];
+      packages = [ (self.lib.getCfgPkg cfg) ];
 
       shellAliases.sl = "sl -cew10";
     };

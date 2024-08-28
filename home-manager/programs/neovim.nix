@@ -13,12 +13,12 @@ in
   options.dotfyls.programs.neovim.enable = lib.mkEnableOption "Neovim" // { default = true; };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [ ".local/share/nvim" ".local/state/nvim" ];
+
     programs.neovim = {
       enable = true;
       defaultEditor = true;
       vimAlias = true;
     };
-
-    dotfyls.persist.directories = [ ".local/share/nvim" ".local/state/nvim" ];
   };
 }

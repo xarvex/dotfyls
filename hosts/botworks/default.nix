@@ -2,13 +2,14 @@
 
 {
   dotfyls = {
-    graphics.provider = "nvidia";
-
-    security.harden.kernel.enable = false;
     filesystems = {
       encryption = false;
       filesystems.zfs.unstable = true;
     };
+
+    security.harden.kernel.enable = false;
+
+    graphics.provider = "nvidia";
 
     programs.openrgb = {
       sizes = ./openrgb/sizes.ors;

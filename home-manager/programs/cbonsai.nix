@@ -1,5 +1,5 @@
 # TODO: make own version
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.programs.cbonsai;
@@ -11,7 +11,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with cfg; [ package ];
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
   };
 }
 

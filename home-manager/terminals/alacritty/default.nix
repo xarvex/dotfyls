@@ -13,7 +13,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
-      settings = pkgs.lib.importTOML ./alacritty.toml // {
+
+      settings = pkgs.lib.importTOML ./alacritty.toml
+        // {
         font = {
           normal.family = config.dotfyls.fonts.monospace.name;
           size = config.dotfyls.terminals.fontSize;

@@ -27,11 +27,11 @@ in
       {
         agreety = {
           name = "agreety";
-          specialArgs.startCommand.default = "${lib.getExe' cfg.package "agreety"} --cmd ${cfg.startCommand}";
+          specialArgs.startCommand.default = "${self.lib.getCfgExe' cfg "agreety"} --cmd ${cfg.startCommand}";
         };
         tuigreet =
           let
-            cfg' = cfg.greeter.greeter.tuigreet;
+            tCfg = cfg.greeter.greeter.tuigreet;
 
             mkSystemctlCommand = verb: pkgs.dotfyls.mkCommand {
               runtimeInputs = with pkgs; [ systemd ];
@@ -53,11 +53,11 @@ in
               rebootCommand = self.lib.mkCommandOption "reboot for tuigreet"
                 // { default = mkSystemctlCommand "reboot"; };
               startCommand.default = pkgs.dotfyls.mkCommand ''
-                ${lib.getExe cfg'.package} --cmd ${lib.getExe cfg.startCommand} \
-                --power-shutdown ${lib.getExe cfg'.shutdownCommand} \
-                --power-reboot ${lib.getExe cfg'.rebootCommand} \
+                ${self.lib.getCfgExe tCfg} --cmd ${lib.getExe cfg.startCommand} \
+                --power-shutdown ${lib.getExe tCfg.shutdownCommand} \
+                --power-reboot ${lib.getExe tCfg.rebootCommand} \
                 --time --user-menu \
-                --theme '${cfg'.theme}'
+                --theme '${tCfg.theme}'
               '';
             };
           };

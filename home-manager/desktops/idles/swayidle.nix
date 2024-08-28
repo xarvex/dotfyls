@@ -1,5 +1,9 @@
 { config, lib, self, ... }:
 
+let
+  cfg' = config.dotfyls.desktops.idles;
+  cfg = cfg'.idles.swayidle;
+in
 {
   imports = [
     (self.lib.mkAliasPackageModule
@@ -9,47 +13,47 @@
 
   options.dotfyls.desktops.idles.idles.swayidle.enable = lib.mkEnableOption "swayidle";
 
-  config = lib.mkIf config.dotfyls.desktops.idles.idles.swayidle.enable (lib.mkMerge [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     { services.swayidle.enable = true; }
 
     (
-      let cfg = config.dotfyls.desktops.idles.lock; in lib.mkIf cfg.enable {
+      let lCfg = cfg'.lock; in lib.mkIf lCfg.enable {
         services.swayidle = {
           events = [{
             event = "before-sleep";
-            command = lib.getExe cfg.command;
+            command = lib.getExe lCfg.command;
           }];
 
           timeouts = [{
-            timeout = cfg.timeout;
-            command = lib.getExe cfg.command;
+            timeout = lCfg.timeout;
+            command = lib.getExe lCfg.command;
           }];
         };
       }
     )
 
     (
-      let cfg = config.dotfyls.desktops.idles.displays; in lib.mkIf cfg.enable {
+      let dCfg = cfg'.displays; in lib.mkIf dCfg.enable {
         services.swayidle = {
           events = [{
             event = "after-resume";
-            command = lib.getExe cfg.onCommand;
+            command = lib.getExe dCfg.onCommand;
           }];
 
           timeouts = [{
-            timeout = cfg.timeout;
-            command = lib.getExe cfg.offCommand;
-            resumeCommand = lib.getExe cfg.onCommand;
+            timeout = dCfg.timeout;
+            command = lib.getExe dCfg.offCommand;
+            resumeCommand = lib.getExe dCfg.onCommand;
           }];
         };
       }
     )
 
     (
-      let cfg = config.dotfyls.desktops.idles.suspend; in lib.mkIf cfg.enable {
+      let sCfg = cfg'.suspend; in lib.mkIf sCfg.enable {
         services.swayidle.timeouts = [{
-          timeout = cfg.timeout;
-          command = lib.getExe cfg.command;
+          timeout = sCfg.timeout;
+          command = lib.getExe sCfg.command;
         }];
       }
     )

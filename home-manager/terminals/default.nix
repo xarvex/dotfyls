@@ -24,9 +24,9 @@ in
     (self.lib.mkCommonModules [ "dotfyls" "terminals" "terminals" ]
       (terminal: tCfg: {
         start = self.lib.mkCommandOption "start ${terminal.name}"
-          // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
+          // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
         exec = self.lib.mkCommandOption "start ${terminal.name} executing command"
-          // lib.optionalAttrs tCfg.enable { default = tCfg.package; };
+          // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
       })
       {
         alacritty = {
@@ -54,7 +54,7 @@ in
     xdg-terminal-exec = {
       enable = lib.mkEnableOption "xdg-terminal-exec" // { default = true; };
       package = self.lib.mkCommandOption "use as xdg-terminal-exec"
-        // lib.optionalAttrs cfg.selected.enable {
+        // lib.optionalAttrs (cfg.enable && cfg.xdg-terminal-exec.enable) {
         default = (pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
           if [ "$#" = "0" ]; then
             exec ${lib.getExe cfg.selected.start}

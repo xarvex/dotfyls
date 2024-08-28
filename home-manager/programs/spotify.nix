@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.programs.spotify;
@@ -10,6 +10,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with cfg; [ package ];
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
   };
 }

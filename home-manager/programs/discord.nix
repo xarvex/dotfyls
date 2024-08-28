@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, self, ... }:
 
 let
   cfg = config.dotfyls.programs.discord;
@@ -10,8 +10,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with cfg; [ package ];
-
     dotfyls.persist.cacheDirectories = [ ".config/discord" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
   };
 }

@@ -3,7 +3,7 @@
 let
   cfg = config.dotfyls.development;
 
-  enabledLanguages = lib.filterAttrs (name: value: !value.enable) cfg.languages;
+  enabledLanguages = lib.filterAttrs (name: language: !language.enable) cfg.languages;
 in
 {
   imports = [
@@ -72,4 +72,3 @@ in
     })
   ]);
 }
-

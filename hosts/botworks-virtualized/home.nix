@@ -1,4 +1,6 @@
-{ lib, ... }: {
+{ lib, ... }:
+
+{
   dotfyls.terminals.default = "alacritty";
 
   wayland.windowManager.hyprland.settings = {

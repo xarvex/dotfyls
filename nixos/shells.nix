@@ -26,7 +26,7 @@ in
 
   config = lib.mkMerge [
     {
-      usr.shell = cfg.selected.package;
+      usr.shell = self.lib.getCfgPkg cfg.selected;
     }
 
     (lib.mkIf cfg.shells.zsh.enable {

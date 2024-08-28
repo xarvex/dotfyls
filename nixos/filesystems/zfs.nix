@@ -1,7 +1,8 @@
 { config, lib, pkgs, self, ... }:
 
 let
-  cfg = config.dotfyls.filesystems.filesystems.zfs;
+  cfg' = config.dotfyls.filesystems;
+  cfg = cfg'.filesystems.zfs;
 in
 {
   imports = [
@@ -25,8 +26,8 @@ in
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       dotfyls = {
-        kernels.version = lib.mkIf (!cfg.unstable) (lib.mkDefault cfg.package.latestCompatibleLinuxPackages.kernel.version);
         filesystems.filesystems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
+        kernels.version = lib.mkIf (!cfg.unstable) (lib.mkDefault cfg.package.latestCompatibleLinuxPackages.kernel.version);
       };
 
       boot = {
@@ -34,7 +35,7 @@ in
 
         zfs = {
           devNodes = "/dev/disk/${cfg.nodes}";
-          requestEncryptionCredentials = config.dotfyls.filesystems.encryption;
+          requestEncryptionCredentials = cfg'.encryption;
         };
       };
 
@@ -56,7 +57,7 @@ in
           fsType = "zfs";
         };
       }
-      // lib.optionalAttrs config.dotfyls.filesystems.impermanence.enable {
+      // lib.optionalAttrs cfg'.impermanence.enable {
         "/persist" = {
           device = "zroot/persist";
           fsType = "zfs";

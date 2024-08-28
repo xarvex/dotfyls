@@ -5,13 +5,13 @@
     ./bat.nix
     ./cbonsai.nix
     ./cliphist.nix
-    ./dunst.nix
     ./discord.nix
+    ./dunst.nix
     ./eza.nix
     ./fastfetch
     ./fd.nix
-    ./fzf.nix
     ./firefox.nix
+    ./fzf.nix
     ./git.nix
     ./gnupg.nix
     ./gvfs.nix

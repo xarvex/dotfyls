@@ -27,7 +27,7 @@ in
     programs.bat = {
       enable = true;
       extraPackages = [ ]
-        ++ lib.optional cfg.batman.enable cfg.batman.package;
+        ++ lib.optional cfg.batman.enable (self.lib.getCfgPkg cfg.batman);
     };
   };
 }

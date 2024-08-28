@@ -8,21 +8,38 @@ rec {
         options;
     };
 
-  mkAliasPackageModule = from: to:
+  mkAliasPackageModule' = from: to:
     { config, options, ... }:
+    let
+      toOpts = lib.getAttrFromPath to options;
+    in
     {
       imports = [ (mkAliasOptionModules from to [ "package" ]) ];
 
-      options = lib.setAttrByPath from
-        (lib.optionalAttrs ((lib.getAttrFromPath to options) ? finalPackage) {
-          finalPackage = (lib.getAttrFromPath to options).finalPackage;
-        });
-
-      config = lib.setAttrByPath from
-        (lib.optionalAttrs ((lib.getAttrFromPath to options) ? finalPackage) {
-          finalPackage = lib.mkIf (!((lib.getAttrFromPath from options).finalPackage ? default)) (lib.getAttrFromPath to config).finalPackage;
-        });
+      options = lib.setAttrByPath from (lib.optionalAttrs (toOpts ? finalPackage) {
+        finalPackage = toOpts.finalPackage;
+      });
     };
+  # Must be copied from mkAliasPackageModule', otherwise will stack overflow.
+  mkAliasPackageModule = from: to:
+    { config, options, ... }:
+    let
+      fromOpts = lib.getAttrFromPath from options;
+      toOpts = lib.getAttrFromPath to options;
+      toCfg = lib.getAttrFromPath to config;
+    in
+    {
+      imports = [ (mkAliasOptionModules from to [ "package" ]) ];
+
+      options = lib.setAttrByPath from (lib.optionalAttrs (toOpts ? finalPackage) {
+        finalPackage = toOpts.finalPackage;
+      });
+
+      config = lib.setAttrByPath from (lib.optionalAttrs (toOpts ? finalPackage) {
+        finalPackage = lib.mkIf (!(fromOpts.finalPackage ? default) || fromOpts.finalPackage.default == null) toCfg.finalPackage;
+      });
+    };
+
 
   mkCommonModules = path: generator: optionModules:
     { config, ... }:

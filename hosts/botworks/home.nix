@@ -4,6 +4,8 @@
   dotfyls = {
     programs.openrgb.enable = true;
 
+    terminals.default = "kitty"; # WezTerm breaks on NVIDIA.
+
     desktops = {
       wayland.sessionVariables = options.dotfyls.desktops.wayland.sessionVariables.default
         // { NIXOS_OZONE_WL = ""; };
@@ -18,7 +20,5 @@
       # Revert when Firefox behaves:
       # desktops.hyprland.explicitSync = true;
     };
-
-    terminals.default = "kitty"; # WezTerm breaks on NVIDIA.
   };
 }

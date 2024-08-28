@@ -13,10 +13,10 @@ in
   options.dotfyls.programs.firefox.enable = lib.mkEnableOption "Firefox" // { default = config.dotfyls.desktops.enable; };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [ ".cache/mozilla" ".mozilla" ];
+
     programs.firefox = {
       enable = true;
     };
-
-    dotfyls.persist.directories = [ ".cache/mozilla" ".mozilla" ];
   };
 }

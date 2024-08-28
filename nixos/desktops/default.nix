@@ -26,10 +26,10 @@ in
         startCommand = self.lib.mkCommandOption "start ${desktop.name}";
       })
       {
-        hyprland = let cfg' = cfg.desktops.hyprland; in {
+        hyprland = let hCfg = cfg.desktops.hyprland; in {
           name = "Hyprland";
           hmCfg = hmCfg.desktops.hyprland;
-          specialArgs.startCommand.default = pkgs.dotfyls.mkDbusSession cfg'.package;
+          specialArgs.startCommand.default = pkgs.dotfyls.mkDbusSession (self.lib.getCfgPkg hCfg);
         };
       })
   ];

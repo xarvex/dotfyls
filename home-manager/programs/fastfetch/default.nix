@@ -13,7 +13,7 @@ in
   options.dotfyls.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // { default = true; };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.shells.initBins = with cfg; [ package ];
+    dotfyls.shells.initBins = [ (self.lib.getCfgPkg cfg) ];
 
     home.shellAliases = {
       neofetch = "fastfetch --config neofetch";
@@ -22,6 +22,7 @@ in
 
     programs.fastfetch = {
       enable = true;
+
       settings = builtins.fromJSON (builtins.readFile ./config.jsonc);
     };
   };

@@ -40,14 +40,14 @@ in
   };
 
   config = lib.mkIf (config.dotfyls.displayManager.enable && cfg.enable) {
+    environment.systemPackages = [ (self.lib.getCfgPkg cfg.theme) ];
+
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
       package = lib.mkDefault pkgs.kdePackages.sddm;
       theme = cfg.theme.name;
     };
-
-    environment.systemPackages = [ cfg.theme.package ];
 
     systemd = {
       services."autovt@tty1".enable = false;
