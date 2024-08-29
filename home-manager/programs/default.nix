@@ -15,7 +15,6 @@
     ./git.nix
     ./gnupg.nix
     ./gvfs.nix
-    ./mpris-proxy.nix
     ./nemo.nix
     ./neovim.nix
     ./nix-index.nix

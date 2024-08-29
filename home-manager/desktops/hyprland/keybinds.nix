@@ -45,11 +45,16 @@ lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
       "$mod, ${key}, workspace, ${toString workspace}"
       "$mod_SHIFT, ${key}, movetoworkspace, ${toString workspace}"
     ]))
-    ++ lib.optionals config.dotfyls.media.audio.enable (withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
+    ++ lib.optionals config.dotfyls.media.audio.enable ((withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
       ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
       ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
       ", XF86AudioMicMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    ]))
+    ++ withCfgPkg config.dotfyls.media.mpris2.playerctl (playerctl: [
+      ", XF86AudioNext, exec, ${lib.getExe playerctl} next"
+      ", XF86AudioPlay, exec, ${lib.getExe playerctl} play-pause"
+      ", XF86AudioPrev, exec, ${lib.getExe playerctl} previous"
     ]))
     ++ withCfgPkg config.dotfyls.terminals.xdg-terminal-exec (xdg-terminal-exec: [
       "$mod, Return, exec, ${lib.getExe xdg-terminal-exec}"
