@@ -23,6 +23,7 @@
     ./ripgrep.nix
     ./rofi.nix
     ./sl.nix
+    ./solaar.nix
     ./spotify.nix
     ./steam.nix
     ./thefuck

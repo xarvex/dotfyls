@@ -2,6 +2,11 @@
 
 {
   dotfyls = {
+    programs.solaar = {
+      enable = true;
+      deviceConfig = ./solaar/config.yaml;
+    };
+
     terminals.default = "kitty";
 
     desktops.displays = [
