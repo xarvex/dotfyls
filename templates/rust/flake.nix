@@ -65,10 +65,10 @@
               dotenv.disableHint = true;
 
               packages = with pkgs; [
+                cargo-edit
                 cargo-expand
                 cargo-msrv
                 cargo-udeps
-                cargo-update
               ];
 
               languages.rust = {
