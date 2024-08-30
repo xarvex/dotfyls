@@ -26,6 +26,7 @@
     ./solaar.nix
     ./spotify.nix
     ./steam.nix
+    ./swww.nix
     ./thefuck
     ./tldr.nix
     ./ventoy.nix

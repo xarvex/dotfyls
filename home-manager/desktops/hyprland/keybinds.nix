@@ -1,13 +1,14 @@
 { config, lib, pkgs, self, ... }:
 
 let
-  cfg = config.dotfyls.desktops.desktops.hyprland;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.desktops.hyprland;
   pCfg = config.dotfyls.programs;
 
   withCfgPkg = cfg: generator:
     lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
 in
-lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
+lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
 

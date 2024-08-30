@@ -1,10 +1,14 @@
 { config, lib, self, ... }:
 
 let
-  cfg = config.dotfyls.desktops.desktops.hyprland;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.desktops.hyprland;
+  pCfg = config.dotfyls.programs;
 in
 {
   imports = [
+    ./appearance.nix
+    ./interaction.nix
     ./keybinds.nix
     ./rules.nix
 
@@ -26,6 +30,7 @@ in
         dunst.enable = lib.mkDefault true;
         gvfs.enable = lib.mkDefault true;
         rofi.enable = lib.mkDefault true;
+        swww.enable = lib.mkDefault true;
         waybar.enable = lib.mkDefault true;
         wl-clipboard.enable = true;
       };
@@ -34,27 +39,17 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
 
+      systemd = {
+        enableXdgAutostart = true;
+        variables = [ "--all" ];
+      };
+
       settings = {
-        env = builtins.attrValues (builtins.mapAttrs
-          (name: value: "${name}, ${toString value}")
-          (config.dotfyls.desktops.wayland.sessionVariables
-            // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }));
+        xwayland.force_zero_scaling = true;
 
         render = rec {
           explicit_sync = if cfg.explicitSync then 1 else 0;
           explicit_sync_kms = explicit_sync;
-        };
-
-        xwayland.force_zero_scaling = true;
-
-        input = {
-          kb_layout = "us";
-          follow_mouse = 1;
-
-          touchpad = {
-            disable_while_typing = true;
-            natural_scroll = true;
-          };
         };
 
         monitor = (lib.forEach config.dotfyls.desktops.displays (display:
@@ -65,11 +60,20 @@ in
             (toString display.scale)
           ] ++ lib.optionals display.vertical [ "transform, 1" ])
         )) ++ [ ", preferred, auto, auto" ];
-      };
 
-      systemd = {
-        enableXdgAutostart = true;
-        variables = [ "--all" ];
+        env = builtins.attrValues (builtins.mapAttrs
+          (name: value: "${name}, ${toString value}")
+          (config.dotfyls.desktops.wayland.sessionVariables
+            // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }));
+
+        exec-once =
+          let
+            withCfgPkg = cfg: generator:
+              lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
+          in
+          withCfgPkg pCfg.swww (swww: [
+            "${lib.getExe' swww "swww-daemon"} &"
+          ]);
       };
     };
   };

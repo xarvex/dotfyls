@@ -1,10 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.desktops.desktops.hyprland;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.desktops.hyprland;
   pCfg = config.dotfyls.programs;
 in
-lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
+lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings.windowrulev2 = [ ]
     ++ lib.optionals pCfg.firefox.enable [
     "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
