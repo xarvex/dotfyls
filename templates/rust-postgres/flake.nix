@@ -2,6 +2,11 @@
   inputs = {
     devenv.url = "github:cachix/devenv";
 
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,6 +62,13 @@
             default = name;
 
             name = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overriden (/dev/null), --impure is necessary.
+                pkgs.lib.mkIf (devenvRoot != "") devenvRoot;
+
               name = "name";
 
               packages = with pkgs; [
