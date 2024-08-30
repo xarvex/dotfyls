@@ -62,7 +62,7 @@
             default = name;
 
             name = {
-              dotenv.disableHint = true;
+              name = "name";
 
               packages = with pkgs; [
                 cargo-edit
