@@ -2,6 +2,13 @@
   description = "Xarvex's Nix configuration";
 
   inputs = {
+    devenv.url = "github:cachix/devenv";
+
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+
     direnv = {
       url = "github:xarvex/direnv";
       inputs = {
@@ -63,6 +70,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix2container = {
+      url = "github:nlewo/nix2container";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     persistwd = {
@@ -77,7 +89,14 @@
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = { home-manager, nixpkgs, self, ... }@inputs:
+  outputs =
+    {
+      flake-parts,
+      home-manager,
+      nixpkgs,
+      self,
+      ...
+    }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -120,7 +139,8 @@
               overlays
               system
               unfreePkgs
-              user;
+              user
+              ;
           };
         in
         {
@@ -135,47 +155,97 @@
           botworks
           botworks-mobilized
           botworks-pioneer
-          botworks-virtualized;
+          botworks-virtualized
+          ;
       };
       homeManagerHosts = {
         inherit (hosts)
           botworks
           botworks-mobilized
           botworks-pioneer
-          botworks-virtualized;
+          botworks-virtualized
+          ;
       };
     in
-    {
-      nixosConfigurations = builtins.mapAttrs self.lib.mkNixosConfiguration nixosHosts
-        # Keep installer separate for now.
-        // { installer = lib.nixosSystem { modules = [ ./hosts/installer ]; }; };
-      homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.devenv.flakeModule ];
 
-      templates = import ./templates;
+      systems = import inputs.systems;
 
-      overlays =
-        let
-          overlays = [
-            "bat-extras"
-            "discord"
-            "dotfyls"
-            "evil-winrm"
-            "fastfetch"
-            "wezterm"
-          ];
-        in
-        lib.genAttrs overlays (overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; })
-        # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
-        // { default = final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays); };
+      perSystem =
+        { pkgs, ... }:
+        {
+          devenv.shells = rec {
+            default = dotfyls;
 
-      lib = import ./lib { inherit inputs lib self; };
+            dotfyls = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overriden (/dev/null), --impure is necessary.
+                pkgs.lib.mkIf (devenvRoot != "") devenvRoot;
 
-      # Aggregate for export convenience.
-      homeManagerModules = with inputs; {
-        inherit (dotfyls-firefox.homeManagerModules) firefox;
-        inherit (dotfyls-neovim.homeManagerModules) neovim;
-        inherit (dotfyls-wezterm.homeManagerModules) wezterm;
-        inherit (dotfyls-zsh.homeManagerModules) zsh;
+              name = "dotfyls";
+
+              languages = {
+                nix.enable = true;
+                shell.enable = true;
+              };
+
+              pre-commit.hooks = {
+                deadnix.enable = true;
+                flake-checker.enable = true;
+                nixfmt = {
+                  enable = true;
+                  package = pkgs.nixfmt-rfc-style;
+                };
+                statix.enable = true;
+              };
+            };
+          };
+        };
+
+      flake = {
+        nixosConfigurations =
+          builtins.mapAttrs self.lib.mkNixosConfiguration nixosHosts
+          # Keep installer separate for now.
+          // {
+            installer = lib.nixosSystem { modules = [ ./hosts/installer ]; };
+          };
+        homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
+
+        # Aggregate for export convenience.
+        homeManagerModules = with inputs; {
+          inherit (dotfyls-firefox.homeManagerModules) firefox;
+          inherit (dotfyls-neovim.homeManagerModules) neovim;
+          inherit (dotfyls-wezterm.homeManagerModules) wezterm;
+          inherit (dotfyls-zsh.homeManagerModules) zsh;
+        };
+
+        overlays =
+          let
+            overlays = [
+              "bat-extras"
+              "discord"
+              "dotfyls"
+              "evil-winrm"
+              "fastfetch"
+              "wezterm"
+            ];
+          in
+          lib.genAttrs overlays (
+            overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; }
+          )
+          # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
+          // {
+            default =
+              final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays);
+          };
+
+        templates = import ./templates;
+
+        lib = import ./lib { inherit inputs lib self; };
       };
     };
 }
