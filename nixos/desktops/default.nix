@@ -82,6 +82,9 @@ in
       excludePackages = with pkgs; [ xterm ];
     };
 
-    security.polkit.enable = true;
+    security = {
+      polkit.enable = true;
+      rtkit.enable = true;
+    };
   };
 }
