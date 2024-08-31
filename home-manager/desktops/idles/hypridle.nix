@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg' = config.dotfyls.desktops.idles;
@@ -7,8 +13,18 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "desktops" "idles" "idles" "hypridle" ]
-      [ "services" "hypridle" ])
+      [
+        "dotfyls"
+        "desktops"
+        "idles"
+        "idles"
+        "hypridle"
+      ]
+      [
+        "services"
+        "hypridle"
+      ]
+    )
   ];
 
   options.dotfyls.desktops.idles.idles.hypridle.enable = lib.mkEnableOption "hypridle";
@@ -26,12 +42,17 @@ in
             runtimeInputs = with pkgs; [ coreutils ];
             text = "(sleep 15; rm /tmp/hypridle_lock) &";
           };
-          beforeCommand = command: pkgs.dotfyls.mkCommandExe {
-            runtimeInputs = with pkgs; [ coreutils procps ];
-            text = ''
-              [ -f /tmp/hypridle_lock ] || exec ${if lib.isString command then command else lib.getExe command}
-            '';
-          };
+          beforeCommand =
+            command:
+            pkgs.dotfyls.mkCommandExe {
+              runtimeInputs = with pkgs; [
+                coreutils
+                procps
+              ];
+              text = ''
+                [ -f /tmp/hypridle_lock ] || exec ${if lib.isString command then command else lib.getExe command}
+              '';
+            };
         in
         lib.mkMerge [
           {
@@ -58,31 +79,46 @@ in
                 };
               };
 
-              listener = [{
-                timeout = lCfg.timeout;
-                on-timeout = beforeCommand lockSession;
-              }];
+              listener = [
+                {
+                  inherit (lCfg) timeout;
+
+                  on-timeout = beforeCommand lockSession;
+                }
+              ];
             }
           )
 
           (
-            let dCfg = cfg'.displays; in lib.mkIf dCfg.enable {
+            let
+              dCfg = cfg'.displays;
+            in
+            lib.mkIf dCfg.enable {
               general.after_sleep_cmd = pkgs.dotfyls.mkCommandExe "${afterSleepCommand}; ${lib.getExe dCfg.onCommand}";
 
-              listener = [{
-                timeout = dCfg.timeout;
-                on-timeout = beforeCommand dCfg.offCommand;
-                on-resume = lib.getExe dCfg.onCommand;
-              }];
+              listener = [
+                {
+                  inherit (dCfg) timeout;
+
+                  on-timeout = beforeCommand dCfg.offCommand;
+                  on-resume = lib.getExe dCfg.onCommand;
+                }
+              ];
             }
           )
 
           (
-            let sCfg = cfg'.suspend; in lib.mkIf sCfg.enable {
-              listener = [{
-                timeout = sCfg.timeout;
-                on-timeout = beforeCommand sCfg.command;
-              }];
+            let
+              sCfg = cfg'.suspend;
+            in
+            lib.mkIf sCfg.enable {
+              listener = [
+                {
+                  inherit (sCfg) timeout;
+
+                  on-timeout = beforeCommand sCfg.command;
+                }
+              ];
             }
           )
         ];

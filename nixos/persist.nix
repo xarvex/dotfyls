@@ -28,6 +28,9 @@
 
   config.dotfyls.persist = {
     files = [ "/etc/machine-id" ];
-    directories = [ "/var/lib/nixos" "/var/log" ];
+    directories = [
+      "/var/lib/nixos"
+      "/var/log"
+    ];
   };
 }

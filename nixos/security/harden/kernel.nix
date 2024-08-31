@@ -5,9 +5,15 @@ let
 in
 {
   options.dotfyls.security.harden.kernel = {
-    enable = lib.mkEnableOption "kernel security hardening" // { default = true; };
-    packages = lib.mkEnableOption "hardened kernel packages" // { default = true; };
-    poison = lib.mkEnableOption "poisoning of free'd pages" // { default = true; };
+    enable = lib.mkEnableOption "kernel security hardening" // {
+      default = true;
+    };
+    packages = lib.mkEnableOption "hardened kernel packages" // {
+      default = true;
+    };
+    poison = lib.mkEnableOption "poisoning of free'd pages" // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {

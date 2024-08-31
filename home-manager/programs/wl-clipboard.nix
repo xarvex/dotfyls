@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.wl-clipboard;
@@ -9,7 +15,5 @@ in
     package = lib.mkPackageOption pkgs "wl-clipboard" { };
   };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
-  };
+  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
 }

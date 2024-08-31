@@ -10,7 +10,7 @@
 #   https://github.com/a13xp0p0v/kernel-hardening-checker
 #   https://dataswamp.org/~solene/2022-01-13-nixos-hardened.html
 #   https://medium.com/@ganga.jaiswal/88bb7d77ba22
-{ ... }:
+_:
 
 {
   imports = [

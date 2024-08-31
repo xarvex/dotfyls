@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.dunst;
@@ -6,8 +11,16 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "programs" "dunst" ]
-      [ "services" "dunst" ])
+      [
+        "dotfyls"
+        "programs"
+        "dunst"
+      ]
+      [
+        "services"
+        "dunst"
+      ]
+    )
   ];
 
   options.dotfyls.programs.dunst.enable = lib.mkEnableOption "Dunst";

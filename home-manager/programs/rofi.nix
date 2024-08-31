@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.rofi;
@@ -6,8 +12,16 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "programs" "rofi" ]
-      [ "programs" "rofi" ])
+      [
+        "dotfyls"
+        "programs"
+        "rofi"
+      ]
+      [
+        "programs"
+        "rofi"
+      ]
+    )
   ];
 
   options.dotfyls.programs.rofi.enable = lib.mkEnableOption "Rofi";
@@ -18,8 +32,9 @@ in
     programs.rofi = {
       enable = true;
 
-      terminal = (lib.mkIf config.dotfyls.terminals.xdg-terminal-exec.enable
-        (self.lib.getCfgExe config.dotfyls.terminals.xdg-terminal-exec));
+      terminal = lib.mkIf config.dotfyls.terminals.xdg-terminal-exec.enable (
+        self.lib.getCfgExe config.dotfyls.terminals.xdg-terminal-exec
+      );
     };
   };
 }

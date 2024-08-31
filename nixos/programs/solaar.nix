@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.solaar;
@@ -6,7 +12,9 @@ let
 in
 {
   options.dotfyls.programs.solaar = {
-    enable = lib.mkEnableOption "Solaar" // { default = hmCfg.enable; };
+    enable = lib.mkEnableOption "Solaar" // {
+      default = hmCfg.enable;
+    };
     package = lib.mkPackageOption pkgs "Solaar" { default = "solaar"; };
   };
 

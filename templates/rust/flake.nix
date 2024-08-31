@@ -27,13 +27,15 @@
     systems.url = "github:nix-systems/default-linux";
   };
 
-  outputs = { flake-parts, nixpkgs, self, ... }@inputs:
+  outputs =
+    { flake-parts, nixpkgs, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ inputs.devenv.flakeModule ];
 
       systems = import inputs.systems;
 
-      perSystem = { pkgs, system, ... }:
+      perSystem =
+        { pkgs, ... }:
         let
           inherit (nixpkgs) lib;
 

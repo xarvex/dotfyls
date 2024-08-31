@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.waybar;
@@ -6,8 +11,16 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "programs" "waybar" ]
-      [ "programs" "waybar" ])
+      [
+        "dotfyls"
+        "programs"
+        "waybar"
+      ]
+      [
+        "programs"
+        "waybar"
+      ]
+    )
   ];
 
   options.dotfyls.programs.waybar.enable = lib.mkEnableOption "Waybar";

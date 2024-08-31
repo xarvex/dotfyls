@@ -22,7 +22,10 @@
           isNormalUser = true;
           initialPassword = "password";
           hashedPasswordFile = "/persist/etc/shadow/${user}";
-          extraGroups = [ "networkmanager" "wheel" ];
+          extraGroups = [
+            "networkmanager"
+            "wheel"
+          ];
         };
       };
     };

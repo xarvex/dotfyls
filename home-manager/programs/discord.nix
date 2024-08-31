@@ -1,11 +1,19 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.discord;
 in
 {
   options.dotfyls.programs.discord = {
-    enable = lib.mkEnableOption "Discord" // { default = false; };
+    enable = lib.mkEnableOption "Discord" // {
+      default = false;
+    };
     package = lib.mkPackageOption pkgs "Discord" { default = "discord"; };
   };
 

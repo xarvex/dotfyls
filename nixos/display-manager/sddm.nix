@@ -1,4 +1,11 @@
-{ config, lib, pkgs, self, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  user,
+  ...
+}:
 
 let
   cfg = config.dotfyls.displayManager.displayManager.sddm;
@@ -6,8 +13,18 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "displayManager" "displayManager" "sddm" ]
-      [ "services" "displayManager" "sddm" ])
+      [
+        "dotfyls"
+        "displayManager"
+        "displayManager"
+        "sddm"
+      ]
+      [
+        "services"
+        "displayManager"
+        "sddm"
+      ]
+    )
   ];
 
   options.dotfyls.displayManager.displayManager.sddm = {
@@ -22,18 +39,18 @@ in
           };
           package = lib.mkOption {
             type = lib.types.package;
-            example = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
+            example = pkgs.catppuccin-sddm.override { flavor = "mocha"; };
             description = "Package providing the theme.";
           };
         };
       };
       default = {
         name = "catppuccin-mocha";
-        package = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
+        package = pkgs.catppuccin-sddm.override { flavor = "mocha"; };
       };
       example = {
         name = "catppuccin-mocha";
-        package = (pkgs.catppuccin-sddm.override { flavor = "mocha"; });
+        package = pkgs.catppuccin-sddm.override { flavor = "mocha"; };
       };
       description = "Theme to use for SDDM.";
     };
@@ -56,7 +73,9 @@ in
         "d /var/lib/sddm 0755 root root - -"
 
         # Not really last, but allows specifying as default user on each boot.
-        "f+ /var/lib/sddm/state.conf - - - - ${builtins.replaceStrings ["\n"] ["\\n"] (lib.generators.toINI { } { Last.User = user; })}"
+        "f+ /var/lib/sddm/state.conf - - - - ${
+          builtins.replaceStrings [ "\n" ] [ "\\n" ] (lib.generators.toINI { } { Last.User = user; })
+        }"
       ];
     };
   };

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.shells;
@@ -8,7 +14,11 @@ in
     ./bash.nix
     ./zsh.nix
 
-    (self.lib.mkSelectorModule [ "dotfyls" "shells" ]
+    (self.lib.mkSelectorModule
+      [
+        "dotfyls"
+        "shells"
+      ]
       {
         name = "default";
         default = "zsh";
@@ -17,7 +27,8 @@ in
       [
         "bash"
         "zsh"
-      ])
+      ]
+    )
   ];
 
   options.dotfyls.shells = {
@@ -37,8 +48,7 @@ in
     finalInitBins = lib.mkOption {
       readOnly = true;
       type = lib.types.str;
-      default = lib.concatStringsSep "\n"
-        (builtins.map (pkg: lib.getExe pkg) cfg.initBins);
+      default = lib.concatStringsSep "\n" (builtins.map (pkg: lib.getExe pkg) cfg.initBins);
       description = "";
     };
   };

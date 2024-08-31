@@ -1,4 +1,4 @@
-final: prev:
+_: prev:
 
 # Use until release made and available with fix.
 prev.wezterm.overrideAttrs (o: {

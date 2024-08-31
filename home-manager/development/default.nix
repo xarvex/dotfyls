@@ -1,21 +1,42 @@
-{ config, inputs, lib, pkgs, self, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
+# enabledLanguages = lib.filterAttrs (name: language: !language.enable) cfg.languages;
 let
   cfg = config.dotfyls.development;
-
-  enabledLanguages = lib.filterAttrs (name: language: !language.enable) cfg.languages;
 in
 {
   imports = [
     ./rust.nix
 
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "development" "direnv" ]
-      [ "programs" "direnv" ])
+      [
+        "dotfyls"
+        "development"
+        "direnv"
+      ]
+      [
+        "programs"
+        "direnv"
+      ]
+    )
 
-    (self.lib.mkCommonModules [ "dotfyls" "development" "languages" ]
-      (language: lCfg: {
-        enable = lib.mkEnableOption language.name // { default = true; };
+    (self.lib.mkCommonModules
+      [
+        "dotfyls"
+        "development"
+        "languages"
+      ]
+      (language: _: {
+        enable = lib.mkEnableOption language.name // {
+          default = true;
+        };
         templates = lib.mkOption {
           type = with lib.types; listOf str;
           description = "Templates available for ${language.name}.";
@@ -36,39 +57,46 @@ in
             ];
           };
         };
-      })
+      }
+    )
   ];
 
   options.dotfyls.development = {
-    enable = lib.mkEnableOption "development" // { default = config.dotfyls.desktops.enable; };
-    direnv.enable = lib.mkEnableOption "direnv" // { default = true; };
+    enable = lib.mkEnableOption "development" // {
+      default = config.dotfyls.desktops.enable;
+    };
+    direnv.enable = lib.mkEnableOption "direnv" // {
+      default = true;
+    };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    { }
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      { }
 
-    (lib.mkIf cfg.direnv.enable {
-      dotfyls.persist = {
-        directories = [ ".local/share/direnv" ];
-        cacheDirectories = [ ".cache/direnv/layouts" ];
-      };
-
-      programs.direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-        package = inputs.direnv.packages.${pkgs.system}.default;
-
-        config = {
-          strict_env = true;
-          hide_env_diff = true;
+      (lib.mkIf cfg.direnv.enable {
+        dotfyls.persist = {
+          directories = [ ".local/share/direnv" ];
+          cacheDirectories = [ ".cache/direnv/layouts" ];
         };
-        stdlib = ''
-          declare -A direnv_layout_dirs
-          direnv_layout_dir() {
-              printf '%s\n' "''${direnv_layout_dirs[''${PWD}]:=${config.xdg.cacheHome}/direnv/layouts/$(sha1sum - <<< "''${PWD}" | head -c40)''${PWD//[^a-zA-Z0-9]/-}}"
-          }
-        '';
-      };
-    })
-  ]);
+
+        programs.direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+          package = inputs.direnv.packages.${pkgs.system}.default;
+
+          config = {
+            strict_env = true;
+            hide_env_diff = true;
+          };
+          stdlib = ''
+            declare -A direnv_layout_dirs
+            direnv_layout_dir() {
+                printf '%s\n' "''${direnv_layout_dirs[''${PWD}]:=${config.xdg.cacheHome}/direnv/layouts/$(sha1sum - <<< "''${PWD}" | head -c40)''${PWD//[^a-zA-Z0-9]/-}}"
+            }
+          '';
+        };
+      })
+    ]
+  );
 }

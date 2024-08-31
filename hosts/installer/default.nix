@@ -1,5 +1,10 @@
 # TODO: combine with rest of config
-{ lib, modulesPath, pkgs, ... }:
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.graphics;
@@ -7,7 +13,11 @@ in
   imports = [
     ./nvidia.nix
 
-    (self.lib.mkSelectorModule [ "dotfyls" "graphics" ]
+    (self.lib.mkSelectorModule
+      [
+        "dotfyls"
+        "graphics"
+      ]
       {
         name = "provider";
         description = "Graphics provider to use.";
@@ -15,10 +25,16 @@ in
       {
         intel = "Intel";
         nvidia = "NVIDIA";
-      })
+      }
+    )
 
-    (self.lib.mkCommonModules [ "dotfyls" "graphics" "graphics" ]
-      (graphics: gCfg: {
+    (self.lib.mkCommonModules
+      [
+        "dotfyls"
+        "graphics"
+        "graphics"
+      ]
+      (graphics: _: {
         driver = lib.mkOption {
           type = lib.types.str;
           description = "Driver used for ${graphics.name}.";
@@ -56,12 +72,17 @@ in
             ];
           };
         };
-      })
+      }
+    )
   ];
 
   options.dotfyls.graphics = {
-    enable = lib.mkEnableOption "graphics" // { default = config.dotfyls.desktops.enable; };
-    blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // { default = true; };
+    enable = lib.mkEnableOption "graphics" // {
+      default = config.dotfyls.desktops.enable;
+    };
+    blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // {
+      default = true;
+    };
     extraPackages = self.lib.mkExtraPackagesOption "graphics" // {
       default = with pkgs; [
         libva-vdpau-driver
@@ -79,9 +100,11 @@ in
   config = lib.mkIf cfg.enable {
     services.xserver.videoDrivers = with cfg; [ selected.driver ];
 
-    boot.blacklistedKernelModules = lib.mkIf cfg.blacklistCompeting
-      (builtins.map (graphics: graphics.driver)
-        (builtins.attrValues (builtins.removeAttrs cfg.graphics [ cfg.provider ])));
+    boot.blacklistedKernelModules = lib.mkIf cfg.blacklistCompeting (
+      builtins.map (graphics: graphics.driver) (
+        builtins.attrValues (builtins.removeAttrs cfg.graphics [ cfg.provider ])
+      )
+    );
 
     hardware.graphics = {
       enable = true;

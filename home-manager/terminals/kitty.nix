@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.terminals.terminals.kitty;
@@ -6,8 +11,17 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "terminals" "terminals" "kitty" ]
-      [ "programs" "kitty" ])
+      [
+        "dotfyls"
+        "terminals"
+        "terminals"
+        "kitty"
+      ]
+      [
+        "programs"
+        "kitty"
+      ]
+    )
   ];
 
   config = lib.mkIf cfg.enable {
@@ -17,7 +31,8 @@ in
       enable = true;
 
       font = {
-        name = config.dotfyls.fonts.monospace.name;
+        inherit (config.dotfyls.fonts.monospace) name;
+
         size = config.dotfyls.terminals.fontSize;
       };
       settings = {

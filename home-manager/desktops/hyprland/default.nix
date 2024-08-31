@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg' = config.dotfyls.desktops;
@@ -13,8 +18,18 @@ in
     ./rules.nix
 
     (self.lib.mkAliasPackageModule'
-      [ "dotfyls" "desktops" "desktops" "hyprland" ]
-      [ "wayland" "windowManager" "hyprland" ])
+      [
+        "dotfyls"
+        "desktops"
+        "desktops"
+        "hyprland"
+      ]
+      [
+        "wayland"
+        "windowManager"
+        "hyprland"
+      ]
+    )
   ];
 
   options.dotfyls.desktops.desktops.hyprland = {
@@ -52,28 +67,32 @@ in
           explicit_sync_kms = explicit_sync;
         };
 
-        monitor = (lib.forEach config.dotfyls.desktops.displays (display:
-          lib.concatStringsSep ", " ([
-            display.name
-            "${toString display.width}x${toString display.height}@${toString display.refresh}"
-            display.position
-            (toString display.scale)
-          ] ++ lib.optionals display.vertical [ "transform, 1" ])
-        )) ++ [ ", preferred, auto, auto" ];
+        monitor =
+          (lib.forEach config.dotfyls.desktops.displays (
+            display:
+            lib.concatStringsSep ", " (
+              [
+                display.name
+                "${toString display.width}x${toString display.height}@${toString display.refresh}"
+                display.position
+                (toString display.scale)
+              ]
+              ++ lib.optionals display.vertical [ "transform, 1" ]
+            )
+          ))
+          ++ [ ", preferred, auto, auto" ];
 
-        env = builtins.attrValues (builtins.mapAttrs
-          (name: value: "${name}, ${toString value}")
-          (config.dotfyls.desktops.wayland.sessionVariables
-            // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }));
+        env = builtins.attrValues (
+          builtins.mapAttrs (name: value: "${name}, ${toString value}") (
+            config.dotfyls.desktops.wayland.sessionVariables // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }
+          )
+        );
 
         exec-once =
           let
-            withCfgPkg = cfg: generator:
-              lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
+            withCfgPkg = cfg: generator: lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
           in
-          withCfgPkg pCfg.swww (swww: [
-            "${lib.getExe' swww "swww-daemon"} &"
-          ]);
+          withCfgPkg pCfg.swww (swww: [ "${lib.getExe' swww "swww-daemon"} &" ]);
       };
     };
   };

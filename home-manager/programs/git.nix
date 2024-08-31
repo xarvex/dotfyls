@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.git;
@@ -6,11 +11,21 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [ "dotfyls" "programs" "git" ]
-      [ "programs" "git" ])
+      [
+        "dotfyls"
+        "programs"
+        "git"
+      ]
+      [
+        "programs"
+        "git"
+      ]
+    )
   ];
 
-  options.dotfyls.programs.git.enable = lib.mkEnableOption "Git" // { default = true; };
+  options.dotfyls.programs.git.enable = lib.mkEnableOption "Git" // {
+    default = true;
+  };
 
   config = lib.mkIf cfg.enable {
     home.shellAliases = {

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, self, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.terminals;
@@ -9,7 +15,11 @@ in
     ./kitty.nix
     ./wezterm.nix
 
-    (self.lib.mkSelectorModule [ "dotfyls" "terminals" ]
+    (self.lib.mkSelectorModule
+      [
+        "dotfyls"
+        "terminals"
+      ]
       {
         name = "default";
         default = "wezterm";
@@ -19,21 +29,28 @@ in
         alacritty = "Alacritty";
         kitty = "kitty";
         wezterm = "WezTerm";
-      })
+      }
+    )
 
-    (self.lib.mkCommonModules [ "dotfyls" "terminals" "terminals" ]
+    (self.lib.mkCommonModules
+      [
+        "dotfyls"
+        "terminals"
+        "terminals"
+      ]
       (terminal: tCfg: {
-        start = self.lib.mkCommandOption "start ${terminal.name}"
+        start =
+          self.lib.mkCommandOption "start ${terminal.name}"
           // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
-        exec = self.lib.mkCommandOption "start ${terminal.name} executing command"
+        exec =
+          self.lib.mkCommandOption "start ${terminal.name} executing command"
           // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
       })
       {
         alacritty = {
           name = "Alacritty";
           specialArgs = {
-            exec.default = pkgs.dotfyls.mkCommand
-              ''exec ${lib.getExe cfg.terminals.alacritty.start} -e "$@"'';
+            exec.default = pkgs.dotfyls.mkCommand ''exec ${lib.getExe cfg.terminals.alacritty.start} -e "$@"'';
           };
         };
         kitty = {
@@ -42,30 +59,35 @@ in
         wezterm = {
           name = "WezTerm";
           specialArgs = {
-            exec.default = pkgs.dotfyls.mkCommand
-              ''exec ${lib.getExe cfg.terminals.wezterm.start} start "$@"'';
+            exec.default = pkgs.dotfyls.mkCommand ''exec ${lib.getExe cfg.terminals.wezterm.start} start "$@"'';
           };
         };
-      })
+      }
+    )
   ];
 
   options.dotfyls.terminals = {
-    enable = lib.mkEnableOption "terminals" // { default = true; };
+    enable = lib.mkEnableOption "terminals" // {
+      default = true;
+    };
     xdg-terminal-exec = {
-      enable = lib.mkEnableOption "xdg-terminal-exec" // { default = true; };
-      package = self.lib.mkCommandOption "use as xdg-terminal-exec"
-        // lib.optionalAttrs (cfg.enable && cfg.xdg-terminal-exec.enable) {
-        default = (pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
-          if [ "$#" = "0" ]; then
-            exec ${lib.getExe cfg.selected.start}
-          else
-            if [ "$1" = "-e" ]; then
-              shift
-            fi
-            exec ${lib.getExe cfg.selected.exec} "$@"
-          fi
-        '');
+      enable = lib.mkEnableOption "xdg-terminal-exec" // {
+        default = true;
       };
+      package =
+        self.lib.mkCommandOption "use as xdg-terminal-exec"
+        // lib.optionalAttrs (cfg.enable && cfg.xdg-terminal-exec.enable) {
+          default = pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
+            if [ "$#" = "0" ]; then
+              exec ${lib.getExe cfg.selected.start}
+            else
+              if [ "$1" = "-e" ]; then
+                shift
+              fi
+              exec ${lib.getExe cfg.selected.exec} "$@"
+            fi
+          '';
+        };
     };
 
     fontSize = lib.mkOption {
@@ -80,8 +102,12 @@ in
     home.packages = [ (self.lib.getCfgPkg cfg.xdg-terminal-exec) ];
 
     dconf.settings = {
-      "org/cinnamon/desktop/applications/terminal" = { exec = self.lib.getCfgExe cfg.xdg-terminal-exec; };
-      "org/gnome/desktop/applications/terminal" = { exec = self.lib.getCfgExe cfg.xdg-terminal-exec; };
+      "org/cinnamon/desktop/applications/terminal" = {
+        exec = self.lib.getCfgExe cfg.xdg-terminal-exec;
+      };
+      "org/gnome/desktop/applications/terminal" = {
+        exec = self.lib.getCfgExe cfg.xdg-terminal-exec;
+      };
     };
   };
 }

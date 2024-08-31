@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.dotfyls.kernels;
@@ -11,18 +16,33 @@ let
     zen = kernel: kernel.pname == "linux-zen";
   };
 
-  kernelPackagesFor = filter: version:
+  kernelPackagesFor =
+    filter: version:
     let
-      list = builtins.filter (packages: (builtins.tryEval packages).success && builtins.isAttrs packages) (builtins.attrValues pkgs.linuxKernel.packages);
-      matched = builtins.filter (packages: filter packages.kernel && (version == null || builtins.compareVersions packages.kernel.version version <= 0)) list;
-      ordered = builtins.sort (a: b: builtins.compareVersions a.kernel.version b.kernel.version > 0) matched;
+      list = builtins.filter (
+        packages: (builtins.tryEval packages).success && builtins.isAttrs packages
+      ) (builtins.attrValues pkgs.linuxKernel.packages);
+      matched = builtins.filter (
+        packages:
+        filter packages.kernel
+        && (version == null || builtins.compareVersions packages.kernel.version version <= 0)
+      ) list;
+      ordered = builtins.sort (
+        a: b: builtins.compareVersions a.kernel.version b.kernel.version > 0
+      ) matched;
     in
     builtins.head ordered;
 in
 {
   options.dotfyls.kernels = {
     variant = lib.mkOption {
-      type = lib.types.enum [ "hardened" "lqx" "stable" "xanmod" "zen" ];
+      type = lib.types.enum [
+        "hardened"
+        "lqx"
+        "stable"
+        "xanmod"
+        "zen"
+      ];
       default = "stable";
       example = "hardened";
       description = "Variant of kernel to use.";

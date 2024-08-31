@@ -14,33 +14,33 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    xdg.configFile = {
-      "solaar/rules.yaml".text = ''
-        %YAML 1.3
-        ---
-        - Key: [Lock PC, pressed]
-      ''
-      + lib.optionalString config.dotfyls.desktops.locks.enable ''
-        - Execute: [${lib.getExe config.dotfyls.desktops.locks.command}]
-      ''
-      + ''
-        ...
-        ---
-        - Key: [Mute Microphone, pressed]
-        - KeyPress:
-          - XF86_AudioMicMute
-          - click
-        ...
-        ---
-        - Key: [Snipping Tool, pressed]
-        - KeyPress:
-          - Print
-          - click
-        ...
-      '';
-    }
-    // lib.optionalAttrs (cfg.deviceConfig != null) {
-      "solaar/config.yaml".source = cfg.deviceConfig;
-    };
+    xdg.configFile =
+      {
+        "solaar/rules.yaml".text =
+          ''
+            %YAML 1.3
+            ---
+            - Key: [Lock PC, pressed]
+          ''
+          + lib.optionalString config.dotfyls.desktops.locks.enable ''
+            - Execute: [${lib.getExe config.dotfyls.desktops.locks.command}]
+          ''
+          + ''
+            ...
+            ---
+            - Key: [Mute Microphone, pressed]
+            - KeyPress:
+              - XF86_AudioMicMute
+              - click
+            ...
+            ---
+            - Key: [Snipping Tool, pressed]
+            - KeyPress:
+              - Print
+              - click
+            ...
+          '';
+      }
+      // lib.optionalAttrs (cfg.deviceConfig != null) { "solaar/config.yaml".source = cfg.deviceConfig; };
   };
 }

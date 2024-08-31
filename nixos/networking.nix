@@ -6,8 +6,12 @@ let
 in
 {
   options.dotfyls.networking = {
-    wireless = lib.mkEnableOption "wireless networking" // { default = true; };
-    bluetooth = lib.mkEnableOption "Bluetooth networking" // { default = true; };
+    wireless = lib.mkEnableOption "wireless networking" // {
+      default = true;
+    };
+    bluetooth = lib.mkEnableOption "Bluetooth networking" // {
+      default = true;
+    };
   };
 
   config = lib.mkMerge [

@@ -1,4 +1,8 @@
-{ inputs, lib, self }:
+{
+  inputs,
+  lib,
+  self,
+}:
 
 # WARNING: later elements replace duplicates
 lib.mergeAttrsList [

@@ -5,18 +5,23 @@
     ./impermanence.nix
     ./zfs.nix
 
-    (self.lib.mkSelectorModule [ "dotfyls" "filesystems" ]
+    (self.lib.mkSelectorModule
+      [
+        "dotfyls"
+        "filesystems"
+      ]
       {
         name = "main";
         default = "zfs";
         description = "Main filesystem to use.";
       }
-      {
-        zfs = "ZFS";
-      })
+      { zfs = "ZFS"; }
+    )
   ];
 
-  options.dotfyls.filesystems.encryption = lib.mkEnableOption "filesystem encryption" // { default = true; };
+  options.dotfyls.filesystems.encryption = lib.mkEnableOption "filesystem encryption" // {
+    default = true;
+  };
 
   config = {
     boot.tmp.cleanOnBoot = true;
@@ -33,7 +38,7 @@
 
     };
 
-    swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
+    swapDevices = [ { device = "/dev/disk/by-label/SWAP"; } ];
     zramSwap.enable = true;
   };
 }

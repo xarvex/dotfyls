@@ -6,7 +6,9 @@ in
 {
   options.dotfyls.power = {
     suspend = {
-      enable = lib.mkEnableOption "suspend" // { default = true; };
+      enable = lib.mkEnableOption "suspend" // {
+        default = true;
+      };
       light = lib.mkEnableOption "lighter suspend method";
     };
     management = lib.mkEnableOption "power management";

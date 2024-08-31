@@ -1,4 +1,9 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 
 let
   cfg = config.dotfyls.filesystems.impermanence;
@@ -8,19 +13,22 @@ let
 in
 {
   options.dotfyls.filesystems.impermanence = {
-    enable = lib.mkEnableOption "filesystem impermanence" // { default = true; };
-    tmpfsRoot = lib.mkEnableOption "filesystem impermanence tmpfs root" // { default = true; };
+    enable = lib.mkEnableOption "filesystem impermanence" // {
+      default = true;
+    };
+    tmpfsRoot = lib.mkEnableOption "filesystem impermanence tmpfs root" // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {
     environment.persistence = {
       "/persist" = {
+        inherit (pCfg) files directories;
+
         hideMounts = true;
-        files = pCfg.files;
-        directories = pCfg.directories;
         users.${user} = {
-          files = pHmCfg.files;
-          directories = pHmCfg.directories;
+          inherit (pHmCfg) files directories;
         };
       };
 
