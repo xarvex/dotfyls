@@ -92,7 +92,7 @@ in
           stdlib = ''
             declare -A direnv_layout_dirs
             direnv_layout_dir() {
-                printf '%s\n' "''${direnv_layout_dirs[''${PWD}]:=${config.xdg.cacheHome}/direnv/layouts/$(sha1sum - <<< "''${PWD}" | head -c40)''${PWD//[^a-zA-Z0-9]/-}}"
+                printf '%s\n' "''${direnv_layout_dirs[''${PWD}]:=${config.xdg.cacheHome}/direnv/layouts/$(sha1sum - <<<"''${PWD}" | head -c40)''${PWD//[^a-zA-Z0-9]/-}}"
             }
           '';
         };
