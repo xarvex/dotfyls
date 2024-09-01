@@ -74,6 +74,7 @@
               name = "name";
 
               packages = with pkgs; [
+                cargo-deny
                 cargo-edit
                 cargo-expand
                 cargo-msrv
