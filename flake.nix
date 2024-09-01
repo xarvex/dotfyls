@@ -184,7 +184,7 @@
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;
                 in
                 # If not overriden (/dev/null), --impure is necessary.
-                pkgs.lib.mkIf (devenvRoot != "") devenvRoot;
+                lib.mkIf (devenvRoot != "") devenvRoot;
 
               name = "dotfyls";
 
