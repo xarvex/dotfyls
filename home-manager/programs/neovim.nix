@@ -28,10 +28,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.directories = [
-      ".local/share/nvim"
-      ".local/state/nvim"
-    ];
+    dotfyls.persist = {
+      directories = [
+        ".local/share/nvim"
+        ".local/state/nvim"
+      ];
+      cacheDirectories = [
+        ".config/dotfyls/devshell/nvim"
+        ".local/share/dotfyls/devshell/nvim"
+        ".local/state/dotfyls/devshell/nvim"
+      ];
+    };
 
     programs.neovim = {
       enable = true;
