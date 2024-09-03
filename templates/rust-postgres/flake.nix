@@ -83,9 +83,24 @@
                 sqlx-cli
               ];
 
-              languages.rust = {
-                enable = true;
-                channel = "stable";
+              languages = {
+                nix.enable = true;
+                rust = {
+                  enable = true;
+                  channel = "stable";
+                };
+              };
+
+              pre-commit.hooks = {
+                clippy.enable = true;
+                deadnix.enable = true;
+                flake-checker.enable = true;
+                nixfmt = {
+                  enable = true;
+                  package = pkgs.nixfmt-rfc-style;
+                };
+                rustfmt.enable = true;
+                statix.enable = true;
               };
 
               services.postgres.enable = true;
