@@ -91,6 +91,8 @@
               services.postgres.enable = true;
             };
           };
+
+          formatter = pkgs.nixfmt-rfc-style;
         };
     };
 }
