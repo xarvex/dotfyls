@@ -23,19 +23,19 @@
         {
             "type": "kernel",
             "format": "{1} {2}",
-            "key": "│\ue23a "
+            "key": "│ "
         },
         {
             "type": "wm",
-            "key": "│\udb82\ude07 "
+            "key": "│󰨇 "
         },
         {
             "type": "shell",
-            "key": "│\ue7a2 "
+            "key": "│ "
         },
         {
             "type": "uptime",
-            "key": "│\udb81\udd1a "
+            "key": "│󰔚 "
         },
         {
             "type": "host",
@@ -44,21 +44,21 @@
         },
         {
             "type": "cpu",
-            "key": "│\uf4bc "
+            "key": "│ "
         },
         {
             "type": "gpu",
-            "key": "│\udb85\udc84 "
+            "key": "│󱒄 "
         },
         {
             "type": "memory",
-            "key": "│\ue28c "
+            "key": "│ "
         },
         {
             "type": "disk",
             "folders": "/",
             "format": "{1} / {2} ({3})",
-            "key": "│\udb80\udeca "
+            "key": "│󰋊 "
         },
         {
             "type": "command",
