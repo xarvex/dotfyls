@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./bash.nix
+    ./fish.nix
     ./zsh.nix
 
     (self.lib.mkSelectorModule
@@ -21,11 +22,12 @@ in
       ]
       {
         name = "default";
-        default = "zsh";
+        default = "fish";
         description = "Default shell to use.";
       }
       [
         "bash"
+        "fish"
         "zsh"
       ]
     )

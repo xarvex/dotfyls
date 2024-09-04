@@ -23,14 +23,23 @@ in
         name = "default";
         description = "Default shell to use.";
       }
-      [ "zsh" ]
+      [
+        "fish"
+        "zsh"
+      ]
     )
   ];
 
   options.dotfyls.shells.shells = {
+    fish = {
+      enable = lib.mkEnableOption "Fish" // {
+        default = hmCfg.shells.fish.enable;
+      };
+      package = lib.mkPackageOption pkgs "fish" { };
+    };
     zsh = {
       enable = lib.mkEnableOption "Zsh" // {
-        default = hmCfg.zsh.enable;
+        default = hmCfg.shells.zsh.enable;
       };
       package = lib.mkPackageOption pkgs "zsh" { };
     };
@@ -39,6 +48,7 @@ in
   config = lib.mkMerge [
     { usr.shell = self.lib.getCfgPkg cfg.selected; }
 
+    (lib.mkIf cfg.shells.fish.enable { programs.fish.enable = true; })
     (lib.mkIf cfg.shells.zsh.enable { programs.zsh.enable = true; })
   ];
 }
