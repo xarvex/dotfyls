@@ -51,7 +51,7 @@ in
           {
             name = "Hyprland";
             hmCfg = hmCfg.desktops.hyprland;
-            specialArgs.startCommand.default = pkgs.dotfyls.mkDbusSession (self.lib.getCfgPkg hCfg);
+            specialArgs.startCommand.default = self.lib.getCfgPkg hCfg;
           };
       }
     )

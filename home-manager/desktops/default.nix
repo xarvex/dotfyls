@@ -40,7 +40,7 @@ let
               };
           in
           {
-            startCommand.default = pkgs.dotfyls.mkDbusSession (self.lib.getCfgPkg hCfg);
+            startCommand.default = self.lib.getCfgPkg hCfg;
             idle.displays = {
               onCommand.default = mkDisplayCommand "on";
               offCommand.default = mkDisplayCommand "off";
