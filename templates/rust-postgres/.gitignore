@@ -27,3 +27,4 @@ Cargo.lock
 !Cargo.lock
 
 .devenv
+.pre-commit-config.yaml
