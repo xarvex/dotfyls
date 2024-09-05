@@ -51,7 +51,7 @@ in
             "$fill"
 
             "$cmd_duration"
-            "$shlvl"
+            "( $shlvl)"
             "( [](${bubbleStyle})$time)"
 
             "$line_break"
