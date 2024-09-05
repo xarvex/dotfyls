@@ -46,7 +46,7 @@ in
       enable = true;
 
       settings = {
-        disable_loading_bar = true;
+        general.disable_loading_bar = true;
         # TODO: theme
       };
     };
