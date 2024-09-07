@@ -52,6 +52,7 @@ in
 {
   imports =
     [
+      ./gtk.nix
       ./hyprland
       ./idles
       ./locks
@@ -233,9 +234,5 @@ in
       default = [ ];
       description = "Configuration of displays.";
     };
-  };
-
-  config = lib.mkIf cfg.enable {
-    dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 }
