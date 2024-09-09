@@ -21,6 +21,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "maxsize 1 1, class:^(xwaylandvideobridge)$"
       "noanim, class:^(xwaylandvideobridge)$"
       "noblur, class:^(xwaylandvideobridge)$"
+      "nofocus, class:^(xwaylandvideobridge)$"
       "noinitialfocus, class:^(xwaylandvideobridge)$"
       "opacity 0.0 override, class:^(xwaylandvideobridge)$"
     ];
