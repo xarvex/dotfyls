@@ -15,9 +15,6 @@ in
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "Prism Launcher" { default = "prismlauncher"; };
-    finalPackage = self.lib.mkFinalPackageOption "Prism Launcher" // {
-      default = cfg.package.override { withWaylandGLFW = true; };
-    };
   };
 
   config = lib.mkIf cfg.enable {
