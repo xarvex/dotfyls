@@ -5,6 +5,8 @@
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
     spice-webdavd.enable = true;
+
+    kmscon.enable = true;
   };
 
   systemd.user.services.spice-agent = {
