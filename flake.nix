@@ -123,6 +123,7 @@
             "discord"
             "nvidia-settings"
             "nvidia-x11"
+            "obsidian"
             "spotify"
             "steam"
             "steam-original"

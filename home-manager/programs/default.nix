@@ -15,9 +15,11 @@ _:
     ./git.nix
     ./gnupg.nix
     ./gvfs.nix
+    ./libreoffice.nix
     ./nemo.nix
     ./neovim.nix
     ./nix-index.nix
+    ./obsidian.nix
     ./openrgb.nix
     ./prismlauncher.nix
     ./ripgrep.nix
