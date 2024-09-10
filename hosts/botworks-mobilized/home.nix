@@ -7,7 +7,13 @@ _:
       deviceConfig = ./solaar/config.yaml;
     };
 
-    terminals.default = "kitty";
+    terminals = {
+      default = "kitty";
+      terminals = {
+        alacritty.enable = true;
+        wezterm.enable = true;
+      };
+    };
 
     desktops.displays = [
       {
