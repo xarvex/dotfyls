@@ -46,7 +46,11 @@ in
   };
 
   config = lib.mkMerge [
-    { usr.shell = self.lib.getCfgPkg cfg.selected; }
+    {
+      environment.shellAliases = lib.mkForce { };
+
+      usr.shell = self.lib.getCfgPkg cfg.selected;
+    }
 
     (lib.mkIf cfg.shells.fish.enable { programs.fish.enable = true; })
     (lib.mkIf cfg.shells.zsh.enable { programs.zsh.enable = true; })
