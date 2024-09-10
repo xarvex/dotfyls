@@ -30,6 +30,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
+      enableTransience = true;
 
       settings =
         let
