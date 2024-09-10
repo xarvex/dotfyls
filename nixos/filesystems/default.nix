@@ -1,4 +1,9 @@
-{ lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 {
   imports = [
@@ -20,7 +25,7 @@
   ];
 
   options.dotfyls.filesystems.encryption = lib.mkEnableOption "filesystem encryption" // {
-    default = true;
+    default = !(builtins.elem "virtio_pci" config.boot.initrd.availableKernelModules);
   };
 
   config = {
