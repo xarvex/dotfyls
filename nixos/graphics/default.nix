@@ -20,6 +20,7 @@ in
       ]
       {
         name = "provider";
+        default = "intel";
         description = "Graphics provider to use.";
       }
       {
