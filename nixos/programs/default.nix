@@ -6,5 +6,6 @@ _:
     ./openrgb.nix
     ./solaar.nix
     ./steam.nix
+    ./virt-manager.nix
   ];
 }
