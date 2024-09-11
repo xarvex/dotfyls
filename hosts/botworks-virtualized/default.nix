@@ -2,7 +2,11 @@
 
 {
   dotfyls = {
-    displayManager.provider = "cage";
+    displayManager = {
+      enable = true;
+      provider = "cage";
+    };
+
     programs.virt-manager.enable = false;
   };
 
