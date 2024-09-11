@@ -29,6 +29,7 @@
     dotfyls-neovim = {
       url = "gitlab:dotfyls/neovim";
       inputs = {
+        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -80,6 +81,7 @@
     persistwd = {
       url = "gitlab:xarvex/persistwd";
       inputs = {
+        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
