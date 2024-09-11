@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommand ''
-        ${lib.getExe pkgs.foot} -- ${lib.getExe' pkgs.shadow "login"}
+        ${lib.getExe pkgs.foot} -- ${lib.getExe' pkgs.shadow "login"} -p
       '';
     };
   };
@@ -32,6 +32,18 @@ in
       isSystemUser = true;
       group = "caged";
     };
+
+    security.sudo.extraRules = [
+      {
+        users = [ "caged" ];
+        commands = [
+          {
+            command = lib.getExe' pkgs.shadow "login";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
 
     users.groups.caged = { };
   };
