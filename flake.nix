@@ -197,10 +197,7 @@
               pre-commit.hooks = {
                 deadnix.enable = true;
                 flake-checker.enable = true;
-                nixfmt = {
-                  enable = true;
-                  package = pkgs.nixfmt-rfc-style;
-                };
+                nixfmt-rfc-style.enable = true;
                 statix.enable = true;
               };
             };
