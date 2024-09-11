@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg' = config.dotfyls.desktops.idles;
+  cfg'' = config.dotfyls.desktops;
+  cfg' = cfg''.idles;
   cfg = cfg'.idles.swayidle;
 in
 {
@@ -28,7 +29,7 @@ in
 
   options.dotfyls.desktops.idles.idles.swayidle.enable = lib.mkEnableOption "swayidle";
 
-  config = lib.mkIf cfg.enable (
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) (
     lib.mkMerge [
       { services.swayidle.enable = true; }
 

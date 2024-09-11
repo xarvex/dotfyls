@@ -89,7 +89,7 @@ rec {
               { }
           );
 
-      config = lib.setAttrByPath selectorPath { selected.enable = true; };
+      config = lib.setAttrByPath (selectionPath ++ [ selected ]) { enable = lib.mkDefault true; };
     };
 
   mkSelectorModule = path: selectionOption: selections: {

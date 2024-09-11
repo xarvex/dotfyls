@@ -2,7 +2,10 @@ _:
 
 {
   dotfyls = {
-    terminals.default = "alacritty";
+    terminals = {
+      enable = false;
+      selected.enable = false;
+    };
     desktops.enable = false;
   };
 }

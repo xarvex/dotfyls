@@ -7,8 +7,9 @@
 }:
 
 let
-  cfg' = config.dotfyls.desktops.idles;
-  cfg = config.dotfyls.desktops.idles.idles.hypridle;
+  cfg'' = config.dotfyls.desktops;
+  cfg' = cfg''.idles;
+  cfg = cfg'.idles.hypridle;
 in
 {
   imports = [
@@ -29,7 +30,7 @@ in
 
   options.dotfyls.desktops.idles.idles.hypridle.enable = lib.mkEnableOption "hypridle";
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     services.hypridle = {
       enable = true;
 

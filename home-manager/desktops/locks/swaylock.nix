@@ -6,7 +6,9 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.locks.locks.hyprlock;
+  cfg'' = config.dotfyls.desktops;
+  cfg' = cfg''.locks;
+  cfg = cfg'.locks.swaylock;
 in
 {
   imports = [
@@ -32,7 +34,7 @@ in
       // lib.optionalAttrs cfg.enable { default = self.lib.getCfgPkg cfg; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     programs.swaylock = {
       enable = true;
 

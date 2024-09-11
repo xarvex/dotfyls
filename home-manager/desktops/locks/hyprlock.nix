@@ -7,7 +7,9 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.locks.locks.hyprlock;
+  cfg'' = config.dotfyls.desktops;
+  cfg' = cfg''.locks;
+  cfg = cfg'.locks.hyprlock;
 in
 {
   imports = [
@@ -41,7 +43,7 @@ in
       };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     programs.hyprlock = {
       enable = true;
 

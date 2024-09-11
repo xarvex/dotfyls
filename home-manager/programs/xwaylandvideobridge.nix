@@ -12,7 +12,7 @@ in
 {
   options.dotfyls.programs.xwaylandvideobridge = {
     enable = lib.mkEnableOption "XWayland Video Bridge" // {
-      default = true;
+      default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "XWayland Video Bridge" { default = "xwaylandvideobridge"; };
   };

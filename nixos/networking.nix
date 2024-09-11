@@ -11,6 +11,9 @@ in
     };
     bluetooth = lib.mkEnableOption "Bluetooth networking" // {
       default = true;
+      blueman.enable = lib.mkEnableOption "Blueman" // {
+        default = config.dotfyls.desktops.enable;
+      };
     };
   };
 
@@ -28,7 +31,7 @@ in
     (lib.mkIf cfg.bluetooth {
       dotfyls.persist.directories = [ "/var/lib/bluetooth" ];
 
-      services.blueman.enable = true;
+      services.blueman.enable = lib.mkIf cfg.bluetooth.blueman.enable;
 
       hardware.bluetooth.enable = true;
     })
