@@ -2,42 +2,89 @@
   description = "Personal WezTerm";
 
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    devenv.url = "github:cachix/devenv";
+
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = { flake-parts, nixpkgs, systems, ... }@inputs: flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = import systems;
+  outputs =
+    { flake-parts, nixpkgs, ... }@inputs:
+    let
+      inherit (nixpkgs) lib;
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.devenv.flakeModule ];
 
-    perSystem = { system, ... }:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        packages = rec {
-          default = wezterm;
+      systems = import inputs.systems;
 
-          wezterm = pkgs.wezterm; # will be bundled with config
+      perSystem =
+        { pkgs, ... }:
+        {
+          devenv.shells = rec {
+            default = wezterm;
+
+            wezterm = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overriden (/dev/null), --impure is necessary.
+                lib.mkIf (devenvRoot != "") devenvRoot;
+
+              name = "WezTerm";
+
+              languages = {
+                lua = {
+                  enable = true;
+                  package = pkgs.luajit;
+                };
+                nix.enable = true;
+              };
+
+              pre-commit.hooks = {
+                deadnix.enable = true;
+                flake-checker.enable = true;
+                nixfmt-rfc-style.enable = true;
+                statix.enable = true;
+                stylua.enable = true;
+              };
+            };
+          };
         };
+
+      flake.homeManagerModules = rec {
+        default = wezterm;
+
+        wezterm =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          lib.mkIf config.programs.wezterm.enable {
+            home.packages = with pkgs; [
+              # JetBrains Mono style
+              (iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; })
+            ];
+
+            xdg.configFile.wezterm = {
+              recursive = true;
+              source = ./.;
+            };
+          };
       };
-
-    flake.homeManagerModules = rec {
-      default = wezterm;
-
-      wezterm = ({ config, lib, pkgs, ... }: lib.mkIf config.programs.wezterm.enable {
-        home.packages = with pkgs; [
-          # JetBrains Mono style
-          (iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; })
-        ];
-
-        xdg.configFile.wezterm = {
-          recursive = true;
-          source = ./.;
-        };
-      });
     };
-  };
 }

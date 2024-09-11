@@ -16,12 +16,12 @@ M.window_frame = {
     font = require("font").get("Bold"),
     font_size = 12.0,
     active_titlebar_bg = "black",
-    inactive_titlebar_bg = "black"
+    inactive_titlebar_bg = "black",
 }
 
 require("wezterm").plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(M, {
     presentation = { font_size_multiplier = 1.8 },
-    presentation_full = { font_size_multiplier = 2.2 }
+    presentation_full = { font_size_multiplier = 2.2 },
 })
 
 return M

@@ -18,5 +18,5 @@ return {
         else
             config.color_scheme = "carbonfox" -- default
         end
-    end
+    end,
 }
