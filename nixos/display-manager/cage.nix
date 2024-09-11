@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommand ''
-        exec ${lib.getExe pkgs.foot} -- sudo ${lib.getExe' pkgs.shadow "login"}
+        exec ${lib.getExe pkgs.foot} -o font=monospace:size=16 -- sudo ${lib.getExe' pkgs.shadow "login"}
       '';
     };
   };
