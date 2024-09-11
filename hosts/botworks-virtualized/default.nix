@@ -18,6 +18,9 @@
         monospace
         symbols
       ];
+      extraConfig = ''
+        font-size=${toString config.hm.dotfyls.terminals.fontSize}
+      '';
     };
   };
 
