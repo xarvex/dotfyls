@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services = {
@@ -6,7 +11,14 @@
     spice-vdagentd.enable = true;
     spice-webdavd.enable = true;
 
-    kmscon.enable = true;
+    kmscon = {
+      enable = true;
+
+      fonts = with config.hm.dotfyls.fonts; [
+        monospace
+        symbols
+      ];
+    };
   };
 
   systemd.user.services.spice-agent = {

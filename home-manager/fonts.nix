@@ -46,24 +46,30 @@ in
           package = pkgs.noto-fonts-color-emoji;
         };
       };
+      symbols = mkFontOption "nerdfonts" // {
+        default = {
+          name = "Symbols Nerd Font";
+          package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
+        };
+      };
     };
 
   config = lib.mkIf cfg.enable {
     home.packages = [
       (self.lib.getCfgPkg cfg.monospace)
       (self.lib.getCfgPkg cfg.emoji)
-      (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      (self.lib.getCfgPkg cfg.symbols)
     ];
 
     fonts.fontconfig = {
       enable = true;
 
       defaultFonts = {
-        monospace = [
-          cfg.monospace.name
-          "Symbols Nerd Font"
+        monospace = with cfg; [
+          monospace.name
+          symbols.name
         ];
-        emoji = [ cfg.emoji.name ];
+        emoji = with cfg; [ emoji.name ];
       };
     };
   };
