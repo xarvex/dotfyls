@@ -9,8 +9,10 @@ in
     wireless = lib.mkEnableOption "wireless networking" // {
       default = true;
     };
-    bluetooth = lib.mkEnableOption "Bluetooth networking" // {
-      default = true;
+    bluetooth = {
+      enable = lib.mkEnableOption "Bluetooth networking" // {
+        default = true;
+      };
       blueman.enable = lib.mkEnableOption "Blueman" // {
         default = config.dotfyls.desktops.enable;
       };
@@ -28,7 +30,7 @@ in
       dotfyls.persist.directories = [ "/etc/NetworkManager" ];
     })
 
-    (lib.mkIf cfg.bluetooth {
+    (lib.mkIf cfg.bluetooth.enable {
       dotfyls.persist.directories = [ "/var/lib/bluetooth" ];
 
       services.blueman.enable = lib.mkIf cfg.bluetooth.blueman.enable true;
