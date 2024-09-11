@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommandExe ''
-        ${lib.getExe pkgs.foot} -- ${lib.getExe pkgs.shadow "login"}
+        ${lib.getExe pkgs.foot} -- ${lib.getExe' pkgs.shadow "login"}
       '';
     };
   };
