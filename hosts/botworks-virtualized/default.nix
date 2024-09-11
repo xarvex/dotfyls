@@ -6,6 +6,8 @@
 }:
 
 {
+  dotfyls.programs.virt-manager.enable = false;
+
   services = {
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
