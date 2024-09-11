@@ -25,6 +25,7 @@ in
       enable = true;
 
       user = "caged";
+      environment.WLR_RENDERER_ALLOW_SOFTWARE = "1";
       program = lib.getExe cfg.startCommand;
     };
 
