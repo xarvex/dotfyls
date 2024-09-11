@@ -31,7 +31,7 @@ in
     (lib.mkIf cfg.bluetooth {
       dotfyls.persist.directories = [ "/var/lib/bluetooth" ];
 
-      services.blueman.enable = lib.mkIf cfg.bluetooth.blueman.enable;
+      services.blueman.enable = lib.mkIf cfg.bluetooth.blueman.enable true;
 
       hardware.bluetooth.enable = true;
     })
