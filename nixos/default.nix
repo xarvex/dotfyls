@@ -3,10 +3,10 @@ _:
 {
   imports = [
     ./boot.nix
-    ./configuration.nix
     ./desktops
     ./display-manager
     ./filesystems
+    ./fonts.nix
     ./graphics
     ./kernels.nix
     ./localization.nix
