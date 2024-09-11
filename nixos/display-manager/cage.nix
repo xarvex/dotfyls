@@ -14,7 +14,7 @@ in
   options.dotfyls.displayManager.displayManager.cage = {
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
-      default = pkgs.dotfyls.mkCommandExe ''
+      default = pkgs.dotfyls.mkCommand ''
         ${lib.getExe pkgs.foot} -- ${lib.getExe' pkgs.shadow "login"}
       '';
     };
