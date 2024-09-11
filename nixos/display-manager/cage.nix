@@ -29,12 +29,6 @@ in
       program = lib.getExe cfg.startCommand;
     };
 
-    users.users.caged = {
-      isSystemUser = true;
-      group = "caged";
-      shell = pkgs.bashInteractive;
-    };
-
     security.sudo.extraRules = [
       {
         users = [ "caged" ];
@@ -48,6 +42,13 @@ in
       }
     ];
 
-    users.groups.caged = { };
+    users = {
+      users.caged = {
+        isSystemUser = true;
+        group = "caged";
+        shell = pkgs.bashInteractive;
+      };
+      groups.caged = { };
+    };
   };
 }
