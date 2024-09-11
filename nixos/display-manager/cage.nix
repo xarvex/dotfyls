@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommand ''
-        ${lib.getExe pkgs.foot} -- ${lib.getExe' pkgs.shadow "login"} -p
+        exec ${lib.getExe pkgs.foot} -- sudo ${lib.getExe' pkgs.shadow "login"}
       '';
     };
   };
@@ -25,13 +25,14 @@ in
       enable = true;
 
       user = "caged";
-      environment.WLR_RENDERER_ALLOW_SOFTWARE = "1";
+      environment.WLR_RENDERER = "pixman";
       program = lib.getExe cfg.startCommand;
     };
 
     users.users.caged = {
       isSystemUser = true;
       group = "caged";
+      shell = pkgs.bashInteractive;
     };
 
     security.sudo.extraRules = [
