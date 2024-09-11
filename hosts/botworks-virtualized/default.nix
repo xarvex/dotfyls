@@ -1,29 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 {
-  dotfyls.programs.virt-manager.enable = false;
+  dotfyls.programs = {
+    virt-manager.enable = false;
+
+    fbterm.enable = true;
+  };
 
   services = {
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
     spice-webdavd.enable = true;
-
-    kmscon = {
-      enable = true;
-
-      fonts = with config.hm.dotfyls.fonts; [
-        monospace
-        symbols
-      ];
-      extraConfig = ''
-        font-size=${toString config.hm.dotfyls.terminals.fontSize}
-      '';
-    };
   };
 
   systemd.user.services.spice-agent = {
