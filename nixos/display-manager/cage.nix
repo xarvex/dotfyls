@@ -37,6 +37,7 @@ in
     security.sudo.extraRules = [
       {
         users = [ "caged" ];
+        runAs = "root";
         commands = [
           {
             command = lib.getExe' pkgs.shadow "login";
