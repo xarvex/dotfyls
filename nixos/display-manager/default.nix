@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./cage.nix
     ./greetd.nix
     ./sddm.nix
 
@@ -21,6 +22,7 @@
         description = "Display manager to use.";
       }
       [
+        "cage"
         "greetd"
         "sddm"
       ]
