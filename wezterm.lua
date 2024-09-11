@@ -9,6 +9,8 @@ M.check_for_updates = false
 M.enable_kitty_keyboard = true
 M.enable_tab_bar = false
 
+M.front_end = "WebGpu"
+
 M.warn_about_missing_glyphs = false
 
 M.window_background_opacity = 0.85
