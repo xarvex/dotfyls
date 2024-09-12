@@ -23,30 +23,27 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
         "$mod, BackSpace, killactive,"
 
-        "$mod, h, movefocus, l"
-        "$mod, j, movefocus, d"
-        "$mod, k, movefocus, u"
-        "$mod, l, movefocus, r"
+        "$mod, H, movefocus, l"
+        "$mod, J, movefocus, d"
+        "$mod, K, movefocus, u"
+        "$mod, L, movefocus, r"
 
-        "$mod_SHIFT, h, movewindow, l"
-        "$mod_SHIFT, j, movewindow, d"
-        "$mod_SHIFT, k, movewindow, u"
-        "$mod_SHIFT, l, movewindow, r"
+        "$mod_SHIFT, H, movewindow, l"
+        "$mod_SHIFT, J, movewindow, d"
+        "$mod_SHIFT, K, movewindow, u"
+        "$mod_SHIFT, L, movewindow, r"
 
-        "$mod, f, fullscreen, 0"
-        "$mod_ALT, f, fullscreenstate, -1 2"
+        "$mod, F, fullscreen, 0"
+        "$mod_ALT, F, fullscreenstate, -1 2"
 
-        "$mod, z, fullscreen, 1"
-        "$mod_ALT, z, togglefloating,"
+        "$mod, Z, fullscreen, 1"
+        "$mod_ALT, Z, togglefloating,"
 
-        "$mod_ALT, h, workspace, m-1"
-        "$mod_ALT, l, workspace, m+1"
+        "$mod_ALT, H, workspace, m-1"
+        "$mod_ALT, L, workspace, m+1"
 
-        "$mod_ALT_SHIFT, h, movetoworkspace, r-1"
-        "$mod_ALT_SHIFT, l, movetoworkspace, r+1"
-
-        ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
-        ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
+        "$mod_ALT_SHIFT, H, movetoworkspace, r-1"
+        "$mod_ALT_SHIFT, L, movetoworkspace, r+1"
       ]
       ++ lib.flatten (
         self.lib.genWorkspaceList (
@@ -59,8 +56,6 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       ++ lib.optionals config.dotfyls.media.audio.enable (
         (withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
           ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
           ", XF86AudioMicMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ]))
         ++ withCfgPkg config.dotfyls.media.mpris2.playerctl (playerctl: [
@@ -72,8 +67,8 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       ++ withCfgPkg config.dotfyls.terminals.xdg-terminal-exec (xdg-terminal-exec: [
         "$mod, Return, exec, ${lib.getExe xdg-terminal-exec}"
       ])
-      ++ withCfgPkg pCfg.firefox (firefox: [ "$mod, w, exec, ${lib.getExe firefox}" ])
-      ++ withCfgPkg pCfg.nemo (nemo: [ "$mod, e, exec, ${lib.getExe nemo}" ])
+      ++ withCfgPkg pCfg.firefox (firefox: [ "$mod, W, exec, ${lib.getExe firefox}" ])
+      ++ withCfgPkg pCfg.nemo (nemo: [ "$mod, E, exec, ${lib.getExe nemo}" ])
       ++ withCfgPkg pCfg.rofi (
         rofi:
         (
@@ -81,14 +76,14 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           ++ withCfgPkg pCfg.cliphist (
             cliphist:
             withCfgPkg pCfg.wl-clipboard (wl-clipboard: [
-              "$mod_SHIFT, v, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
+              "$mod_SHIFT, V, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
             ])
           )
         )
       )
       ++ (
         let
-          mkBinds = name: [ "$mod, d, exec, ${self.lib.getCfgExe pCfg.${name}}" ];
+          mkBinds = name: [ "$mod, D, exec, ${self.lib.getCfgExe pCfg.${name}}" ];
         in
         if pCfg.vesktop.enable then
           mkBinds "vesktop"
@@ -98,12 +93,22 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           [ ]
       );
 
-    binde = [
-      "$mod_CTRL, h, resizeactive, -20 0"
-      "$mod_CTRL, j, resizeactive, 0 20"
-      "$mod_CTRL, k, resizeactive, 0 -20"
-      "$mod_CTRL, l, resizeactive, 20 0"
-    ];
+    binde =
+      [
+        "$mod_CTRL, H, resizeactive, -20 0"
+        "$mod_CTRL, J, resizeactive, 0 20"
+        "$mod_CTRL, K, resizeactive, 0 -20"
+        "$mod_CTRL, L, resizeactive, 20 0"
+
+        ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
+        ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
+      ]
+      ++ lib.optionals config.dotfyls.media.audio.enable (
+        withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
+          ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ])
+      );
 
     bindm = [
       "$mod, mouse:272, movewindow"
