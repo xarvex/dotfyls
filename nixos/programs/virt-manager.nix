@@ -10,7 +10,7 @@ let
 in
 {
   options.dotfyls.programs.virt-manager.enable = lib.mkEnableOption "virt-manager" // {
-    default = true;
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {

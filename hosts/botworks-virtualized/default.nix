@@ -1,13 +1,9 @@
 { lib, pkgs, ... }:
 
 {
-  dotfyls = {
-    displayManager = {
-      enable = true;
-      provider = "cage";
-    };
-
-    programs.virt-manager.enable = false;
+  dotfyls.displayManager = {
+    enable = true;
+    provider = "cage";
   };
 
   services = {
