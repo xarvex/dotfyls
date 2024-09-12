@@ -7,5 +7,6 @@ _:
     ./solaar.nix
     ./steam.nix
     ./virt-manager.nix
+    ./wireshark.nix
   ];
 }
