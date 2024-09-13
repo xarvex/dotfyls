@@ -113,5 +113,16 @@ in
       enable = true;
       settings.default_session.command = lib.getExe cfg.greeter.selected.startCommand;
     };
+
+    # https://github.com/apognu/tuigreet/issues/68#issuecomment-1586359960
+    systemd.services.greetd.serviceConfig = {
+      Type = "idle";
+      StandardInput = "tty";
+      StandardOutput = "tty";
+      StandardError = "journal";
+      TTYReset = true;
+      TTYVHangup = true;
+      TTYVTDisallocate = true;
+    };
   };
 }
