@@ -33,11 +33,15 @@ in
         ".local/share/nvim"
         ".local/state/nvim"
       ];
-      cacheDirectories = [
-        ".config/dotfyls/devshell/nvim"
-        ".local/share/dotfyls/devshell/nvim"
-        ".local/state/dotfyls/devshell/nvim"
-      ];
+      cacheDirectories =
+        [
+          ".cache/nvim"
+        ]
+        ++ lib.optionals config.dotfyls.development.enable [
+          ".config/dotfyls/devshell/nvim"
+          ".local/share/dotfyls/devshell/nvim"
+          ".local/state/dotfyls/devshell/nvim"
+        ];
     };
 
     programs.neovim = {

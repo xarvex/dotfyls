@@ -236,4 +236,11 @@ in
       description = "Configuration of displays.";
     };
   };
+
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [
+      ".local/share/applications"
+      ".local/share/icons"
+    ];
+  };
 }

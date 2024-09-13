@@ -8,6 +8,7 @@
 
 let
   cfg = config.dotfyls.graphics;
+  hmCfg = config.hm.dotfyls.graphics;
 in
 {
   imports = [
@@ -79,7 +80,7 @@ in
 
   options.dotfyls.graphics = {
     enable = lib.mkEnableOption "graphics" // {
-      default = config.dotfyls.desktops.enable;
+      default = hmCfg.enable;
     };
     blacklistCompeting = lib.mkEnableOption "blacklisting competing graphics drivers" // {
       default = true;

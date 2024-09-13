@@ -55,6 +55,8 @@ in
     };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".cache/fontconfig" ];
+
     home.packages = [
       (self.lib.getCfgPkg cfg.monospace)
       (self.lib.getCfgPkg cfg.emoji)

@@ -42,6 +42,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".cache/bat" ];
+
     home.shellAliases = {
       cat = "bat";
       man = lib.mkIf cfg.batman.enable "batman";

@@ -5,6 +5,7 @@ _:
     ./desktops
     ./development
     ./fonts.nix
+    ./graphics.nix
     ./media.nix
     ./persist.nix
     ./programs
