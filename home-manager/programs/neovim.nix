@@ -41,6 +41,7 @@ in
           ".config/dotfyls/devshell/nvim"
           ".local/share/dotfyls/devshell/nvim"
           ".local/state/dotfyls/devshell/nvim"
+          ".cache/dotfyls/devshell/nvim"
         ];
     };
 
