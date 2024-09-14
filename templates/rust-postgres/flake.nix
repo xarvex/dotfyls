@@ -1,5 +1,5 @@
 {
-  description = "";
+  description = "Rust + Postgres";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -64,9 +64,9 @@
           };
 
           devenv.shells = rec {
-            default = name;
+            default = rust-postgres;
 
-            name = {
+            rust-postgres = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;
@@ -74,7 +74,7 @@
                 # If not overriden (/dev/null), --impure is necessary.
                 lib.mkIf (devenvRoot != "") devenvRoot;
 
-              name = "name";
+              name = "Rust + Postgres";
 
               packages = with pkgs; [
                 cargo-deny

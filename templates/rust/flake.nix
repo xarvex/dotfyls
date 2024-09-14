@@ -1,5 +1,5 @@
 {
-  description = "";
+  description = "Rust";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -69,9 +69,9 @@
           };
 
           devenv.shells = rec {
-            default = name;
+            default = rust;
 
-            name = {
+            rust = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;
@@ -79,7 +79,7 @@
                 # If not overriden (/dev/null), --impure is necessary.
                 lib.mkIf (devenvRoot != "") devenvRoot;
 
-              name = "name";
+              name = "Rust";
 
               packages = with pkgs; [
                 cargo-deny

@@ -13,6 +13,10 @@ let
 in
 {
   imports = [
+    ./go.nix
+    ./javascript.nix
+    ./lua.nix
+    ./python.nix
     ./rust.nix
 
     (self.lib.mkAliasPackageModule
@@ -43,19 +47,49 @@ in
         };
       })
       {
+        c = {
+          name = "C";
+          specialArgs.templates.default = [ "c" ];
+        };
+        go = {
+          name = "Go";
+          specialArgs.templates.default = [
+            "golang"
+            "go"
+          ];
+        };
+        javascript = {
+          name = "JavaScript";
+          specialArgs.templates.default = [
+            "js"
+            "javascript"
+
+            "ts"
+            "typescript"
+          ];
+        };
+        lua = {
+          name = "Lua";
+          specialArgs.templates.default = [ "lua" ];
+        };
+        python = {
+          name = "Python";
+          specialArgs.templates.default = [
+            "py"
+            "python"
+          ];
+        };
         rust = {
           name = "Rust";
-          specialArgs = {
-            templates.default = [
-              "rs"
-              "rust"
+          specialArgs.templates.default = [
+            "rs"
+            "rust"
 
-              "rs-pg"
-              "rs-postgres"
-              "rust-pg"
-              "rust-postgres"
-            ];
-          };
+            "rs-pg"
+            "rs-postgres"
+            "rust-pg"
+            "rust-postgres"
+          ];
         };
       }
     )
