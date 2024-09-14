@@ -1,4 +1,6 @@
 {
+  description = "";
+
   inputs = {
     devenv.url = "github:cachix/devenv";
 
