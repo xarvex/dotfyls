@@ -1,0 +1,87 @@
+# Snippet generated 2024-09-14
+# Created by https://www.toptal.com/developers/gitignore/api/c,direnv,valgrind
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,direnv,valgrind
+
+### C ###
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+### direnv ###
+.direnv
+.envrc
+
+### Valgrind ###
+# Callgrind output files
+callgrind.out
+callgrind.out.*
+
+# Cachegrind output files
+cachegrind.out
+cachegrind.out.*
+
+# Massif output files
+massif.out
+massif.out.*
+
+# BBV output files
+bb.out
+bb.out.*
+
+
+
+# End of https://www.toptal.com/developers/gitignore/api/c,direnv,valgrind
+
+.devenv
+.pre-commit-config.yaml
+
+result

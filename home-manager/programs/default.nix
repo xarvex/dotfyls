@@ -1,0 +1,42 @@
+_:
+
+{
+  imports = [
+    ./bat.nix
+    ./cbonsai.nix
+    ./cliphist.nix
+    ./discord.nix
+    ./dunst.nix
+    ./eza.nix
+    ./fastfetch
+    ./fd.nix
+    ./firefox.nix
+    ./fzf.nix
+    ./git.nix
+    ./gnupg.nix
+    ./gvfs.nix
+    ./libreoffice.nix
+    ./nemo.nix
+    ./neovim.nix
+    ./nix-index.nix
+    ./obsidian.nix
+    ./openrgb.nix
+    ./prismlauncher.nix
+    ./ripgrep.nix
+    ./rofi.nix
+    ./sl.nix
+    ./solaar.nix
+    ./spotify.nix
+    ./starship.nix
+    ./steam.nix
+    ./swww.nix
+    ./thefuck
+    ./tldr.nix
+    ./ventoy.nix
+    ./vesktop
+    ./waybar.nix
+    ./wl-clipboard.nix
+    ./xwaylandvideobridge.nix
+    ./zoxide.nix
+  ];
+}

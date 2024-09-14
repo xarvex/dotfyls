@@ -1,8 +1,0 @@
----
-- name: Develop - C | Install
-  ansible.builtin.dnf:
-    name: '{{ item }}'
-  become: true
-  loop:
-    - [ clang, clang-tools-extra ]
-    - make

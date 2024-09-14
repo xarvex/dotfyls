@@ -1,7 +1,0 @@
----
-- name: Develop - JavaScript | Install
-  ansible.builtin.dnf:
-    name: '{{ item }}'
-  become: true
-  loop:
-    - nodejs

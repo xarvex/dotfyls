@@ -1,5 +1,0 @@
----
-- name: Discord | Install
-  ansible.builtin.dnf:
-    name: discord
-  become: true

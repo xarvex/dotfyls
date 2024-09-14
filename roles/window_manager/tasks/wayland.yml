@@ -1,3 +1,0 @@
----
-- ansible.builtin.import_tasks: wayland_fedora.yml
-  when: dotfyls_host_environment_is_wayland

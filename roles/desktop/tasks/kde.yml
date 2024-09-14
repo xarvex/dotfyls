@@ -1,3 +1,0 @@
----
-- name: Desktop - KDE | Configure
-  ansible.builtin.command: echo "hello"

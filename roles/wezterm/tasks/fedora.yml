@@ -1,5 +1,0 @@
----
-- name: Wezterm | Install
-  ansible.builtin.dnf:
-    name: wezterm
-  become: true

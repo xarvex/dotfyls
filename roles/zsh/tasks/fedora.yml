@@ -1,5 +1,0 @@
----
-- name: Zsh | Install
-  ansible.builtin.dnf:
-    name: zsh
-  become: true

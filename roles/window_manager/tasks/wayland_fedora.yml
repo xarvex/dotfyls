@@ -1,5 +1,0 @@
----
-- name: Window Manager - Wayland | Install video bridge
-  ansible.builtin.dnf:
-    name: xwaylandvideobridge
-  become: true

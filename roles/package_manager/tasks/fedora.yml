@@ -1,9 +1,0 @@
----
-- name: Package Manager - DNF | Config copy
-  ansible.builtin.copy:
-    src: '{{ dotfyls_role_files }}/dnf.conf'
-    dest: /etc/dnf/dnf.conf
-    mode: '0644'
-    owner: root
-    group: root
-  become: true

@@ -1,3 +1,0 @@
----
-- name: Window Manager - Xorg | Configure
-  ansible.builtin.command: echo "hello"

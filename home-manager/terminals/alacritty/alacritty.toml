@@ -1,0 +1,9 @@
+[font]
+normal = { family = "monospace" }
+
+[window]
+dimensions = { columns = 80, lines = 24 }
+opacity = 0.85
+
+[cursor]
+style = { blinking = "Never" }

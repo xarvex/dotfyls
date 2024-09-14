@@ -1,0 +1,3 @@
+#compdef batman
+
+_man "${@}"
