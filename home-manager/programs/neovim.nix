@@ -38,7 +38,6 @@ in
           ".cache/nvim"
         ]
         ++ lib.optionals config.dotfyls.development.enable [
-          ".config/dotfyls/devshell/nvim"
           ".local/share/dotfyls/devshell/nvim"
           ".local/state/dotfyls/devshell/nvim"
           ".cache/dotfyls/devshell/nvim"
