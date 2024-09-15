@@ -1,0 +1,15 @@
+[package]
+name = "rust"
+version = "0.0.1"
+authors = ["Xarvex"]
+edition = "2021"
+rust-version = "1.74.1" # cargo-msrv on 2024-09-14
+description = "Rust"
+repository = "https://gitlab.com/xarvex"
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+strip = true
+lto = true
