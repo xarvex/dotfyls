@@ -424,7 +424,7 @@
             "enabled": false
         },
         "ShikiCodeblocks": {
-            "enabled": false
+            "enabled": true
         },
         "ShowAllMessageButtons": {
             "enabled": false
