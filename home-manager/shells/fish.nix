@@ -42,8 +42,11 @@ in
       shellInit = ''
         set fish_greeting
       '';
-      shellAbbrs = config.home.shellAliases;
+      shellAbbrs = config.programs.fish.shellAliases;
       interactiveShellInit = ''
+        abbr -e ..
+        functions -e ..
+
         fish_vi_key_bindings
 
         ${cfg'.finalInitBins}
