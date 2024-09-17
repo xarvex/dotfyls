@@ -1,8 +1,6 @@
 {
   config,
-  inputs,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -117,7 +115,6 @@ in
         programs.direnv = {
           enable = true;
           nix-direnv.enable = true;
-          package = inputs.direnv.packages.${pkgs.system}.default;
 
           config = {
             strict_env = true;
