@@ -5,7 +5,7 @@ _:
 
   i18n = {
     # Denmark (English) is closest to Sweden (English) which does not exist.
-    defaultLocale = "en_DK.UTF-8";
+    defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_ADDRESS = "en_DK.UTF-8";
       LC_IDENTIFICATION = "en_DK.UTF-8";
