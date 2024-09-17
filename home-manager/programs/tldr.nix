@@ -14,8 +14,12 @@ in
     enable = lib.mkEnableOption "tldr" // {
       default = true;
     };
-    package = lib.mkPackageOption pkgs "tldr" { };
+    package = lib.mkPackageOption pkgs "tlrc" { };
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [ ".cache/tlrc" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
+  };
 }
