@@ -82,6 +82,16 @@
     };
 
     systems.url = "github:nix-systems/default";
+
+    wherenver = {
+      url = "gitlab:xarvex/wherenver";
+      inputs = {
+        devenv.follows = "devenv";
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
   };
 
   outputs =
@@ -110,6 +120,7 @@
             dotfyls-wezterm.homeManagerModules.wezterm
             dotfyls-zsh.homeManagerModules.zsh
             nix-index-database.hmModules.nix-index
+            wherenver.homeManagerModules.wherenver
           ];
 
           overlays = [ self.overlays.default ];
