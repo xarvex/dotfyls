@@ -31,10 +31,7 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.persist.directories = [ ".local/share/fish" ];
 
-    home.packages = with pkgs.fishPlugins; [
-      sponge
-      transient-fish
-    ];
+    home.packages = with pkgs.fishPlugins; [ transient-fish ];
 
     programs.fish = {
       enable = true;
