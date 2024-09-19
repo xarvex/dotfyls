@@ -9,11 +9,6 @@
       flake = false;
     };
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -88,10 +83,7 @@
 
               languages = {
                 nix.enable = true;
-                rust = {
-                  enable = true;
-                  channel = "stable";
-                };
+                rust.enable = true;
               };
 
               pre-commit.hooks = {
