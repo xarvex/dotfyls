@@ -23,6 +23,7 @@
       inputs = {
         devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
+        nix2container.follows = "nix2container";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -76,6 +77,7 @@
       inputs = {
         devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
+        nix2container.follows = "nix2container";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -88,6 +90,7 @@
       inputs = {
         devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
+        nix2container.follows = "nix2container";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
