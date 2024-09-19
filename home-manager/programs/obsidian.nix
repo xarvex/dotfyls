@@ -17,5 +17,9 @@ in
     package = lib.mkPackageOption pkgs "Obsidian" { default = "obsidian"; };
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".config/obsidian" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
+  };
 }
