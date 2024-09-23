@@ -9,6 +9,8 @@ in
     dotfyls.persist.cacheDirectories = [
       ".local/share/node"
       ".local/state/node"
+      ".local/share/npm"
+      ".local/state/npm"
       ".cache/npm"
       ".cache/pnpm"
     ];
