@@ -7,7 +7,8 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.idles;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.idles;
 in
 {
   imports = [
@@ -32,13 +33,13 @@ in
       };
       lock = {
         enable = lib.mkEnableOption "lock idles" // {
-          default = config.dotfyls.desktops.locks.enable;
+          default = cfg'.locks.enable;
         };
         timeout = mkTimeoutOption "lock" (5 * 60);
         command =
           self.lib.mkCommandOption "lock idle"
           // lib.optionalAttrs (cfg.enable && cfg.displays.enable) {
-            default = config.dotfyls.desktops.locks.command;
+            default = cfg'.locks.command;
           };
       };
       displays =
@@ -53,7 +54,7 @@ in
                 ''
                 + (lib.concatStringsSep "\n" (
                   let
-                    desktops = builtins.attrValues config.dotfyls.desktops.desktops;
+                    desktops = builtins.attrValues cfg'.desktops;
                   in
                   lib.map
                     (desktop: ''

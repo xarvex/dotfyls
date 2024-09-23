@@ -7,7 +7,8 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.locks;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.locks;
 in
 {
   imports = [
@@ -28,7 +29,7 @@ in
           ''
           + (lib.concatStringsSep "\n" (
             let
-              desktops = builtins.attrValues config.dotfyls.desktops.desktops;
+              desktops = builtins.attrValues cfg'.desktops;
             in
             lib.map
               (desktop: ''
