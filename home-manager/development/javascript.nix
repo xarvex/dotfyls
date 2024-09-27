@@ -13,6 +13,7 @@ in
       ".local/state/npm"
       ".cache/npm"
       ".cache/pnpm"
+      ".cache/yarn"
     ];
 
     home.sessionVariables = {
