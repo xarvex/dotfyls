@@ -75,13 +75,6 @@ in
         # https://github.com/openzfs/zfs/issues/10891
         systemd.services.systemd-udev-settle.enable = false;
 
-        # https://github.com/nix-community/impermanence/issues/216
-        boot.initrd.systemd.services.create-needed-for-boot-dirs = lib.mkIf cfg'.impermanence.enable {
-          after = lib.mkForce [ "zfs-import-zroot.service" ];
-          wants = lib.mkForce [ "zfs-import-zroot.service" ];
-          unitConfig.DefaultDependencies = "no";
-        };
-
         fileSystems =
           {
             "/nix" = {
