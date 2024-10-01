@@ -72,7 +72,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       ++ withCfgPkg pCfg.rofi (
         rofi:
         (
-          [ "$mod_SHIFT, Return, exec, ${lib.getExe rofi} -show drun" ]
+          # HACK: desktop entries are showing other languages when explicit
+          # English entry does not exist, must figure out how to show default.
+          [ "$mod_SHIFT, Return, exec, LANGUAGE='' ${lib.getExe rofi} -show drun" ]
           ++ withCfgPkg pCfg.cliphist (
             cliphist:
             withCfgPkg pCfg.wl-clipboard (wl-clipboard: [
