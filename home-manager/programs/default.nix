@@ -18,6 +18,7 @@ _:
     ./libreoffice.nix
     ./nemo.nix
     ./neovim.nix
+    ./network-manager-applet.nix
     ./nix-index.nix
     ./obsidian.nix
     ./openrgb.nix
