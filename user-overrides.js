@@ -221,7 +221,6 @@ user_pref("webgl.disabled", false);
 /*** [SECTION 5000]: OPTIONAL OPSEC ***/
 user_pref("__user-overrides.js.cat", "5000 Error: The cat is dead!");
 user_pref("signon.rememberSignons", false);
-user_pref("browser.chrome.site_icons", false);
 user_pref("browser.urlbar.suggest.topsites", false);
 user_pref("browser.urlbar.autoFill", false);
 user_pref("extensions.formautofill.addresses.enabled", false);
