@@ -43,7 +43,7 @@
               let
                 devenvRoot = builtins.readFile inputs.devenv-root.outPath;
               in
-              # If not overriden (/dev/null), --impure is necessary.
+              # If not overridden (/dev/null), --impure is necessary.
               lib.mkIf (devenvRoot != "") devenvRoot;
 
             name = "Python";
