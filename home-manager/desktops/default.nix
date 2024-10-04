@@ -242,5 +242,21 @@ in
       ".local/share/applications"
       ".local/share/icons"
     ];
+
+    home = {
+      pointerCursor = {
+        x11.enable = true;
+        gtk.enable = true;
+
+        package = pkgs.phinger-cursors;
+        name = "phinger-cursors-dark";
+        size = 24;
+      };
+
+      sessionVariables = {
+        XCURSOR_THEME = config.home.pointerCursor.name;
+        XCURSOR_SIZE = config.home.pointerCursor.size;
+      };
+    };
   };
 }
