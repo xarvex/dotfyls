@@ -244,6 +244,11 @@ in
     ];
 
     home = {
+      sessionVariables = {
+        XCURSOR_THEME = config.home.pointerCursor.name;
+        XCURSOR_SIZE = config.home.pointerCursor.size;
+      };
+
       pointerCursor = {
         x11.enable = true;
         gtk.enable = true;
@@ -251,11 +256,6 @@ in
         package = pkgs.phinger-cursors;
         name = "phinger-cursors-dark";
         size = 24;
-      };
-
-      sessionVariables = {
-        XCURSOR_THEME = config.home.pointerCursor.name;
-        XCURSOR_SIZE = config.home.pointerCursor.size;
       };
     };
   };

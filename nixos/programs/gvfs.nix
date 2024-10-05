@@ -24,10 +24,8 @@ in
     )
   ];
 
-  options.dotfyls.programs.gvfs = {
-    enable = lib.mkEnableOption "GVfs" // {
-      default = hmCfg.enable;
-    };
+  options.dotfyls.programs.gvfs.enable = lib.mkEnableOption "GVfs" // {
+    default = hmCfg.enable;
   };
 
   config = lib.mkIf cfg.enable { services.gvfs.enable = true; };
