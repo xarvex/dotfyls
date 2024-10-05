@@ -31,6 +31,7 @@
       "Desktop"
       "Documents"
       "Pictures"
+      "Videos"
       ".ssh"
     ];
     cacheDirectories = [
