@@ -13,6 +13,7 @@ _:
     ./firefox.nix
     ./fzf.nix
     ./git.nix
+    ./gnome-keyring.nix
     ./gnupg.nix
     ./gvfs.nix
     ./libreoffice.nix
@@ -23,6 +24,7 @@ _:
     ./obsidian.nix
     ./openrgb.nix
     ./prismlauncher.nix
+    ./protonvpn
     ./ripgrep.nix
     ./rofi.nix
     ./sl.nix

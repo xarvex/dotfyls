@@ -2,6 +2,7 @@ _:
 
 {
   imports = [
+    ./gnome-keyring.nix
     ./gvfs.nix
     ./openrgb.nix
     ./solaar.nix
