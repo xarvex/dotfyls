@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg = config.dotfyls.graphics.graphics.intel;
+  cfg' = config.dotfyls.graphics;
+  cfg = cfg'.graphics.intel;
 
   driver = if cfg.experimentalDrivers then "xe" else "i915";
 in
@@ -17,7 +18,7 @@ in
       default = true;
     };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.graphics.extraPackages = with pkgs; [
       intel-media-driver
       (intel-vaapi-driver.override { enableHybridCodec = true; })

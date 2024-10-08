@@ -6,10 +6,11 @@
 }:
 
 let
-  cfg = config.dotfyls.graphics.graphics.nvidia;
+  cfg' = config.dotfyls.graphics;
+  cfg = cfg'.graphics.nvidia;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.graphics.extraPackages = with pkgs; [
       egl-wayland
 
