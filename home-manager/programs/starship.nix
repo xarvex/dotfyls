@@ -102,7 +102,7 @@ in
             style = "black";
           };
           git_status = {
-            format = "[[(*$conflicted$stashed$deleted$renamed$modified$typechanged$staged)($untracked)](red)( $ahead_behind$stashed)]($style)";
+            format = "[[(*$conflicted$deleted$renamed$modified$typechanged$staged)($untracked)](red)( $ahead_behind$stashed)]($style)";
             conflicted = "​";
             stashed = "≡";
             modified = "​";
