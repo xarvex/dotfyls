@@ -69,6 +69,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       ])
       ++ withCfgPkg pCfg.firefox (firefox: [ "$mod, W, exec, ${lib.getExe firefox}" ])
       ++ withCfgPkg pCfg.nemo (nemo: [ "$mod, E, exec, ${lib.getExe nemo}" ])
+      ++ withCfgPkg pCfg.obsidian (obsidian: [ "$mod, O, exec, ${lib.getExe obsidian}" ])
       ++ withCfgPkg pCfg.rofi (
         rofi:
         (
