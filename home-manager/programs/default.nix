@@ -17,12 +17,14 @@ _:
     ./gnupg.nix
     ./gvfs.nix
     ./libreoffice.nix
+    ./mpv.nix
     ./nemo.nix
     ./neovim.nix
     ./network-manager-applet.nix
     ./nix-index.nix
     ./obsidian.nix
     ./openrgb.nix
+    ./pix.nix
     ./prismlauncher.nix
     ./protonvpn
     ./ripgrep.nix
@@ -40,6 +42,7 @@ _:
     ./waybar.nix
     ./wl-clipboard.nix
     ./xwaylandvideobridge.nix
+    ./zathura.nix
     ./zoxide.nix
   ];
 }
