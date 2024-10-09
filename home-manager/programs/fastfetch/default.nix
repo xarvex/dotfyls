@@ -38,7 +38,7 @@ in
     programs.fastfetch = {
       enable = true;
 
-      settings = builtins.fromJSON (builtins.readFile ./config.jsonc);
+      settings = lib.importJSON ./config.jsonc;
     };
   };
 }
