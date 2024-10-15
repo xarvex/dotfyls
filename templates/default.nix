@@ -41,6 +41,16 @@ rec {
     description = "Rust development environment with Postgres database.";
   };
 
+  rs-work = rust-workspaces;
+  rs-workspace = rust-workspaces;
+  rs-workspaces = rust-workspaces;
+  rust-work = rust-workspaces;
+  rust-workspace = rust-workspaces;
+  rust-workspaces = {
+    path = ./rust-workspaces;
+    description = "Rust development environment with Cargo workspaces.";
+  };
+
   ts = typescript;
   typescript = javascript;
 }
