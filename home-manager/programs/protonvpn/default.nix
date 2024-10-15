@@ -26,8 +26,8 @@ in
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 
     xdg.configFile = {
-      "Proton/app-config.json".source = ./app-config.json;
-      "Proton/settings.json".source = ./settings.json;
+      "Proton/VPN/app-config.json".source = ./app-config.json;
+      "Proton/VPN/settings.json".source = ./settings.json;
     };
   };
 }
