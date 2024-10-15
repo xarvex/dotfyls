@@ -21,7 +21,7 @@ _:
         width = 1920;
         height = 1200;
         refresh = 60;
-        scale = 1.0;
+        scale = 1.3333;
       }
       {
         name = "HDMI-A-1";
