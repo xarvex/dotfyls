@@ -32,7 +32,7 @@ in
         };
       };
 
-      "/persist/cache" = {
+      "/cache" = {
         hideMounts = true;
         files = pCfg.cacheFiles;
         directories = pCfg.cacheDirectories;
@@ -58,7 +58,7 @@ in
         neededForBoot = true;
       };
       "/persist".neededForBoot = true;
-      "/persist/cache".neededForBoot = true;
+      "/cache".neededForBoot = true;
     };
   };
 }

@@ -34,7 +34,7 @@ ${cyan}ZFS datasets:
     - zroot/nix (mounted at /nix)
     - zroot/tmp (mounted at /tmp)
     - zroot/persist (mounted at /persist)
-    - zroot/persist/cache (mounted at /persist/cache)${reset}
+    - zroot/cache (mounted at /cache)${reset}
 
 EOF
 

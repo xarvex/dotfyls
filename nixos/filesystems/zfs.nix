@@ -91,7 +91,7 @@ in
               device = "zroot/persist";
               fsType = "zfs";
             };
-            "/persist/cache" = {
+            "/cache" = {
               device = "zroot/cache";
               fsType = "zfs";
             };
