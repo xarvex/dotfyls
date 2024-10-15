@@ -1,6 +1,8 @@
 {
   config,
+  inputs,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -28,6 +30,9 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.persist.cacheDirectories = [ ".cache/cliphist" ];
 
-    services.cliphist.enable = true;
+    services.cliphist = {
+      enable = true;
+      package = inputs.nixpkgs_cliphist.legacyPackages.${pkgs.system}.cliphist;
+    };
   };
 }

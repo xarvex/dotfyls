@@ -71,6 +71,7 @@
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs_cliphist.url = "github:NixOS/nixpkgs/5633bcff0c6162b9e4b5f1264264611e950c8ec7";
 
     persistwd = {
       url = "gitlab:xarvex/persistwd";
