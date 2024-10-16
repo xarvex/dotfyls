@@ -17,5 +17,9 @@ in
     package = lib.mkPackageOption pkgs "LibreOffice" { default = "libreoffice"; };
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".config/libreoffice" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
+  };
 }
