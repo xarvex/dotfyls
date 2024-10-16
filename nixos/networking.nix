@@ -21,7 +21,10 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.wireless {
-      dotfyls.persist.directories = [ "/etc/NetworkManager" ];
+      dotfyls.persist = {
+        directories = [ "/etc/NetworkManager" ];
+        cacheDirectories = [ "/var/lib/NetworkManager" ];
+      };
 
       networking.networkmanager.enable = true;
     })
