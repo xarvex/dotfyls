@@ -47,10 +47,10 @@ in
 
       gd = "git diff";
       gds = "git diff --staged";
-      gdup = "git log -p @{push}..";
+      gdp = "git log -p @{push}..";
 
       gl = "git log";
-      glup = "git log @{push}..";
+      glp = "git log @{push}..";
 
       gm = "git merge";
 
