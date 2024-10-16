@@ -76,12 +76,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           # HACK: desktop entries are showing other languages when explicit
           # English entry does not exist, must figure out how to show default.
           [ "$mod_SHIFT, Return, exec, LANGUAGE='' ${lib.getExe rofi} -show drun" ]
-          ++ withCfgPkg pCfg.cliphist (
-            cliphist:
-            withCfgPkg pCfg.wl-clipboard (wl-clipboard: [
-              "$mod_SHIFT, V, exec, ${lib.getExe cliphist} list | ${lib.getExe rofi} -dmenu | ${lib.getExe cliphist} decode | ${lib.getExe' wl-clipboard "wl-copy"}"
-            ])
-          )
+          ++ withCfgPkg pCfg.cliphist (cliphist: [
+            "$mod_SHIFT, V, exec, ${lib.getExe rofi} -modi clipboard:${lib.getExe' cliphist "cliphist-rofi-img"} -show clipboard -show-icons"
+          ])
         )
       )
       ++ (
