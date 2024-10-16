@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.dotfyls.programs.network-manager-applet;
@@ -11,6 +16,9 @@ in
     };
 
   config = lib.mkIf cfg.enable {
+    # Package also provides nm-connection-editor.
+    home.packages = [ pkgs.networkmanagerapplet ];
+
     services.network-manager-applet.enable = true;
   };
 }
