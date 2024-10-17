@@ -11,9 +11,7 @@ let
 in
 {
   options.dotfyls.programs.discord = {
-    enable = lib.mkEnableOption "Discord" // {
-      default = false;
-    };
+    enable = lib.mkEnableOption "Discord";
     package = lib.mkPackageOption pkgs "Discord" { default = "discord"; };
   };
 
