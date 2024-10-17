@@ -16,5 +16,6 @@ _:
   imports = [
     ./harden
     ./kernel.nix
+    ./yubikey.nix
   ];
 }

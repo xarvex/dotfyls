@@ -63,6 +63,7 @@ in
         services.gpg-agent = lib.mkIf cfg.agent.enable {
           enable = true;
           enableSshSupport = true;
+          enableScDaemon = false;
         };
       })
     ]

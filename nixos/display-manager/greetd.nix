@@ -114,6 +114,8 @@ in
       settings.default_session.command = lib.getExe cfg.greeter.selected.startCommand;
     };
 
+    security.pam.services.greetd.u2fAuth = config.security.pam.services.login.u2fAuth;
+
     # https://github.com/apognu/tuigreet/issues/68#issuecomment-1586359960
     systemd.services.greetd.serviceConfig = {
       Type = "idle";

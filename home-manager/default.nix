@@ -9,6 +9,7 @@ _:
     ./media.nix
     ./persist.nix
     ./programs
+    ./security
     ./shells
     ./terminals
   ];
