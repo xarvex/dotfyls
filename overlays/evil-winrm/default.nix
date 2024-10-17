@@ -4,6 +4,7 @@ _: prev:
 # WARNING: untested
 prev.evil-winrm.overrideAttrs (o: {
   nativeBuildInputs = o.nativeBuildInputs ++ [ prev.makeWrapper ];
+
   postFixup =
     (o.postFixup or "")
     + ''
