@@ -237,7 +237,6 @@
           let
             overlays = [
               "bat-extras"
-              "discord"
               "dotfyls"
               "evil-winrm"
               "fastfetch"
