@@ -186,6 +186,8 @@
       perSystem =
         { pkgs, ... }:
         {
+          packages = import ./packages { inherit pkgs; };
+
           devenv.shells = rec {
             default = dotfyls;
 

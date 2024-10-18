@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 
@@ -34,6 +35,8 @@ in
       (lib.mkIf cfg.login.enable (
         lib.mkMerge [
           {
+            environment.systemPackages = [ self.packages.${pkgs.system}.dotfyls-pamu2fcfg ];
+
             security.pam.services = {
               login.u2fAuth = true;
               sudo.u2fAuth = true;
