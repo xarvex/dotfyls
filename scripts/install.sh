@@ -1,0 +1,1 @@
+../packages/dotfyls-install/script.sh

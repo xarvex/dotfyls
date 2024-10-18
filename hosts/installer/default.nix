@@ -1,20 +1,11 @@
 # TODO: combine with rest of config
-{
-  lib,
-  modulesPath,
-  pkgs,
-  ...
-}:
+{ lib, modulesPath, ... }:
 
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
 
-  environment.systemPackages = [
-    (pkgs.writeShellApplication {
-      name = "dotfyls-install";
-      text = builtins.readFile ../../install.sh;
-    })
-  ];
+  # TODO: rework installer when attributes are passed through.
+  # environment.systemPackages = [ self.packages.${pkgs.system}.dotfyls-install ];
 
   networking = {
     wireless.enable = lib.mkImageMediaOverride false;

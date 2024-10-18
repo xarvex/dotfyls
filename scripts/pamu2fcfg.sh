@@ -1,0 +1,1 @@
+../packages/dotfyls-pamu2fcfg/script.sh
