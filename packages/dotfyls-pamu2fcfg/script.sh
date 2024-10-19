@@ -26,7 +26,7 @@ umask 0077
 yubico_config_home="${config_home}"/Yubico
 
 # Do not want to affect permissions of parent directories with mkdir -p.
-[ -d "${yubico_config_home}" ] || mkdir "${yubico_config_home}"/Yubico
+[ -d "${yubico_config_home}" ] || mkdir "${yubico_config_home}"
 
 keys_file="${yubico_config_home}/u2f_keys"
 
