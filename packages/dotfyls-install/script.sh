@@ -139,7 +139,7 @@ sudo mount --mkdir -t zfs zroot/persist /mnt/persist
 printf '%s%s%s ' "${magenta}" 'Specify host to install:' "${reset}"
 read -r host
 
-printf '%s%s%s ' "${magenta}" 'Specify rev to install (default: main):' "${reset}"
+printf '%s%s%s ' "${magenta}" 'Specify rev to install (main):' "${reset}"
 read -r rev
 
 printf '$%s%s%s\n' "${blue}" 'Running install...' "${reset}"
