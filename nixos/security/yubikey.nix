@@ -46,10 +46,11 @@ in
           (lib.mkIf cfg.login.lock {
             # HACK: currently, this locks all sessions if any YubiKey is disconnected.
             services.udev.extraRules = ''
-              ACTION=="remove",\
-                ENV{ID_BUS}=="usb",\
-                ENV{ID_MODEL_ID}=="0407",\
-                ENV{ID_VENDOR_ID}=="1050",\
+              ACTION=="remove", \
+                ENV{ID_BUS}=="usb", \
+                ENV{DEVTYPE}=="usb_device", \
+                ENV{ID_VENDOR_ID}=="1050", \
+                ENV{ID_MODEL_ID}=="0407", \
                 RUN+="${lib.getExe' pkgs.systemd "loginctl"} lock-sessions"
             '';
           })
