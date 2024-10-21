@@ -5,7 +5,7 @@ set -o nounset
 
 confirm() {
     while :; do
-        printf '%s %s ' "${1}" "[y/N]:"
+        printf '%s %s ' "${1}" '[y/N]:'
         read -r response
 
         case ${response} in
@@ -24,7 +24,7 @@ mkdir -p "${config_home}"
 umask 0077
 
 # Do not want to affect permissions of parent directories with mkdir -p.
-yubico_config_home="${config_home}"/Yubico
+yubico_config_home="${config_home}/Yubico"
 [ -d "${yubico_config_home}" ] || mkdir "${yubico_config_home}"
 
 keys_file="${yubico_config_home}/u2f_keys"

@@ -5,7 +5,7 @@ set -o nounset
 
 confirm() {
     while :; do
-        printf '%s %s ' "${1}" "[y/N]:"
+        printf '%s %s ' "${1}" '[y/N]:'
         read -r response
 
         case ${response} in
@@ -46,16 +46,16 @@ if [ -b /dev/vda ]; then
     zfs_disk=${disk}1
 else
     while [ ! -L "${disk:-}" ]; do
-        printf '\n%s\n\n%s%s%s' \
+        printf '\n%s\n\n%s%s%s ' \
             "$(lsblk -pdo NAME,SIZE,VENDOR,MODEL,SERIAL,ID-LINK)" \
-            "${magenta}" 'Enter disk ID to be formatted: ' "${reset}"
+            "${magenta}" 'Enter disk ID to be formatted:' "${reset}"
         read -r disk_id
 
-        disk=/dev/disk/by-id/"${disk_id}"
+        disk="/dev/disk/by-id/${disk_id}"
     done
-    boot_disk="${disk}"-part3
-    swap_disk="${disk}"-part2
-    zfs_disk="${disk}"-part1
+    boot_disk="${disk}-part3"
+    swap_disk="${disk}-part2"
+    zfs_disk="${disk}-part1"
 fi
 
 encryption_options=()
