@@ -29,7 +29,7 @@ yubico_config_home="${config_home}"/Yubico
 
 keys_file="${yubico_config_home}/u2f_keys"
 
-if ! [ -s "${keys_file}" ] || confirm "Existing file found at ${keys_file}, start over with new configuration?"; then
+if [ ! -s "${keys_file}" ] || confirm "Existing file found at ${keys_file}, start over with new configuration?"; then
     printf '%s\n' "Setting new key..."
     pamu2fcfg -N >"${keys_file}"
 fi
