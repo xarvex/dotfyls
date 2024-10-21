@@ -201,6 +201,10 @@
 
               name = "dotfyls";
 
+              packages = with pkgs; [
+                codespell
+              ];
+
               languages = {
                 nix.enable = true;
                 shell.enable = true;

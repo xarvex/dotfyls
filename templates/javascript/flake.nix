@@ -34,42 +34,48 @@
 
       systems = import inputs.systems;
 
-      perSystem = _: {
-        devenv.shells = rec {
-          default = javascript;
+      perSystem =
+        { pkgs, ... }:
+        {
+          devenv.shells = rec {
+            default = javascript;
 
-          javascript = {
-            devenv.root =
-              let
-                devenvRoot = builtins.readFile inputs.devenv-root.outPath;
-              in
-              # If not overridden (/dev/null), --impure is necessary.
-              lib.mkIf (devenvRoot != "") devenvRoot;
+            javascript = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overridden (/dev/null), --impure is necessary.
+                lib.mkIf (devenvRoot != "") devenvRoot;
 
-            name = "JavaScript";
+              name = "JavaScript";
 
-            languages = {
-              javascript = {
-                enable = true;
-                pnpm = {
+              packages = with pkgs; [
+                codespell
+              ];
+
+              languages = {
+                javascript = {
                   enable = true;
-                  install.enable = true;
+                  pnpm = {
+                    enable = true;
+                    install.enable = true;
+                  };
                 };
+                nix.enable = true;
+                typescript.enable = true;
               };
-              nix.enable = true;
-              typescript.enable = true;
-            };
 
-            pre-commit.hooks = {
-              deadnix.enable = true;
-              eslint.enable = true;
-              flake-checker.enable = true;
-              nixfmt-rfc-style.enable = true;
-              prettier.enable = true;
-              statix.enable = true;
+              pre-commit.hooks = {
+                deadnix.enable = true;
+                eslint.enable = true;
+                flake-checker.enable = true;
+                nixfmt-rfc-style.enable = true;
+                prettier.enable = true;
+                statix.enable = true;
+              };
             };
           };
         };
-      };
     };
 }

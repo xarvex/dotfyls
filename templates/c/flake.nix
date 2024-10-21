@@ -50,7 +50,10 @@
 
               name = "C";
 
-              packages = with pkgs; [ clang-tools ];
+              packages = with pkgs; [
+                clang-tools
+                codespell
+              ];
 
               languages = {
                 c.enable = true;

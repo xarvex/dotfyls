@@ -50,6 +50,10 @@
 
               name = "Lua";
 
+              packages = with pkgs; [
+                codespell
+              ];
+
               languages = {
                 lua = {
                   enable = true;

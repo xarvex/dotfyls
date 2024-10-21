@@ -78,6 +78,8 @@
                 cargo-msrv
                 cargo-udeps
 
+                codespell
+
                 sqlx-cli
               ];
 

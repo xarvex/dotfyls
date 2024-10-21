@@ -3,7 +3,7 @@
 # Configurations outside of that are required.
 # What did you expect from a cybersecurity guy?
 # 
-# Resouces used:
+# Resources used:
 #   https://nixos.wiki/wiki/Security
 #   https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
 #   https://madaidans-insecurities.github.io/guides/linux-hardening.html

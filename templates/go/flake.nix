@@ -34,36 +34,42 @@
 
       systems = import inputs.systems;
 
-      perSystem = _: {
-        devenv.shells = rec {
-          default = go;
+      perSystem =
+        { pkgs, ... }:
+        {
+          devenv.shells = rec {
+            default = go;
 
-          go = {
-            devenv.root =
-              let
-                devenvRoot = builtins.readFile inputs.devenv-root.outPath;
-              in
-              # If not overridden (/dev/null), --impure is necessary.
-              lib.mkIf (devenvRoot != "") devenvRoot;
+            go = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overridden (/dev/null), --impure is necessary.
+                lib.mkIf (devenvRoot != "") devenvRoot;
 
-            name = "Go";
+              name = "Go";
 
-            languages = {
-              go.enable = true;
-              nix.enable = true;
-            };
+              packages = with pkgs; [
+                codespell
+              ];
 
-            pre-commit.hooks = {
-              deadnix.enable = true;
-              flake-checker.enable = true;
-              gofmt.enable = true;
-              golangci-lint.enable = true;
-              gotest.enable = true;
-              nixfmt-rfc-style.enable = true;
-              statix.enable = true;
+              languages = {
+                go.enable = true;
+                nix.enable = true;
+              };
+
+              pre-commit.hooks = {
+                deadnix.enable = true;
+                flake-checker.enable = true;
+                gofmt.enable = true;
+                golangci-lint.enable = true;
+                gotest.enable = true;
+                nixfmt-rfc-style.enable = true;
+                statix.enable = true;
+              };
             };
           };
         };
-      };
     };
 }

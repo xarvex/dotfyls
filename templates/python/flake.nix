@@ -34,42 +34,48 @@
 
       systems = import inputs.systems;
 
-      perSystem = _: {
-        devenv.shells = rec {
-          default = python;
+      perSystem =
+        { pkgs, ... }:
+        {
+          devenv.shells = rec {
+            default = python;
 
-          python = {
-            devenv.root =
-              let
-                devenvRoot = builtins.readFile inputs.devenv-root.outPath;
-              in
-              # If not overridden (/dev/null), --impure is necessary.
-              lib.mkIf (devenvRoot != "") devenvRoot;
+            python = {
+              devenv.root =
+                let
+                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                in
+                # If not overridden (/dev/null), --impure is necessary.
+                lib.mkIf (devenvRoot != "") devenvRoot;
 
-            name = "Python";
+              name = "Python";
 
-            languages = {
-              nix.enable = true;
-              python = {
-                enable = true;
-                venv = {
+              packages = with pkgs; [
+                codespell
+              ];
+
+              languages = {
+                nix.enable = true;
+                python = {
                   enable = true;
-                  quiet = true;
+                  venv = {
+                    enable = true;
+                    quiet = true;
+                  };
                 };
               };
-            };
 
-            pre-commit.hooks = {
-              deadnix.enable = true;
-              flake-checker.enable = true;
-              nixfmt-rfc-style.enable = true;
-              pyright.enable = true;
-              ruff.enable = true;
-              ruff-format.enable = true;
-              statix.enable = true;
+              pre-commit.hooks = {
+                deadnix.enable = true;
+                flake-checker.enable = true;
+                nixfmt-rfc-style.enable = true;
+                pyright.enable = true;
+                ruff.enable = true;
+                ruff-format.enable = true;
+                statix.enable = true;
+              };
             };
           };
         };
-      };
     };
 }

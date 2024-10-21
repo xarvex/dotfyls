@@ -82,6 +82,8 @@
                 cargo-expand
                 cargo-msrv
                 cargo-udeps
+
+                codespell
               ];
 
               languages = {
