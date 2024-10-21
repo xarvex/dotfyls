@@ -1,5 +1,3 @@
-# vi: ft=bash
-
 # If you wish to use this file, copy or symlink it to `.envrc` for direnv to read it.
 # This will use the flake development shell.
 
@@ -14,3 +12,5 @@ if ! use flake . --override-input devenv-root "file+file://${devenv_root_file}";
 fi
 rm "${devenv_root_file}"
 unset devenv_root_file
+
+# vi: ft=bash
