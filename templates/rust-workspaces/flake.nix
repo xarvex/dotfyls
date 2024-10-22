@@ -74,7 +74,7 @@
                 # If not overridden (/dev/null), --impure is necessary.
                 lib.mkIf (devenvRoot != "") devenvRoot;
 
-              name = "name";
+              name = "Rust with Cargo workspaces";
 
               packages = with pkgs; [
                 cargo-deny
