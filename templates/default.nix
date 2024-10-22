@@ -27,6 +27,12 @@ rec {
     description = "Python development environment.";
   };
 
+  py-uv = python-uv;
+  python-uv = {
+    path = ./python-uv;
+    description = "Python development environment with uv.";
+  };
+
   rs = rust;
   rust = {
     path = ./rust;
