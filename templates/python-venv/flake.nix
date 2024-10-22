@@ -61,6 +61,10 @@
                   venv = {
                     enable = true;
                     quiet = true;
+                    requirements = ''
+                      ${builtins.readFile ./requirements.txt}
+                      ${builtins.readFile ./requirements-dev.txt}
+                    '';
                   };
                 };
               };

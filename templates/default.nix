@@ -21,16 +21,18 @@ rec {
     description = "Lua(JIT) development environment.";
   };
 
-  py = python;
-  python = {
-    path = ./python;
-    description = "Python development environment.";
-  };
+  python = python-venv;
 
   py-uv = python-uv;
   python-uv = {
     path = ./python-uv;
     description = "Python development environment with uv.";
+  };
+
+  py-venv = python-venv;
+  python-venv = {
+    path = ./python-venv;
+    description = "Python development environment with venv.";
   };
 
   rs = rust;
