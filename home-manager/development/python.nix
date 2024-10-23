@@ -9,6 +9,10 @@ in
     dotfyls.persist.cacheDirectories = [
       ".local/state/python"
       ".cache/python"
+      ".cache/pip"
+      ".local/share/virtualenv"
+      ".cache/pypoetry"
+      ".cache/uv"
     ];
 
     home.sessionVariables = {
