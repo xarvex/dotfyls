@@ -1,5 +1,5 @@
 {
-  description = "Python";
+  description = "Python with venv";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -48,7 +48,7 @@
                 # If not overridden (/dev/null), --impure is necessary.
                 lib.mkIf (devenvRoot != "") devenvRoot;
 
-              name = "Python";
+              name = "Python with venv";
 
               packages = with pkgs; [
                 codespell
