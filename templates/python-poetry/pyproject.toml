@@ -1,0 +1,32 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "name"
+version = "0.0.1"
+description = ""
+license = "MIT"
+authors = [ "Xarvex" ]
+readme = "README.md"
+repository = "https://gitlab.com/xarvex"
+keywords = []
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+]
+packages = [{ include = "*", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+name = "main:main"
+
+[tool.ruff]
+target-version = "py38"
+fix = true
+
+[tool.ruff.format]
+preview = true

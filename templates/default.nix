@@ -21,7 +21,14 @@ rec {
     description = "Lua(JIT) development environment.";
   };
 
-  python = python-venv;
+  py = python;
+  python = python-poetry;
+
+  py-poetry = python-poetry;
+  python-poetry = {
+    path = ./python-poetry;
+    description = "Python development environment with Poetry.";
+  };
 
   py-uv = python-uv;
   python-uv = {
