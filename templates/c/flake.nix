@@ -38,9 +38,9 @@
         { pkgs, ... }:
         {
           devenv.shells = rec {
-            default = c;
+            default = name;
 
-            c = {
+            name = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;

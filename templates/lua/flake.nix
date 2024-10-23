@@ -38,9 +38,9 @@
         { pkgs, ... }:
         {
           devenv.shells = rec {
-            default = lua;
+            default = name;
 
-            lua = {
+            name = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;

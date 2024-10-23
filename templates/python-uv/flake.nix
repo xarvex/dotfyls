@@ -38,9 +38,9 @@
         { pkgs, ... }:
         {
           devenv.shells = rec {
-            default = python;
+            default = name;
 
-            python = {
+            name = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;

@@ -64,9 +64,9 @@
           };
 
           devenv.shells = rec {
-            default = rust;
+            default = name;
 
-            rust = {
+            name = {
               devenv.root =
                 let
                   devenvRoot = builtins.readFile inputs.devenv-root.outPath;
