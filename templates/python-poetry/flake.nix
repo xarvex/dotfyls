@@ -40,51 +40,68 @@
       systems = import inputs.systems;
 
       perSystem =
-        { pkgs, ... }:
+        { config, pkgs, ... }:
         let
           poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix { inherit pkgs; };
         in
         {
           packages = rec {
-            default = name;
+            default = project-name;
 
-            name = poetry2nix.mkPoetryApplication { projectDir = ./.; };
+            project-name = poetry2nix.mkPoetryApplication { projectDir = ./.; };
           };
 
           devenv.shells = rec {
-            default = name;
+            default = project-name;
 
-            name = {
-              devenv.root =
-                let
-                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
-                in
-                # If not overridden (/dev/null), --impure is necessary.
-                lib.mkIf (devenvRoot != "") devenvRoot;
+            project-name =
+              let
+                cfg = config.devenv.shells.project-name;
+              in
+              {
+                devenv.root =
+                  let
+                    devenvRoot = builtins.readFile inputs.devenv-root.outPath;
+                  in
+                  # If not overridden (/dev/null), --impure is necessary.
+                  lib.mkIf (devenvRoot != "") devenvRoot;
 
-              name = "Python with Poetry";
+                name = "project-name";
 
-              packages =
-                [ (poetry2nix.mkPoetryEnv { projectDir = ./.; }) ]
-                ++ (with pkgs; [
-                  codespell
-                ]);
+                packages =
+                  [
+                    (poetry2nix.mkPoetryEnv {
+                      projectDir = ./.;
+                      python = cfg.languages.python.package;
+                    })
+                  ]
+                  ++ (with pkgs; [
+                    codespell
+                  ]);
 
-              languages = {
-                nix.enable = true;
-                python.enable = true;
+                scripts.poetry-install.exec = ''
+                  ${lib.getExe cfg.languages.python.poetry.package} lock --no-update
+                  ${lib.getExe cfg.languages.python.poetry.package} install --only-root
+                '';
+
+                languages = {
+                  nix.enable = true;
+                  python = {
+                    enable = true;
+                    poetry.enable = true;
+                  };
+                };
+
+                pre-commit.hooks = {
+                  deadnix.enable = true;
+                  flake-checker.enable = true;
+                  nixfmt-rfc-style.enable = true;
+                  pyright.enable = true;
+                  ruff.enable = true;
+                  ruff-format.enable = true;
+                  statix.enable = true;
+                };
               };
-
-              pre-commit.hooks = {
-                deadnix.enable = true;
-                flake-checker.enable = true;
-                nixfmt-rfc-style.enable = true;
-                pyright.enable = true;
-                ruff.enable = true;
-                ruff-format.enable = true;
-                statix.enable = true;
-              };
-            };
           };
 
           formatter = pkgs.nixfmt-rfc-style;
