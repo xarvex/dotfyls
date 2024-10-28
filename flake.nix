@@ -246,6 +246,7 @@
               "dotfyls"
               "evil-winrm"
               "fastfetch"
+              "starship"
               "wezterm"
             ];
           in
