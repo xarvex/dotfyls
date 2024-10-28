@@ -1,3 +1,5 @@
-from project_name import main
+#!/usr/bin/env python3
 
-main.main()
+from project_name.main import main
+
+main()
