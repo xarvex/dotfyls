@@ -98,13 +98,13 @@
   };
 
   outputs =
-    {
+    inputs@{
       flake-parts,
       home-manager,
       nixpkgs,
       self,
       ...
-    }@inputs:
+    }:
     let
       inherit (nixpkgs) lib;
 

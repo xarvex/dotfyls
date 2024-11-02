@@ -30,7 +30,7 @@
   };
 
   outputs =
-    { flake-parts, nixpkgs, ... }@inputs:
+    inputs@{ flake-parts, nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
     in
