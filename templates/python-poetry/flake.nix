@@ -51,7 +51,22 @@
           packages = rec {
             default = project-name;
 
-            project-name = poetry2nix.mkPoetryApplication { projectDir = ./.; };
+            project-name =
+              let
+                pyproject = (pkgs.lib.importTOML ./pyproject.toml).tool.poetry;
+              in
+              poetry2nix.mkPoetryApplication {
+                projectDir = ./.;
+                meta = {
+                  inherit (pyproject) description;
+
+                  homepage = pyproject.repository;
+                  license = lib.licenses.mit;
+                  maintainers = with lib.maintainers; [ xarvex ];
+                  mainProgram = pyproject.name;
+                  platforms = lib.platforms.linux;
+                };
+              };
           };
 
           devenv.shells = rec {
