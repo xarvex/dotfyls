@@ -8,9 +8,34 @@ in
     ./yubioath.nix
   ];
 
-  options.dotfyls.security.yubikey.enable = lib.mkEnableOption "YubiKey" // {
-    default = true;
+  options.dotfyls.security.yubikey = {
+    enable = lib.mkEnableOption "YubiKey" // {
+      default = true;
+    };
+    enableGitIntegration = lib.mkEnableOption "YubiKey Git integration" // {
+      default = config.dotfyls.programs.git.enable;
+    };
+    enableSshIntegration = lib.mkEnableOption "YubiKey OpenSSH integration" // {
+      default = config.dotfyls.programs.ssh.enable;
+    };
   };
 
-  config = lib.mkIf cfg.enable { dotfyls.persist.directories = [ ".config/Yubico" ]; };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        dotfyls.persist.directories = [ ".config/Yubico" ];
+      }
+
+      (lib.mkIf cfg.enableGitIntegration { dotfyls.programs.git.key = "0046A18B1037C201"; })
+
+      (lib.mkIf cfg.enableSshIntegration {
+        dotfyls.persist.cacheDirectories = [ ".local/share/yubigen/ssh" ];
+
+        programs.yubigen = {
+          enable = true;
+          enableSshIntegration = true;
+        };
+      })
+    ]
+  );
 }

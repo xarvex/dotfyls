@@ -15,6 +15,9 @@ in
     enable = lib.mkEnableOption "YubiKey" // {
       default = hmCfg.enable;
     };
+    enableSshIntegration = lib.mkEnableOption "YubiKey OpenSSH integration" // {
+      default = hmCfg.enableSshIntegration;
+    };
     login = {
       enable = lib.mkEnableOption "login with YubiKey" // {
         default = true;
@@ -26,9 +29,11 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
+        programs.yubigen.enableUdevRules = lib.mkIf cfg.enableSshIntegration true;
+
         services = {
           pcscd.enable = true;
-          udev.packages = [ pkgs.yubikey-personalization ];
+          udev.packages = with pkgs; [ yubikey-personalization ];
         };
       }
 

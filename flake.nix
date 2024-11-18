@@ -95,6 +95,17 @@
         systems.follows = "systems";
       };
     };
+
+    yubigen = {
+      url = "gitlab:xarvex/yubigen";
+      inputs = {
+        devenv.follows = "devenv";
+        flake-parts.follows = "flake-parts";
+        nix2container.follows = "nix2container";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
   };
 
   outputs =
@@ -116,6 +127,7 @@
             impermanence.nixosModules.impermanence
             nix-index-database.nixosModules.nix-index
             persistwd.nixosModules.persistwd
+            yubigen.nixosModules.yubigen
           ];
           homeManagerModules = with inputs; [
             dotfyls-firefox.homeManagerModules.firefox
@@ -124,6 +136,7 @@
             dotfyls-zsh.homeManagerModules.zsh
             nix-index-database.hmModules.nix-index
             wherenver.homeManagerModules.wherenver
+            yubigen.homeManagerModules.yubigen
           ];
 
           overlays = [ self.overlays.default ];

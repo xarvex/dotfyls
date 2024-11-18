@@ -23,8 +23,14 @@ in
     )
   ];
 
-  options.dotfyls.programs.git.enable = lib.mkEnableOption "Git" // {
-    default = true;
+  options.dotfyls.programs.git = {
+    enable = lib.mkEnableOption "Git" // {
+      default = true;
+    };
+    key = lib.mkOption {
+      type = with lib.types; nullOr str;
+      description = "The default GPG signing key fingerprint.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -67,19 +73,16 @@ in
       enable = true;
 
       userName = "xarvex";
-      userEmail = "gitlab-github.8qs1z@slmail.me";
+      userEmail = "dev.ellz6@xarvex.simplelogin.com";
       signing = {
+        inherit (cfg) key;
+
         signByDefault = true;
-        key = null; # Allow GnuPG to decide.
       };
 
       extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-        advice = {
-          addIgnoredFile = false;
-        };
+        init.defaultBranch = "main";
+        advice.addIgnoredFile = false;
       };
     };
   };

@@ -54,16 +54,19 @@ in
         programs.gpg = {
           enable = true;
           homedir = "${config.xdg.dataHome}/gnupg";
+
+          scdaemonSettings.disable-ccid = true;
         };
       }
 
       (lib.mkIf cfg.agent.enable {
         dotfyls.programs.gnupg.agent.pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
 
-        services.gpg-agent = lib.mkIf cfg.agent.enable {
+        services.gpg-agent = {
           enable = true;
-          enableSshSupport = true;
-          enableScDaemon = false;
+
+          maxCacheTtl = 0;
+          maxCacheTtlSsh = 0;
         };
       })
     ]

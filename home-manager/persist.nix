@@ -32,7 +32,6 @@
       "Documents"
       "Pictures"
       "Videos"
-      ".ssh"
     ];
     cacheDirectories = [
       ".cache/nix"

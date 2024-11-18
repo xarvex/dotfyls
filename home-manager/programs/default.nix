@@ -32,6 +32,7 @@ _:
     ./sl.nix
     ./solaar.nix
     ./spotify.nix
+    ./ssh.nix
     ./starship.nix
     ./steam.nix
     ./swww.nix
