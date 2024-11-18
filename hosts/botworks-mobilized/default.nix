@@ -6,7 +6,7 @@
 
     security.harden.kernel.packages = false;
 
-    kernels.variant = "zen";
+    kernels.variant = "xanmod";
 
     graphics.provider = "intel";
 
