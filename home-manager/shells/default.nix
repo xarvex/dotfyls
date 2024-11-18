@@ -59,6 +59,7 @@ in
     home.shellAliases = {
       ".." = "cd ..";
 
+      watchfile = lib.mkDefault "watch -cn1 -x cat";
       ccat = "command cat";
       mman = "command man";
     };

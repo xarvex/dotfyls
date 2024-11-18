@@ -29,10 +29,12 @@ in
 
   config = lib.mkIf cfg.enable {
     home.shellAliases = {
-      "l." = "eza -d .* --icons=auto";
+      "l." = "eza -d .* --icons auto";
       ll = "eza -la --git";
-      ls = "eza --icons=auto";
-      tree = "eza -TL 2 --icons=auto";
+      ls = "eza --icons auto";
+      tree = "eza -T --icons auto -L2";
+
+      watchdir = "watch -cn1 -x eza -T --color always -L2";
     };
 
     programs.eza = {

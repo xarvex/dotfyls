@@ -47,6 +47,8 @@ in
     home.shellAliases = {
       cat = "bat";
       man = lib.mkIf cfg.batman.enable "batman";
+
+      watchfile = "watch -cn1 -x bat -f --theme ansi";
     };
 
     programs.bat = {
