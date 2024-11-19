@@ -16,7 +16,7 @@ in
       default = config.dotfyls.programs.git.enable;
     };
     enableSshIntegration = lib.mkEnableOption "YubiKey OpenSSH integration" // {
-      default = config.dotfyls.programs.ssh.enable;
+      default = config.dotfyls.security.ssh.enable;
     };
   };
 

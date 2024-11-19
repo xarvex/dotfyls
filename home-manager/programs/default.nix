@@ -14,7 +14,6 @@ _:
     ./fzf.nix
     ./git.nix
     ./gnome-keyring.nix
-    ./gnupg.nix
     ./gvfs.nix
     ./libreoffice.nix
     ./mpv.nix
@@ -32,7 +31,6 @@ _:
     ./sl.nix
     ./solaar.nix
     ./spotify.nix
-    ./ssh.nix
     ./starship.nix
     ./steam.nix
     ./swww.nix

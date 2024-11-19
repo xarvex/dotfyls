@@ -8,14 +8,14 @@ in
 lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings.windowrulev2 =
     [ "suppressevent maximize, class:^$" ]
+    ++ lib.optionals config.dotfyls.security.pgp.enable [
+      "dimaround, class:^(org.gnupg.pinentry-), floating: 1"
+      "stayfocused, class:^(org.gnupg.pinentry-)"
+    ]
     ++ lib.optionals pCfg.firefox.enable [
       "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
       "keepaspectratio, class:^(firefox)$, title:^(Picture-in-Picture)$"
       "pin, class:^(firefox)$, title:^(Picture-in-Picture)$"
-    ]
-    ++ lib.optionals pCfg.gnupg.enable [
-      "dimaround, class:^(org.gnupg.pinentry-), floating: 1"
-      "stayfocused, class:^(org.gnupg.pinentry-)"
     ]
     ++ lib.optionals pCfg.openrgb.enable [ "float, class:^(openrgb)$" ]
     ++ lib.optionals pCfg.xwaylandvideobridge.enable [

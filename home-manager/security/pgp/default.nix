@@ -7,15 +7,15 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.gnupg;
+  cfg = config.dotfyls.security.pgp;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
-        "gnupg"
+        "security"
+        "pgp"
       ]
       [
         "programs"
@@ -25,8 +25,8 @@ in
     (self.lib.mkAliasOptionModules
       [
         "dotfyls"
-        "programs"
-        "gnupg"
+        "security"
+        "pgp"
         "agent"
       ]
       [
@@ -37,7 +37,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.gnupg = {
+  options.dotfyls.security.pgp = {
     enable = lib.mkEnableOption "GnuPG" // {
       default = config.dotfyls.desktops.enable;
     };
@@ -60,7 +60,7 @@ in
       }
 
       (lib.mkIf cfg.agent.enable {
-        dotfyls.programs.gnupg.agent.pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
+        dotfyls.security.pgp.agent.pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
 
         services.gpg-agent = {
           enable = true;
