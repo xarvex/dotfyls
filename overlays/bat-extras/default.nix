@@ -1,9 +1,9 @@
 _: prev:
 
-(prev.bat-extras or { })
+prev.bat-extras
 // {
   batman = prev.bat-extras.batman.overrideAttrs (o: {
-    nativeBuildInputs = o.nativeBuildInputs ++ [ prev.installShellFiles ];
+    nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ prev.installShellFiles ];
 
     postInstall =
       (o.postInstall or "")
