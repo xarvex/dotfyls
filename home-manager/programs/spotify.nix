@@ -17,5 +17,9 @@ in
     package = lib.mkPackageOption pkgs "Spotify" { default = "spotify"; };
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".cache/spotify" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
+  };
 }
