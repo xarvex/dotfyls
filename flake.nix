@@ -252,24 +252,7 @@
           inherit (dotfyls-zsh.homeManagerModules) zsh;
         };
 
-        overlays =
-          let
-            overlays = [
-              "bat-extras"
-              "dotfyls"
-              "evil-winrm"
-              "fastfetch"
-              "wezterm"
-            ];
-          in
-          lib.genAttrs overlays (
-            overlay: final: prev: { ${overlay} = import ./overlays/${overlay} final prev; }
-          )
-          # WARNING: later elements replace duplicates, however will not occur thanks to above's unique keys
-          // {
-            default =
-              final: prev: lib.mergeAttrsList (lib.map (overlay: self.overlays.${overlay} final prev) overlays);
-          };
+        overlays = import ./overlays { inherit lib self; };
 
         templates = import ./templates;
 
