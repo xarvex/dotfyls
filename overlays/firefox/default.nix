@@ -1,10 +1,10 @@
-_: prev:
+final: prev:
 
 let
-  containerSort = prev.writeShellApplication {
+  containerSort = final.writeShellApplication {
     name = "firefox-container-sort";
 
-    runtimeInputs = with prev; [
+    runtimeInputs = with final; [
       jq
       moreutils
     ];
@@ -18,6 +18,6 @@ prev.firefox.overrideAttrs (o: {
       find = "makeWrapper \"$oldExe\" \\\n  \"\${executablePath}\" \\\n";
     in
     builtins.replaceStrings [ find ] [
-      (find + "    --run \"${prev.lib.getExe containerSort}\" \\\n")
+      (find + "    --run \"${final.lib.getExe containerSort}\" \\\n")
     ] o.buildCommand;
 })

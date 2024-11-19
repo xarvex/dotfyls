@@ -1,9 +1,9 @@
-_: prev:
+final: prev:
 
 # Requires legacy OpenSSL compatibility, limit to just this package.
 # WARNING: untested
 prev.evil-winrm.overrideAttrs (o: {
-  nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
+  nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
 
   postFixup =
     (o.postFixup or "")
