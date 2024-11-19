@@ -56,6 +56,12 @@ in
           homedir = "${config.xdg.dataHome}/gnupg";
 
           scdaemonSettings.disable-ccid = true;
+          publicKeys = [
+            {
+              source = ./0046A18B1037C201.asc;
+              trust = 5;
+            }
+          ];
         };
       }
 
