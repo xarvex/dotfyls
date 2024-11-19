@@ -6,6 +6,7 @@ let
     "dotfyls"
     "evil-winrm"
     "fastfetch"
+    "firefox"
     "wezterm"
   ];
 in
