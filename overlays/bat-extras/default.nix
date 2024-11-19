@@ -8,7 +8,10 @@ _: prev:
     postInstall =
       (o.postInstall or "")
       + ''
-        installShellCompletion ${./completions}/batman.{bash,fish,zsh}
+        installShellCompletion \
+          ${./completions/batman.bash} \
+          ${./completions/batman.fish} \
+          ${./completions/batman.zsh}
       '';
   });
 }
