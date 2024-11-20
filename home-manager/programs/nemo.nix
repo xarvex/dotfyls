@@ -20,5 +20,9 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.cacheDirectories = [ ".cache/thumbnails" ];
+
+    home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
+  };
 }
