@@ -30,7 +30,7 @@ in
     enable = lib.mkEnableOption "media" // {
       default = config.dotfyls.desktops.enable;
     };
-    audio.enable = lib.mkEnableOption "audo" // {
+    audio.enable = lib.mkEnableOption "audio" // {
       default = true;
     };
     wireplumber = {
@@ -57,17 +57,17 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      (lib.mkIf cfg.wireplumber.enable {
-        dotfyls.persist.cacheDirectories = [ ".local/state/wireplumber" ];
-      })
+      {
+        dotfyls.persist.cacheDirectories = lib.optional cfg.wireplumber.enable ".local/state/wireplumber";
 
-      (lib.mkIf cfg.mpris2.proxy.enable { services.mpris-proxy.enable = true; })
-      (lib.mkIf cfg.mpris2.playerctl.enable (
-        lib.mkMerge [
-          { home.packages = [ (self.lib.getCfgPkg cfg.mpris2.playerctl) ]; }
-          (lib.mkIf cfg.mpris2.playerctl.daemon.enable { services.playerctld.enable = true; })
-        ]
-      ))
+        services.mpris-proxy.enable = lib.mkIf cfg.mpris2.proxy.enable true;
+      }
+
+      (lib.mkIf cfg.mpris2.playerctl.enable {
+        home.packages = [ (self.lib.getCfgPkg cfg.mpris2.playerctl) ];
+
+        services.playerctld.enable = lib.mkIf cfg.mpris2.playerctl.daemon.enable true;
+      })
     ]
   );
 }

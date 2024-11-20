@@ -14,7 +14,6 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
         "media"
         "wireplumber"
       ]
@@ -30,7 +29,7 @@ in
     enable = lib.mkEnableOption "media" // {
       default = hmCfg.enable;
     };
-    audio.enable = lib.mkEnableOption "audo" // {
+    audio.enable = lib.mkEnableOption "audio" // {
       default = hmCfg.audio.enable;
     };
     wireplumber.enable = lib.mkEnableOption "WirePlumber" // {
@@ -42,14 +41,9 @@ in
     services.pipewire =
       {
         enable = true;
-        audio = {
-          inherit (cfg.audio) enable;
-        };
-        wireplumber = {
-          inherit (cfg.wireplumber) enable;
-        };
       }
       // lib.optionalAttrs cfg.audio.enable {
+        wireplumber.enable = true;
         pulse.enable = true;
         alsa = {
           enable = true;
