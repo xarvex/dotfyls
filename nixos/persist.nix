@@ -32,6 +32,7 @@
       "/var/log"
     ];
     cacheDirectories = [
+      "/var/lib/systemd/coredump"
       "/root/.cache/nix"
     ];
   };
