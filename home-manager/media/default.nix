@@ -4,6 +4,7 @@
   imports = [
     ./mime-apps.nix
     ./mpris.nix
+    ./nomacs
     ./pipewire.nix
   ];
 

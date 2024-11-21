@@ -14,7 +14,10 @@ in
       let
         audioDefault = "mpv.desktop";
         fileDefault = "nemo.desktop";
-        imageDefault = "pix.desktop";
+        imageDefault = [
+          "nomacs.desktop"
+          "pix.desktop"
+        ];
         pdfDefault = "org.pwmt.zathura.desktop";
         textDefault = "nvim.desktop";
         videoDefault = "mpv.desktop";
