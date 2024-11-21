@@ -26,7 +26,6 @@ _:
     ./openrgb.nix
     ./pix.nix
     ./prismlauncher.nix
-    ./proton
     ./ripgrep.nix
     ./rofi.nix
     ./sl.nix

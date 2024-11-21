@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.proton;
+  cfg = config.dotfyls.security.proton;
 in
 {
   imports = [
@@ -18,7 +18,7 @@ in
     (self.lib.mkCommonModules
       [
         "dotfyls"
-        "programs"
+        "security"
         "proton"
       ]
       (service: _: {
@@ -44,7 +44,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.proton.enable = lib.mkEnableOption "Proton services" // {
+  options.dotfyls.security.proton.enable = lib.mkEnableOption "Proton services" // {
     default = true;
   };
 

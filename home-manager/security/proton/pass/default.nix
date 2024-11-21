@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg' = config.dotfyls.programs.proton;
+  cfg' = config.dotfyls.security.proton;
   cfg = cfg'.pass;
 in
 {
