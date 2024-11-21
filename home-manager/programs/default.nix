@@ -3,6 +3,7 @@ _:
 {
   imports = [
     ./bat.nix
+    ./brightnessctl.nix
     ./cbonsai.nix
     ./cliphist.nix
     ./discord.nix

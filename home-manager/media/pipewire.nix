@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.media;
@@ -14,11 +9,8 @@ in
     enable = lib.mkEnableOption "PipeWire" // {
       default = config.dotfyls.desktops.enable;
     };
-    audio = {
-      enable = lib.mkEnableOption "PipeWire audio" // {
-        default = true;
-      };
-      wireplumber.package = lib.mkPackageOption pkgs "WirePlumber" { default = "wireplumber"; };
+    audio.enable = lib.mkEnableOption "PipeWire audio" // {
+      default = true;
     };
   };
 

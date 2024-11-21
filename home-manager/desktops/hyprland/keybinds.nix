@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -9,9 +8,6 @@
 let
   cfg' = config.dotfyls.desktops;
   cfg = cfg'.desktops.hyprland;
-  pCfg = config.dotfyls.programs;
-
-  withCfgPkg = cfg: generator: lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
 in
 lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
@@ -53,70 +49,38 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           ]
         )
       )
-      ++ lib.optionals config.dotfyls.media.enable (
-        (lib.optionals (config.dotfyls.media.pipewire.enable && config.dotfyls.media.pipewire.audio.enable)
-          [
-            ", XF86AudioMute, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            ", XF86AudioMicMute, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ]
-        )
-        ++ lib.optionals (config.dotfyls.media.enable && config.dotfyls.media.mpris.enable) (
-          withCfgPkg config.dotfyls.media.mpris.playerctl (playerctl: [
-            ", XF86AudioNext, exec, ${lib.getExe playerctl} next"
-            ", XF86AudioPlay, exec, ${lib.getExe playerctl} play-pause"
-            ", XF86AudioPrev, exec, ${lib.getExe playerctl} previous"
-          ])
-        )
-      )
-      ++ withCfgPkg config.dotfyls.terminals.xdg-terminal-exec (xdg-terminal-exec: [
-        "$mod, Return, exec, ${lib.getExe xdg-terminal-exec}"
-      ])
-      ++ withCfgPkg pCfg.firefox (firefox: [ "$mod, W, exec, ${lib.getExe firefox}" ])
-      ++ withCfgPkg pCfg.nemo (nemo: [ "$mod, E, exec, ${lib.getExe nemo}" ])
-      ++ withCfgPkg pCfg.obsidian (obsidian: [ "$mod, O, exec, ${lib.getExe obsidian}" ])
-      ++ withCfgPkg pCfg.rofi (
-        rofi:
-        (
-          # HACK: desktop entries are showing other languages when explicit
-          # English entry does not exist, must figure out how to show default.
-          [ "$mod_SHIFT, Return, exec, LANGUAGE='' ${lib.getExe rofi} -show drun" ]
-          ++ withCfgPkg pCfg.cliphist (cliphist: [
-            "$mod_SHIFT, V, exec, ${lib.getExe rofi} -modi clipboard:${lib.getExe' cliphist "cliphist-rofi-img"} -show clipboard -show-icons"
-          ])
-        )
-      )
-      ++ (
-        let
-          mkBinds = name: [ "$mod, D, exec, ${self.lib.getCfgExe pCfg.${name}}" ];
-        in
-        if pCfg.vesktop.enable then
-          mkBinds "vesktop"
-        else if pCfg.discord.enable then
-          mkBinds "discord"
-        else
-          [ ]
-      );
+      ++ [
 
-    binde =
-      [
-        "$mod_CTRL, H, resizeactive, -20 0"
-        "$mod_CTRL, J, resizeactive, 0 20"
-        "$mod_CTRL, K, resizeactive, 0 -20"
-        "$mod_CTRL, L, resizeactive, 20 0"
+        "$mod, W, exec, firefox"
+        "$mod, E, exec, nemo"
+        "$mod, O, exec, obsidian"
+        "$mod, D, exec, ${if config.dotfyls.programs.vesktop.enable then "vesktop" else "discord"}"
 
-        ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
-        ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
-      ]
-      ++ lib.optionals
-        (
-          config.dotfyls.media.enable
-          && config.dotfyls.media.pipewire.enable
-          && config.dotfyls.media.pipewire.audio.enable
-        )
-        [
-          ", XF86AudioLowerVolume, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioRaiseVolume, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ];
+        "$mod, Return, exec, xdg-terminal-exec"
+
+        # HACK: desktop entries are showing other languages when explicit
+        # English entry does not exist, must figure out how to show default.
+        "$mod_SHIFT, Return, exec, LANGUAGE='' rofi -show drun"
+        "$mod_SHIFT, V, exec, rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons"
+
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+      ];
+
+    binde = [
+      "$mod_CTRL, H, resizeactive, -20 0"
+      "$mod_CTRL, J, resizeactive, 0 20"
+      "$mod_CTRL, K, resizeactive, 0 -20"
+      "$mod_CTRL, L, resizeactive, 20 0"
+
+      ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+      ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+    ];
 
     bindm = [
       "$mod, mouse:272, movewindow"

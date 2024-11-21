@@ -8,7 +8,6 @@
 let
   cfg' = config.dotfyls.desktops;
   cfg = cfg'.desktops.hyprland;
-  pCfg = config.dotfyls.programs;
 in
 {
   imports = [
@@ -41,6 +40,7 @@ in
       persist.cacheDirectories = [ ".cache/hyprland" ];
 
       programs = {
+        brightnessctl.enable = lib.mkDefault true;
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
         gvfs.enable = lib.mkDefault true;
@@ -88,11 +88,7 @@ in
           )
         );
 
-        exec-once =
-          let
-            withCfgPkg = cfg: generator: lib.optionals cfg.enable (generator (self.lib.getCfgPkg cfg));
-          in
-          withCfgPkg pCfg.swww (swww: [ "${lib.getExe' swww "swww-daemon"} &" ]);
+        exec-once = [ "swww-daemon &" ];
       };
     };
   };
