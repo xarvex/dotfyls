@@ -28,7 +28,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".local/state/mpv" ];
+    dotfyls.persist.cacheDirectories = [
+      ".local/state/mpv"
+      ".cache/mpv"
+    ];
 
     programs.mpv = {
       enable = true;
