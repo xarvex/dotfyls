@@ -7,7 +7,8 @@
 }:
 
 let
-  cfg = config.dotfyls.media.nomacs;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.nomacs;
 in
 {
   options.dotfyls.media.nomacs = {
@@ -17,7 +18,7 @@ in
     package = lib.mkPackageOption pkgs "nomacs" { };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 
     xdg.configFile."nomacs/Image Lounge.conf".source = ./${"Image Lounge.conf"};
