@@ -38,30 +38,16 @@ in
         "terminals"
         "terminals"
       ]
-      (terminal: tCfg: {
-        start =
-          self.lib.mkCommandOption "start ${terminal.name}"
-          // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
-        exec =
-          self.lib.mkCommandOption "start ${terminal.name} executing command"
-          // lib.optionalAttrs tCfg.enable { default = self.lib.getCfgPkg tCfg; };
+      (_: _: {
+        desktopFile = lib.mkOption {
+          internal = true;
+          readOnly = true;
+        };
       })
       {
-        alacritty = {
-          name = "Alacritty";
-          specialArgs = {
-            exec.default = pkgs.dotfyls.mkCommand ''exec ${lib.getExe cfg.terminals.alacritty.start} -e "$@"'';
-          };
-        };
-        kitty = {
-          name = "kitty";
-        };
-        wezterm = {
-          name = "WezTerm";
-          specialArgs = {
-            exec.default = pkgs.dotfyls.mkCommand ''exec ${lib.getExe cfg.terminals.wezterm.start} start "$@"'';
-          };
-        };
+        alacritty.specialArgs.desktopFile.default = "Alacritty.desktop";
+        kitty.specialArgs.desktopFile.default = "kitty.desktop";
+        wezterm.specialArgs.desktopFile.default = "org.wezfurlong.wezterm.desktop";
       }
     )
   ];
@@ -74,20 +60,7 @@ in
       enable = lib.mkEnableOption "xdg-terminal-exec" // {
         default = true;
       };
-      package =
-        self.lib.mkCommandOption "use as xdg-terminal-exec"
-        // lib.optionalAttrs (cfg.enable && cfg.xdg-terminal-exec.enable) {
-          default = pkgs.dotfyls.mkCommand' "xdg-terminal-exec" ''
-            if [ "$#" = "0" ]; then
-              exec ${lib.getExe cfg.selected.start}
-            else
-              if [ "$1" = "-e" ]; then
-                shift
-              fi
-              exec ${lib.getExe cfg.selected.exec} "$@"
-            fi
-          '';
-        };
+      package = lib.mkPackageOption pkgs "xdg-terminal-exec" { };
     };
 
     fontSize = lib.mkOption {
@@ -100,6 +73,30 @@ in
 
   config = lib.mkIf (cfg.enable && cfg.xdg-terminal-exec.enable) {
     home.packages = [ (self.lib.getCfgPkg cfg.xdg-terminal-exec) ];
+
+    xdg.configFile."xdg-terminals.list".text = ''
+      ${cfg.selected.desktopFile}
+
+      Alacritty.desktop
+      kitty.desktop
+      org.wezfurlong.wezterm.desktop
+
+      /execarg_default:org.wezfurlong.wezterm.desktop:start
+
+      -org.kde.yakuake.desktop
+
+      /execarg_default:com.raggesilver.BlackBox.desktop:--
+      /execarg_default:contour.desktop:execute
+      /execarg_default:deepin-terminal.desktop:-x
+      /execarg_default:io.elementary.terminal.desktop:-x
+      /execarg_default:org.codeberg.dnkl.foot.desktop:--
+      /execarg_default:org.gnome.Terminal.desktop:--
+      /execarg_default:kitty.desktop:--
+      /execarg_default:mate-terminal.desktop:-x
+      /execarg_default:roxterm.desktop:-x
+      /execarg_default:terminator.desktop:-x
+      /execarg_default:xfce4-terminal.desktop:-x
+    '';
 
     dconf.settings = {
       "org/cinnamon/desktop/applications/terminal" = {
