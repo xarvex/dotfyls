@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./mime-apps.nix
     ./mpris.nix
     ./pipewire.nix
   ];
