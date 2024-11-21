@@ -6,7 +6,7 @@ _:
     ./development
     ./fonts.nix
     ./graphics.nix
-    ./media.nix
+    ./media
     ./persist.nix
     ./programs
     ./security

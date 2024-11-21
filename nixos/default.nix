@@ -10,7 +10,7 @@ _:
     ./graphics
     ./kernels.nix
     ./localization.nix
-    ./media.nix
+    ./media
     ./networking.nix
     ./nix.nix
     ./persist.nix

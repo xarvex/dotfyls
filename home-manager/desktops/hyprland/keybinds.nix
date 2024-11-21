@@ -53,16 +53,20 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           ]
         )
       )
-      ++ lib.optionals config.dotfyls.media.audio.enable (
-        (withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
-          ", XF86AudioMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86AudioMicMute, exec, ${lib.getExe' wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ]))
-        ++ withCfgPkg config.dotfyls.media.mpris2.playerctl (playerctl: [
-          ", XF86AudioNext, exec, ${lib.getExe playerctl} next"
-          ", XF86AudioPlay, exec, ${lib.getExe playerctl} play-pause"
-          ", XF86AudioPrev, exec, ${lib.getExe playerctl} previous"
-        ])
+      ++ lib.optionals config.dotfyls.media.enable (
+        (lib.optionals (config.dotfyls.media.pipewire.enable && config.dotfyls.media.pipewire.audio.enable)
+          [
+            ", XF86AudioMute, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ", XF86AudioMicMute, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ]
+        )
+        ++ lib.optionals (config.dotfyls.media.enable && config.dotfyls.media.mpris.enable) (
+          withCfgPkg config.dotfyls.media.mpris.playerctl (playerctl: [
+            ", XF86AudioNext, exec, ${lib.getExe playerctl} next"
+            ", XF86AudioPlay, exec, ${lib.getExe playerctl} play-pause"
+            ", XF86AudioPrev, exec, ${lib.getExe playerctl} previous"
+          ])
+        )
       )
       ++ withCfgPkg config.dotfyls.terminals.xdg-terminal-exec (xdg-terminal-exec: [
         "$mod, Return, exec, ${lib.getExe xdg-terminal-exec}"
@@ -103,12 +107,16 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
         ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
       ]
-      ++ lib.optionals config.dotfyls.media.audio.enable (
-        withCfgPkg config.dotfyls.media.wireplumber (wireplumber: [
-          ", XF86AudioLowerVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
-          ", XF86AudioRaiseVolume, exec, ${lib.getExe' wireplumber "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ])
-      );
+      ++ lib.optionals
+        (
+          config.dotfyls.media.enable
+          && config.dotfyls.media.pipewire.enable
+          && config.dotfyls.media.pipewire.audio.enable
+        )
+        [
+          ", XF86AudioLowerVolume, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86AudioRaiseVolume, exec, ${lib.getExe' (self.lib.getCfgPkg config.dotfyls.media.pipewire.audio.wireplumber) "wpctl"} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ];
 
     bindm = [
       "$mod, mouse:272, movewindow"

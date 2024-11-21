@@ -6,8 +6,9 @@
 }:
 
 let
-  cfg = config.dotfyls.media;
-  hmCfg = config.hm.dotfyls.media;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.pipewire;
+  hmCfg = config.hm.dotfyls.media.pipewire;
 in
 {
   imports = [
@@ -15,6 +16,8 @@ in
       [
         "dotfyls"
         "media"
+        "pipewire"
+        "audio"
         "wireplumber"
       ]
       [
@@ -25,19 +28,16 @@ in
     )
   ];
 
-  options.dotfyls.media = {
-    enable = lib.mkEnableOption "media" // {
+  options.dotfyls.media.pipewire = {
+    enable = lib.mkEnableOption "PipeWire" // {
       default = hmCfg.enable;
     };
-    audio.enable = lib.mkEnableOption "audio" // {
+    audio.enable = lib.mkEnableOption "PipeWire audio" // {
       default = hmCfg.audio.enable;
-    };
-    wireplumber.enable = lib.mkEnableOption "WirePlumber" // {
-      default = hmCfg.wireplumber.enable;
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     services.pipewire =
       {
         enable = true;
