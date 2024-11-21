@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -10,6 +11,13 @@ let
   cfg = cfg'.vpn;
 in
 {
+  options.dotfyls.security.proton.vpn = {
+    enable = lib.mkEnableOption "Proton VPN" // {
+      default = true;
+    };
+    package = lib.mkPackageOption pkgs "Proton VPN" { default = "protonvpn-gui"; };
+  };
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [ ".cert/nm-openvpn" ];
 
