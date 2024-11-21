@@ -24,5 +24,9 @@ in
     )
   ];
 
-  config = lib.mkIf cfg.enable { programs.wezterm.enable = true; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.persist.directories = [ ".local/share/wezterm" ];
+
+    programs.wezterm.enable = true;
+  };
 }
