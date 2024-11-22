@@ -16,6 +16,18 @@ in
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "LibreOffice" { default = "libreoffice"; };
+    finalPackage = self.lib.mkFinalPackageOption "LibreOffice" // {
+      default = pkgs.symlinkJoin {
+        inherit (cfg.package) name meta;
+
+        paths =
+          [ cfg.package ]
+          ++ (with pkgs.hunspellDicts; [
+            en_US
+            sv_SE
+          ]);
+      };
+    };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
