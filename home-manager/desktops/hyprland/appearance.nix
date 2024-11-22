@@ -15,9 +15,11 @@ lib.mkIf (cfg'.enable && cfg.enable) {
     decoration = {
       rounding = 8;
 
-      shadow_range = 8;
-      shadow_render_power = 3;
-      "col.shadow" = "rgba(1a1a1aee)";
+      shadow = {
+        range = 8;
+        render_power = 3;
+        color = "rgba(1a1a1aee)";
+      };
 
       blur = {
         size = 2;
