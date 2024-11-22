@@ -23,15 +23,15 @@
         {
             "type": "kernel",
             "format": "{1} {2}",
-            "key": "│ "
+            "key": "│ "
         },
         {
             "type": "wm",
-            "key": "│󰨇 "
+            "key": "│ "
         },
         {
             "type": "shell",
-            "key": "│ "
+            "key": "│ "
         },
         {
             "type": "uptime",
@@ -50,21 +50,20 @@
         {
             "type": "gpu",
             "format": "{1} {2}",
-            "key": "│󱒄 "
+            "key": "│󰢮 "
         },
         {
             "type": "memory",
-            "key": "│ "
+            "key": "│ "
         },
         {
             "type": "disk",
             "folders": "/",
             "format": "{1} / {2} ({3})",
-            "key": "│󰋊 "
+            "key": "│ "
         },
         {
-            "type": "command",
-            "text": "printf '\\0'",
+            "type": "custom",
             "key": "╰────────────────────"
         },
         {

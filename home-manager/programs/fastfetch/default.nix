@@ -35,10 +35,8 @@ in
       fetch = "fastfetch";
     };
 
-    programs.fastfetch = {
-      enable = true;
+    programs.fastfetch.enable = true;
 
-      settings = lib.importJSON ./config.jsonc;
-    };
+    xdg.configFile."fastfetch/config.jsonc".source = ./config.jsonc;
   };
 }
