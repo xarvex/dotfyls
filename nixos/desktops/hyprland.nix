@@ -26,7 +26,11 @@ in
   ];
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
-    dotfyls.programs.gvfs.enable = lib.mkDefault true;
+    dotfyls.media = {
+      enable = lib.mkDefault true;
+      gvfs.enable = lib.mkDefault true;
+      pipewire.enable = lib.mkDefault true;
+    };
 
     programs.hyprland.enable = true;
 

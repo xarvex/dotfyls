@@ -6,14 +6,15 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.mpv;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.mpv;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "media"
         "mpv"
       ]
       [
@@ -23,11 +24,11 @@ in
     )
   ];
 
-  options.dotfyls.programs.mpv.enable = lib.mkEnableOption "mpv" // {
+  options.dotfyls.media.mpv.enable = lib.mkEnableOption "mpv" // {
     default = config.dotfyls.desktops.enable;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [
       ".local/state/mpv"
       ".cache/mpv"

@@ -2,9 +2,15 @@
 
 {
   imports = [
+    ./libreoffice
+    ./mpv
+    ./nemo
+    ./nomacs
+    ./zathura
+
+    ./gvfs.nix
     ./mime-apps.nix
     ./mpris.nix
-    ./nomacs
     ./pipewire.nix
   ];
 

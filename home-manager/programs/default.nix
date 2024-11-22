@@ -15,16 +15,11 @@ _:
     ./fzf.nix
     ./git.nix
     ./gnome-keyring.nix
-    ./gvfs.nix
-    ./libreoffice.nix
-    ./mpv.nix
-    ./nemo.nix
     ./neovim.nix
     ./network-manager-applet.nix
     ./nix-index.nix
     ./obsidian.nix
     ./openrgb.nix
-    ./pix.nix
     ./prismlauncher.nix
     ./ripgrep.nix
     ./rofi.nix
@@ -41,7 +36,6 @@ _:
     ./waybar.nix
     ./wl-clipboard.nix
     ./xwaylandvideobridge.nix
-    ./zathura.nix
     ./zoxide.nix
   ];
 }

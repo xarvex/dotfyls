@@ -7,17 +7,18 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.libreoffice;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.libreoffice;
 in
 {
-  options.dotfyls.programs.libreoffice = {
+  options.dotfyls.media.libreoffice = {
     enable = lib.mkEnableOption "LibreOffice" // {
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "LibreOffice" { default = "libreoffice"; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [ ".config/libreoffice" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];

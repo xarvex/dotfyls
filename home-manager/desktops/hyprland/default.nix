@@ -39,11 +39,11 @@ in
     dotfyls = {
       persist.cacheDirectories = [ ".cache/hyprland" ];
 
+      media.gvfs.enable = lib.mkDefault true;
       programs = {
         brightnessctl.enable = lib.mkDefault true;
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
-        gvfs.enable = lib.mkDefault true;
         rofi.enable = lib.mkDefault true;
         swww.enable = lib.mkDefault true;
         waybar.enable = lib.mkDefault true;

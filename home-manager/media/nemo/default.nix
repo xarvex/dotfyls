@@ -7,10 +7,11 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.nemo;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.nemo;
 in
 {
-  options.dotfyls.programs.nemo = {
+  options.dotfyls.media.nemo = {
     enable = lib.mkEnableOption "Nemo" // {
       default = config.dotfyls.desktops.enable;
     };
@@ -20,7 +21,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [ ".cache/thumbnails" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;

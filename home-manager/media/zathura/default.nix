@@ -6,14 +6,15 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.zathura;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.zathura;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "media"
         "zathura"
       ]
       [
@@ -23,9 +24,9 @@ in
     )
   ];
 
-  options.dotfyls.programs.zathura.enable = lib.mkEnableOption "zathura" // {
+  options.dotfyls.media.zathura.enable = lib.mkEnableOption "zathura" // {
     default = config.dotfyls.desktops.enable;
   };
 
-  config = lib.mkIf cfg.enable { programs.zathura.enable = true; };
+  config = lib.mkIf (cfg'.enable && cfg.enable) { programs.zathura.enable = true; };
 }
