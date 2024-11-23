@@ -30,9 +30,11 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.shells.initBins = [ (self.lib.getCfgPkg cfg) ];
 
-    home.shellAliases = {
-      neofetch = "fastfetch --config neofetch";
+    home.shellAliases = rec {
+      f = fetch;
       fetch = "fastfetch";
+
+      neofetch = "fastfetch --config neofetch";
     };
 
     programs.fastfetch.enable = true;
