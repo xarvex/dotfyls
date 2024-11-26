@@ -19,8 +19,17 @@ in
       enable = true;
 
       theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
+        # TODO: Change dynamically with heuniform.
+        name = "Colloid-Red-Dark-Catppuccin";
+        package = pkgs.colloid-gtk-theme.override {
+          themeVariants = [ "all" ];
+          colorVariants = [ "dark" ];
+          tweaks = [
+            "catppuccin"
+            "black"
+            "normal"
+          ];
+        };
       };
       iconTheme = {
         name = "Adwaita";
