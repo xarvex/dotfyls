@@ -7,11 +7,13 @@ _:
     ./cbonsai.nix
     ./cliphist.nix
     ./discord.nix
+    ./distrobox
     ./dunst.nix
     ./eza.nix
     ./fastfetch
     ./fd.nix
     ./firefox.nix
+    ./flatpak
     ./fzf.nix
     ./git.nix
     ./gnome-keyring.nix
@@ -20,6 +22,7 @@ _:
     ./nix-index.nix
     ./obsidian.nix
     ./openrgb.nix
+    ./podman
     ./prismlauncher.nix
     ./ripgrep.nix
     ./rofi.nix
