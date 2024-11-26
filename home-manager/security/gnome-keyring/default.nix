@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.programs.gnome-keyring;
+  cfg = config.dotfyls.security.gnome-keyring;
 in
 {
-  options.dotfyls.programs.gnome-keyring.enable = lib.mkEnableOption "GNOME Keyring" // {
+  options.dotfyls.security.gnome-keyring.enable = lib.mkEnableOption "GNOME Keyring" // {
     default = config.dotfyls.desktops.enable;
   };
 

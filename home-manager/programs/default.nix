@@ -16,7 +16,6 @@ _:
     ./flatpak
     ./fzf.nix
     ./git.nix
-    ./gnome-keyring.nix
     ./neovim.nix
     ./network-manager-applet.nix
     ./nix-index.nix
