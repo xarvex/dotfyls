@@ -15,27 +15,6 @@ in
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "Vesktop" { default = "vesktop"; };
-    finalPackage = self.lib.mkFinalPackageOption "Vesktop" // {
-      default = cfg.package.overrideAttrs (
-        o:
-        let
-          createState = pkgs.dotfyls.mkCommand {
-            runtimeInputs = with pkgs; [ coreutils ];
-            text = ''
-              cat ${./state.json} > "${config.xdg.configHome}"/vesktop/state.json
-            '';
-          };
-        in
-        {
-          nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-          postFixup =
-            (o.postFixup or "")
-            + ''
-              wrapProgram $out/bin/vesktop --run "${lib.getExe createState}"
-            '';
-        }
-      );
-    };
   };
 
   config = lib.mkIf cfg.enable {

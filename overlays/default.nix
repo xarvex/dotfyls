@@ -7,6 +7,7 @@ let
     "evil-winrm"
     "fastfetch"
     "firefox"
+    "vesktop"
     "wezterm"
   ];
 in
