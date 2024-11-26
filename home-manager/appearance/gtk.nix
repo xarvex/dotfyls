@@ -32,8 +32,7 @@ in
         };
       };
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
+        inherit (cfg'.icons.set) name package;
       };
       font = {
         inherit (cfg'.fonts.sansSerif) name package;

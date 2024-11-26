@@ -36,7 +36,7 @@ in
         qtctConf = {
           Appearance = {
             custom_palette = false;
-            icon_theme = config.gtk.iconTheme.name;
+            icon_theme = cfg'.icons.set.name;
             standard_dialogs = "xdgdesktopportal";
             style = "kvantum";
           };
