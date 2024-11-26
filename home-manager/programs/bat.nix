@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -28,32 +27,38 @@ in
     enable = lib.mkEnableOption "bat" // {
       default = true;
     };
-    batman = {
-      enable = lib.mkEnableOption "batman" // {
-        default = true;
-      };
-      package = lib.mkPackageOption pkgs "batman" {
-        default = [
-          "bat-extras"
-          "batman"
-        ];
-      };
+    enablePager = lib.mkEnableOption "bat as pager" // {
+      default = true;
+    };
+    enableManPager = lib.mkEnableOption "bat as man pager" // {
+      default = true;
     };
   };
 
   config = lib.mkIf cfg.enable {
     dotfyls.persist.cacheDirectories = [ ".cache/bat" ];
 
-    home.shellAliases = {
-      cat = "bat";
-      man = lib.mkIf cfg.batman.enable "batman";
+    home = {
+      sessionVariables = {
+        PAGER = lib.mkIf cfg.enablePager "bat -p";
 
-      watchfile = "watch -cn1 -x bat -f --theme ansi";
+        # From: https://github.com/sharkdp/bat/pull/2858
+        MANPAGER = lib.mkIf cfg.enableManPager ''
+          sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'
+        '';
+      };
+
+      shellAliases = {
+        cat = "bat";
+
+        watchfile = "watch -cn1 -x bat -f --theme ansi";
+      };
     };
 
     programs.bat = {
       enable = true;
-      extraPackages = lib.optional cfg.batman.enable (self.lib.getCfgPkg cfg.batman);
+
+      config.style = "full";
     };
   };
 }
