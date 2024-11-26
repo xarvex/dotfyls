@@ -1,6 +1,8 @@
 {
   config,
+  inputs,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -30,6 +32,11 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.persist.cacheDirectories = [ ".cache/nix-index" ];
 
-    programs.nix-index.enable = true;
+    programs.nix-index = {
+      enable = true;
+      package = inputs.nix-index-database.packages.${pkgs.system}.nix-index-with-db.override {
+        inherit (pkgs) nix-index-unwrapped;
+      };
+    };
   };
 }
