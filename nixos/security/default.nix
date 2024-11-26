@@ -16,8 +16,8 @@ _:
   imports = [
     ./harden
     ./gnome-keyring
+    ./yubikey
 
     ./kernel.nix
-    ./yubikey.nix
   ];
 }
