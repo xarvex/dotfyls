@@ -34,6 +34,10 @@ in
       enable = lib.mkEnableOption "fonts" // {
         default = hmCfg.enable;
       };
+
+      sansSerif = mkFontOption "sans serif" // {
+        default = hmCfg.sansSerif;
+      };
       monospace = mkFontOption "monospace" // {
         default = hmCfg.monospace;
       };
@@ -48,12 +52,14 @@ in
   config = lib.mkIf cfg.enable {
     fonts = {
       packages = [
+        (self.lib.getCfgPkg cfg.sansSerif)
         (self.lib.getCfgPkg cfg.monospace)
         (self.lib.getCfgPkg cfg.emoji)
         (self.lib.getCfgPkg cfg.symbols)
       ];
 
       fontconfig.defaultFonts = {
+        sansSerif = with cfg; [ sansSerif.name ];
         monospace = with cfg; [
           monospace.name
           symbols.name

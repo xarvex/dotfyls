@@ -34,6 +34,13 @@ in
       enable = lib.mkEnableOption "fonts" // {
         default = config.dotfyls.desktops.enable;
       };
+
+      sansSerif = mkFontOption "sans serif" // {
+        default = {
+          name = "Geist Regular";
+          package = pkgs.geist-font;
+        };
+      };
       monospace = mkFontOption "monospace" // {
         default = {
           name = "Iosevka Term SS14 Extended";
@@ -58,6 +65,7 @@ in
     dotfyls.persist.cacheDirectories = [ ".cache/fontconfig" ];
 
     home.packages = [
+      (self.lib.getCfgPkg cfg.sansSerif)
       (self.lib.getCfgPkg cfg.monospace)
       (self.lib.getCfgPkg cfg.emoji)
       (self.lib.getCfgPkg cfg.symbols)
@@ -67,6 +75,7 @@ in
       enable = true;
 
       defaultFonts = {
+        sansSerif = with cfg; [ sansSerif.name ];
         monospace = with cfg; [
           monospace.name
           symbols.name
