@@ -11,9 +11,9 @@ let
 in
 {
   imports = [
-    ./bash.nix
-    ./fish.nix
-    ./zsh.nix
+    ./bash
+    ./fish
+    ./zsh
 
     (self.lib.mkSelectorModule
       [
