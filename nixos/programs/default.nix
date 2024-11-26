@@ -7,7 +7,6 @@ _:
     ./openrgb.nix
     ./podman.nix
     ./solaar.nix
-    ./steam.nix
     ./virt-manager.nix
     ./wireshark.nix
   ];

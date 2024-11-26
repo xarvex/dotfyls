@@ -7,15 +7,16 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.steam;
-  hmCfg = config.hm.dotfyls.programs.steam;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.steam;
+  hmCfg = config.hm.dotfyls.media.steam;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "media"
         "steam"
       ]
       [
@@ -26,7 +27,7 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "media"
         "steam"
         "gamescope"
       ]
@@ -37,7 +38,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.steam = {
+  options.dotfyls.media.steam = {
     enable = lib.mkEnableOption "Steam" // {
       default = hmCfg.enable;
     };
@@ -46,7 +47,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
+  config = lib.mkIf (cfg'.enable && cfg.enable) (
     lib.mkMerge [
       {
         programs.steam = {

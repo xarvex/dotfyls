@@ -29,7 +29,6 @@ _:
     ./sl.nix
     ./solaar.nix
     ./starship.nix
-    ./steam.nix
     ./swww.nix
     ./thefuck
     ./tldr.nix

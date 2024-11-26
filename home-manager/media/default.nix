@@ -6,6 +6,7 @@
     ./mpv
     ./nemo
     ./nomacs
+    ./steam
     ./spotify
     ./zathura
 
