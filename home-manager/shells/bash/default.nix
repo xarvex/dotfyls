@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg' = config.dotfyls.shells;
@@ -10,7 +15,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.directories = [ ".local/state/bash" ];
+    dotfyls.persist = {
+      directories = [ ".local/state/bash" ];
+      cacheDirectories = [ ".cache/blesh" ];
+    };
 
     programs.bash = {
       inherit (cfg') historySize;
@@ -20,7 +28,19 @@ in
       historyFileSize = config.programs.bash.historySize;
       historyFile = "${config.xdg.stateHome}/bash/history";
 
-      initExtra = lib.mkBefore cfg'.finalInitBins;
+      # blesh parts from: https://github.com/nix-community/home-manager/pull/3238
+      bashrcExtra = ''
+        [[ $- == *i* ]] && source '${pkgs.blesh}/share/blesh/ble.sh' --attach=none
+      '';
+      initExtra = lib.mkBefore ''
+        ${cfg'.finalInitBins}
+
+        [[ ''${BLE_VERSION-} ]] && ble-attach
+
+        if command -v starship >/dev/null; then
+          bleopt prompt_ps1_final="$(starship module character)"
+        fi
+      '';
     };
   };
 }
