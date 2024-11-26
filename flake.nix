@@ -39,15 +39,6 @@
       };
     };
 
-    dotfyls-zsh = {
-      url = "gitlab:dotfyls/zsh";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -133,7 +124,6 @@
             dotfyls-firefox.homeManagerModules.firefox
             dotfyls-neovim.homeManagerModules.neovim
             dotfyls-wezterm.homeManagerModules.wezterm
-            dotfyls-zsh.homeManagerModules.zsh
             nix-index-database.hmModules.nix-index
             wherenver.homeManagerModules.wherenver
             yubigen.homeManagerModules.yubigen
@@ -151,6 +141,7 @@
             "steam-original"
             "steam-run"
             "steam-unwrapped"
+            "zsh-abbr"
           ];
 
           defaultHost = id: system: {
@@ -249,7 +240,6 @@
           inherit (dotfyls-firefox.homeManagerModules) firefox;
           inherit (dotfyls-neovim.homeManagerModules) neovim;
           inherit (dotfyls-wezterm.homeManagerModules) wezterm;
-          inherit (dotfyls-zsh.homeManagerModules) zsh;
         };
 
         overlays = import ./overlays { inherit lib self; };

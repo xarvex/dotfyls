@@ -7,6 +7,8 @@ _:
       deviceConfig = ./solaar/config.yaml;
     };
 
+    shells.shells.zsh.enable = true;
+
     terminals = {
       default = "kitty";
       terminals = {
