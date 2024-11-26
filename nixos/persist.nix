@@ -27,6 +27,10 @@
   };
 
   config.dotfyls.persist = {
+    files = [
+      # Licensed software such as Spotify may check the value.
+      "/etc/machine-id"
+    ];
     directories = [
       "/var/lib/nixos"
       "/var/log"
