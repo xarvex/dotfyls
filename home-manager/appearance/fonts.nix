@@ -60,6 +60,12 @@ in
           package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
         };
       };
+      multi-language = mkFontOption "multi-language" // {
+        default = {
+          name = "Noto Sans";
+          package = pkgs.noto-fonts;
+        };
+      };
     };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -70,6 +76,7 @@ in
       (self.lib.getCfgPkg cfg.monospace)
       (self.lib.getCfgPkg cfg.emoji)
       (self.lib.getCfgPkg cfg.symbols)
+      (self.lib.getCfgPkg cfg.multi-language)
     ];
 
     fonts.fontconfig = {

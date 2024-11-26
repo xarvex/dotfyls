@@ -48,6 +48,9 @@ in
       symbols = mkFontOption "nerdfonts" // {
         default = hmCfg.symbols;
       };
+      multi-language = mkFontOption "multi-language" // {
+        default = hmCfg.multi-language;
+      };
     };
 
   config = lib.mkIf cfg.enable {
@@ -57,6 +60,7 @@ in
         (self.lib.getCfgPkg cfg.monospace)
         (self.lib.getCfgPkg cfg.emoji)
         (self.lib.getCfgPkg cfg.symbols)
+        (self.lib.getCfgPkg cfg.multi-language)
       ];
 
       fontconfig.defaultFonts = {
