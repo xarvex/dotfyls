@@ -14,7 +14,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ "/var/lib/libvirt" ];
+    dotfyls.persist.cacheDirectories = [
+      "/var/lib/libvirt"
+      "/var/cache/libvirt"
+    ];
 
     programs.virt-manager.enable = true;
 
