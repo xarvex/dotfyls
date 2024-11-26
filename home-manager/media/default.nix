@@ -6,6 +6,7 @@
     ./mpv
     ./nemo
     ./nomacs
+    ./spotify
     ./zathura
 
     ./gvfs.nix

@@ -7,17 +7,18 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.spotify;
+  cfg' = config.dotfyls.media;
+  cfg = cfg'.spotify;
 in
 {
-  options.dotfyls.programs.spotify = {
+  options.dotfyls.media.spotify = {
     enable = lib.mkEnableOption "Spotify" // {
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "Spotify" { default = "spotify"; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [
       ".config/spotify"
       ".cache/spotify"

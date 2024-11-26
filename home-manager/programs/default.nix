@@ -28,7 +28,6 @@ _:
     ./rofi.nix
     ./sl.nix
     ./solaar.nix
-    ./spotify.nix
     ./starship.nix
     ./steam.nix
     ./swww.nix
