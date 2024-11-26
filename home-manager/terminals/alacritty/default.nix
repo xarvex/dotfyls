@@ -31,7 +31,7 @@ in
 
       settings = pkgs.lib.importTOML ./alacritty.toml // {
         font = {
-          normal.family = config.dotfyls.fonts.monospace.name;
+          normal.family = config.dotfyls.appearance.fonts.monospace.name;
           size = config.dotfyls.terminals.fontSize;
         };
       };

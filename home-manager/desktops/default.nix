@@ -52,8 +52,6 @@ in
 {
   imports =
     [
-      ./gtk.nix
-      ./qt.nix
       ./hyprland
       ./idles
       ./locks

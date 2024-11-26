@@ -31,7 +31,7 @@ in
       enable = true;
 
       font = {
-        inherit (config.dotfyls.fonts.monospace) name;
+        inherit (config.dotfyls.appearance.fonts.monospace) name;
 
         size = config.dotfyls.terminals.fontSize;
       };

@@ -2,9 +2,9 @@ _:
 
 {
   imports = [
+    ./appearance
     ./desktops
     ./development
-    ./fonts.nix
     ./graphics.nix
     ./media
     ./persist.nix

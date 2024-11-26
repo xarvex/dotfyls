@@ -1,16 +1,17 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
 
 let
-  cfg = config.dotfyls.fonts;
+  cfg' = config.dotfyls.appearance;
+  cfg = cfg'.fonts;
+  hmCfg = config.hm.dotfyls.appearance.fonts;
 in
 {
-  options.dotfyls.fonts =
+  options.dotfyls.appearance.fonts =
     let
       mkFontOption =
         name:
@@ -32,49 +33,33 @@ in
     in
     {
       enable = lib.mkEnableOption "fonts" // {
-        default = config.dotfyls.desktops.enable;
+        default = hmCfg.enable;
       };
 
       sansSerif = mkFontOption "sans serif" // {
-        default = {
-          name = "Geist Regular";
-          package = pkgs.geist-font;
-        };
+        default = hmCfg.sansSerif;
       };
       monospace = mkFontOption "monospace" // {
-        default = {
-          name = "Iosevka Term SS14 Extended";
-          package = pkgs.iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; };
-        };
+        default = hmCfg.monospace;
       };
       emoji = mkFontOption "emoji" // {
-        default = {
-          name = "Noto Color Emoji";
-          package = pkgs.noto-fonts-color-emoji;
-        };
+        default = hmCfg.emoji;
       };
       symbols = mkFontOption "nerdfonts" // {
-        default = {
-          name = "Symbols Nerd Font";
-          package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
-        };
+        default = hmCfg.symbols;
       };
     };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".cache/fontconfig" ];
+    fonts = {
+      packages = [
+        (self.lib.getCfgPkg cfg.sansSerif)
+        (self.lib.getCfgPkg cfg.monospace)
+        (self.lib.getCfgPkg cfg.emoji)
+        (self.lib.getCfgPkg cfg.symbols)
+      ];
 
-    home.packages = [
-      (self.lib.getCfgPkg cfg.sansSerif)
-      (self.lib.getCfgPkg cfg.monospace)
-      (self.lib.getCfgPkg cfg.emoji)
-      (self.lib.getCfgPkg cfg.symbols)
-    ];
-
-    fonts.fontconfig = {
-      enable = true;
-
-      defaultFonts = {
+      fontconfig.defaultFonts = {
         sansSerif = with cfg; [ sansSerif.name ];
         monospace = with cfg; [
           monospace.name

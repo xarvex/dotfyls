@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg' = config.dotfyls.desktops;
+  cfg' = config.dotfyls.appearance;
   cfg = cfg'.gtk;
 in
 {
-  options.dotfyls.desktops.gtk.enable = lib.mkEnableOption "GTK" // {
+  options.dotfyls.appearance.gtk.enable = lib.mkEnableOption "GTK" // {
     default = true;
   };
 
@@ -27,10 +27,9 @@ in
         package = pkgs.adwaita-icon-theme;
       };
       font = {
-        inherit (config.dotfyls.fonts.sansSerif) name package;
+        inherit (cfg'.fonts.sansSerif) name package;
 
-        # TODO: Set via shared option.
-        size = 11;
+        size = cfg'.systemFontSize;
       };
 
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

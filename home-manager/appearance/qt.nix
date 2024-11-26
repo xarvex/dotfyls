@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg' = config.dotfyls.desktops;
+  cfg' = config.dotfyls.appearance;
   cfg = cfg'.qt;
 in
 {
-  options.dotfyls.desktops.qt.enable = lib.mkEnableOption "Qt" // {
+  options.dotfyls.appearance.qt.enable = lib.mkEnableOption "Qt" // {
     default = true;
   };
 
@@ -42,8 +42,7 @@ in
           };
         };
 
-        # TODO: Set via shared option.
-        defaultFont = "${config.dotfyls.fonts.sansSerif.name},11";
+        defaultFont = "${cfg'.fonts.sansSerif.name},${builtins.toString cfg'.systemFontSize}";
       in
       {
         "Kvantum" = {

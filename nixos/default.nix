@@ -2,11 +2,11 @@ _:
 
 {
   imports = [
+    ./appearance
     ./boot.nix
     ./desktops
     ./display-manager
     ./filesystems
-    ./fonts.nix
     ./graphics
     ./kernels.nix
     ./localization.nix
