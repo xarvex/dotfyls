@@ -1,7 +1,8 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.shells.shells.bash;
+  cfg' = config.dotfyls.shells;
+  cfg = cfg'.shells.bash;
 in
 {
   options.dotfyls.shells.shells.bash.enable = lib.mkEnableOption "Bash" // {
@@ -12,14 +13,14 @@ in
     dotfyls.persist.directories = [ ".local/state/bash" ];
 
     programs.bash = {
-      inherit (config.dotfyls.shells) historySize;
+      inherit (cfg') historySize;
 
       enable = true;
 
-      historyFileSize = config.dotfyls.shells.historySize;
+      historyFileSize = config.programs.bash.historySize;
       historyFile = "${config.xdg.stateHome}/bash/history";
 
-      initExtra = lib.mkBefore config.dotfyls.shells.finalInitBins;
+      initExtra = lib.mkBefore cfg'.finalInitBins;
     };
   };
 }

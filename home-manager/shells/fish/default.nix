@@ -33,20 +33,9 @@ in
     programs.fish = {
       enable = true;
 
-      shellInit = ''
-        set fish_greeting
-      '';
+      shellInit = builtins.readFile ./shell-init.fish;
       interactiveShellInit = lib.mkBefore ''
-        for alias in (alias)
-          set alias (string split --no-empty ' ' -- $alias)
-          set -e alias[1]
-          functions -e $alias[1]
-          if test $alias[1] != ..
-            eval abbr -a -- $alias
-          end
-        end
-
-        fish_vi_key_bindings
+        ${builtins.readFile ./interactive-shell-init.fish}
 
         ${cfg'.finalInitBins}
       '';

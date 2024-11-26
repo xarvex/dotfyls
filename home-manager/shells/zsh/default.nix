@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg = config.dotfyls.shells.shells.zsh;
+  cfg' = config.dotfyls.shells;
+  cfg = cfg'.shells.zsh;
 in
 {
   imports = [
@@ -35,12 +36,12 @@ in
     programs.zsh = {
       enable = true;
       dotfyls = {
-        inherit (config.dotfyls.shells) historySize;
+        inherit (cfg') historySize;
 
         enable = true;
       };
 
-      initExtraFirst = lib.mkBefore config.dotfyls.shells.finalInitBins;
+      initExtraFirst = lib.mkBefore cfg'.finalInitBins;
     };
   };
 }
