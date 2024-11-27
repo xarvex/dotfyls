@@ -12,8 +12,8 @@ in
 {
   imports = [
     ./alacritty
-    ./kitty.nix
-    ./wezterm.nix
+    ./kitty
+    ./wezterm
 
     (self.lib.mkSelectorModule
       [
