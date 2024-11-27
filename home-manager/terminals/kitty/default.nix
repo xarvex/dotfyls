@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg = config.dotfyls.terminals.terminals.kitty;
+  cfg' = config.dotfyls.terminals;
+  cfg = cfg'.terminals.kitty;
 in
 {
   imports = [
@@ -24,16 +25,15 @@ in
     )
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.cacheDirectories = [ ".config/kitty" ];
 
     programs.kitty = {
       enable = true;
 
       font = {
-        inherit (config.dotfyls.appearance.fonts.monospace) name;
-
-        size = config.dotfyls.terminals.fontSize;
+        name = "monospace";
+        size = cfg'.fontSize;
       };
       settings = {
         update_check_interval = 0;

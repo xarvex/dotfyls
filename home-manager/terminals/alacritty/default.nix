@@ -1,13 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
 
 let
-  cfg = config.dotfyls.terminals.terminals.alacritty;
+  cfg' = config.dotfyls.terminals;
+  cfg = cfg'.terminals.alacritty;
 in
 {
   imports = [
@@ -25,15 +25,23 @@ in
     )
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.alacritty = {
       enable = true;
 
-      settings = pkgs.lib.importTOML ./alacritty.toml // {
+      settings = {
         font = {
-          normal.family = config.dotfyls.appearance.fonts.monospace.name;
-          size = config.dotfyls.terminals.fontSize;
+          normal.family = "monospace";
+          size = cfg'.fontSize;
         };
+        window = {
+          dimensions = {
+            columns = 80;
+            lines = 24;
+          };
+          opacity = 0.85;
+        };
+        cursor.style.blinking = "Never";
       };
     };
   };

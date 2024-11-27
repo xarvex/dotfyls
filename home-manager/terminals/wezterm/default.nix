@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg = config.dotfyls.terminals.terminals.wezterm;
+  cfg' = config.dotfyls.terminals;
+  cfg = cfg'.terminals.wezterm;
 in
 {
   imports = [
@@ -24,7 +25,7 @@ in
     )
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.persist.directories = [ ".local/share/wezterm" ];
 
     programs.wezterm.enable = true;
