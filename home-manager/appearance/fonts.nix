@@ -57,7 +57,7 @@ in
       emoji = mkFontOption "emoji" // {
         default = {
           name = "Noto Color Emoji";
-          package = pkgs.noto-fonts-color-emoji;
+          package = pkgs.noto-fonts-emoji;
         };
       };
       symbols = mkFontOption "nerdfonts" // {
