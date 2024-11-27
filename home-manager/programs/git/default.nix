@@ -10,6 +10,8 @@ let
 in
 {
   imports = [
+    ./difftastic.nix
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
