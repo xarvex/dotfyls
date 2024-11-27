@@ -35,8 +35,7 @@ in
         inherit (cfg'.icons.set) name package;
       };
       font = {
-        inherit (cfg'.fonts.sansSerif) name package;
-
+        name = "sans-serif";
         size = cfg'.systemFontSize;
       };
 

@@ -45,36 +45,57 @@ in
       monospace = mkFontOption "monospace" // {
         default = hmCfg.monospace;
       };
+      multi-language = mkFontOption "multi-language" // {
+        default = hmCfg.multi-language;
+      };
       emoji = mkFontOption "emoji" // {
         default = hmCfg.emoji;
       };
-      symbols = mkFontOption "nerdfonts" // {
+      symbols = mkFontOption "symbols" // {
         default = hmCfg.symbols;
       };
-      multi-language = mkFontOption "multi-language" // {
-        default = hmCfg.multi-language;
+      nerdfonts = mkFontOption "nerdfonts" // {
+        default = hmCfg.nerdfonts;
       };
     };
 
   config = lib.mkIf cfg.enable {
     fonts = {
+      enableDefaultPackages = false;
+
       packages = [
         (self.lib.getCfgPkg cfg.serif)
         (self.lib.getCfgPkg cfg.sansSerif)
         (self.lib.getCfgPkg cfg.monospace)
+        (self.lib.getCfgPkg cfg.multi-language)
         (self.lib.getCfgPkg cfg.emoji)
         (self.lib.getCfgPkg cfg.symbols)
-        (self.lib.getCfgPkg cfg.multi-language)
+        (self.lib.getCfgPkg cfg.nerdfonts)
       ];
 
       fontconfig.defaultFonts = {
-        serif = with cfg; [ serif.name ];
-        sansSerif = with cfg; [ sansSerif.name ];
+        serif = with cfg; [
+          serif.name
+          nerdfonts.name
+          symbols.name
+          emoji.name
+        ];
+        sansSerif = with cfg; [
+          sansSerif.name
+          nerdfonts.name
+          symbols.name
+          emoji.name
+        ];
         monospace = with cfg; [
           monospace.name
+          "${nerdfonts.name} Mono"
+          symbols.name
+          emoji.name
+        ];
+        emoji = with cfg; [
+          emoji.name
           symbols.name
         ];
-        emoji = with cfg; [ emoji.name ];
       };
     };
   };

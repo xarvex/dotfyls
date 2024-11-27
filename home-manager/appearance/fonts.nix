@@ -44,7 +44,7 @@ in
       };
       sansSerif = mkFontOption "sans serif" // {
         default = {
-          name = "Geist Regular";
+          name = "Geist";
           package = pkgs.geist-font;
         };
       };
@@ -54,22 +54,36 @@ in
           package = pkgs.iosevka-bin.override { variant = "SGr-IosevkaTermSS14"; };
         };
       };
+      multi-language = mkFontOption "multi-language" // {
+        default = {
+          name = "Noto Sans";
+          package = pkgs.symlinkJoin {
+            inherit (pkgs.noto-fonts) name meta;
+
+            paths = [
+              pkgs.noto-fonts
+              pkgs.noto-fonts-cjk-sans
+              pkgs.noto-fonts-cjk-serif
+            ];
+          };
+        };
+      };
       emoji = mkFontOption "emoji" // {
         default = {
           name = "Noto Color Emoji";
           package = pkgs.noto-fonts-emoji;
         };
       };
-      symbols = mkFontOption "nerdfonts" // {
+      symbols = mkFontOption "symbols" // {
+        default = {
+          name = "Material Symbols";
+          package = pkgs.material-symbols;
+        };
+      };
+      nerdfonts = mkFontOption "nerdfonts" // {
         default = {
           name = "Symbols Nerd Font";
           package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
-        };
-      };
-      multi-language = mkFontOption "multi-language" // {
-        default = {
-          name = "Noto Sans";
-          package = pkgs.noto-fonts;
         };
       };
     };
@@ -81,22 +95,38 @@ in
       (self.lib.getCfgPkg cfg.serif)
       (self.lib.getCfgPkg cfg.sansSerif)
       (self.lib.getCfgPkg cfg.monospace)
+      (self.lib.getCfgPkg cfg.multi-language)
       (self.lib.getCfgPkg cfg.emoji)
       (self.lib.getCfgPkg cfg.symbols)
-      (self.lib.getCfgPkg cfg.multi-language)
+      (self.lib.getCfgPkg cfg.nerdfonts)
     ];
 
     fonts.fontconfig = {
       enable = true;
 
       defaultFonts = {
-        serif = with cfg; [ serif.name ];
-        sansSerif = with cfg; [ sansSerif.name ];
+        serif = with cfg; [
+          serif.name
+          nerdfonts.name
+          symbols.name
+          emoji.name
+        ];
+        sansSerif = with cfg; [
+          sansSerif.name
+          nerdfonts.name
+          symbols.name
+          emoji.name
+        ];
         monospace = with cfg; [
           monospace.name
+          "${nerdfonts.name} Mono"
+          symbols.name
+          emoji.name
+        ];
+        emoji = with cfg; [
+          emoji.name
           symbols.name
         ];
-        emoji = with cfg; [ emoji.name ];
       };
     };
   };
