@@ -3,7 +3,7 @@ _:
 {
   imports = [
     ./appearance
-    ./boot.nix
+    ./boot
     ./desktops
     ./display-manager
     ./filesystems
