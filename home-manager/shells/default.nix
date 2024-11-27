@@ -1,5 +1,13 @@
-{ lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
+let
+  cfg = config.dotfyls.shells;
+in
 {
   imports = [
     ./bash
@@ -45,11 +53,15 @@
   config = {
     dotfyls.shells.shells.bash.enable = lib.mkDefault true;
 
-    home.shellAliases = {
-      ".." = "cd ..";
+    home = {
+      sessionVariables.SHELL = lib.mkIf (cfg.selected ? package) (self.lib.getCfgExe cfg.selected);
 
-      watchfile = lib.mkDefault "watch -cn1 -x cat";
-      ccat = "command cat";
+      shellAliases = {
+        ".." = "cd ..";
+
+        watchfile = lib.mkDefault "watch -cn1 -x cat";
+        ccat = "command cat";
+      };
     };
   };
 }

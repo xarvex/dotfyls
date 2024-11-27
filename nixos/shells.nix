@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,26 +10,8 @@ let
   hmCfg = config.hm.dotfyls.shells;
 in
 {
-  imports = [
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "shells"
-      ]
-      {
-        inherit (hmCfg) default;
-
-        name = "default";
-        description = "Default shell to use.";
-      }
-      [
-        "fish"
-        "zsh"
-      ]
-    )
-  ];
-
   options.dotfyls.shells.shells = {
+    bash.package = lib.mkPackageOption pkgs "bash" { };
     fish = {
       enable = lib.mkEnableOption "Fish" // {
         default = hmCfg.shells.fish.enable;
@@ -45,14 +26,12 @@ in
     };
   };
 
-  config = lib.mkMerge [
-    {
-      environment.shellAliases = lib.mkForce { };
+  config = {
+    environment.shellAliases = lib.mkForce { };
 
-      usr.shell = self.lib.getCfgPkg cfg.selected;
-    }
-
-    (lib.mkIf cfg.shells.fish.enable { programs.fish.enable = true; })
-    (lib.mkIf cfg.shells.zsh.enable { programs.zsh.enable = true; })
-  ];
+    programs = {
+      fish.enable = lib.mkIf cfg.shells.fish.enable true;
+      zsh.enable = lib.mkIf cfg.shells.zsh.enable true;
+    };
+  };
 }
