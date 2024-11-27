@@ -2,40 +2,40 @@ _:
 
 {
   imports = [
-    ./bat.nix
-    ./brightnessctl.nix
-    ./cbonsai.nix
-    ./cliphist.nix
-    ./discord.nix
+    ./bat
+    ./brightnessctl
+    ./cbonsai
+    ./cliphist
+    ./discord
     ./distrobox
-    ./dunst.nix
-    ./eza.nix
+    ./dunst
+    ./eza
     ./fastfetch
-    ./fd.nix
-    ./firefox.nix
+    ./fd
+    ./firefox
     ./flatpak
-    ./fzf.nix
-    ./git.nix
-    ./neovim.nix
-    ./network-manager-applet.nix
-    ./nix-index.nix
-    ./obsidian.nix
-    ./openrgb.nix
+    ./fzf
+    ./git
+    ./neovim
+    ./network-manager-applet
+    ./nix-index
+    ./obsidian
+    ./openrgb
     ./podman
-    ./prismlauncher.nix
-    ./ripgrep.nix
-    ./rofi.nix
-    ./sl.nix
-    ./solaar.nix
-    ./starship.nix
-    ./swww.nix
+    ./prismlauncher
+    ./ripgrep
+    ./rofi
+    ./sl
+    ./solaar
+    ./starship
+    ./swww
     ./thefuck
-    ./tldr.nix
-    ./ventoy.nix
+    ./tldr
+    ./ventoy
     ./vesktop
-    ./waybar.nix
-    ./wl-clipboard.nix
-    ./xwaylandvideobridge.nix
-    ./zoxide.nix
+    ./waybar
+    ./wl-clipboard
+    ./xwaylandvideobridge
+    ./zoxide
   ];
 }

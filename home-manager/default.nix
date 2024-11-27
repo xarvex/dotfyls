@@ -5,13 +5,14 @@ _:
     ./appearance
     ./desktops
     ./development
-    ./graphics.nix
     ./media
-    ./persist.nix
     ./programs
     ./security
     ./shells
     ./terminals
+
+    ./graphics.nix
+    ./persist.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
