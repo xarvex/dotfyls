@@ -36,6 +36,12 @@ in
         default = config.dotfyls.desktops.enable;
       };
 
+      serif = mkFontOption "serif" // {
+        default = {
+          name = "Libertinus Serif";
+          package = pkgs.libertinus;
+        };
+      };
       sansSerif = mkFontOption "sans serif" // {
         default = {
           name = "Geist Regular";
@@ -72,6 +78,7 @@ in
     dotfyls.persist.cacheDirectories = [ ".cache/fontconfig" ];
 
     home.packages = [
+      (self.lib.getCfgPkg cfg.serif)
       (self.lib.getCfgPkg cfg.sansSerif)
       (self.lib.getCfgPkg cfg.monospace)
       (self.lib.getCfgPkg cfg.emoji)
@@ -83,6 +90,7 @@ in
       enable = true;
 
       defaultFonts = {
+        serif = with cfg; [ serif.name ];
         sansSerif = with cfg; [ sansSerif.name ];
         monospace = with cfg; [
           monospace.name

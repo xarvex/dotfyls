@@ -36,6 +36,9 @@ in
         default = hmCfg.enable;
       };
 
+      serif = mkFontOption "serif" // {
+        default = hmCfg.serif;
+      };
       sansSerif = mkFontOption "sans serif" // {
         default = hmCfg.sansSerif;
       };
@@ -56,6 +59,7 @@ in
   config = lib.mkIf cfg.enable {
     fonts = {
       packages = [
+        (self.lib.getCfgPkg cfg.serif)
         (self.lib.getCfgPkg cfg.sansSerif)
         (self.lib.getCfgPkg cfg.monospace)
         (self.lib.getCfgPkg cfg.emoji)
@@ -64,6 +68,7 @@ in
       ];
 
       fontconfig.defaultFonts = {
+        serif = with cfg; [ serif.name ];
         sansSerif = with cfg; [ sansSerif.name ];
         monospace = with cfg; [
           monospace.name
