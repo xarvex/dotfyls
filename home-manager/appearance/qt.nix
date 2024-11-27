@@ -42,7 +42,7 @@ in
           };
         };
 
-        defaultFont = "sans-serif,${builtins.toString cfg'.systemFontSize}";
+        defaultFont = "sans-serif,${toString cfg'.systemFontSize}";
       in
       {
         "Kvantum" = {
