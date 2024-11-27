@@ -30,8 +30,6 @@ in
     )
   ];
 
-  options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";
-
   config = lib.mkIf cfg.enable {
     dotfyls.persist = {
       directories = [ ".local/state/zsh" ];
@@ -48,7 +46,7 @@ in
 
       # Everything below becomes generated .zshrc:
 
-      initExtraFirst = lib.mkBefore cfg'.finalInitBins;
+      initExtraFirst = lib.mkBefore cfg'.greet;
 
       defaultKeymap = "viins";
       localVariables.HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE = 1;

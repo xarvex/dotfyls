@@ -25,8 +25,6 @@ in
     )
   ];
 
-  options.dotfyls.shells.shells.fish.enable = lib.mkEnableOption "Fish";
-
   config = lib.mkIf cfg.enable {
     dotfyls.persist.directories = [ ".local/share/fish" ];
 
@@ -37,7 +35,7 @@ in
       interactiveShellInit = lib.mkBefore ''
         ${builtins.readFile ./interactive-shell-init.fish}
 
-        ${cfg'.finalInitBins}
+        ${cfg'.greet}
       '';
     };
   };

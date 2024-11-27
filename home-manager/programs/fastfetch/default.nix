@@ -28,7 +28,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.shells.initBins = [ (self.lib.getCfgPkg cfg) ];
+    dotfyls.shells.greet = self.lib.getCfgExe cfg;
 
     home.shellAliases = rec {
       f = fetch;

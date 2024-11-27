@@ -10,10 +10,6 @@ let
   cfg = cfg'.shells.bash;
 in
 {
-  options.dotfyls.shells.shells.bash.enable = lib.mkEnableOption "Bash" // {
-    default = true;
-  };
-
   config = lib.mkIf cfg.enable {
     dotfyls.persist = {
       directories = [ ".local/state/bash" ];
@@ -21,10 +17,9 @@ in
     };
 
     programs.bash = {
-      inherit (cfg') historySize;
-
       enable = true;
 
+      inherit (cfg') historySize;
       historyFileSize = config.programs.bash.historySize;
       historyFile = "${config.xdg.stateHome}/bash/history";
 
@@ -33,13 +28,11 @@ in
         [[ $- == *i* ]] && source '${pkgs.blesh}/share/blesh/ble.sh' --attach=none
       '';
       initExtra = lib.mkBefore ''
-        ${cfg'.finalInitBins}
+        ${cfg'.greet}
 
         [[ ''${BLE_VERSION-} ]] && ble-attach
 
-        if command -v starship >/dev/null; then
-          bleopt prompt_ps1_final="$(starship module character)"
-        fi
+        bleopt prompt_ps1_final="\e[1;32m❯\e[0m "
       '';
     };
   };

@@ -1,14 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  self,
-  ...
-}:
+{ lib, self, ... }:
 
-let
-  cfg = config.dotfyls.shells;
-in
 {
   imports = [
     ./bash
@@ -25,37 +16,35 @@ in
         default = "fish";
         description = "Default shell to use.";
       }
-      [
-        "bash"
-        "fish"
-        "zsh"
-      ]
+      {
+        bash = "Bash";
+        fish = "Fish";
+        zsh = "Zsh";
+      }
     )
   ];
 
   options.dotfyls.shells = {
     historySize = lib.mkOption {
       type = lib.types.int;
-      default = 10000;
-      example = 100000;
+      default = 256000;
+      example = 128000;
       description = "Number of history lines.";
     };
 
-    initBins = lib.mkOption {
-      type = with lib.types; listOf package;
-      default = [ ];
-      example = [ pkgs.fastfetch ];
-      description = "";
-    };
-    finalInitBins = lib.mkOption {
-      readOnly = true;
-      type = lib.types.str;
-      default = lib.concatStringsSep "\n" (builtins.map (pkg: lib.getExe pkg) cfg.initBins);
-      description = "";
+    greet = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = ''
+        Commands that should be run to greet the user.
+        Note that these commands will run for any shell.
+      '';
     };
   };
 
   config = {
+    dotfyls.shells.shells.bash.enable = lib.mkDefault true;
+
     home.shellAliases = {
       ".." = "cd ..";
 
