@@ -6,7 +6,7 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.cacheDirectories = [
+    dotfyls.files.cacheDirectories = [
       ".local/state/python"
       ".cache/python"
       ".cache/pip"

@@ -11,8 +11,8 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    dotfyls.persist = {
-      directories = [ ".local/state/bash" ];
+    dotfyls.files = {
+      persistDirectories = [ ".local/state/bash" ];
       cacheDirectories = [ ".cache/blesh" ];
     };
 

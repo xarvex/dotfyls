@@ -28,7 +28,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.directories = [
+    dotfyls.files.persistDirectories = [
       ".cache/mozilla"
       ".mozilla"
     ];

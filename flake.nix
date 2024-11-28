@@ -235,12 +235,7 @@
           };
         homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
 
-        # Aggregate for export convenience.
-        homeManagerModules = with inputs; {
-          inherit (dotfyls-firefox.homeManagerModules) firefox;
-          inherit (dotfyls-neovim.homeManagerModules) neovim;
-          inherit (dotfyls-wezterm.homeManagerModules) wezterm;
-        };
+        inherit (import ./modules) nixosModules homeManagerModules;
 
         overlays = import ./overlays { inherit lib self; };
 

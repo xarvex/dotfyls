@@ -8,8 +8,8 @@
 let
   cfg = config.dotfyls.filesystems.impermanence;
 
-  pCfg = config.dotfyls.persist;
-  pHmCfg = config.hm.dotfyls.persist;
+  fCfg = config.dotfyls.files;
+  fHmCfg = config.hm.dotfyls.files;
 in
 {
   options.dotfyls.filesystems.impermanence = {
@@ -24,21 +24,26 @@ in
   config = lib.mkIf cfg.enable {
     environment.persistence = {
       "/persist" = {
-        inherit (pCfg) files directories;
-
         hideMounts = true;
+
+        files = fCfg.persistFiles;
+        directories = fCfg.persistDirectories;
+
         users.${user} = {
-          inherit (pHmCfg) files directories;
+          files = fHmCfg.persistFiles;
+          directories = fHmCfg.persistDirectories;
         };
       };
 
       "/cache" = {
         hideMounts = true;
-        files = pCfg.cacheFiles;
-        directories = pCfg.cacheDirectories;
+
+        files = fCfg.cacheFiles;
+        directories = fCfg.cacheDirectories;
+
         users.${user} = {
-          files = pHmCfg.cacheFiles;
-          directories = pHmCfg.cacheDirectories;
+          files = fHmCfg.cacheFiles;
+          directories = fHmCfg.cacheDirectories;
         };
       };
     };

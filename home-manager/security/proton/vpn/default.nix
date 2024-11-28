@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.cacheDirectories = [ ".cert/nm-openvpn" ];
+    dotfyls.files.cacheDirectories = [ ".cert/nm-openvpn" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 

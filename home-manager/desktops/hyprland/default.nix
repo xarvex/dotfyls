@@ -37,7 +37,7 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
-      persist.cacheDirectories = [ ".cache/hyprland" ];
+      files.cacheDirectories = [ ".cache/hyprland" ];
 
       media.gvfs.enable = lib.mkDefault true;
       programs = {

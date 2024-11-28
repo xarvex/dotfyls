@@ -21,8 +21,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.wireless {
-      dotfyls.persist = {
-        directories = [ "/etc/NetworkManager" ];
+      dotfyls.files = {
+        persistDirectories = [ "/etc/NetworkManager" ];
         cacheDirectories = [ "/var/lib/NetworkManager" ];
       };
 
@@ -30,7 +30,7 @@ in
     })
 
     (lib.mkIf cfg.bluetooth.enable {
-      dotfyls.persist.directories = [ "/var/lib/bluetooth" ];
+      dotfyls.files.persistDirectories = [ "/var/lib/bluetooth" ];
 
       services.blueman.enable = lib.mkIf cfg.bluetooth.blueman.enable true;
 

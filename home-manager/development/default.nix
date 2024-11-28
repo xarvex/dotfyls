@@ -107,8 +107,8 @@ in
       { }
 
       (lib.mkIf cfg.direnv.enable {
-        dotfyls.persist = {
-          directories = [ ".local/share/direnv" ];
+        dotfyls.files = {
+          persistDirectories = [ ".local/share/direnv" ];
           cacheDirectories = [ ".cache/direnv/layouts" ];
         };
 

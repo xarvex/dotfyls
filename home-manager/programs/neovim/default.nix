@@ -28,8 +28,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist = {
-      directories = [
+    dotfyls.files = {
+      persistDirectories = [
         ".local/share/nvim"
         ".local/state/nvim"
       ];

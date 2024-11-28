@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".config/vesktop/sessionData" ];
+    dotfyls.files.cacheDirectories = [ ".config/vesktop/sessionData" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 

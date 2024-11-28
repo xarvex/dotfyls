@@ -6,5 +6,5 @@ in
 {
   options.dotfyls.programs.openrgb.enable = lib.mkEnableOption "OpenRGB";
 
-  config = lib.mkIf cfg.enable { dotfyls.persist.directories = [ ".config/OpenRGB" ]; };
+  config = lib.mkIf cfg.enable { dotfyls.files.persistDirectories = [ ".config/OpenRGB" ]; };
 }

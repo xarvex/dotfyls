@@ -8,6 +8,6 @@ in
   options.dotfyls.media.gvfs.enable = lib.mkEnableOption "GVfs";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.directories = [ ".local/share/gvfs-metadata" ];
+    dotfyls.files.persistDirectories = [ ".local/share/gvfs-metadata" ];
   };
 }

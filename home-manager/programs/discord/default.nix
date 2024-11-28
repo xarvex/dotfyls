@@ -16,7 +16,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".config/discord" ];
+    dotfyls.files.cacheDirectories = [ ".config/discord" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

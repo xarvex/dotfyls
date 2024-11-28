@@ -89,7 +89,7 @@ in
     };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.cacheDirectories = [ ".cache/fontconfig" ];
+    dotfyls.files.cacheDirectories = [ ".cache/fontconfig" ];
 
     home.packages = [
       (self.lib.getCfgPkg cfg.serif)

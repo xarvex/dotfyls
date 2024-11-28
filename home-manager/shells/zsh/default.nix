@@ -31,8 +31,8 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist = {
-      directories = [ ".local/state/zsh" ];
+    dotfyls.files = {
+      persistDirectories = [ ".local/state/zsh" ];
       cacheDirectories = [ ".cache/zsh" ];
     };
 

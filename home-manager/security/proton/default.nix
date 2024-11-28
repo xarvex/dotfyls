@@ -14,5 +14,5 @@ in
     default = true;
   };
 
-  config = lib.mkIf cfg.enable { dotfyls.persist.cacheDirectories = [ ".cache/Proton" ]; };
+  config = lib.mkIf cfg.enable { dotfyls.files.cacheDirectories = [ ".cache/Proton" ]; };
 }

@@ -10,7 +10,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.cacheDirectories = [
+    dotfyls.files.cacheDirectories = [
       ".steam"
       ".local/share/Steam"
     ];

@@ -13,6 +13,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".cache/mesa_shader_cache_db" ];
+    dotfyls.files.cacheDirectories = [ ".cache/mesa_shader_cache_db" ];
   };
 }

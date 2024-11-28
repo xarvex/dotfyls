@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.directories = [ ".local/share/PrismLauncher" ];
+    dotfyls.files.persistDirectories = [ ".local/share/PrismLauncher" ];
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

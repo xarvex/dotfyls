@@ -23,13 +23,13 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls.persist.directories = [ ".config/Yubico" ];
+        dotfyls.files.persistDirectories = [ ".config/Yubico" ];
       }
 
       (lib.mkIf cfg.enableGitIntegration { dotfyls.programs.git.key = "0046A18B1037C201"; })
 
       (lib.mkIf cfg.enableSshIntegration {
-        dotfyls.persist.cacheDirectories = [ ".local/share/yubigen/ssh" ];
+        dotfyls.files.cacheDirectories = [ ".local/share/yubigen/ssh" ];
 
         programs.yubigen = {
           enable = true;

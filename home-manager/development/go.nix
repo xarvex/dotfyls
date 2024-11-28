@@ -6,7 +6,7 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.persist.cacheDirectories = [
+    dotfyls.files.cacheDirectories = [
       ".local/share/go"
       ".cache/go/build"
       ".cache/go/mod"

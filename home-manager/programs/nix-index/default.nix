@@ -30,7 +30,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.persist.cacheDirectories = [ ".cache/nix-index" ];
+    dotfyls.files.cacheDirectories = [ ".cache/nix-index" ];
 
     programs.nix-index = {
       enable = true;
