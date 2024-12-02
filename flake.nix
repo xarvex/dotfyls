@@ -114,8 +114,6 @@
         let
           user = "xarvex"; # Change this if you aren't me!
 
-          overlays = [ self.overlays.default ];
-
           unfreePkgs = [
             "discord"
             "nvidia-settings"
@@ -134,7 +132,6 @@
               home-manager
               id
               nixpkgs
-              overlays
               system
               unfreePkgs
               user

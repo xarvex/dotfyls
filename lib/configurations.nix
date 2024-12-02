@@ -15,12 +15,6 @@ let
       };
     };
 
-  mkOverlaysModule = overlays: {
-    nixpkgs = {
-      inherit overlays;
-    };
-  };
-
   commonHomeManagerModules = host: user: [
     ../home-manager
     ../hosts/${host}/home.nix
@@ -40,7 +34,6 @@ in
       home-manager,
       id,
       nixpkgs,
-      overlays,
       system,
       unfreePkgs,
       user,
@@ -62,8 +55,6 @@ in
         ../nixos
         ../hosts/${host}
         ../hosts/${host}/hardware.nix
-
-        (mkOverlaysModule overlays)
 
         {
           networking = {
@@ -99,7 +90,6 @@ in
     {
       home-manager,
       nixpkgs,
-      overlays,
       system,
       unfreePkgs,
       user,
@@ -112,8 +102,6 @@ in
         inherit inputs self;
       };
 
-      modules = [
-        (mkOverlaysModule overlays)
-      ] ++ commonHomeManagerModules host user;
+      modules = commonHomeManagerModules host user;
     };
 }

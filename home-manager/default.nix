@@ -14,6 +14,7 @@
     ./graphics.nix
 
     self.homeManagerModules.files
+    self.homeManagerModules.nix
   ];
 
   dotfyls.files = {
