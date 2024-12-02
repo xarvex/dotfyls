@@ -16,8 +16,8 @@ let
     };
 
   commonHomeManagerModules = host: user: [
-    ../home-manager
-    ../hosts/${host}/home.nix
+    ../modules/home
+    ../modules/hosts/${host}/home.nix
 
     {
       home = {
@@ -52,9 +52,9 @@ in
       modules = [
         home-manager.nixosModules.home-manager
 
-        ../nixos
-        ../hosts/${host}
-        ../hosts/${host}/hardware.nix
+        ../modules/system
+        ../modules/hosts/${host}/hardware.nix
+        ../modules/hosts/${host}/system.nix
 
         {
           networking = {
