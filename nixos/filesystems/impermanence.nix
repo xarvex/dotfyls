@@ -8,8 +8,27 @@
 let
   cfg = config.dotfyls.filesystems.impermanence;
 
-  fCfg = config.dotfyls.files;
-  fHmCfg = config.hm.dotfyls.files;
+  # TODO: Replace with pipe operator.
+  mkPersistenceEntry =
+    attr: dir: cfg:
+    lib.pipe cfg (
+      [
+        (lib.filterAttrs (_: fCfg: (dir == fCfg.dir) && fCfg.${attr}))
+      ]
+      ++ (
+        if dir then
+          [
+            (lib.mapAttrsToList (
+              file: config: {
+                directory = file;
+                inherit (config) mode;
+              }
+            ))
+          ]
+        else
+          [ builtins.attrNames ]
+      )
+    );
 in
 {
   options.dotfyls.filesystems.impermanence = {
@@ -26,24 +45,24 @@ in
       "/persist" = {
         hideMounts = true;
 
-        files = fCfg.persistFiles;
-        directories = fCfg.persistDirectories;
+        files = mkPersistenceEntry "persist" false config.dotfyls.files;
+        directories = mkPersistenceEntry "persist" true config.dotfyls.files;
 
         users.${user} = {
-          files = fHmCfg.persistFiles;
-          directories = fHmCfg.persistDirectories;
+          files = mkPersistenceEntry "persist" false config.hm.dotfyls.files;
+          directories = mkPersistenceEntry "persist" true config.hm.dotfyls.files;
         };
       };
 
       "/cache" = {
         hideMounts = true;
 
-        files = fCfg.cacheFiles;
-        directories = fCfg.cacheDirectories;
+        files = mkPersistenceEntry "cache" false config.dotfyls.files;
+        directories = mkPersistenceEntry "cache" true config.dotfyls.files;
 
         users.${user} = {
-          files = fHmCfg.cacheFiles;
-          directories = fHmCfg.cacheDirectories;
+          files = mkPersistenceEntry "cache" false config.hm.dotfyls.files;
+          directories = mkPersistenceEntry "cache" true config.hm.dotfyls.files;
         };
       };
     };

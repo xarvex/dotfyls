@@ -14,10 +14,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [
-      "/var/lib/libvirt"
-      "/var/cache/libvirt"
-    ];
+    dotfyls.files = {
+      "/var/lib/libvirt".cache = true;
+      "/var/cache/libvirt" = {
+        mode = "0711";
+        cache = true;
+      };
+    };
 
     programs.virt-manager.enable = true;
 

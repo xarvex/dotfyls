@@ -12,8 +12,14 @@ in
 {
   config = lib.mkIf cfg.enable {
     dotfyls.files = {
-      persistDirectories = [ ".local/state/bash" ];
-      cacheDirectories = [ ".cache/blesh" ];
+      ".local/state/bash" = {
+        mode = "0700";
+        persist = true;
+      };
+      ".cache/blesh" = {
+        mode = "0700";
+        cache = true;
+      };
     };
 
     programs.bash = {

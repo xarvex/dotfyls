@@ -19,10 +19,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".config/spotify"
-      ".cache/spotify"
-    ];
+    dotfyls.files = {
+      ".config/spotify".cache = true;
+      ".cache/spotify".cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

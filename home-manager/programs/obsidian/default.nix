@@ -18,7 +18,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [ ".config/obsidian" ];
+    dotfyls.files.".config/obsidian" = {
+      mode = "0700";
+      cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

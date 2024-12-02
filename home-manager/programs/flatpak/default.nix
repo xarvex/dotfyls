@@ -7,12 +7,12 @@ in
   options.dotfyls.programs.flatpak.enable = lib.mkEnableOption "Flatpak";
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [
-      ".var"
+    dotfyls.files = {
+      ".var".cache = true;
 
-      ".config/flatpak"
-      ".local/share/flatpak"
-      ".cache/flatpak"
-    ];
+      ".config/flatpak".cache = true;
+      ".local/share/flatpak".cache = true;
+      ".cache/flatpak".cache = true;
+    };
   };
 }

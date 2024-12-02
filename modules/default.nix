@@ -1,5 +1,5 @@
 {
-  nixosModules.files = import ./files.nix "root";
+  nixosModules.files = import ./files.nix true;
 
-  homeManagerModules.files = import ./files.nix "home";
+  homeManagerModules.files = import ./files.nix false;
 }

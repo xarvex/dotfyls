@@ -28,7 +28,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [ ".local/share/zoxide" ];
+    dotfyls.files.".local/share/zoxide" = {
+      mode = "0700";
+      persist = true;
+    };
 
     programs.zoxide = {
       enable = true;

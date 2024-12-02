@@ -19,10 +19,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".local/share/com.github.johnfactotum.Foliate"
-      ".cache/com.github.johnfactotum.Foliate"
-    ];
+    dotfyls.files = {
+      ".local/share/com.github.johnfactotum.Foliate".cache = true;
+      ".cache/com.github.johnfactotum.Foliate".cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

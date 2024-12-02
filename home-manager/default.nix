@@ -1,4 +1,4 @@
-_:
+{ self, ... }:
 
 {
   imports = [
@@ -12,8 +12,26 @@ _:
     ./terminals
 
     ./graphics.nix
-    ./persist.nix
+
+    self.homeManagerModules.files
   ];
+
+  dotfyls.files = {
+    "Documents".persist = true;
+    "Pictures".persist = true;
+    "Videos".persist = true;
+
+    ".config".mode = "0700";
+
+    ".local".mode = "0700";
+
+    ".local/share".mode = "0700";
+    ".local/state".mode = "0700";
+
+    ".cache".mode = "0700";
+
+    ".cache/nix".cache = true;
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -10,9 +10,12 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".steam"
-      ".local/share/Steam"
-    ];
+    dotfyls.files = {
+      ".steam".cache = true;
+      ".local/share/Steam" = {
+        mode = "0700";
+        cache = true;
+      };
+    };
   };
 }

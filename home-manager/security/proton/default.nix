@@ -14,5 +14,10 @@ in
     default = true;
   };
 
-  config = lib.mkIf cfg.enable { dotfyls.files.cacheDirectories = [ ".cache/Proton" ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.files.".cache/Proton" = {
+      mode = "0700";
+      cache = true;
+    };
+  };
 }

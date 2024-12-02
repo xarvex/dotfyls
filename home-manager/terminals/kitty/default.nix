@@ -26,7 +26,7 @@ in
   ];
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [ ".config/kitty" ];
+    dotfyls.files.".config/kitty".cache = true;
 
     programs.kitty = {
       enable = true;

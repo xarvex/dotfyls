@@ -28,10 +28,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [
-      ".cache/mozilla"
-      ".mozilla"
-    ];
+    dotfyls.files = {
+      ".mozilla" = {
+        mode = "0700";
+        persist = true;
+      };
+      ".cache/mozilla" = {
+        mode = "0700";
+        persist = true;
+      };
+    };
 
     programs.firefox = {
       enable = true;

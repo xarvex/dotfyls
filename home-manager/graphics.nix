@@ -12,7 +12,5 @@ in
     default = config.dotfyls.desktops.enable;
   };
 
-  config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [ ".cache/mesa_shader_cache_db" ];
-  };
+  config = lib.mkIf cfg.enable { dotfyls.files.".cache/mesa_shader_cache_db".cache = true; };
 }

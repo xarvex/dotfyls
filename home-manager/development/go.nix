@@ -6,11 +6,11 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".local/share/go"
-      ".cache/go/build"
-      ".cache/go/mod"
-    ];
+    dotfyls.files = {
+      ".local/share/go/bin".persist = true;
+      ".cache/go/build".cache = true;
+      ".cache/go/mod".cache = true;
+    };
 
     home.sessionVariables = {
       GOPATH = "${config.xdg.dataHome}/go";

@@ -29,7 +29,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [ "/var/lib/flatpak" ];
+    dotfyls.files."/var/lib/flatpak".persist = true;
 
     services.flatpak.enable = true;
   };

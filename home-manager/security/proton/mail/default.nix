@@ -19,7 +19,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [ ".config/Proton Mail" ];
+    dotfyls.files.".config/Proton Mail" = {
+      mode = "0700";
+      cache = true;
+    };
 
     home.packages = [ (lib.hiPrio (self.lib.getCfgPkg cfg)) ];
   };

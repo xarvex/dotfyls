@@ -236,10 +236,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [
-      ".local/share/applications"
-      ".local/share/icons"
-    ];
+    dotfyls.files = {
+      ".local/share/applications" = {
+        mode = "0700";
+        persist = true;
+      };
+      ".local/share/icons".persist = true;
+    };
 
     home = {
       sessionVariables = {

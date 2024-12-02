@@ -26,7 +26,10 @@ in
   ];
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.persistDirectories = [ ".local/share/wezterm" ];
+    dotfyls.files.".local/share/wezterm/plugins" = {
+      mode = "0700";
+      cache = true;
+    };
 
     programs.wezterm.enable = true;
   };

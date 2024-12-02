@@ -26,7 +26,10 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [ ".local/share/fish" ];
+    dotfyls.files.".local/share/fish" = {
+      mode = "0700";
+      persist = true;
+    };
 
     programs.fish = {
       enable = true;

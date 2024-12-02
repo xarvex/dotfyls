@@ -28,21 +28,29 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files = {
-      persistDirectories = [
-        ".local/share/nvim"
-        ".local/state/nvim"
-      ];
-      cacheDirectories =
-        [
-          ".cache/nvim"
-        ]
-        ++ lib.optionals config.dotfyls.development.enable [
-          ".local/share/dotfyls/devshell/nvim"
-          ".local/state/dotfyls/devshell/nvim"
-          ".cache/dotfyls/devshell/nvim"
-        ];
-    };
+    dotfyls.files =
+      {
+        ".local/share/nvim" = {
+          mode = "0700";
+          persist = true;
+        };
+        ".local/state/nvim" = {
+          mode = "0700";
+          persist = true;
+        };
+        ".cache/nvim".cache = true;
+      }
+      // lib.optionalAttrs config.dotfyls.development.enable {
+        ".local/share/dotfyls/devshell/nvim" = {
+          mode = "0700";
+          persist = true;
+        };
+        ".local/state/dotfyls/devshell/nvim" = {
+          mode = "0700";
+          persist = true;
+        };
+        ".cache/dotfyls/devshell/nvim".cache = true;
+      };
 
     programs.neovim = {
       enable = true;

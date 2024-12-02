@@ -18,7 +18,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [ ".config/vesktop/sessionData" ];
+    dotfyls.files.".config/vesktop/sessionData" = {
+      mode = "0700";
+      cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 

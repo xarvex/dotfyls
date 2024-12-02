@@ -32,8 +32,11 @@ in
 
   config = lib.mkIf cfg.enable {
     dotfyls.files = {
-      persistDirectories = [ ".local/state/zsh" ];
-      cacheDirectories = [ ".cache/zsh" ];
+      ".local/state/zsh" = {
+        mode = "0700";
+        persist = true;
+      };
+      ".cache/zsh".cache = true;
     };
 
     home.file."${relToDotDir ".zshrc"}".text = lib.mkAfter (builtins.readFile ./init-extra-last.zsh);

@@ -43,7 +43,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [ "/var/lib/OpenRGB" ];
+    # TODO: Confirm permissions.
+    dotfyls.files."/var/lib/OpenRGB".persist = true;
 
     services.hardware.openrgb.enable = true;
 

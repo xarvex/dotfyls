@@ -19,7 +19,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [ ".config/Proton Pass" ];
+    dotfyls.files.".config/Proton Pass" = {
+      mode = "0700";
+      cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

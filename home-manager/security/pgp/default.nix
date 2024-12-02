@@ -49,7 +49,10 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls.files.persistDirectories = [ ".local/share/gnupg" ];
+        dotfyls.files.".local/share/gnupg" = {
+          mode = "0700";
+          persist = true;
+        };
 
         programs.gpg = {
           enable = true;

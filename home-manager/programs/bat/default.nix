@@ -36,7 +36,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.cacheDirectories = [ ".cache/bat" ];
+    dotfyls.files.".cache/bat".cache = true;
 
     home = {
       sessionVariables = {

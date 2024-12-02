@@ -6,10 +6,11 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".local/share/cargo"
-      ".local/share/rustup"
-    ];
+    dotfyls.files = {
+      ".local/share/cargo".cache = true;
+
+      ".local/share/rustup".cache = true;
+    };
 
     home.sessionVariables = {
       CARGO_HOME = "${config.xdg.dataHome}/cargo";

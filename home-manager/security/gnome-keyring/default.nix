@@ -8,5 +8,10 @@ in
     default = config.dotfyls.desktops.enable;
   };
 
-  config = lib.mkIf cfg.enable { dotfyls.files.persistDirectories = [ ".local/share/keyrings" ]; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.files.".local/share/keyrings" = {
+      mode = "0700";
+      persist = true;
+    };
+  };
 }

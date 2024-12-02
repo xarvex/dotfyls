@@ -33,7 +33,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [ ".ssh" ];
+    dotfyls.files.".ssh" = {
+      mode = "0700";
+      persist = true;
+    };
 
     programs.ssh.enable = true;
 

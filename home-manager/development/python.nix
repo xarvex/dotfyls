@@ -6,14 +6,19 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".local/state/python"
-      ".cache/python"
-      ".cache/pip"
-      ".local/share/virtualenv"
-      ".cache/pypoetry"
-      ".cache/uv"
-    ];
+    dotfyls.files = {
+      ".local/state/python" = {
+        mode = "0700";
+        cache = true;
+      };
+      ".cache/python".cache = true;
+      ".cache/pip".cache = true;
+      ".local/share/virtualenv".cache = true;
+
+      ".cache/pypoetry".cache = true;
+
+      ".cache/uv".cache = true;
+    };
 
     home.sessionVariables = {
       PYTHONUSERBASE = "${config.xdg.dataHome}/python";

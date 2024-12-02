@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.persistDirectories = [ ".cache/tlrc" ];
+    dotfyls.files.".cache/tlrc".cache = true;
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

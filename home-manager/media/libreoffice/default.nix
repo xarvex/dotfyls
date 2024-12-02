@@ -31,7 +31,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [ ".config/libreoffice" ];
+    dotfyls.files.".config/libreoffice".cache = true;
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

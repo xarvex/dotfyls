@@ -29,10 +29,16 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [
-      ".local/state/mpv"
-      ".cache/mpv"
-    ];
+    dotfyls.files = {
+      ".local/state/mpv" = {
+        mode = "0700";
+        cache = true;
+      };
+      ".cache/mpv" = {
+        mode = "0700";
+        cache = true;
+      };
+    };
 
     programs.mpv = {
       enable = true;

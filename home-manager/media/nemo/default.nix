@@ -22,7 +22,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.cacheDirectories = [ ".cache/thumbnails" ];
+    dotfyls.files.".cache/thumbnails" = {
+      mode = "0700";
+      cache = true;
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
   };

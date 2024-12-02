@@ -29,6 +29,13 @@ in
   };
 
   config = {
+    dotfyls.files = {
+      # TODO: Confirm permissions.
+      "/var/lib/nixos".persist = true;
+
+      "/root/.cache/nix".cache = true;
+    };
+
     nix = rec {
       channel.enable = false;
       package = pkgs.nixVersions.latest;
