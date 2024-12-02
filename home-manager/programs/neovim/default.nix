@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   self,
   ...
@@ -10,6 +11,8 @@ let
 in
 {
   imports = [
+    inputs.dotfyls-neovim.homeManagerModules.neovim
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"

@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   self,
   ...
@@ -11,6 +12,8 @@ let
 in
 {
   imports = [
+    inputs.dotfyls-wezterm.homeManagerModules.wezterm
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"

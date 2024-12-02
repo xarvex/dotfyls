@@ -1,10 +1,17 @@
-{ config, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.dotfyls.security.yubikey;
 in
 {
   imports = [
+    inputs.yubigen.homeManagerModules.yubigen
+
     ./yubioath.nix
   ];
 

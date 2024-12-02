@@ -12,6 +12,8 @@ let
 in
 {
   imports = [
+    inputs.nix-index-database.hmModules.nix-index
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"

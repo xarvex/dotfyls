@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   user,
   ...
@@ -31,6 +32,8 @@ let
     );
 in
 {
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
+
   options.dotfyls.filesystems.impermanence = {
     enable = lib.mkEnableOption "filesystem impermanence" // {
       default = true;

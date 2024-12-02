@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   self,
@@ -11,6 +12,8 @@ let
 in
 {
   imports = [
+    inputs.nix-index-database.nixosModules.nix-index
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"

@@ -114,21 +114,6 @@
         let
           user = "xarvex"; # Change this if you aren't me!
 
-          nixosModules = with inputs; [
-            impermanence.nixosModules.impermanence
-            nix-index-database.nixosModules.nix-index
-            persistwd.nixosModules.persistwd
-            yubigen.nixosModules.yubigen
-          ];
-          homeManagerModules = with inputs; [
-            dotfyls-firefox.homeManagerModules.firefox
-            dotfyls-neovim.homeManagerModules.neovim
-            dotfyls-wezterm.homeManagerModules.wezterm
-            nix-index-database.hmModules.nix-index
-            wherenver.homeManagerModules.wherenver
-            yubigen.homeManagerModules.yubigen
-          ];
-
           overlays = [ self.overlays.default ];
 
           unfreePkgs = [
@@ -147,9 +132,7 @@
           defaultHost = id: system: {
             inherit
               home-manager
-              homeManagerModules
               id
-              nixosModules
               nixpkgs
               overlays
               system

@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   self,
@@ -11,6 +12,8 @@ let
   hmCfg = config.hm.dotfyls.security.yubikey;
 in
 {
+  imports = [ inputs.yubigen.nixosModules.yubigen ];
+
   options.dotfyls.security.yubikey = {
     enable = lib.mkEnableOption "YubiKey" // {
       default = hmCfg.enable;

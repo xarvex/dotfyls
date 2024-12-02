@@ -38,9 +38,7 @@ in
     host:
     {
       home-manager,
-      homeManagerModules,
       id,
-      nixosModules,
       nixpkgs,
       overlays,
       system,
@@ -79,7 +77,7 @@ in
 
             extraSpecialArgs = specialArgs;
 
-            users.${user}.imports = commonHomeManagerModules host user ++ homeManagerModules;
+            users.${user}.imports = commonHomeManagerModules host user;
           };
         }
 
@@ -93,14 +91,13 @@ in
           "users"
           user
         ])
-      ] ++ nixosModules;
+      ];
     };
 
   mkHomeManagerConfiguration =
     host:
     {
       home-manager,
-      homeManagerModules,
       nixpkgs,
       overlays,
       system,
@@ -117,6 +114,6 @@ in
 
       modules = [
         (mkOverlaysModule overlays)
-      ] ++ commonHomeManagerModules host user ++ homeManagerModules;
+      ] ++ commonHomeManagerModules host user;
     };
 }
