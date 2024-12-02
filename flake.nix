@@ -215,7 +215,7 @@
           };
         homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
 
-        inherit (import ./modules) nixosModules homeManagerModules;
+        inherit (import ./modules { inherit lib; }) nixosModules homeManagerModules;
 
         overlays = import ./overlays { inherit lib self; };
 
