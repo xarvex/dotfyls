@@ -1,5 +1,5 @@
 {
-  nixosModules.files = import ./files.nix true;
+  nixosModules.files = import ./shared/files.nix true;
 
-  homeManagerModules.files = import ./files.nix false;
+  homeManagerModules.files = import ./shared/files.nix false;
 }
