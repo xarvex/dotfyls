@@ -30,6 +30,19 @@ o.wildmenu = true
 o.wildmode = "longest:full,full"
 o.wildoptions = o.wildoptions .. ",pum"
 
+-- Diagnostic
+--
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+        },
+    },
+})
+
 -- File
 --
 o.autoread = true
