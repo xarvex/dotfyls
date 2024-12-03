@@ -1,5 +1,5 @@
 {
-  description = "Personal Neovim";
+  description = "Neovim dotfyls";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -25,7 +25,7 @@
   };
 
   outputs =
-    { flake-parts, nixpkgs, ... }@inputs:
+    inputs@{ flake-parts, nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
     in
@@ -50,20 +50,21 @@
 
               name = "Neovim";
 
-              packages = [
-                pkgs.chafa
-                pkgs.codespell
-                pkgs.delta
-                pkgs.fd
-                pkgs.fzf
-                pkgs.gcc
-                pkgs.git
-                pkgs.gnumake
-                pkgs.neovim
-                pkgs.nodejs_22
-                pkgs.ripgrep
-                pkgs.vale-ls
-              ];
+              packages =
+                [ pkgs.neovim ]
+                ++ (with pkgs; [
+                  chafa
+                  codespell
+                  delta
+                  fd
+                  fzf
+                  gcc
+                  git
+                  gnumake
+                  nodejs_22
+                  ripgrep
+                  vale-ls
+                ]);
 
               enterShell = ''
                 NVIM_APPNAME="dotfyls/devshell/nvim/$(sha1sum - <<<"''${PWD}" | head -c40)''${PWD//[^a-zA-Z0-9]/-}"
