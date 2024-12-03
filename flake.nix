@@ -1,5 +1,5 @@
 {
-  description = "Xarvex's Nix configuration";
+  description = "dotfyls";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
