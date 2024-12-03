@@ -59,6 +59,8 @@ in
       enable = true;
       defaultEditor = true;
       vimAlias = true;
+
+      dotfyls.enable = true;
     };
   };
 }

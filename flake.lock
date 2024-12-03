@@ -168,11 +168,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727766262,
-        "narHash": "sha256-j7j9d8sdoJS8tQt9uZf004586S8otF/7YuKREwq0CH0=",
+        "lastModified": 1733218324,
+        "narHash": "sha256-9648mx3YqeE5tjMGXjDhdVi/l9izGtOjfjLzU9L2byY=",
         "owner": "dotfyls",
         "repo": "neovim",
-        "rev": "21bc7dd0a01850b6d1f81c4e56d49f5d51b11e33",
+        "rev": "ace9eb1cd84d202a663fb1e5cfc392533a8ae05e",
         "type": "gitlab"
       },
       "original": {
