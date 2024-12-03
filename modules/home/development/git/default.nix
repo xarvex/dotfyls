@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.git;
+  cfg' = config.dotfyls.development;
+  cfg = cfg'.git;
 in
 {
   imports = [
@@ -15,7 +16,7 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "development"
         "git"
       ]
       [
@@ -25,7 +26,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.git = {
+  options.dotfyls.development.git = {
     enable = lib.mkEnableOption "Git" // {
       default = true;
     };
@@ -35,7 +36,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.files.".cache/pre-commit".cache = true;
 
     home.shellAliases = {

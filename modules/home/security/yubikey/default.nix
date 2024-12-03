@@ -20,7 +20,7 @@ in
       default = true;
     };
     enableGitIntegration = lib.mkEnableOption "YubiKey Git integration" // {
-      default = config.dotfyls.programs.git.enable;
+      default = config.dotfyls.development.git.enable;
     };
     enableSshIntegration = lib.mkEnableOption "YubiKey OpenSSH integration" // {
       default = config.dotfyls.security.ssh.enable;
@@ -36,7 +36,7 @@ in
         };
       }
 
-      (lib.mkIf cfg.enableGitIntegration { dotfyls.programs.git.key = "0046A18B1037C201"; })
+      (lib.mkIf cfg.enableGitIntegration { dotfyls.development.git.key = "0046A18B1037C201"; })
 
       (lib.mkIf cfg.enableSshIntegration {
         dotfyls.files.".local/share/yubigen/ssh" = {

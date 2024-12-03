@@ -10,6 +10,7 @@
     inputs.wherenver.homeManagerModules.wherenver
 
     ./direnv
+    ./git
     ./languages
   ];
 

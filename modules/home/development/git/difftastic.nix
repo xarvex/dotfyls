@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg' = config.dotfyls.programs.git;
+  cfg' = config.dotfyls.development.git;
   cfg = cfg'.difftastic;
 in
 {
@@ -14,7 +14,7 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "development"
         "git"
         "difftastic"
       ]
@@ -26,7 +26,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.git.difftastic.enable = lib.mkEnableOption "difftastic" // {
+  options.dotfyls.development.git.difftastic.enable = lib.mkEnableOption "difftastic" // {
     default = true;
   };
 

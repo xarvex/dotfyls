@@ -15,7 +15,6 @@ _:
     ./firefox
     ./flatpak
     ./fzf
-    ./git
     ./neovim
     ./network-manager-applet
     ./nix-index
