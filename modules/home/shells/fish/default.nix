@@ -34,12 +34,12 @@ in
     programs.fish = {
       enable = true;
 
-      shellInit = builtins.readFile ./shell-init.fish;
-      interactiveShellInit = lib.mkBefore ''
-        ${builtins.readFile ./interactive-shell-init.fish}
-
-        ${cfg'.greet}
+      shellInit = lib.mkAfter ''
+        function fish_greeting
+        ${builtins.concatStringsSep "\n" (map (line: "    ${line}") (lib.splitString "\n" cfg'.greet))}
+        end
       '';
+      interactiveShellInit = lib.mkBefore (builtins.readFile ./interactive-shell-init.fish);
     };
   };
 }
