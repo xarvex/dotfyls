@@ -2,9 +2,7 @@
 
 rec {
   mkAliasOptionModules = from: to: options: {
-    imports = builtins.map (
-      module: (lib.mkAliasOptionModule (from ++ [ module ]) (to ++ [ module ]))
-    ) options;
+    imports = map (module: (lib.mkAliasOptionModule (from ++ [ module ]) (to ++ [ module ]))) options;
   };
 
   mkAliasPackageModule' =
