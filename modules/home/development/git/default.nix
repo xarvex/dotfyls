@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./difftastic.nix
+    ./lazygit.nix
 
     (self.lib.mkAliasPackageModule
       [
