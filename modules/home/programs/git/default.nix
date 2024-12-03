@@ -40,51 +40,58 @@ in
 
     home.shellAliases = {
       ga = "git add";
-      gai = "git add -N";
+      gap = "git add -p";
       gaa = "git add -A";
-      gaai = "git add -AN";
+      gaap = "git add -Ap";
 
       gb = "git branch";
 
       gc = "git commit";
       gca = "git commit -a";
-      gcam = "git commit -am";
       gcm = "git commit -m";
+      gcam = "git commit -am";
 
       gco = "git checkout";
+      gcob = "git checkout -b";
 
       gd = "git diff";
       gds = "git diff --staged";
-      gdp = "git log -p @{push}..";
 
       gl = "git log";
-      glp = "git log @{push}..";
+      glo = "git log --oneline";
 
       gm = "git merge";
 
       gp = "git push";
       gpf = "git push --force-with-lease";
 
-      grc = "git rebase --continue";
-      gri = "git rebase --interactive";
+      grbc = "git rebase --continue";
+      grbi = "git rebase -i";
 
-      gs = "git status";
+      gs = "git status -sb";
     };
 
     programs.git = {
       enable = true;
 
-      userName = "xarvex";
+      userName = "Xarvex";
       userEmail = "dev.ellz6@xarvex.simplelogin.com";
       signing = {
-        inherit (cfg) key;
-
         signByDefault = true;
+        inherit (cfg) key;
+      };
+
+      aliases = {
+        last = "log -1 --patch --ext-diff";
+        patch = "diff --patch --no-ext-diff";
+        tree = "log --all --graph";
+        unpushed = "log @{push}.. --patch --ext-diff";
       };
 
       extraConfig = {
-        init.defaultBranch = "main";
         advice.addIgnoredFile = false;
+        format.pretty = "format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset";
+        init.defaultBranch = "main";
       };
     };
   };
