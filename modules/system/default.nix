@@ -1,4 +1,4 @@
-{ self, ... }:
+_:
 
 {
   imports = [
@@ -6,7 +6,7 @@
     ./boot
     ./desktops
     ./display-manager
-    ./filesystems
+    ./files
     ./graphics
     ./kernels.nix
     ./localization.nix
@@ -18,11 +18,9 @@
     ./security
     ./shells.nix
     ./users.nix
-
-    self.nixosModules.files
   ];
 
-  dotfyls.files = {
+  dotfyls.file = {
     # Licensed software such as Spotify may check the value.
     "/etc/machine-id" = {
       dir = false;

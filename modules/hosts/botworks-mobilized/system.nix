@@ -2,8 +2,6 @@
 
 {
   dotfyls = {
-    filesystems.filesystems.zfs.unstable = true;
-
     security.harden.kernel.packages = false;
 
     kernels.variant = "xanmod";

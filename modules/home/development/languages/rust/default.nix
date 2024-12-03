@@ -6,7 +6,7 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".local/share/cargo".cache = true;
 
       ".local/share/rustup".cache = true;

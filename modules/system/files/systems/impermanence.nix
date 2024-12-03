@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.dotfyls.filesystems.impermanence;
+  cfg = config.dotfyls.files.systems.impermanence;
 
   # TODO: Replace with pipe operator.
   mkPersistenceEntry =
@@ -34,7 +34,7 @@ in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.dotfyls.filesystems.impermanence = {
+  options.dotfyls.files.systems.impermanence = {
     enable = lib.mkEnableOption "filesystem impermanence" // {
       default = true;
     };
@@ -48,24 +48,24 @@ in
       "/persist" = {
         hideMounts = true;
 
-        files = mkPersistenceEntry "persist" false config.dotfyls.files;
-        directories = mkPersistenceEntry "persist" true config.dotfyls.files;
+        files = mkPersistenceEntry "persist" false config.dotfyls.file;
+        directories = mkPersistenceEntry "persist" true config.dotfyls.file;
 
         users.${user} = {
-          files = mkPersistenceEntry "persist" false config.hm.dotfyls.files;
-          directories = mkPersistenceEntry "persist" true config.hm.dotfyls.files;
+          files = mkPersistenceEntry "persist" false config.hm.dotfyls.file;
+          directories = mkPersistenceEntry "persist" true config.hm.dotfyls.file;
         };
       };
 
       "/cache" = {
         hideMounts = true;
 
-        files = mkPersistenceEntry "cache" false config.dotfyls.files;
-        directories = mkPersistenceEntry "cache" true config.dotfyls.files;
+        files = mkPersistenceEntry "cache" false config.dotfyls.file;
+        directories = mkPersistenceEntry "cache" true config.dotfyls.file;
 
         users.${user} = {
-          files = mkPersistenceEntry "cache" false config.hm.dotfyls.files;
-          directories = mkPersistenceEntry "cache" true config.hm.dotfyls.files;
+          files = mkPersistenceEntry "cache" false config.hm.dotfyls.file;
+          directories = mkPersistenceEntry "cache" true config.hm.dotfyls.file;
         };
       };
     };

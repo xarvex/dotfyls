@@ -7,7 +7,7 @@ in
   options.dotfyls.programs.podman.enable = lib.mkEnableOption "Podman";
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".local/share/containers" = {
+    dotfyls.file.".local/share/containers" = {
       mode = "0700";
       cache = true;
     };

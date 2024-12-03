@@ -10,7 +10,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".steam".cache = true;
       ".local/share/Steam" = {
         mode = "0700";

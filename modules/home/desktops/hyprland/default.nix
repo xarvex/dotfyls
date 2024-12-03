@@ -38,9 +38,9 @@ in
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
       # TODO: Confirm permissions.
-      files.".cache/hyprland".cache = true;
+      file.".cache/hyprland".cache = true;
 
-      media.gvfs.enable = lib.mkDefault true;
+      files.gvfs.enable = lib.mkDefault true;
       programs = {
         brightnessctl.enable = lib.mkDefault true;
         cliphist.enable = lib.mkDefault true;

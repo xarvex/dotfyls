@@ -7,13 +7,15 @@
 
 {
   imports = [
+    ./zfs
+
     ./impermanence.nix
-    ./zfs.nix
 
     (self.lib.mkSelectorModule
       [
         "dotfyls"
-        "filesystems"
+        "files"
+        "systems"
       ]
       {
         name = "main";
@@ -24,7 +26,7 @@
     )
   ];
 
-  options.dotfyls.filesystems.encryption = lib.mkEnableOption "filesystem encryption" // {
+  options.dotfyls.files.systems.encryption = lib.mkEnableOption "filesystem encryption" // {
     default = !(builtins.elem "virtio_pci" config.boot.initrd.availableKernelModules);
   };
 

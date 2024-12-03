@@ -32,7 +32,7 @@ in
   };
 
   config = {
-    dotfyls.files = {
+    dotfyls.file = {
       # TODO: Confirm permissions.
       "/var/lib/nixos".persist = true;
 

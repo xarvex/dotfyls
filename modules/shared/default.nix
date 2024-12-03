@@ -2,7 +2,7 @@
 
 let
   modules' = [
-    "files"
+    "file"
     "nix"
   ];
   modules = lib.genAttrs modules' (module': import ./${module'}.nix);

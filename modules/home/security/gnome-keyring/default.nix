@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".local/share/keyrings" = {
+    dotfyls.file.".local/share/keyrings" = {
       mode = "0700";
       persist = true;
     };

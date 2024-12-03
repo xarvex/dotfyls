@@ -7,5 +7,5 @@ in
   options.dotfyls.programs.openrgb.enable = lib.mkEnableOption "OpenRGB";
 
   # TODO: Confirm permissions.
-  config = lib.mkIf cfg.enable { dotfyls.files.".config/OpenRGB".persist = true; };
+  config = lib.mkIf cfg.enable { dotfyls.file.".config/OpenRGB".persist = true; };
 }

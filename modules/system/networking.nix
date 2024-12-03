@@ -21,7 +21,7 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.wireless {
-      dotfyls.files = {
+      dotfyls.file = {
         "/etc/NetworkManager".persist = true;
         "/var/lib/NetworkManager" = {
           mode = "0700";
@@ -33,7 +33,7 @@ in
     })
 
     (lib.mkIf cfg.bluetooth.enable {
-      dotfyls.files."/var/lib/bluetooth" = {
+      dotfyls.file."/var/lib/bluetooth" = {
         mode = "0700";
         persist = true;
       };

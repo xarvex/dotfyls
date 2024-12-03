@@ -37,7 +37,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".cache/pre-commit".cache = true;
+    dotfyls.file.".cache/pre-commit".cache = true;
 
     home.shellAliases = {
       ga = "git add";

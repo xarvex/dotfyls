@@ -33,7 +33,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".ssh" = {
+    dotfyls.file.".ssh" = {
       mode = "0700";
       persist = true;
     };

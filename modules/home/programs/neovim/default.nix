@@ -31,7 +31,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files =
+    dotfyls.file =
       {
         ".local/share/nvim" = {
           mode = "0700";

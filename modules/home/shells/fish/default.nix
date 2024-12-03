@@ -26,7 +26,7 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".local/share/fish" = {
+    dotfyls.file.".local/share/fish" = {
       mode = "0700";
       persist = true;
     };

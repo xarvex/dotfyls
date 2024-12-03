@@ -6,7 +6,7 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".local/share/node".cache = true;
       ".local/state/node" = {
         mode = "0700";

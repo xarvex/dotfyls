@@ -2,10 +2,10 @@ system:
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.files;
+  cfg = config.dotfyls.file;
 in
 {
-  options.dotfyls.files = lib.mkOption {
+  options.dotfyls.file = lib.mkOption {
     type = lib.types.attrsOf (
       lib.types.submodule (
         let

@@ -7,16 +7,17 @@
 }:
 
 let
-  cfg' = config.dotfyls.filesystems;
-  cfg = cfg'.filesystems.zfs;
+  cfg' = config.dotfyls.files.systems;
+  cfg = cfg'.systems.zfs;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "filesystems"
-        "filesystems"
+        "files"
+        "systems"
+        "systems"
         "zfs"
       ]
       [
@@ -26,8 +27,10 @@ in
     )
   ];
 
-  options.dotfyls.filesystems.filesystems.zfs = {
-    unstable = lib.mkEnableOption "unstable ZFS filesystem";
+  options.dotfyls.files.systems.systems.zfs = {
+    unstable = lib.mkEnableOption "unstable ZFS filesystem" // {
+      default = true;
+    };
     nodes = lib.mkOption {
       type = lib.types.enum [
         "by-id"
@@ -52,7 +55,7 @@ in
     lib.mkMerge [
       {
         dotfyls = {
-          filesystems.filesystems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
+          files.systems.systems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
           kernels.version = lib.mkIf (!cfg.unstable) (
             lib.mkDefault cfg.package.latestCompatibleLinuxPackages.kernel.version
           );

@@ -5,6 +5,7 @@
     ./appearance
     ./desktops
     ./development
+    ./files
     ./media
     ./programs
     ./security
@@ -13,11 +14,10 @@
 
     ./graphics.nix
 
-    self.homeManagerModules.files
     self.homeManagerModules.nix
   ];
 
-  dotfyls.files = {
+  dotfyls.file = {
     "Documents".persist = true;
     "Pictures".persist = true;
     "Videos".persist = true;

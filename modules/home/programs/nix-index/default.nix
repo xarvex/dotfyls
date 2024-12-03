@@ -32,7 +32,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".cache/nix-index".cache = true;
+    dotfyls.file.".cache/nix-index".cache = true;
 
     programs.nix-index = {
       enable = true;

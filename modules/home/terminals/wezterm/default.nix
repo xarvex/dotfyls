@@ -29,7 +29,7 @@ in
   ];
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".local/share/wezterm/plugins" = {
+    dotfyls.file.".local/share/wezterm/plugins" = {
       mode = "0700";
       cache = true;
     };

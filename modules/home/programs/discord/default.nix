@@ -16,7 +16,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".config/discord" = {
+    dotfyls.file.".config/discord" = {
       mode = "0700";
       cache = true;
     };

@@ -14,7 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files = {
+    dotfyls.file = {
       "/var/lib/libvirt".cache = true;
       "/var/cache/libvirt" = {
         mode = "0711";

@@ -15,7 +15,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".local/state/wireplumber" = lib.mkIf cfg.audio.enable {
+    dotfyls.file.".local/state/wireplumber" = lib.mkIf cfg.audio.enable {
       mode = "0700";
       cache = true;
     };

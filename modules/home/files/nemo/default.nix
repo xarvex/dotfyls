@@ -7,11 +7,10 @@
 }:
 
 let
-  cfg' = config.dotfyls.media;
-  cfg = cfg'.nemo;
+  cfg = config.dotfyls.files.nemo;
 in
 {
-  options.dotfyls.media.nemo = {
+  options.dotfyls.files.nemo = {
     enable = lib.mkEnableOption "Nemo" // {
       default = config.dotfyls.desktops.enable;
     };
@@ -21,8 +20,8 @@ in
     };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".cache/thumbnails" = {
+  config = lib.mkIf cfg.enable {
+    dotfyls.file.".cache/thumbnails" = {
       mode = "0700";
       cache = true;
     };

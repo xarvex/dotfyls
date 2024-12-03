@@ -31,7 +31,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files = {
+    dotfyls.file = {
       ".mozilla" = {
         mode = "0700";
         persist = true;

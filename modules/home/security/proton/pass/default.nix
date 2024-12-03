@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".config/Proton Pass" = {
+    dotfyls.file.".config/Proton Pass" = {
       mode = "0700";
       cache = true;
     };

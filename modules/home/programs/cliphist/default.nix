@@ -26,7 +26,7 @@ in
   options.dotfyls.programs.cliphist.enable = lib.mkEnableOption "cliphist";
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".cache/cliphist" = {
+    dotfyls.file.".cache/cliphist" = {
       mode = "0700";
       cache = true;
     };

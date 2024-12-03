@@ -7,7 +7,7 @@ in
   options.dotfyls.programs.flatpak.enable = lib.mkEnableOption "Flatpak";
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files = {
+    dotfyls.file = {
       ".var".cache = true;
 
       ".config/flatpak".cache = true;

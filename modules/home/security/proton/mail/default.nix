@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".config/Proton Mail" = {
+    dotfyls.file.".config/Proton Mail" = {
       mode = "0700";
       cache = true;
     };

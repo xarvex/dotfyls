@@ -6,6 +6,6 @@ let
 in
 {
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files.".cache/lua-language-server".cache = true;
+    dotfyls.file.".cache/lua-language-server".cache = true;
   };
 }

@@ -30,7 +30,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls.files.".config/Yubico" = {
+        dotfyls.file.".config/Yubico" = {
           mode = "0700";
           persist = true;
         };
@@ -39,7 +39,7 @@ in
       (lib.mkIf cfg.enableGitIntegration { dotfyls.development.git.key = "0046A18B1037C201"; })
 
       (lib.mkIf cfg.enableSshIntegration {
-        dotfyls.files.".local/share/yubigen/ssh" = {
+        dotfyls.file.".local/share/yubigen/ssh" = {
           mode = "0700";
           persist = true;
         };

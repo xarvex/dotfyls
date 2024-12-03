@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".config/obsidian" = {
+    dotfyls.file.".config/obsidian" = {
       mode = "0700";
       cache = true;
     };

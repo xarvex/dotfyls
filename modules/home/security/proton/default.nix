@@ -15,7 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".cache/Proton" = {
+    dotfyls.file.".cache/Proton" = {
       mode = "0700";
       cache = true;
     };

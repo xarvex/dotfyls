@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".local/share/com.github.johnfactotum.Foliate".cache = true;
       ".cache/com.github.johnfactotum.Foliate".cache = true;
     };

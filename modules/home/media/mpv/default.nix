@@ -29,7 +29,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".local/state/mpv" = {
         mode = "0700";
         cache = true;

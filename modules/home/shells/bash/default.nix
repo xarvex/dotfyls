@@ -11,7 +11,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    dotfyls.files = {
+    dotfyls.file = {
       ".local/state/bash" = {
         mode = "0700";
         persist = true;

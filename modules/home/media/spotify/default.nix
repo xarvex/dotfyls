@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.files = {
+    dotfyls.file = {
       ".config/spotify".cache = true;
       ".cache/spotify".cache = true;
     };

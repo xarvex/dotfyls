@@ -7,7 +7,6 @@ in
   imports = [
     ./steam
 
-    ./gvfs.nix
     ./pipewire.nix
   ];
 

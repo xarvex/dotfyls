@@ -44,7 +44,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # TODO: Confirm permissions.
-    dotfyls.files."/var/lib/OpenRGB".persist = true;
+    dotfyls.file."/var/lib/OpenRGB".persist = true;
 
     services.hardware.openrgb.enable = true;
 

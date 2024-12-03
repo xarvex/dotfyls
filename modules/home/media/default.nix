@@ -5,13 +5,11 @@
     ./foliate
     ./libreoffice
     ./mpv
-    ./nemo
     ./nomacs
     ./steam
     ./spotify
     ./zathura
 
-    ./gvfs.nix
     ./mime-apps.nix
     ./mpris.nix
     ./pipewire.nix

@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.files.".config/vesktop/sessionData" = {
+    dotfyls.file.".config/vesktop/sessionData" = {
       mode = "0700";
       cache = true;
     };
