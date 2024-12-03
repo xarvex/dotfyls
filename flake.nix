@@ -101,37 +101,46 @@
             pkgs,
             ...
           }:
-          lib.mkIf config.programs.neovim.enable {
-            programs.neovim = {
-              withNodeJs = lib.mkDefault false;
-              withPython3 = lib.mkDefault false;
-              withRuby = lib.mkDefault false;
-              extraPackages = with pkgs; [
-                chafa
-                delta
-                gcc
-                git
-                gnumake
-                nodejs_22
+          let
+
+            cfg' = config.programs.neovim;
+            cfg = cfg'.dotfyls;
+          in
+          {
+            options.programs.neovim.dotfyls.enable = lib.mkEnableOption "Neovim dotfyls";
+
+            config = lib.mkIf (cfg'.enable && cfg.enable) {
+              programs.neovim = {
+                withNodeJs = lib.mkDefault false;
+                withPython3 = lib.mkDefault false;
+                withRuby = lib.mkDefault false;
+                extraPackages = with pkgs; [
+                  chafa
+                  delta
+                  gcc
+                  git
+                  gnumake
+                  nodejs_22
+                ];
+              };
+
+              # TODO: filter Lua files
+              xdg.configFile = {
+                "nvim/after" = {
+                  recursive = true;
+                  source = ./after;
+                };
+                "nvim/init.lua".source = ./init.lua;
+                "nvim/lua" = {
+                  recursive = true;
+                  source = ./lua;
+                };
+              };
+
+              systemd.user.tmpfiles.rules = [
+                "C+ ${config.xdg.configHome}/nvim/lazy-lock.json 0644 - - - ${./lazy-lock.json}"
               ];
             };
-
-            # TODO: filter Lua files
-            xdg.configFile = {
-              "nvim/after" = {
-                recursive = true;
-                source = ./after;
-              };
-              "nvim/init.lua".source = ./init.lua;
-              "nvim/lua" = {
-                recursive = true;
-                source = ./lua;
-              };
-            };
-
-            systemd.user.tmpfiles.rules = [
-              "C+ ${config.xdg.configHome}/nvim/lazy-lock.json 0644 - - - ${./lazy-lock.json}"
-            ];
           };
       };
     };
