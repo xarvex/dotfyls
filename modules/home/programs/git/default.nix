@@ -89,7 +89,10 @@ in
       };
 
       extraConfig = {
-        advice.addIgnoredFile = false;
+        advice = {
+          addEmptyPathspec = false;
+          addIgnoredFile = false;
+        };
         format.pretty = "format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset";
         init.defaultBranch = "main";
       };
