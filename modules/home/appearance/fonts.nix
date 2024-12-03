@@ -83,7 +83,7 @@ in
       nerdfonts = mkFontOption "nerdfonts" // {
         default = {
           name = "Symbols Nerd Font";
-          package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
+          package = pkgs.nerd-fonts.symbols-only;
         };
       };
     };
