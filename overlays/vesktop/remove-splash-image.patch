@@ -1,0 +1,28 @@
+diff --git a/static/views/splash.html b/static/views/splash.html
+index bac2ad2..8115b26 100644
+--- a/static/views/splash.html
++++ b/static/views/splash.html
+@@ -21,23 +21,11 @@
+         p {
+             text-align: center;
+         }
+-
+-        img {
+-            width: 128px;
+-            height: 128px;
+-            image-rendering: pixelated;
+-        }
+     </style>
+ </head>
+ 
+ <body>
+     <div class="wrapper">
+-        <img
+-            draggable="false"
+-            src="../shiggy.gif"
+-            alt="shiggy"
+-            role="presentation"
+-        />
+         <p>Loading Vesktop...</p>
+     </div>
+ </body>

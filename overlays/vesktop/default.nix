@@ -14,6 +14,8 @@ prev.vesktop.overrideAttrs (
   {
     nativeBuildInputs = o.nativeBuildInputs ++ [ final.makeWrapper ];
 
+    patches = (o.patches or [ ]) ++ [ ./remove-splash-image.patch ];
+
     postFixup =
       (o.postFixup or "")
       + ''
