@@ -17,7 +17,6 @@ _:
     ./fzf
     ./neovim
     ./network-manager-applet
-    ./nix-index
     ./obsidian
     ./openrgb
     ./podman

@@ -1,4 +1,4 @@
-{ self, ... }:
+_:
 
 {
   imports = [
@@ -7,6 +7,7 @@
     ./development
     ./files
     ./media
+    ./nix
     ./programs
     ./security
     ./shells
@@ -14,8 +15,6 @@
 
     ./graphics.nix
     ./state.nix
-
-    self.homeManagerModules.nix
   ];
 
   dotfyls.file = {
@@ -31,8 +30,6 @@
     ".local/state".mode = "0700";
 
     ".cache".mode = "0700";
-
-    ".cache/nix".cache = true;
   };
 
   programs.home-manager.enable = true;

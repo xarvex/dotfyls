@@ -8,7 +8,7 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.nix-index;
+  cfg = config.dotfyls.nix.index;
 in
 {
   imports = [
@@ -17,8 +17,8 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
-        "nix-index"
+        "nix"
+        "index"
       ]
       [
         "programs"
@@ -27,7 +27,7 @@ in
     )
   ];
 
-  options.dotfyls.programs.nix-index.enable = lib.mkEnableOption "nix-index" // {
+  options.dotfyls.nix.index.enable = lib.mkEnableOption "nix-index" // {
     default = true;
   };
 
