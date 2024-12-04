@@ -6,8 +6,9 @@
     ./libreoffice
     ./mpv
     ./nomacs
-    ./steam
+    ./prismlauncher
     ./spotify
+    ./steam
     ./zathura
 
     ./mime-apps.nix

@@ -20,7 +20,6 @@ _:
     ./obsidian
     ./openrgb
     ./podman
-    ./prismlauncher
     ./ripgrep
     ./rofi
     ./sl
