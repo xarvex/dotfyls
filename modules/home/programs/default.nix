@@ -32,7 +32,6 @@ _:
     ./vesktop
     ./waybar
     ./wl-clipboard
-    ./xwaylandvideobridge
     ./zoxide
   ];
 }
