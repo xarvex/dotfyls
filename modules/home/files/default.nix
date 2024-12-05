@@ -36,6 +36,11 @@
     ".local/share".mode = "0700";
     ".local/state".mode = "0700";
     ".cache".mode = "0700";
+
+    ".local/share/Trash" = {
+      mode = "0700";
+      cache = true;
+    };
   };
 
   xdg = {
