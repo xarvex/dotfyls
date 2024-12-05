@@ -259,5 +259,7 @@ in
         size = 24;
       };
     };
+
+    xdg.configFile."menus/applications.menu".source = ./applications.menu;
   };
 }
