@@ -49,7 +49,5 @@ in
       };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
-    home.packages = [ (self.lib.getCfgPkg cfg.set) ];
-  };
+  config = lib.mkIf (cfg'.enable && cfg.enable) { home.packages = [ (self.lib.getCfgPkg cfg.set) ]; };
 }
