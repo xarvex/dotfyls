@@ -1,4 +1,4 @@
-{ self, ... }:
+{ config, self, ... }:
 
 {
   imports = [
@@ -50,4 +50,12 @@
       createDirectories = true;
     };
   };
+
+  gtk.gtk3.bookmarks = with config.xdg.userDirs; [
+    "file://${documents}"
+    "file://${download}"
+    "file://${music}"
+    "file://${pictures}"
+    "file://${videos}"
+  ];
 }
