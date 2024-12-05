@@ -22,6 +22,9 @@ in
       qt6Packages.qt6ct
       qt6Packages.qtstyleplugin-kvantum
       qt6Packages.qtwayland
+
+      libsForQt5.qt5.qtsvg
+      kdePackages.qtsvg
     ];
 
     qt = {
@@ -45,6 +48,10 @@ in
         defaultFont = "sans-serif,${toString cfg'.systemFontSize}";
       in
       {
+        "kdeglobals".text = lib.generators.toINI { } {
+          Icons.Theme = cfg'.icons.set.name;
+        };
+
         "Kvantum" = {
           source = "${pkgs.catppuccin-kvantum.src}/themes";
           recursive = true;
