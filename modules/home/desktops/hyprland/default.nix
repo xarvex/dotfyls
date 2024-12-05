@@ -40,7 +40,6 @@ in
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
 
-      files.gvfs.enable = lib.mkDefault true;
       programs = {
         brightnessctl.enable = lib.mkDefault true;
         cliphist.enable = lib.mkDefault true;

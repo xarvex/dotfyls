@@ -21,9 +21,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.file.".cache/thumbnails" = {
-      mode = "0700";
-      cache = true;
+    dotfyls = {
+      file.".cache/thumbnails" = {
+        mode = "0700";
+        cache = true;
+      };
+
+      files.gvfs.enable = true;
     };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
