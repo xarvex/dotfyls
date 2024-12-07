@@ -25,6 +25,8 @@ in
     )
   ];
 
+  options.dotfyls.terminals.terminals.kitty.enable = lib.mkEnableOption "kitty";
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file.".config/kitty".cache = true;
 

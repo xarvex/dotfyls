@@ -25,6 +25,8 @@ in
     )
   ];
 
+  options.dotfyls.shells.shells.fish.enable = lib.mkEnableOption "Fish";
+
   config = lib.mkIf cfg.enable {
     dotfyls.file.".local/share/fish" = {
       mode = "0700";

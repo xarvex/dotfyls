@@ -9,22 +9,12 @@ let
     }:
     import nixpkgs {
       inherit system;
-
-      config = {
-        allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) unfreePkgs;
-      };
+      config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) unfreePkgs;
     };
 
-  commonHomeManagerModules = host: user: [
+  commonHomeManagerModules = host: [
     ../modules/home
     ../modules/hosts/${host}/home.nix
-
-    {
-      home = {
-        username = user;
-        homeDirectory = "/home/${user}";
-      };
-    }
   ];
 in
 {
@@ -45,9 +35,7 @@ in
     lib.nixosSystem rec {
       pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
-      specialArgs = {
-        inherit inputs self user;
-      };
+      specialArgs = { inherit inputs self user; };
 
       modules = [
         home-manager.nixosModules.home-manager
@@ -63,25 +51,10 @@ in
           };
 
           home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-
             extraSpecialArgs = specialArgs;
-
-            users.${user}.imports = commonHomeManagerModules host user;
+            users.${user}.imports = commonHomeManagerModules host;
           };
         }
-
-        (lib.mkAliasOptionModule [ "usr" ] [
-          "users"
-          "users"
-          user
-        ])
-        (lib.mkAliasOptionModule [ "hm" ] [
-          "home-manager"
-          "users"
-          user
-        ])
       ];
     };
 
@@ -98,10 +71,7 @@ in
     home-manager.lib.homeManagerConfiguration {
       pkgs = mkPkgs { inherit nixpkgs system unfreePkgs; };
 
-      extraSpecialArgs = {
-        inherit inputs self;
-      };
-
-      modules = commonHomeManagerModules host user;
+      extraSpecialArgs = { inherit inputs self user; };
+      modules = commonHomeManagerModules host;
     };
 }

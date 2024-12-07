@@ -28,6 +28,8 @@ in
     )
   ];
 
+  options.dotfyls.terminals.terminals.wezterm.enable = lib.mkEnableOption "WezTerm";
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file.".local/share/wezterm/plugins" = {
       mode = "0700";

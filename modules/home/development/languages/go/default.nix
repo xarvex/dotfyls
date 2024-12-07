@@ -5,6 +5,10 @@ let
   cfg = cfg'.languages.go;
 in
 {
+  options.dotfyls.development.languages.go.enable = lib.mkEnableOption "Go" // {
+    default = true;
+  };
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
       ".local/share/go/bin".persist = true;

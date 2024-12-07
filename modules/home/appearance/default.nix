@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./cursor.nix
     ./fonts.nix
     ./gtk.nix
     ./icons.nix

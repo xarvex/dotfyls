@@ -10,30 +10,78 @@ let
   cfg = cfg'.gtk;
 in
 {
-  options.dotfyls.appearance.gtk.enable = lib.mkEnableOption "GTK" // {
-    default = true;
+  options.dotfyls.appearance.gtk = {
+    enable = lib.mkEnableOption "GTK" // {
+      default = true;
+    };
+
+    theme =
+      lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              example = "Colloid-Red-Dark-Catppuccin";
+              description = "Name of the GTK theme.";
+            };
+            package = lib.mkOption {
+              type = lib.types.package;
+              example = lib.literalExpression ''
+                pkgs.colloid-gtk-theme.override {
+                  themeVariants = [ "all" ];
+                  colorVariants = [ "dark" ];
+                  tweaks = [
+                    "catppuccin"
+                    "black"
+                    "normal"
+                  ];
+                };
+
+              '';
+              description = "Package providing the GTK theme.";
+            };
+          };
+        };
+        description = "GTK theme used.";
+      }
+      // rec {
+        default = {
+          name = "Colloid-Red-Dark-Catppuccin";
+          package = pkgs.colloid-gtk-theme.override {
+            themeVariants = [ "all" ];
+            colorVariants = [ "dark" ];
+            tweaks = [
+              "catppuccin"
+              "black"
+              "normal"
+            ];
+          };
+        };
+        defaultText = lib.literalExpression ''
+          {
+            name = "Colloid-Red-Dark-Catppuccin";
+            package = pkgs.colloid-gtk-theme.override {
+              themeVariants = [ "all" ];
+              colorVariants = [ "dark" ];
+              tweaks = [
+                "catppuccin"
+                "black"
+                "normal"
+              ];
+            };
+          }
+        '';
+        example = defaultText;
+      };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     gtk = {
       enable = true;
 
-      theme = {
-        # TODO: Change dynamically with heuniform.
-        name = "Colloid-Red-Dark-Catppuccin";
-        package = pkgs.colloid-gtk-theme.override {
-          themeVariants = [ "all" ];
-          colorVariants = [ "dark" ];
-          tweaks = [
-            "catppuccin"
-            "black"
-            "normal"
-          ];
-        };
-      };
-      iconTheme = {
-        inherit (cfg'.icons.set) name package;
-      };
+      # TODO: Change dynamically with heuniform.
+      theme = { inherit (cfg.theme) name package; };
+      iconTheme = { inherit (cfg'.icons.theme) name package; };
       font = {
         name = "sans-serif";
         size = cfg'.systemFontSize;

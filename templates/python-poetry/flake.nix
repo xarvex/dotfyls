@@ -59,7 +59,6 @@
                 projectDir = ./.;
                 meta = {
                   inherit (pyproject) description;
-
                   homepage = pyproject.repository;
                   license = lib.licenses.mit;
                   maintainers = with lib.maintainers; [ xarvex ];

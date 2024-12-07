@@ -7,9 +7,9 @@
 
 {
   imports = [
-    ./cage.nix
-    ./greetd.nix
-    ./sddm.nix
+    ./cage
+    ./greetd
+    ./sddm
 
     (self.lib.mkSelectorModule
       [
@@ -19,13 +19,9 @@
       {
         name = "provider";
         default = "greetd";
+        example = "sddm";
         description = "Display manager to use.";
       }
-      [
-        "cage"
-        "greetd"
-        "sddm"
-      ]
     )
   ];
 

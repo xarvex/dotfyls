@@ -30,6 +30,8 @@ in
     )
   ];
 
+  options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";
+
   config = lib.mkIf cfg.enable {
     dotfyls.file = {
       ".local/state/zsh" = {

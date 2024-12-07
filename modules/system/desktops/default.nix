@@ -3,7 +3,6 @@
   lib,
   pkgs,
   self,
-  user,
   ...
 }:
 
@@ -13,8 +12,7 @@ let
 in
 {
   imports = [
-    ./hyprland.nix
-    ./locks.nix
+    ./hyprland
 
     (self.lib.mkSelectorModule
       [
@@ -22,54 +20,16 @@ in
         "desktops"
       ]
       {
-        inherit (hmCfg) default;
-
         name = "default";
+        inherit (hmCfg) default;
         example = "hyprland";
         description = "Default desktop to use.";
-      }
-      [ "hyprland" ]
-    )
-
-    (self.lib.mkCommonModules
-      [
-        "dotfyls"
-        "desktops"
-        "desktops"
-      ]
-      (desktop: _: {
-        enable = lib.mkEnableOption desktop.name // {
-          default = desktop.hmCfg.enable;
-        };
-        startCommand = self.lib.mkCommandOption "start ${desktop.name}";
-      })
-      {
-        hyprland =
-          let
-            hCfg = cfg.desktops.hyprland;
-          in
-          {
-            name = "Hyprland";
-            hmCfg = hmCfg.desktops.hyprland;
-            specialArgs.startCommand.default = self.lib.getCfgPkg hCfg;
-          };
       }
     )
   ];
 
-  options.dotfyls.desktops = {
-    enable = lib.mkEnableOption "desktops" // {
-      default = hmCfg.enable;
-    };
-    startCommand = self.lib.mkCommandOption "start default desktop" // {
-      default = pkgs.dotfyls.mkCommand ''
-        if [ "$(${lib.getExe' pkgs.coreutils "whoami"})" = ${user} ]; then
-          exec ${lib.getExe hmCfg.startCommand}
-        else
-          exec ${lib.getExe cfg.selected.startCommand}
-        fi
-      '';
-    };
+  options.dotfyls.desktops.enable = lib.mkEnableOption "desktops" // {
+    default = hmCfg.enable;
   };
 
   config = lib.mkIf cfg.enable {

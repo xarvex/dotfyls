@@ -48,7 +48,6 @@
 
               meta = {
                 inherit (manifest) description;
-
                 homepage = manifest.repository;
                 license = lib.licenses.mit;
                 maintainers = with lib.maintainers; [ xarvex ];

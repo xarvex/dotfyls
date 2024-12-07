@@ -25,6 +25,8 @@ in
     )
   ];
 
+  options.dotfyls.terminals.terminals.alacritty.enable = lib.mkEnableOption "Alacritty";
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.alacritty = {
       enable = true;

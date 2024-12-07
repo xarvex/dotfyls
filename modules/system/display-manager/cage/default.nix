@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommand ''
-        exec ${lib.getExe pkgs.foot} -o shell="sudo ${lib.getExe' pkgs.shadow "login"}" -o font=monospace:size=16
+        exec ${lib.getExe pkgs.foot} -o shell="sudo /run/current-system/sw/bin/login" -o font=monospace:size=16
       '';
     };
   };
@@ -35,7 +35,7 @@ in
         runAs = "root";
         commands = [
           {
-            command = lib.getExe' pkgs.shadow "login";
+            command = "/run/current-system/sw/bin/login";
             options = [ "NOPASSWD" ];
           }
         ];

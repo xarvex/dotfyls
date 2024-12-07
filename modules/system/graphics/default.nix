@@ -25,10 +25,6 @@ in
         default = "intel";
         description = "Graphics provider to use.";
       }
-      {
-        intel = "Intel";
-        nvidia = "NVIDIA";
-      }
     )
   ];
 
@@ -54,10 +50,9 @@ in
     ];
 
     hardware.graphics = {
-      inherit (cfg) extraPackages;
-
       enable = true;
       enable32Bit = true;
+      inherit (cfg) extraPackages;
     };
   };
 }

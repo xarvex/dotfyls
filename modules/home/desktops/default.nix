@@ -1,174 +1,112 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
 
 let
   cfg = config.dotfyls.desktops;
-
-  desktops = {
-    hyprland =
-      let
-        hCfg = cfg.desktops.hyprland;
-      in
-      {
-        name = "Hyprland";
-        idler = {
-          default = "hypridle";
-          choices = [
-            "hypridle"
-            "swayidle"
-          ];
-        };
-        locker = {
-          default = "hyprlock";
-          choices = [
-            "hyprlock"
-            "swaylock"
-          ];
-        };
-        specialArgs =
-          let
-            mkDisplayCommand =
-              state:
-              pkgs.dotfyls.mkCommand {
-                runtimeInputs = [ (self.lib.getCfgPkg hCfg) ];
-                text = "hyprctl dispatch dpms ${state}";
-              };
-          in
-          {
-            startCommand.default = self.lib.getCfgPkg hCfg;
-            idle.displays = {
-              onCommand.default = mkDisplayCommand "on";
-              offCommand.default = mkDisplayCommand "off";
-            };
-          };
-      };
-  };
 in
 {
-  imports =
-    [
-      ./hyprland
-      ./idles
-      ./locks
+  imports = [
+    ./hyprland
 
-      (self.lib.mkSelectorModule
-        [
-          "dotfyls"
-          "desktops"
-        ]
-        {
-          name = "default";
-          default = "hyprland";
-          description = "Default desktop to use.";
-        }
-        (builtins.mapAttrs (_: desktop: desktop.name) desktops)
-      )
-
-      (self.lib.mkCommonModules
-        [
-          "dotfyls"
-          "desktops"
-          "desktops"
-        ]
-        (desktop: _: {
-          sessionName = lib.mkOption {
-            type = lib.types.str;
-            default = desktop.name;
-            description = "XDG desktop session name for ${desktop.name}.";
-          };
-          startCommand = self.lib.mkCommandOption "start ${desktop.name}";
-
-          idle = {
-            enable = lib.mkEnableOption "${desktop.name} idle" // {
-              default = true;
-            };
-            displays = {
-              enable = lib.mkEnableOption "${desktop.name} display idle" // {
-                default = true;
-              };
-              onCommand = self.lib.mkCommandOption "idle displays on";
-              offCommand = self.lib.mkCommandOption "idle displays off";
-            };
-            suspend.enable = lib.mkEnableOption "${desktop.name} suspend idle" // {
-              default = true;
-            };
-          };
-          lock.enable = lib.mkEnableOption "${desktop.name} lock" // {
-            default = true;
-          };
-        })
-        desktops
-      )
-    ]
-    ++ builtins.attrValues (
-      builtins.mapAttrs (
-        module: desktop:
-        self.lib.mkSelectorModule'
-          [
-            "dotfyls"
-            "desktops"
-            "idles"
-            "idles"
-          ]
-          [
-            "dotfyls"
-            "desktops"
-            "desktops"
-            module
-            "idle"
-          ]
-          {
-            inherit (desktop.idler) default;
-
-            name = "provider";
-            description = "Idler to use for ${desktop.name}.";
-          }
-          desktop.idler.choices
-      ) desktops
+    (self.lib.mkSelectorModule
+      [
+        "dotfyls"
+        "desktops"
+      ]
+      {
+        name = "default";
+        default = "hyprland";
+        example = "hyprland";
+        description = "Default desktop to use.";
+      }
     )
-    ++ builtins.attrValues (
-      builtins.mapAttrs (
-        module: desktop:
-        self.lib.mkSelectorModule'
-          [
-            "dotfyls"
-            "desktops"
-            "locks"
-            "locks"
-          ]
-          [
-            "dotfyls"
-            "desktops"
-            "desktops"
-            module
-            "lock"
-          ]
-          {
-            inherit (desktop.locker) default;
+  ];
 
-            name = "provider";
-            description = "Locker to use for ${desktop.name}.";
+  options.dotfyls.desktops =
+    let
+      mkTimeoutOption =
+        action: default:
+        lib.mkOption {
+          type = lib.types.int;
+          inherit default;
+          example = default;
+          description = "Timeout in seconds before ${action}.";
+        };
+    in
+    {
+      enable = lib.mkEnableOption "desktops" // {
+        default = true;
+      };
+
+      lockTimeout = mkTimeoutOption "locking" (5 * 60);
+      displayTimeout = mkTimeoutOption "display off" (cfg.lockTimeout + 30);
+      suspendTimeout = mkTimeoutOption "suspend" (cfg.lockTimeout + (10 * 60));
+
+      wayland.sessionVariables = lib.mkOption {
+        type = with lib.types; attrsOf (either int str);
+        default = { };
+        description = ''
+          Environment variables that will be set for Wayland sessions.
+          The variable values must be as described in {manpage}`environment.d(5)`.
+        '';
+      };
+
+      displays = lib.mkOption {
+        type = lib.types.listOf (
+          lib.types.submodule {
+            options = {
+              name = lib.mkOption {
+                type = lib.types.str;
+                example = "eDP-1";
+                description = "Name of the display.";
+              };
+              width = lib.mkOption {
+                type = lib.types.int;
+                example = 1920;
+                description = "Width of the display.";
+              };
+              height = lib.mkOption {
+                type = lib.types.int;
+                example = 1080;
+                description = "Height of the display.";
+              };
+              refresh = lib.mkOption {
+                type = lib.types.int;
+                default = 60;
+                example = 60;
+                description = "Refresh of the display.";
+              };
+              scale = lib.mkOption {
+                type = with lib.types; either (enum [ "auto" ]) float;
+                default = "auto";
+                description = "Scale of the display.";
+              };
+              position = lib.mkOption {
+                type = lib.types.str;
+                default = "0x0";
+                description = "Position of the display.";
+              };
+              vertical = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                example = true;
+                description = "Vertical state of the display.";
+              };
+            };
           }
-          desktop.locker.choices
-      ) desktops
-    );
-
-  options.dotfyls.desktops = {
-    enable = lib.mkEnableOption "desktops" // {
-      default = true;
-    };
-    startCommand = self.lib.mkCommandOption "start default desktop" // {
-      default = cfg.selected.startCommand;
+        );
+        default = [ ];
+        description = "Configuration of displays.";
+      };
     };
 
-    wayland.sessionVariables = lib.mkOption {
-      type = with lib.types; attrsOf (either int str);
-      default = {
+  config = lib.mkIf cfg.enable {
+    dotfyls = {
+      desktops.wayland.sessionVariables = {
         EGL_BACKEND = "wayland";
         GDK_BACKEND = "wayland,x11,*";
         QT_QPA_PLATFORM = "wayland;xcb";
@@ -180,86 +118,18 @@ in
 
         QT_AUTO_SCREEN_SCALE_FACTOR = 1;
       };
-      description = ''
-        Environment variables that will be set for Wayland sessions.
-        The variable values must be as described in {manpage}`environment.d(5)`.
-      '';
-    };
 
-    displays = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-              example = "eDP-1";
-              description = "Name of the display.";
-            };
-            width = lib.mkOption {
-              type = lib.types.int;
-              example = 1920;
-              description = "Width of the display.";
-            };
-            height = lib.mkOption {
-              type = lib.types.int;
-              example = 1080;
-              description = "Height of the display.";
-            };
-            refresh = lib.mkOption {
-              type = lib.types.int;
-              default = 60;
-              example = 60;
-              description = "Refresh of the display.";
-            };
-            scale = lib.mkOption {
-              type = with lib.types; either (enum [ "auto" ]) float;
-              default = "auto";
-              description = "Scale of the display.";
-            };
-            position = lib.mkOption {
-              type = lib.types.str;
-              default = "0x0";
-              description = "Position of the display.";
-            };
-            vertical = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              example = true;
-              description = "Vertical state of the display.";
-            };
-          };
-        }
-      );
-      default = [ ];
-      description = "Configuration of displays.";
-    };
-  };
-
-  config = lib.mkIf cfg.enable {
-    dotfyls.file = {
-      ".local/share/applications" = {
-        mode = "0700";
-        persist = true;
-      };
-      ".local/share/icons".persist = true;
-    };
-
-    home = {
-      sessionVariables = {
-        XCURSOR_THEME = config.home.pointerCursor.name;
-        XCURSOR_SIZE = config.home.pointerCursor.size;
-      };
-
-      pointerCursor = {
-        x11.enable = true;
-        gtk.enable = true;
-
-        package = pkgs.phinger-cursors;
-        name = "phinger-cursors-dark";
-        size = 24;
+      file = {
+        ".local/share/applications" = {
+          mode = "0700";
+          persist = true;
+        };
+        ".local/share/icons".persist = true;
       };
     };
 
     xdg.configFile."menus/applications.menu".source = ./applications.menu;
+
+    dconf.settings."ca/desrt/dconf-editor".show-warning = false;
   };
 }

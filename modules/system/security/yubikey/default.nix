@@ -12,7 +12,9 @@ let
   hmCfg = config.hm.dotfyls.security.yubikey;
 in
 {
-  imports = [ inputs.yubigen.nixosModules.yubigen ];
+  imports = [
+    inputs.yubigen.nixosModules.yubigen
+  ];
 
   options.dotfyls.security.yubikey = {
     enable = lib.mkEnableOption "YubiKey" // {

@@ -10,6 +10,8 @@ let
   cfg = cfg'.graphics.nvidia;
 in
 {
+  options.dotfyls.graphics.graphics.nvidia.enable = lib.mkEnableOption "Intel graphics";
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.graphics.extraPackages = with pkgs; [
       egl-wayland
@@ -36,13 +38,6 @@ in
       powerManagement.enable = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
-    };
-
-    nix.settings = {
-      substituters = [ "https://cuda-maintainers.cachix.org" ];
-      trusted-public-keys = [
-        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-      ];
     };
   };
 }

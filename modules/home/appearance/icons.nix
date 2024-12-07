@@ -22,23 +22,30 @@ in
       default = config.dotfyls.desktops.enable;
     };
 
-    set =
+    theme =
       lib.mkOption {
         type = lib.types.submodule {
           options = {
             name = lib.mkOption {
               type = lib.types.str;
-              description = "Name of the icon.";
+              example = "Colloid-Red-Catppuccin-Dark";
+              description = "Name of the icon theme.";
             };
             package = lib.mkOption {
               type = lib.types.package;
-              description = "Package providing the icon.";
+              example = lib.literalExpression ''
+                pkgs.colloid-icon-theme.override {
+                  schemeVariants = [ "catppuccin" ];
+                  colorVariants = [ "all" ];
+                }
+              '';
+              description = "Package providing the icon theme.";
             };
           };
         };
-        description = "Icon set used.";
+        description = "Icon theme used.";
       }
-      // {
+      // rec {
         default = {
           name = "Colloid-Red-Catppuccin-Dark";
           package = pkgs.colloid-icon-theme.override {
@@ -46,8 +53,20 @@ in
             colorVariants = [ "all" ];
           };
         };
+        defaultText = lib.literalExpression ''
+          {
+            name = "Colloid-Red-Catppuccin-Dark";
+            package = pkgs.colloid-icon-theme.override {
+              schemeVariants = [ "catppuccin" ];
+              colorVariants = [ "all" ];
+            };
+          }
+        '';
+        example = defaultText;
       };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) { home.packages = [ (self.lib.getCfgPkg cfg.set) ]; };
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
+    home.packages = [ (self.lib.getCfgPkg cfg.theme) ];
+  };
 }

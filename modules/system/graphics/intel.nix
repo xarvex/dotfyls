@@ -12,11 +12,12 @@ let
   driver = if cfg.experimentalDrivers then "xe" else "i915";
 in
 {
-  options.dotfyls.graphics.graphics.intel.experimentalDrivers =
-    lib.mkEnableOption "Intel Xe graphics"
-    // {
+  options.dotfyls.graphics.graphics.intel = {
+    enable = lib.mkEnableOption "Intel graphics";
+    experimentalDrivers = lib.mkEnableOption "Intel Xe graphics" // {
       default = true;
     };
+  };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.graphics.extraPackages = with pkgs; [

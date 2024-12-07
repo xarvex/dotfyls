@@ -5,6 +5,10 @@ let
   cfg = cfg'.languages.python;
 in
 {
+  options.dotfyls.development.languages.python.enable = lib.mkEnableOption "Python" // {
+    default = true;
+  };
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
       ".local/state/python" = {

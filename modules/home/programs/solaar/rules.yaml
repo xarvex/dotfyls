@@ -1,0 +1,17 @@
+%YAML 1.3
+---
+- Key: [Lock PC, pressed]
+- Execute: [loginctl, lock-session]
+...
+---
+- Key: [Mute Microphone, pressed]
+- KeyPress:
+  - XF86_AudioMicMute
+  - click
+...
+---
+- Key: [Snipping Tool, pressed]
+- KeyPress:
+  - Print
+  - click
+...

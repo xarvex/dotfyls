@@ -2,21 +2,6 @@ _:
 
 {
   dotfyls = {
-    programs.solaar = {
-      enable = true;
-      deviceConfig = ./solaar/config.yaml;
-    };
-
-    shells.shells.zsh.enable = true;
-
-    terminals = {
-      default = "kitty";
-      terminals = {
-        alacritty.enable = true;
-        wezterm.enable = true;
-      };
-    };
-
     desktops.displays = [
       {
         name = "eDP-1";
@@ -33,5 +18,20 @@ _:
         position = "-1920x0";
       }
     ];
+
+    programs.solaar = {
+      enable = true;
+      deviceConfig = ./solaar/config.yaml;
+    };
+
+    shells.shells.zsh.enable = true;
+
+    terminals = {
+      default = "kitty";
+      terminals = {
+        alacritty.enable = true;
+        wezterm.enable = true;
+      };
+    };
   };
 }

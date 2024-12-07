@@ -43,9 +43,7 @@ in
         PAGER = lib.mkIf cfg.enablePager "bat -p";
 
         # From: https://github.com/sharkdp/bat/pull/2858
-        MANPAGER = lib.mkIf cfg.enableManPager ''
-          sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'
-        '';
+        MANPAGER = lib.mkIf cfg.enableManPager "${''sh -c 'sed -ue \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -plman''}'";
       };
 
       shellAliases = {

@@ -22,12 +22,8 @@ in
       {
         name = "default";
         default = "fish";
+        example = "zsh";
         description = "Default shell to use.";
-      }
-      {
-        bash = "Bash";
-        fish = "Fish";
-        zsh = "Zsh";
       }
     )
   ];
@@ -43,6 +39,9 @@ in
     greet = lib.mkOption {
       type = lib.types.lines;
       default = "";
+      example = lib.literalExpression ''
+        ''${lib.getExe pkgs.fastfetch}
+      '';
       description = ''
         Commands that should be run to greet the user.
         Note that these commands will run for any shell.
@@ -54,7 +53,11 @@ in
     dotfyls.shells.shells.bash.enable = lib.mkDefault true;
 
     home = {
-      sessionVariables.SHELL = lib.mkIf (cfg.selected ? package) (self.lib.getCfgExe cfg.selected);
+      sessionVariables.SHELL =
+        let
+          sCfg = cfg.shells.${cfg.default};
+        in
+        lib.mkIf (sCfg ? package) (self.lib.getCfgExe sCfg);
 
       shellAliases = {
         ".." = "cd ..";

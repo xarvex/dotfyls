@@ -10,6 +10,10 @@ let
   cfg = cfg'.shells.bash;
 in
 {
+  options.dotfyls.shells.shells.bash.enable = lib.mkEnableOption "Bash" // {
+    default = true;
+  };
+
   config = lib.mkIf cfg.enable {
     dotfyls.file = {
       ".local/state/bash" = {

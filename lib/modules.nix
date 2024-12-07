@@ -43,54 +43,23 @@ rec {
       );
     };
 
-  mkCommonModules =
-    path: generator: optionModules:
+  mkSelectorModule =
+    path: selectionOption:
     { config, ... }:
     {
-      options = lib.setAttrByPath path (
-        builtins.mapAttrs (
-          module: opts:
-          lib.recursiveUpdate (generator (builtins.removeAttrs opts [
-            "specialArgs"
-          ]) (lib.getAttrFromPath path config).${module}) (opts.specialArgs or { })
-        ) optionModules
-      );
+      options = lib.setAttrByPath path {
+        ${selectionOption.name} = lib.mkOption {
+          type = lib.types.enum (builtins.attrNames (lib.getAttrFromPath path config).${lib.last path});
+          inherit (selectionOption) default description;
+        };
+      };
+
+      config = lib.setAttrByPath (
+        path
+        ++ [
+          (lib.last path)
+          (lib.getAttrFromPath path config).${selectionOption.name}
+        ]
+      ) { enable = lib.mkDefault true; };
     };
-
-  mkSelectorModule' =
-    selectionPath: selectorPath: selectionOption: selections:
-    { config, ... }:
-    let
-      selections' = if (builtins.isAttrs selections) then builtins.attrNames selections else selections;
-      selected = (lib.getAttrFromPath selectorPath config).${selectionOption.name};
-    in
-    {
-      imports = [
-        (lib.mkAliasOptionModule (selectorPath ++ [ "selected" ]) (selectionPath ++ [ selected ]))
-      ];
-
-      options =
-        lib.recursiveUpdate
-          (lib.setAttrByPath selectorPath {
-            ${selectionOption.name} = lib.mkOption {
-              inherit (selectionOption) default description;
-
-              type = lib.types.enum selections';
-            };
-          })
-          (
-            if (builtins.isAttrs selections) then
-              (lib.setAttrByPath selectionPath (
-                builtins.mapAttrs (_: name: { enable = lib.mkEnableOption name; }) selections
-              ))
-            else
-              { }
-          );
-
-      config = lib.setAttrByPath (selectionPath ++ [ selected ]) { enable = lib.mkDefault true; };
-    };
-
-  mkSelectorModule = path: selectionOption: selections: {
-    imports = [ (mkSelectorModule' (path ++ [ (lib.last path) ]) path selectionOption selections) ];
-  };
 }

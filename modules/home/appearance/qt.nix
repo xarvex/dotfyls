@@ -10,8 +10,44 @@ let
   cfg = cfg'.qt;
 in
 {
-  options.dotfyls.appearance.qt.enable = lib.mkEnableOption "Qt" // {
-    default = true;
+  options.dotfyls.appearance.qt = {
+    enable = lib.mkEnableOption "Qt" // {
+      default = true;
+    };
+
+    theme =
+      lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              example = "catppuccin-mocha-maroon";
+              description = "Name of the Qt Kvantum theme.";
+            };
+            source = lib.mkOption {
+              type = lib.types.path;
+              example = lib.literalExpression ''
+                "''${pkgs.catppuccin-kvantum.src}/themes"
+              '';
+              description = "Source providing the Qt Kvantum theme.";
+            };
+          };
+        };
+        description = "Qt Kvantum theme used.";
+      }
+      // rec {
+        default = {
+          name = "catppuccin-mocha-maroon";
+          source = "${pkgs.catppuccin-kvantum.src}/themes";
+        };
+        defaultText = lib.literalExpression ''
+          {
+            name = "catppuccin-mocha-maroon";
+            source = "''${pkgs.catppuccin-kvantum.src}/themes";
+          }
+        '';
+        example = defaultText;
+      };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -39,7 +75,7 @@ in
         qtctConf = {
           Appearance = {
             custom_palette = false;
-            icon_theme = cfg'.icons.set.name;
+            icon_theme = cfg'.icons.theme.name;
             standard_dialogs = "xdgdesktopportal";
             style = "kvantum";
           };
@@ -49,16 +85,16 @@ in
       in
       {
         "kdeglobals".text = lib.generators.toINI { } {
-          Icons.Theme = cfg'.icons.set.name;
+          Icons.Theme = cfg'.icons.theme.name;
         };
 
         "Kvantum" = {
-          source = "${pkgs.catppuccin-kvantum.src}/themes";
+          inherit (cfg.theme) source;
           recursive = true;
         };
         "Kvantum/kvantum.kvconfig".text = lib.generators.toINI { } {
           # TODO: Change dynamically with heuniform.
-          General.theme = "catppuccin-mocha-maroon";
+          General.theme = cfg.theme.name;
         };
 
         "qt5ct/qt5ct.conf".text = lib.generators.toINI { } (

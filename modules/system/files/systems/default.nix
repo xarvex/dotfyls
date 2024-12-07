@@ -22,7 +22,6 @@
         default = "zfs";
         description = "Main filesystem to use.";
       }
-      { zfs = "ZFS"; }
     )
   ];
 

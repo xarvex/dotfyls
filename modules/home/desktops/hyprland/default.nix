@@ -11,6 +11,9 @@ let
 in
 {
   imports = [
+    ./idle
+    ./lock
+
     ./appearance.nix
     ./interaction.nix
     ./keybinds.nix
@@ -32,11 +35,14 @@ in
   ];
 
   options.dotfyls.desktops.desktops.hyprland = {
+    enable = lib.mkEnableOption "Hyprland";
     explicitSync = lib.mkEnableOption "Hyprland explicit sync";
   };
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
+      desktops.wayland.sessionVariables.QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
+
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
 
@@ -68,7 +74,7 @@ in
         };
 
         monitor =
-          (lib.forEach config.dotfyls.desktops.displays (
+          (lib.forEach cfg'.displays (
             display:
             lib.concatStringsSep ", " (
               [
@@ -82,11 +88,7 @@ in
           ))
           ++ [ ", preferred, auto, auto" ];
 
-        env = builtins.attrValues (
-          builtins.mapAttrs (name: value: "${name}, ${toString value}") (
-            config.dotfyls.desktops.wayland.sessionVariables // { QT_WAYLAND_DISABLE_WINDOWDECORATION = 1; }
-          )
-        );
+        env = lib.mapAttrsToList (name: value: "${name}, ${toString value}") cfg'.wayland.sessionVariables;
 
         exec-once = [ "swww-daemon &" ];
       };

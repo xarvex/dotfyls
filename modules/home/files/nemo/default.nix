@@ -31,5 +31,14 @@ in
     };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
+
+    dconf.settings."org/nemo/preferences" = {
+      click-double-parent-folder = true;
+      close-device-view-on-device-eject = true;
+      quick-renames-with-pause-in-between = true;
+      show-advanced-permissions = true;
+      show-hidden-files = true;
+      thumbnail-limit = lib.hm.gvariant.mkUint64 (1024 * 1024 * 1024);
+    };
   };
 }

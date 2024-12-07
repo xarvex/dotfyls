@@ -8,6 +8,12 @@
 
 let
   cfg = config.dotfyls.terminals;
+
+  desktopFiles = {
+    alacritty = "Alacritty.desktop";
+    kitty = "kitty.desktop";
+    wezterm = "org.wezfurlong.wezterm.desktop";
+  };
 in
 {
   imports = [
@@ -22,32 +28,9 @@ in
       ]
       {
         name = "default";
-        default = "wezterm";
+        default = "kitty";
+        example = "alacritty";
         description = "Default terminal to use.";
-      }
-      {
-        alacritty = "Alacritty";
-        kitty = "kitty";
-        wezterm = "WezTerm";
-      }
-    )
-
-    (self.lib.mkCommonModules
-      [
-        "dotfyls"
-        "terminals"
-        "terminals"
-      ]
-      (_: _: {
-        desktopFile = lib.mkOption {
-          internal = true;
-          readOnly = true;
-        };
-      })
-      {
-        alacritty.specialArgs.desktopFile.default = "Alacritty.desktop";
-        kitty.specialArgs.desktopFile.default = "kitty.desktop";
-        wezterm.specialArgs.desktopFile.default = "org.wezfurlong.wezterm.desktop";
       }
     )
   ];
@@ -75,27 +58,9 @@ in
     home.packages = [ (self.lib.getCfgPkg cfg.xdg-terminal-exec) ];
 
     xdg.configFile."xdg-terminals.list".text = ''
-      ${cfg.selected.desktopFile}
+      ${desktopFiles.${cfg.default}}
 
-      Alacritty.desktop
-      kitty.desktop
-      org.wezfurlong.wezterm.desktop
-
-      /execarg_default:org.wezfurlong.wezterm.desktop:start
-
-      -org.kde.yakuake.desktop
-
-      /execarg_default:com.raggesilver.BlackBox.desktop:--
-      /execarg_default:contour.desktop:execute
-      /execarg_default:deepin-terminal.desktop:-x
-      /execarg_default:io.elementary.terminal.desktop:-x
-      /execarg_default:org.codeberg.dnkl.foot.desktop:--
-      /execarg_default:org.gnome.Terminal.desktop:--
-      /execarg_default:kitty.desktop:--
-      /execarg_default:mate-terminal.desktop:-x
-      /execarg_default:roxterm.desktop:-x
-      /execarg_default:terminator.desktop:-x
-      /execarg_default:xfce4-terminal.desktop:-x
+      ${builtins.readFile ./xdg-terminals.list}
     '';
 
     dconf.settings = {

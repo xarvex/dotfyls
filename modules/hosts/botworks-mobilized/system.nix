@@ -2,13 +2,13 @@
 
 {
   dotfyls = {
-    security.harden.kernel.packages = false;
+    graphics.provider = "intel";
 
     kernels.variant = "xanmod";
 
-    graphics.provider = "intel";
-
     power.management = true;
+
+    security.harden.kernel.packages = false;
   };
 
   services.udev.extraRules = ''

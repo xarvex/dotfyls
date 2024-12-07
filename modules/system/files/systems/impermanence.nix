@@ -22,7 +22,7 @@ let
             (lib.mapAttrsToList (
               file: config: {
                 directory = file;
-                inherit (config) mode;
+                inherit (config) mode user group;
               }
             ))
           ]

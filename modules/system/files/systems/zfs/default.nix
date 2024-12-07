@@ -28,6 +28,7 @@ in
   ];
 
   options.dotfyls.files.systems.systems.zfs = {
+    enable = lib.mkEnableOption "ZFS";
     unstable = lib.mkEnableOption "unstable ZFS filesystem" // {
       default = true;
     };

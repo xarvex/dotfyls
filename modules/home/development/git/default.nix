@@ -33,6 +33,8 @@ in
     };
     key = lib.mkOption {
       type = with lib.types; nullOr str;
+      default = null;
+      example = "0046A18B1037C201";
       description = "The default GPG signing key fingerprint.";
     };
   };

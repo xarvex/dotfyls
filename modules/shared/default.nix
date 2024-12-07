@@ -2,6 +2,7 @@
 
 let
   modules' = [
+    "appearance_fonts"
     "file"
     "nix"
   ];

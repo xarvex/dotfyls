@@ -54,7 +54,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         "$mod, W, exec, firefox"
         "$mod, E, exec, nemo"
         "$mod, O, exec, obsidian"
-        "$mod, D, exec, ${if config.dotfyls.programs.vesktop.enable then "vesktop" else "discord"}"
+        "$mod, D, exec, if command -v vesktop >/dev/null; then vesktop; else Discord; fi"
 
         "$mod, Return, exec, xdg-terminal-exec"
 

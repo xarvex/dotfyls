@@ -5,6 +5,10 @@ let
   cfg = cfg'.languages.rust;
 in
 {
+  options.dotfyls.development.languages.rust.enable = lib.mkEnableOption "Rust" // {
+    default = true;
+  };
+
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
       ".local/share/cargo".cache = true;

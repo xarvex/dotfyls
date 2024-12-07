@@ -7,10 +7,13 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.desktops.hyprland;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.desktops.hyprland;
 in
 {
   imports = [
+    ./lock.nix
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
@@ -25,7 +28,9 @@ in
     )
   ];
 
-  config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
+  options.dotfyls.desktops.desktops.hyprland.enable = lib.mkEnableOption "Hyprland";
+
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.hyprland.enable = true;
 
     xdg.portal = {
