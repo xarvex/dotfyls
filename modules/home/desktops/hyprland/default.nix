@@ -76,7 +76,7 @@ in
         monitor =
           (lib.forEach cfg'.displays (
             display:
-            lib.concatStringsSep ", " (
+            builtins.concatStringsSep ", " (
               [
                 display.name
                 "${toString display.width}x${toString display.height}@${toString display.refresh}"
