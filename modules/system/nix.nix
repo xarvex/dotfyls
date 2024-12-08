@@ -13,7 +13,14 @@
     "/root/.cache/nix".cache = true;
   };
 
-  nix.channel.enable = false;
+  nix = {
+    channel.enable = false;
+    optimise = {
+      automatic = true;
+
+      dates = [ "daily" ];
+    };
+  };
 
   systemd.tmpfiles.rules = [ "R /nix/var/nix/profiles/per-user - - - 0" ];
 }
