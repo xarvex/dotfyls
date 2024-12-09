@@ -37,18 +37,17 @@
       perSystem =
         { pkgs, ... }:
         let
-          manifest = (pkgs.lib.importTOML ./Cargo.toml).workspace.package;
+          manifest = (lib.importTOML ./Cargo.toml).workspace.package;
         in
         {
           packages = rec {
             default = name;
 
             name = pkgs.rustPlatform.buildRustPackage rec {
+              pname = "name";
               inherit (manifest) version;
 
-              pname = "name";
-
-              src = pkgs.lib.cleanSource ./.;
+              src = ./.;
               cargoLock.lockFile = ./Cargo.lock;
 
               meta = {
