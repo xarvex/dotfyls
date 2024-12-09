@@ -15,6 +15,11 @@
   };
 
   config = {
+    dotfyls.file."/etc/persistwd/shadow" = {
+      mode = "0000";
+      persist = true;
+    };
+
     security.shadow.persistwd.enable = true;
 
     users = {
@@ -22,13 +27,13 @@
       users = {
         root = {
           initialPassword = "password";
-          hashedPasswordFile = "/persist/etc/shadow/root";
+          hashedPasswordFile = "/etc/persistwd/shadow/root";
         };
 
         ${user} = {
           isNormalUser = true;
           initialPassword = "password";
-          hashedPasswordFile = "/persist/etc/shadow/${user}";
+          hashedPasswordFile = "/etc/persistwd/shadow/${user}";
           extraGroups = [
             "networkmanager"
             "wheel"
