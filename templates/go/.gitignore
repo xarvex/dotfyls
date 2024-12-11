@@ -35,3 +35,4 @@ go.work
 .pre-commit-config.yaml
 
 result
+result-*

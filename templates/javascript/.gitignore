@@ -152,3 +152,4 @@ dist
 .pre-commit-config.yaml
 
 result
+result-*
