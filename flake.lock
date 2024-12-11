@@ -627,11 +627,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733706595,
-        "narHash": "sha256-vx/CG8Ius4sfbOC2sPF+WIPoBZ2Pv9a3dqYirvAiBPY=",
+        "lastModified": 1733906531,
+        "narHash": "sha256-4juvaXODSr+C3ZyrEqP3NfiRnDMa15k0ms1ZTMJJPYs=",
         "owner": "xarvex",
         "repo": "persistwd",
-        "rev": "5a5fd56eda1b2ff06413ab8965b6698a5db323f4",
+        "rev": "16528e2c50fcbfc1e1749d0a2dac4ec0e12b441d",
         "type": "gitlab"
       },
       "original": {
