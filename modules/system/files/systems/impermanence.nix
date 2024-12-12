@@ -20,9 +20,9 @@ let
         if dir then
           [
             (lib.mapAttrsToList (
-              file: config: {
+              file: fCfg: {
                 directory = file;
-                inherit (config) mode user group;
+                inherit (fCfg) mode user group;
               }
             ))
           ]
