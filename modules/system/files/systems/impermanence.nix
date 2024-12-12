@@ -82,7 +82,6 @@ in
           "size=1G"
           "mode=755"
         ];
-        neededForBoot = true;
       };
       "/persist".neededForBoot = true;
       "/cache".neededForBoot = true;

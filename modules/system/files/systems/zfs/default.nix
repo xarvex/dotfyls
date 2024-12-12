@@ -47,6 +47,16 @@ in
           "by-id"
         else
           "by-partuuid";
+      defaultText = lib.literalExpression ''
+        if (
+            config.hardware.cpu.intel.updateMicrocode
+            && !(builtins.elem "virtio_pci" config.boot.initrd.availableKernelModules)
+          )
+        then
+          "by-id"
+        else
+          "by-partuuid"
+      '';
       example = "by-partuuid";
       description = "Device node path to use for devNodes.";
     };
@@ -57,6 +67,7 @@ in
       {
         dotfyls = {
           files.systems.systems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
+
           kernels.version = lib.mkIf (!cfg.unstable) (
             lib.mkDefault cfg.package.latestCompatibleLinuxPackages.kernel.version
           );
@@ -67,7 +78,7 @@ in
 
           zfs = {
             devNodes = "/dev/disk/${cfg.nodes}";
-            requestEncryptionCredentials = cfg'.encryption;
+            requestEncryptionCredentials = cfg'.encrypt;
           };
         };
 
@@ -80,26 +91,32 @@ in
         systemd.services.systemd-udev-settle.enable = false;
 
         fileSystems =
-          {
-            "/nix" = {
-              device = "zroot/nix";
-              fsType = "zfs";
+          if cfg'.impermanence.enable then
+            {
+              "/nix" = {
+                device = "zroot/nix";
+                fsType = "zfs";
+              };
+              "/tmp" = {
+                device = "zroot/tmp";
+                fsType = "zfs";
+              };
+              "/persist" = {
+                device = "zroot/persist";
+                fsType = "zfs";
+              };
+              "/cache" = {
+                device = "zroot/cache";
+                fsType = "zfs";
+              };
+            }
+          else
+            {
+              "/" = {
+                device = "zroot/root";
+                fsType = "zfs";
+              };
             };
-            "/tmp" = {
-              device = "zroot/tmp";
-              fsType = "zfs";
-            };
-          }
-          // lib.optionalAttrs cfg'.impermanence.enable {
-            "/persist" = {
-              device = "zroot/persist";
-              fsType = "zfs";
-            };
-            "/cache" = {
-              device = "zroot/cache";
-              fsType = "zfs";
-            };
-          };
       }
     ]
   );
