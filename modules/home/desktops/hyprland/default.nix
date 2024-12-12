@@ -41,8 +41,6 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
-      desktops.wayland.sessionVariables.QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
-
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
 

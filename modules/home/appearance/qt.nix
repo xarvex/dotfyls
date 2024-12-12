@@ -51,6 +51,8 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.desktops.wayland.sessionVariables.QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
+
     home.packages = with pkgs; [
       libsForQt5.qt5ct
       libsForQt5.qtstyleplugin-kvantum
