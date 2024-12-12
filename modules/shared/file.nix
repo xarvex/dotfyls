@@ -51,9 +51,42 @@ in
             };
             persist = lib.mkEnableOption "persist the file";
             cache = lib.mkEnableOption "cache the file";
+            sync = {
+              enable = lib.mkEnableOption "Syncthing handling of the file";
+              rescan = lib.mkOption {
+                type = lib.types.int;
+                default = 60 * 60;
+                defaultText = lib.literalExpression "60 * 60";
+                example = lib.literalExpression "30 * 60";
+                description = "The interval in seconds between Syncthing rescans.";
+              };
+              watch = {
+                enable = lib.mkEnableOption "Sycnthing change watching" // {
+                  default = true;
+                };
+                delay = lib.mkOption {
+                  type = lib.types.int;
+                  default = 10;
+                  example = 30;
+                  description = "The interval in seconds before Syncthing rescans when a change is detected.";
+                };
+              };
+              order = lib.mkOption {
+                type = lib.types.enum [
+                  "random"
+                  "alphabetic"
+                  "smallestFirst"
+                  "largestFirst"
+                  "oldestFirst"
+                  "newestFirst"
+                ];
+                default = "random";
+                example = "newestFirst";
+                description = "The order that Syncthing should pull files.";
+              };
+            };
 
             path = lib.mkOption {
-              internal = true;
               readOnly = true;
               default = lib.optionalString (!system) "${config'.home.homeDirectory}/${name}";
             };

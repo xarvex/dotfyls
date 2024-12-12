@@ -7,28 +7,43 @@
     ./nemo
 
     ./gvfs.nix
+    ./syncthing.nix
   ];
 
   dotfyls.file = {
     "Documents" = {
       mode = "0700";
       persist = true;
+      sync = {
+        enable = true;
+        rescan = 0;
+        watch.delay = 60;
+        order = "newestFirst";
+      };
     };
     "Downloads" = {
       mode = "0700";
       cache = true;
+      sync = {
+        enable = true;
+        watch.enable = false;
+        order = "smallestFirst";
+      };
     };
     "Music" = {
       mode = "0700";
       persist = true;
+      sync.enable = true;
     };
     "Pictures" = {
       mode = "0700";
       persist = true;
+      sync.enable = true;
     };
     "Videos" = {
       mode = "0700";
       persist = true;
+      sync.enable = true;
     };
 
     ".config".mode = "0700";
