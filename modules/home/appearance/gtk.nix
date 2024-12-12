@@ -15,37 +15,46 @@ in
       default = true;
     };
 
-    theme =
-      lib.mkOption {
-        type = lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-              example = "Colloid-Red-Dark-Catppuccin";
-              description = "Name of the GTK theme.";
-            };
-            package = lib.mkOption {
-              type = lib.types.package;
-              example = lib.literalExpression ''
-                pkgs.colloid-gtk-theme.override {
-                  themeVariants = [ "all" ];
-                  colorVariants = [ "dark" ];
-                  tweaks = [
-                    "catppuccin"
-                    "black"
-                    "normal"
-                  ];
-                };
+    theme = lib.mkOption rec {
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            example = "Colloid-Red-Dark-Catppuccin";
+            description = "Name of the GTK theme.";
+          };
+          package = lib.mkOption {
+            type = lib.types.package;
+            example = lib.literalExpression ''
+              pkgs.colloid-gtk-theme.override {
+                themeVariants = [ "all" ];
+                colorVariants = [ "dark" ];
+                tweaks = [
+                  "catppuccin"
+                  "black"
+                  "normal"
+                ];
+              };
 
-              '';
-              description = "Package providing the GTK theme.";
-            };
+            '';
+            description = "Package providing the GTK theme.";
           };
         };
-        description = "GTK theme used.";
-      }
-      // rec {
-        default = {
+      };
+      default = {
+        name = "Colloid-Red-Dark-Catppuccin";
+        package = pkgs.colloid-gtk-theme.override {
+          themeVariants = [ "all" ];
+          colorVariants = [ "dark" ];
+          tweaks = [
+            "catppuccin"
+            "black"
+            "normal"
+          ];
+        };
+      };
+      defaultText = lib.literalExpression ''
+        {
           name = "Colloid-Red-Dark-Catppuccin";
           package = pkgs.colloid-gtk-theme.override {
             themeVariants = [ "all" ];
@@ -56,23 +65,11 @@ in
               "normal"
             ];
           };
-        };
-        defaultText = lib.literalExpression ''
-          {
-            name = "Colloid-Red-Dark-Catppuccin";
-            package = pkgs.colloid-gtk-theme.override {
-              themeVariants = [ "all" ];
-              colorVariants = [ "dark" ];
-              tweaks = [
-                "catppuccin"
-                "black"
-                "normal"
-              ];
-            };
-          }
-        '';
-        example = defaultText;
-      };
+        }
+      '';
+      example = defaultText;
+      description = "GTK theme used.";
+    };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {

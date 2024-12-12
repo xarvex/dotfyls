@@ -22,48 +22,45 @@ in
       default = config.dotfyls.desktops.enable;
     };
 
-    theme =
-      lib.mkOption {
-        type = lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-              example = "Colloid-Red-Catppuccin-Dark";
-              description = "Name of the icon theme.";
-            };
-            package = lib.mkOption {
-              type = lib.types.package;
-              example = lib.literalExpression ''
-                pkgs.colloid-icon-theme.override {
-                  schemeVariants = [ "catppuccin" ];
-                  colorVariants = [ "all" ];
-                }
-              '';
-              description = "Package providing the icon theme.";
-            };
+    theme = lib.mkOption rec {
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            example = "Colloid-Red-Catppuccin-Dark";
+            description = "Name of the icon theme.";
+          };
+          package = lib.mkOption {
+            type = lib.types.package;
+            example = lib.literalExpression ''
+              pkgs.colloid-icon-theme.override {
+                schemeVariants = [ "catppuccin" ];
+                colorVariants = [ "all" ];
+              }
+            '';
+            description = "Package providing the icon theme.";
           };
         };
-        description = "Icon theme used.";
-      }
-      // rec {
-        default = {
+      };
+      default = {
+        name = "Colloid-Red-Catppuccin-Dark";
+        package = pkgs.colloid-icon-theme.override {
+          schemeVariants = [ "catppuccin" ];
+          colorVariants = [ "all" ];
+        };
+      };
+      defaultText = lib.literalExpression ''
+        {
           name = "Colloid-Red-Catppuccin-Dark";
           package = pkgs.colloid-icon-theme.override {
             schemeVariants = [ "catppuccin" ];
             colorVariants = [ "all" ];
           };
-        };
-        defaultText = lib.literalExpression ''
-          {
-            name = "Colloid-Red-Catppuccin-Dark";
-            package = pkgs.colloid-icon-theme.override {
-              schemeVariants = [ "catppuccin" ];
-              colorVariants = [ "all" ];
-            };
-          }
-        '';
-        example = defaultText;
-      };
+        }
+      '';
+      example = defaultText;
+      description = "Icon theme used.";
+    };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {

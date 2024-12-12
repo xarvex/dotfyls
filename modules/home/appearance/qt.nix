@@ -15,39 +15,36 @@ in
       default = true;
     };
 
-    theme =
-      lib.mkOption {
-        type = lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-              example = "catppuccin-mocha-maroon";
-              description = "Name of the Qt Kvantum theme.";
-            };
-            source = lib.mkOption {
-              type = lib.types.path;
-              example = lib.literalExpression ''
-                "''${pkgs.catppuccin-kvantum.src}/themes"
-              '';
-              description = "Source providing the Qt Kvantum theme.";
-            };
+    theme = lib.mkOption rec {
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            example = "catppuccin-mocha-maroon";
+            description = "Name of the Qt Kvantum theme.";
+          };
+          source = lib.mkOption {
+            type = lib.types.path;
+            example = lib.literalExpression ''
+              "''${pkgs.catppuccin-kvantum.src}/themes"
+            '';
+            description = "Source providing the Qt Kvantum theme.";
           };
         };
-        description = "Qt Kvantum theme used.";
-      }
-      // rec {
-        default = {
-          name = "catppuccin-mocha-maroon";
-          source = "${pkgs.catppuccin-kvantum.src}/themes";
-        };
-        defaultText = lib.literalExpression ''
-          {
-            name = "catppuccin-mocha-maroon";
-            source = "''${pkgs.catppuccin-kvantum.src}/themes";
-          }
-        '';
-        example = defaultText;
       };
+      default = {
+        name = "catppuccin-mocha-maroon";
+        source = "${pkgs.catppuccin-kvantum.src}/themes";
+      };
+      defaultText = lib.literalExpression ''
+        {
+          name = "catppuccin-mocha-maroon";
+          source = "''${pkgs.catppuccin-kvantum.src}/themes";
+        }
+      '';
+      example = defaultText;
+      description = "Qt Kvantum theme used.";
+    };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
