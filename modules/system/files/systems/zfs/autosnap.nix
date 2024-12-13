@@ -36,6 +36,7 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     services.sanoid = {
       enable = true;
+      interval = "*:0/15";
 
       templates.default = {
         daily_hour = 0;
@@ -46,10 +47,11 @@ in
         weekly_min = 0;
       };
       datasets."zroot/persist" = {
+        frequently = 8;
         hourly = 48;
         daily = 14;
-        weekly = 8;
-        monthly = 2;
+        weekly = 4;
+        monthly = 3;
       };
     };
   };
