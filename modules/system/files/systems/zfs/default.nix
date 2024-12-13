@@ -12,6 +12,8 @@ let
 in
 {
   imports = [
+    ./autosnap.nix
+
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
