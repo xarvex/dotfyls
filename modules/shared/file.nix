@@ -111,6 +111,17 @@ in
         ]
       )
       (
-        (lib.mapAttrsToList (_: fCfg: "z \"${fCfg.path}\" ${fCfg.mode} ${fCfg.user} ${fCfg.group} - -")) cfg
+        lib.flatten (
+          (lib.mapAttrsToList (
+            _: fCfg:
+            let
+              mkEntry = volume: "z \"${volume}${fCfg.path}\" ${fCfg.mode} ${fCfg.user} ${fCfg.group} - -";
+            in
+            [ (mkEntry "") ]
+            ++ lib.optional (fCfg.dir && !fCfg.persist) (mkEntry "/persist")
+            ++ lib.optional (fCfg.dir && !fCfg.cache) (mkEntry "/cache")
+          ))
+            cfg
+        )
       );
 }
