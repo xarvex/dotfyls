@@ -7,7 +7,7 @@
     ./nemo
 
     ./gvfs.nix
-    ./syncthing.nix
+    ./sync.nix
   ];
 
   dotfyls.file = {

@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.dotfyls.files.syncthing;
+  cfg = config.dotfyls.files.sync;
 in
 {
   imports = [
@@ -15,7 +15,7 @@ in
       [
         "dotfyls"
         "files"
-        "syncthing"
+        "sync"
       ]
       [
         "services"
@@ -24,7 +24,7 @@ in
     )
   ];
 
-  options.dotfyls.files.syncthing.enable = lib.mkEnableOption "Syncthing" // {
+  options.dotfyls.files.sync.enable = lib.mkEnableOption "sync using Syncthing" // {
     default = true;
   };
 
