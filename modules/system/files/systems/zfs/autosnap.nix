@@ -37,6 +37,14 @@ in
     services.sanoid = {
       enable = true;
 
+      templates.default = {
+        daily_hour = 0;
+        daily_min = 0;
+
+        weekly_wday = 7;
+        weekly_hour = 0;
+        weekly_min = 0;
+      };
       datasets."zroot/persist" = {
         hourly = 48;
         daily = 14;
