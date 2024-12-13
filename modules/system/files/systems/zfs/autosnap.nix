@@ -34,6 +34,11 @@ in
     };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.file."/var/cache/private/sanoid" = {
+      user = "sanoid";
+      cache = true;
+    };
+
     services.sanoid = {
       enable = true;
       interval = "*:0/15";
@@ -53,6 +58,14 @@ in
         weekly = 4;
         monthly = 3;
       };
+    };
+
+    users = {
+      users.sanoid = {
+        isSystemUser = true;
+        group = "sanoid";
+      };
+      groups.sanoid = { };
     };
   };
 }

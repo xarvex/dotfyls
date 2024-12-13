@@ -33,6 +33,8 @@ _:
 
     "/var/lib/systemd/coredump".cache = true;
     "/var/log".persist = true;
+    "/var/lib/private".mode = "0700";
+    "/var/cache/private".mode = "0700";
 
     "/root/.cache".mode = "0700";
   };
