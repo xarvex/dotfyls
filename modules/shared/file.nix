@@ -88,7 +88,7 @@ in
 
             path = lib.mkOption {
               readOnly = true;
-              default = lib.optionalString (!system) "${config'.home.homeDirectory}/${name}";
+              default = if system then name else "${config'.home.homeDirectory}/${name}";
             };
           };
         }
