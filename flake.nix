@@ -139,26 +139,26 @@
           };
         in
         {
-          botworks = defaultHost "ef01cd45" "x86_64-linux";
-          botworks-mobilized = defaultHost "fd9daca2" "x86_64-linux";
-          botworks-pioneer = defaultHost "3540bf30" "x86_64-linux";
-          botworks-virtualized = defaultHost "3bb44cc9" "x86_64-linux";
+          artemux = defaultHost "fd9daca2" "x86_64-linux";
+          matrix = defaultHost "3bb44cc9" "x86_64-linux";
+          pioneer = defaultHost "3540bf30" "x86_64-linux";
+          sentinel = defaultHost "ef01cd45" "x86_64-linux";
         };
 
       nixosHosts = {
         inherit (hosts)
-          botworks
-          botworks-mobilized
-          botworks-pioneer
-          botworks-virtualized
+          artemux
+          matrix
+          pioneer
+          sentinel
           ;
       };
       homeManagerHosts = {
         inherit (hosts)
-          botworks
-          botworks-mobilized
-          botworks-pioneer
-          botworks-virtualized
+          artemux
+          matrix
+          pioneer
+          sentinel
           ;
       };
     in
