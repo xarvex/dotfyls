@@ -39,6 +39,7 @@ in
     services.syncthing = {
       enable = true;
 
+      overrideDevices = false;
       settings = {
         gui = {
           theme = "black";
