@@ -143,4 +143,5 @@ printf '%s%s%s ' "${magenta}" 'Specify rev to install (main):' "${reset}"
 read -r rev
 
 printf '$%s%s%s\n' "${blue}" 'Running install...' "${reset}"
-nix-shell --extra-experimental-features 'nix-command flakes' -p git --command "sudo nixos-install --no-root-password --flake gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
+sudo nixos-install --flake "gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
+nixos-enter --root /mnt -- persistwd populate-hashes

@@ -4,7 +4,7 @@
 }:
 
 writeShellApplication {
-  name = "dotfyls-pamu2fcfg";
+  name = "dotfyls-install";
 
   runtimeInputs = [ git ];
 

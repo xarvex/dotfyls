@@ -211,7 +211,11 @@
           builtins.mapAttrs self.lib.mkNixosConfiguration nixosHosts
           # Keep installer separate for now.
           // {
-            installer = lib.nixosSystem { modules = [ ./hosts/installer ]; };
+            installer = lib.nixosSystem {
+              specialArgs = { inherit self; };
+
+              modules = [ ./modules/hosts/installer ];
+            };
           };
         homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
 
