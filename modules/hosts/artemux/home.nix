@@ -26,12 +26,9 @@ _:
 
     shells.shells.zsh.enable = true;
 
-    terminals = {
-      default = "kitty";
-      terminals = {
-        alacritty.enable = true;
-        wezterm.enable = true;
-      };
+    terminals.terminals = {
+      alacritty.enable = true;
+      wezterm.enable = true;
     };
   };
 }
