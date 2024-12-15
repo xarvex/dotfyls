@@ -41,9 +41,9 @@ if [ -b /dev/vda ]; then
     printf '\n%s%s%s\n' "${green}" 'Virtual disk found, selecting /dev/vda' "${reset}"
 
     disk=/dev/vda
-    boot_disk=${disk}3
-    swap_disk=${disk}2
-    zfs_disk=${disk}1
+    boot_part=${disk}3
+    swap_part=${disk}2
+    main_part=${disk}1
 else
     while [ ! -L "${disk:-}" ]; do
         printf '\n%s\n\n%s%s%s ' \
@@ -53,9 +53,9 @@ else
 
         disk="/dev/disk/by-id/${disk_id}"
     done
-    boot_disk="${disk}-part3"
-    swap_disk="${disk}-part2"
-    zfs_disk="${disk}-part1"
+    boot_part="${disk}-part3"
+    swap_part="${disk}-part2"
+    main_part="${disk}-part1"
 fi
 
 encryption_options=()
@@ -78,11 +78,11 @@ sudo sgdisk -p "${disk}" >/dev/null
 sleep 5
 
 printf '%s%s%s\n' "${blue}" 'Enabling swap...' "${reset}"
-sudo mkswap "${swap_disk}" --label SWAP
-sudo swapon "${swap_disk}"
+sudo mkswap "${swap_part}" --label SWAP
+sudo swapon "${swap_part}"
 
 printf '%s%s%s\n' "${blue}" 'Configuring boot...' "${reset}"
-sudo mkfs.fat -F 32 "${boot_disk}" -n NIXBOOT
+sudo mkfs.fat -F 32 "${boot_part}" -n NIXBOOT
 
 printf '%s%s%s\n' "${blue}" 'Creating zpool...' "${reset}"
 sudo zpool create -f \
@@ -95,7 +95,7 @@ sudo zpool create -f \
     -O normalization=formD \
     -O mountpoint=none \
     "${encryption_options[@]}" \
-    zroot "${zfs_disk}"
+    zroot "${main_part}"
 
 printf '%s%s%s\n' "${blue}" 'Creating / (ZFS)...' "${reset}"
 sudo zfs create -o mountpoint=legacy zroot/root
@@ -104,7 +104,7 @@ printf '%s%s%s\n' "${blue}" 'Mounting / (ZFS)...' "${reset}"
 sudo mount -t zfs zroot/root /mnt
 
 printf '%s%s%s\n' "${blue}" 'Mounting /boot (ZFS)...' "${reset}"
-sudo mount -o umask=077 --mkdir "${boot_disk}" /mnt/boot
+sudo mount -o umask=077 --mkdir "${boot_part}" /mnt/boot
 
 printf '%s%s%s\n' "${blue}" 'Creating /nix (ZFS)...' "${reset}"
 sudo zfs create -o mountpoint=legacy zroot/nix
