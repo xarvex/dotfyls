@@ -124,6 +124,7 @@
             "steam-original"
             "steam-run"
             "steam-unwrapped"
+            "vintagestory"
             "zsh-abbr"
           ];
 

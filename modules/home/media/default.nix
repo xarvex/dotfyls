@@ -9,6 +9,7 @@
     ./prismlauncher
     ./spotify
     ./steam
+    ./vintagestory
     ./zathura
 
     ./mime-apps.nix
