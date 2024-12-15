@@ -9,9 +9,6 @@ _:
 
     desktops.enable = false;
 
-    terminals = {
-      enable = false;
-      selected.enable = false;
-    };
+    terminals.enable = false;
   };
 }
