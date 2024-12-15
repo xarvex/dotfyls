@@ -1,9 +1,9 @@
-_:
+{ lib, ... }:
 
 {
   dotfyls = {
     desktops = {
-      wayland.sessionVariables.NIXOS_OZONE_WL = "";
+      wayland.sessionVariables.NIXOS_OZONE_WL = lib.mkForce "";
       displays = [
         {
           name = "DP-2";
