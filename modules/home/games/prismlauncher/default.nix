@@ -7,13 +7,13 @@
 }:
 
 let
-  cfg' = config.dotfyls.media;
+  cfg' = config.dotfyls.games;
   cfg = cfg'.prismlauncher;
 in
 {
-  options.dotfyls.media.prismlauncher = {
+  options.dotfyls.games.prismlauncher = {
     enable = lib.mkEnableOption "Prism Launcher" // {
-      default = config.dotfyls.desktops.enable;
+      default = true;
     };
     package = lib.mkPackageOption pkgs "Prism Launcher" { default = "prismlauncher"; };
   };

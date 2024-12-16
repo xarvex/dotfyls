@@ -7,6 +7,7 @@ _:
     ./desktops
     ./display-manager
     ./files
+    ./games
     ./graphics
     ./media
     ./programs

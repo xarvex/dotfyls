@@ -1,12 +1,12 @@
 { config, lib, ... }:
 
 let
-  cfg' = config.dotfyls.media;
+  cfg' = config.dotfyls.games;
   cfg = cfg'.steam;
 in
 {
-  options.dotfyls.media.steam.enable = lib.mkEnableOption "Steam" // {
-    default = config.dotfyls.desktops.enable;
+  options.dotfyls.games.steam.enable = lib.mkEnableOption "Steam" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {

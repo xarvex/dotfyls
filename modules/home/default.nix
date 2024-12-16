@@ -7,6 +7,7 @@
     ./desktops
     ./development
     ./files
+    ./games
     ./media
     ./nix
     ./programs

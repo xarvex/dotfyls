@@ -4,11 +4,7 @@ let
   hmCfg = config.hm.dotfyls.media;
 in
 {
-  imports = [
-    ./steam
-
-    ./pipewire.nix
-  ];
+  imports = [ ./pipewire.nix ];
 
   options.dotfyls.media.enable = lib.mkEnableOption "media" // {
     default = hmCfg.enable;

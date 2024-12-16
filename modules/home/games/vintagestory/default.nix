@@ -7,13 +7,13 @@
 }:
 
 let
-  cfg' = config.dotfyls.media;
+  cfg' = config.dotfyls.games;
   cfg = cfg'.vintagestory;
 in
 {
-  options.dotfyls.media.vintagestory = {
+  options.dotfyls.games.vintagestory = {
     enable = lib.mkEnableOption "Vintage Story" // {
-      default = config.dotfyls.desktops.enable;
+      default = true;
     };
     package = lib.mkPackageOption pkgs "Vintage Story" { default = "vintagestory"; };
     finalPackage = self.lib.mkFinalPackageOption "Vintage Story" // {
