@@ -7,12 +7,12 @@
 }:
 
 let
-  cfg'' = config.dotfyls.displayManager;
-  cfg' = cfg''.displayManager.greetd;
+  cfg'' = config.dotfyls.display-managers;
+  cfg' = cfg''.display-managers.greetd;
   cfg = cfg'.greeter.greeter.tuigreet;
 in
 {
-  options.dotfyls.displayManager.displayManager.greetd.greeter.greeter.tuigreet = {
+  options.dotfyls.display-managers.display-managers.greetd.greeter.greeter.tuigreet = {
     enable = lib.mkEnableOption "tuigreet";
     package = lib.mkPackageOption pkgs [ "greetd" "tuigreet" ] { };
     theme = lib.mkOption {

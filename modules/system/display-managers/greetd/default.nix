@@ -6,8 +6,8 @@
 }:
 
 let
-  cfg' = config.dotfyls.displayManager;
-  cfg = cfg'.displayManager.greetd;
+  cfg' = config.dotfyls.display-managers;
+  cfg = cfg'.display-managers.greetd;
 in
 {
   imports = [
@@ -16,8 +16,8 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "displayManager"
-        "displayManager"
+        "display-managers"
+        "display-managers"
         "greetd"
       ]
       [
@@ -29,8 +29,8 @@ in
     (self.lib.mkSelectorModule
       [
         "dotfyls"
-        "displayManager"
-        "displayManager"
+        "display-managers"
+        "display-managers"
         "greetd"
         "greeter"
       ]
@@ -43,7 +43,7 @@ in
     )
   ];
 
-  options.dotfyls.displayManager.displayManager.greetd.enable = lib.mkEnableOption "greetd";
+  options.dotfyls.display-managers.display-managers.greetd.enable = lib.mkEnableOption "greetd";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     services.greetd.enable = true;

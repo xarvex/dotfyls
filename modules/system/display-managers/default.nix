@@ -14,7 +14,7 @@
     (self.lib.mkSelectorModule
       [
         "dotfyls"
-        "displayManager"
+        "display-managers"
       ]
       {
         name = "provider";
@@ -25,7 +25,7 @@
     )
   ];
 
-  options.dotfyls.displayManager.enable = lib.mkEnableOption "display manager" // {
+  options.dotfyls.display-managers.enable = lib.mkEnableOption "display managers" // {
     default = config.dotfyls.desktops.enable;
   };
 }

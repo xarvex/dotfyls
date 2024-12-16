@@ -6,12 +6,12 @@
 }:
 
 let
-  cfg'' = config.dotfyls.displayManager;
-  cfg' = cfg''.displayManager.greetd;
+  cfg'' = config.dotfyls.display-managers;
+  cfg' = cfg''.display-managers.greetd;
   cfg = cfg'.greeter.greeter.agreety;
 in
 {
-  options.dotfyls.displayManager.displayManager.greetd.greeter.greeter.agreety = {
+  options.dotfyls.display-managers.display-managers.greetd.greeter.greeter.agreety = {
     enable = lib.mkEnableOption "agreety";
   };
 

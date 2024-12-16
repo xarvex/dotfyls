@@ -7,11 +7,11 @@
 }:
 
 let
-  cfg' = config.dotfyls.displayManager;
-  cfg = cfg'.displayManager.cage;
+  cfg' = config.dotfyls.display-managers;
+  cfg = cfg'.display-managers.cage;
 in
 {
-  options.dotfyls.displayManager.displayManager.cage = {
+  options.dotfyls.display-managers.display-managers.cage = {
     enable = lib.mkEnableOption "Cage";
     startCommand = self.lib.mkCommandOption "start with Cage" // {
       default = pkgs.dotfyls.mkCommand ''

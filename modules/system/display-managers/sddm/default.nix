@@ -7,16 +7,16 @@
 }:
 
 let
-  cfg' = config.dotfyls.displayManager;
-  cfg = cfg'.displayManager.sddm;
+  cfg' = config.dotfyls.display-managers;
+  cfg = cfg'.display-managers.sddm;
 in
 {
   imports = [
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "displayManager"
-        "displayManager"
+        "display-managers"
+        "display-managers"
         "sddm"
       ]
       [
@@ -27,7 +27,7 @@ in
     )
   ];
 
-  options.dotfyls.displayManager.displayManager.sddm = {
+  options.dotfyls.display-managers.display-managers.sddm = {
     enable = lib.mkEnableOption "SDDM";
     theme = lib.mkOption rec {
       type = lib.types.submodule {
@@ -63,7 +63,7 @@ in
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls = {
-      displayManager.displayManager.sddm.package = lib.mkDefault pkgs.kdePackages.sddm;
+      display-managers.display-managers.sddm.package = lib.mkDefault pkgs.kdePackages.sddm;
 
       file."/var/lib/sddm" = {
         mode = "0750";

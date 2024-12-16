@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  dotfyls.displayManager = {
+  dotfyls.display-managers = {
     enable = true;
     provider = "cage";
   };

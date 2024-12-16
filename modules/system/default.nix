@@ -5,7 +5,7 @@ _:
     ./appearance
     ./boot
     ./desktops
-    ./display-manager
+    ./display-managers
     ./files
     ./games
     ./graphics
