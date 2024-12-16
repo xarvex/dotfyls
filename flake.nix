@@ -9,15 +9,6 @@
       flake = false;
     };
 
-    dotfyls-firefox = {
-      url = "gitlab:dotfyls/firefox";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
     dotfyls-neovim = {
       url = "gitlab:dotfyls/neovim";
       inputs = {

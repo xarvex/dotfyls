@@ -1,7 +1,7 @@
 {
   config,
-  inputs,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -11,7 +11,8 @@ let
 in
 {
   imports = [
-    inputs.dotfyls-firefox.homeManagerModules.firefox
+    ./containers.nix
+    ./search.nix
 
     (self.lib.mkAliasPackageModule
       [
@@ -44,6 +45,12 @@ in
 
     programs.firefox = {
       enable = true;
+
+      profiles.${config.home.username}.extraConfig = ''
+        ${builtins.readFile "${pkgs.arkenfox-userjs}/user.js"}
+
+        ${builtins.readFile ./user-overrides.js}
+      '';
     };
   };
 }

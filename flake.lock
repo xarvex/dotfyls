@@ -122,32 +122,6 @@
         "url": "file:///dev/null"
       }
     },
-    "dotfyls-firefox": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1727763398,
-        "narHash": "sha256-+LdHSqJD836Hok5tmcd4hi2td8KtaFWm80m06bYY0z8=",
-        "owner": "dotfyls",
-        "repo": "firefox",
-        "rev": "825dcc7de3ffab8b343ef87eff38d63956f5e83d",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "dotfyls",
-        "repo": "firefox",
-        "type": "gitlab"
-      }
-    },
     "dotfyls-neovim": {
       "inputs": {
         "devenv": [
@@ -672,7 +646,6 @@
       "inputs": {
         "devenv": "devenv",
         "devenv-root": "devenv-root",
-        "dotfyls-firefox": "dotfyls-firefox",
         "dotfyls-neovim": "dotfyls-neovim",
         "dotfyls-wezterm": "dotfyls-wezterm",
         "flake-parts": "flake-parts_2",
