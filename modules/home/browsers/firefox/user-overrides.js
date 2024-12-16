@@ -6,8 +6,15 @@ user_pref("browser.bookmarks.addedImportButton", false);
 user_pref("browser.migrate.content-modal.import-all.enabled", false);
 user_pref("browser.toolbars.bookmarks.visibility", "always");
 user_pref("extensions.autoDisableScopes", 0);
+user_pref("layout.css.prefers-color-scheme.content-override", 0);
 user_pref("media.ffmpeg.encoder.enabled", true);
 user_pref("media.ffmpeg.vaapi.enabled", true);
+user_pref("ui.systemUsesDarkTheme", 1);
+user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
+user_pref("widget.use-xdg-desktop-portal.location", 1);
+user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
+user_pref("widget.use-xdg-desktop-portal.open-uri", 1);
+user_pref("widget.use-xdg-desktop-portal.settings", 1);
 
 
 /*** [SECTION 0100]: STARTUP ***/
