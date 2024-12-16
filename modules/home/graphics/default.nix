@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  osConfig ? null,
   ...
 }:
 
@@ -11,7 +12,8 @@ in
   imports = [ ./nvidia.nix ];
 
   options.dotfyls.graphics.enable = lib.mkEnableOption "graphics" // {
-    default = config.dotfyls.desktops.enable;
+    default =
+      if (osConfig == null) then config.dotfyls.desktops.enable else osConfig.dotfyls.graphics.enable;
   };
 
   config = lib.mkIf cfg.enable { dotfyls.file.".cache/mesa_shader_cache_db".cache = true; };

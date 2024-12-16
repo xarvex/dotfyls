@@ -8,7 +8,6 @@
 
 let
   cfg = config.dotfyls.graphics;
-  hmCfg = config.hm.dotfyls.graphics;
 in
 {
   imports = [
@@ -30,7 +29,7 @@ in
 
   options.dotfyls.graphics = {
     enable = lib.mkEnableOption "graphics" // {
-      default = hmCfg.enable;
+      default = config.dotfyls.desktops.enable;
     };
     extraPackages = self.lib.mkExtraPackagesOption "graphics";
   };
