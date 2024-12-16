@@ -5,6 +5,7 @@ user_pref("__user-overrides.js.cat", "START: Should we observe the box?");
 user_pref("browser.bookmarks.addedImportButton", false);
 user_pref("browser.migrate.content-modal.import-all.enabled", false);
 user_pref("browser.toolbars.bookmarks.visibility", "always");
+user_pref("extensions.autoDisableScopes", 0);
 user_pref("media.ffmpeg.encoder.enabled", true);
 user_pref("media.ffmpeg.vaapi.enabled", true);
 

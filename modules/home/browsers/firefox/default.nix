@@ -12,6 +12,7 @@ let
 in
 {
   imports = [
+    ./addons.nix
     ./containers.nix
     ./search.nix
 
