@@ -12,8 +12,8 @@ let
 in
 {
   imports = [
-    ./addons.nix
     ./containers.nix
+    ./extensions.nix
     ./search.nix
 
     (self.lib.mkAliasPackageModule
