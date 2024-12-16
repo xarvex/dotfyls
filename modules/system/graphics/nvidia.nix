@@ -19,6 +19,12 @@ in
       libglvnd
     ];
 
+    boot.blacklistedKernelModules = [
+      "amdgpu"
+      "i915"
+      "xe"
+    ];
+
     environment.sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
