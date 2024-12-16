@@ -7,7 +7,8 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.firefox;
+  cfg' = config.dotfyls.browsers;
+  cfg = cfg'.browsers.firefox;
 in
 {
   imports = [
@@ -17,7 +18,8 @@ in
     (self.lib.mkAliasPackageModule
       [
         "dotfyls"
-        "programs"
+        "browsers"
+        "browsers"
         "firefox"
       ]
       [
@@ -27,11 +29,11 @@ in
     )
   ];
 
-  options.dotfyls.programs.firefox.enable = lib.mkEnableOption "Firefox" // {
-    default = config.dotfyls.desktops.enable;
+  options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox" // {
+    default = true;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
       ".mozilla" = {
         mode = "0700";

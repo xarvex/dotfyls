@@ -3,6 +3,7 @@
 {
   imports = [
     ./appearance
+    ./browsers
     ./desktops
     ./development
     ./files

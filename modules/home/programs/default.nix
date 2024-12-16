@@ -12,7 +12,6 @@ _:
     ./eza
     ./fastfetch
     ./fd
-    ./firefox
     ./flatpak
     ./fzf
     ./neovim

@@ -1,10 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.programs.firefox;
+  cfg' = config.dotfyls.browsers;
+  cfg = cfg'.browsers.firefox;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.firefox.profiles.${config.home.username} = {
       containersForce = true;
       containers = {
