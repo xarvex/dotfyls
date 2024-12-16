@@ -33,7 +33,18 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file.".config/VintagestoryData".cache = true;
+    dotfyls.file = {
+      ".config/VintagestoryData".cache = true;
+      ".config/VintagestoryData/Saves" = {
+        persist = true;
+        sync = {
+          enable = true;
+          rescan = 0;
+          watch.delay = 15 * 60;
+          order = "newestFirst";
+        };
+      };
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };
