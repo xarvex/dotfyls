@@ -8,6 +8,7 @@
     ./development
     ./files
     ./games
+    ./graphics
     ./media
     ./nix
     ./programs
@@ -15,7 +16,6 @@
     ./shells
     ./terminals
 
-    ./graphics.nix
     ./state.nix
   ];
 

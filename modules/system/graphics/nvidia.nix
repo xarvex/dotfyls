@@ -10,7 +10,7 @@ let
   cfg = cfg'.graphics.nvidia;
 in
 {
-  options.dotfyls.graphics.graphics.nvidia.enable = lib.mkEnableOption "Intel graphics";
+  options.dotfyls.graphics.graphics.nvidia.enable = lib.mkEnableOption "Nvidia graphics";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.graphics.extraPackages = with pkgs; [

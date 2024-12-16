@@ -8,6 +8,8 @@ let
   cfg = config.dotfyls.graphics;
 in
 {
+  imports = [ ./nvidia.nix ];
+
   options.dotfyls.graphics.enable = lib.mkEnableOption "graphics" // {
     default = config.dotfyls.desktops.enable;
   };
