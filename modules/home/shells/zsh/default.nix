@@ -16,18 +16,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "shells"
-        "shells"
-        "zsh"
-      ]
-      [
-        "programs"
-        "zsh"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "shells" "zsh" ] [ "programs" "zsh" ])
   ];
 
   options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";

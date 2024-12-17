@@ -12,16 +12,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "media"
-        "mpris"
-        "playerctl"
-      ]
-      [
-        "services"
-        "playerctld"
-      ]
+      [ "dotfyls" "media" "mpris" "playerctl" ]
+      [ "services" "playerctld" ]
     )
   ];
 

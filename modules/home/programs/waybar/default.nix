@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "waybar"
-      ]
-      [
-        "programs"
-        "waybar"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "waybar" ] [ "programs" "waybar" ])
   ];
 
   options.dotfyls.programs.waybar.enable = lib.mkEnableOption "Waybar";

@@ -14,17 +14,7 @@ in
     ./difftastic.nix
     ./lazygit.nix
 
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "development"
-        "git"
-      ]
-      [
-        "programs"
-        "git"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "development" "git" ] [ "programs" "git" ])
   ];
 
   options.dotfyls.development.git = {

@@ -2,12 +2,20 @@
   config,
   inputs,
   lib,
+  self,
   user,
   ...
 }:
 
 {
-  imports = [ inputs.persistwd.nixosModules.persistwd ];
+  imports = [
+    inputs.persistwd.nixosModules.persistwd
+
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "users" "persistwd" ]
+      [ "security" "shadow" "persistwd" ]
+    )
+  ];
 
   options.warnings = lib.mkOption {
     apply = lib.filter (

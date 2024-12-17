@@ -10,19 +10,7 @@ let
   cfg = config.dotfyls.programs.rofi;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "rofi"
-      ]
-      [
-        "programs"
-        "rofi"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "rofi" ] [ "programs" "rofi" ]) ];
 
   options.dotfyls.programs.rofi.enable = lib.mkEnableOption "Rofi";
 

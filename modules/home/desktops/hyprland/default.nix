@@ -20,17 +20,8 @@ in
     ./rules.nix
 
     (self.lib.mkAliasPackageModule'
-      [
-        "dotfyls"
-        "desktops"
-        "desktops"
-        "hyprland"
-      ]
-      [
-        "wayland"
-        "windowManager"
-        "hyprland"
-      ]
+      [ "dotfyls" "desktops" "desktops" "hyprland" ]
+      [ "wayland" "windowManager" "hyprland" ]
     )
   ];
 

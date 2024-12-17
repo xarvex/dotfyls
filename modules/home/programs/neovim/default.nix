@@ -13,17 +13,7 @@ in
   imports = [
     inputs.dotfyls-neovim.homeManagerModules.neovim
 
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "neovim"
-      ]
-      [
-        "programs"
-        "neovim"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "neovim" ] [ "programs" "neovim" ])
   ];
 
   options.dotfyls.programs.neovim.enable = lib.mkEnableOption "Neovim" // {

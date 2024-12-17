@@ -12,17 +12,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "development"
-        "git"
-        "difftastic"
-      ]
-      [
-        "programs"
-        "git"
-        "difftastic"
-      ]
+      [ "dotfyls" "development" "git" "difftastic" ]
+      [ "programs" "git" "difftastic" ]
     )
   ];
 

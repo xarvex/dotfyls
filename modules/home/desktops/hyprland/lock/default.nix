@@ -13,17 +13,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "desktops"
-        "desktops"
-        "hyprland"
-        "lock"
-      ]
-      [
-        "programs"
-        "hyprlock"
-      ]
+      [ "dotfyls" "desktops" "desktops" "hyprland" "lock" ]
+      [ "programs" "hyprlock" ]
     )
   ];
 

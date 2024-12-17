@@ -11,17 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "flatpak"
-      ]
-      [
-        "services"
-        "flatpak"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "flatpak" ] [ "services" "flatpak" ])
   ];
 
   options.dotfyls.programs.flatpak.enable = lib.mkEnableOption "Flatpak" // {

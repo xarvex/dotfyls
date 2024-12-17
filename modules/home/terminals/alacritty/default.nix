@@ -12,16 +12,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "terminals"
-        "terminals"
-        "alacritty"
-      ]
-      [
-        "programs"
-        "alacritty"
-      ]
+      [ "dotfyls" "terminals" "terminals" "alacritty" ]
+      [ "programs" "alacritty" ]
     )
   ];
 

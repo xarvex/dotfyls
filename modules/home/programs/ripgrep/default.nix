@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "ripgrep"
-      ]
-      [
-        "programs"
-        "ripgrep"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "ripgrep" ] [ "programs" "ripgrep" ])
   ];
 
   options.dotfyls.programs.ripgrep.enable = lib.mkEnableOption "ripgrep" // {

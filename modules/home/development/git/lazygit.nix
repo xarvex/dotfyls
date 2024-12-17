@@ -11,18 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "development"
-        "git"
-        "lazygit"
-      ]
-      [
-        "programs"
-        "lazygit"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "development" "git" "lazygit" ] [ "programs" "lazygit" ])
   ];
 
   options.dotfyls.development.git.lazygit.enable = lib.mkEnableOption "lazygit" // {

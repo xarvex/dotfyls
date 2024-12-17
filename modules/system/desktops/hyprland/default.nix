@@ -15,16 +15,8 @@ in
     ./lock.nix
 
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "desktops"
-        "desktops"
-        "hyprland"
-      ]
-      [
-        "programs"
-        "hyprland"
-      ]
+      [ "dotfyls" "desktops" "desktops" "hyprland" ]
+      [ "programs" "hyprland" ]
     )
   ];
 

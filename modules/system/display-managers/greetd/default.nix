@@ -14,33 +14,16 @@ in
     ./greeter
 
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "display-managers"
-        "display-managers"
-        "greetd"
-      ]
-      [
-        "services"
-        "greetd"
-      ]
+      [ "dotfyls" "display-managers" "display-managers" "greetd" ]
+      [ "services" "greetd" ]
     )
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "display-managers"
-        "display-managers"
-        "greetd"
-        "greeter"
-      ]
-      {
-        name = "provider";
-        default = "tuigreet";
-        example = "agreety";
-        description = "Greeter to use for greetd.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "display-managers" "display-managers" "greetd" "greeter" ] {
+      name = "provider";
+      default = "tuigreet";
+      example = "agreety";
+      description = "Greeter to use for greetd.";
+    })
   ];
 
   options.dotfyls.display-managers.display-managers.greetd.enable = lib.mkEnableOption "greetd";

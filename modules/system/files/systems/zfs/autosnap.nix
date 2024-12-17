@@ -12,18 +12,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "files"
-        "systems"
-        "systems"
-        "zfs"
-        "autosnap"
-      ]
-      [
-        "services"
-        "sanoid"
-      ]
+      [ "dotfyls" "files" "systems" "systems" "zfs" "autosnap" ]
+      [ "services" "sanoid" ]
     )
   ];
 

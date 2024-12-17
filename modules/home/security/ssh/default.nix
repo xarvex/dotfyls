@@ -9,19 +9,7 @@ let
   cfg = config.dotfyls.security.ssh;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "security"
-        "ssh"
-      ]
-      [
-        "programs"
-        "ssh"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "security" "ssh" ] [ "programs" "ssh" ]) ];
 
   options.dotfyls.security.ssh = {
     enable = lib.mkEnableOption "OpenSSH" // {

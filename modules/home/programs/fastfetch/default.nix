@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "fastfetch"
-      ]
-      [
-        "programs"
-        "fastfetch"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "fastfetch" ] [ "programs" "fastfetch" ])
   ];
 
   options.dotfyls.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {

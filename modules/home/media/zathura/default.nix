@@ -11,17 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "media"
-        "zathura"
-      ]
-      [
-        "programs"
-        "zathura"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "media" "zathura" ] [ "programs" "zathura" ])
   ];
 
   options.dotfyls.media.zathura.enable = lib.mkEnableOption "zathura" // {

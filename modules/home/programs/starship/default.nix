@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "starship"
-      ]
-      [
-        "programs"
-        "starship"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "starship" ] [ "programs" "starship" ])
   ];
 
   options.dotfyls.programs.starship.enable = lib.mkEnableOption "Starship" // {

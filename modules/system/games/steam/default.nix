@@ -13,29 +13,8 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "games"
-        "steam"
-      ]
-      [
-        "programs"
-        "steam"
-      ]
-    )
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "games"
-        "steam"
-        "gamescope"
-      ]
-      [
-        "programs"
-        "gamescope"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "games" "steam" ] [ "programs" "steam" ])
+    (self.lib.mkAliasPackageModule [ "dotfyls" "games" "steam" "gamescope" ] [ "programs" "gamescope" ])
   ];
 
   options.dotfyls.games.steam = {

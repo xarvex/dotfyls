@@ -14,18 +14,12 @@ in
     ./fish
     ./zsh
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "shells"
-      ]
-      {
-        name = "default";
-        default = "fish";
-        example = "zsh";
-        description = "Default shell to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "shells" ] {
+      name = "default";
+      default = "fish";
+      example = "zsh";
+      description = "Default shell to use.";
+    })
   ];
 
   options.dotfyls.shells = {

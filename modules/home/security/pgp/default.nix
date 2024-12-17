@@ -11,30 +11,13 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "security"
-        "pgp"
-      ]
-      [
-        "programs"
-        "gpg"
-      ]
-    )
-    (self.lib.mkAliasOptionModules
-      [
-        "dotfyls"
-        "security"
-        "pgp"
-        "agent"
-      ]
-      [
-        "services"
-        "gpg-agent"
-      ]
-      [ "pinentryPackage" ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "security" "pgp" ] [ "programs" "gpg" ])
+    (self.lib.mkAliasOptionModules [
+      "dotfyls"
+      "security"
+      "pgp"
+      "agent"
+    ] [ "services" "gpg-agent" ] [ "pinentryPackage" ])
   ];
 
   options.dotfyls.security.pgp = {

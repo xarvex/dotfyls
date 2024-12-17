@@ -10,8 +10,16 @@ let
   cfg = cfg'.shells.bash;
 in
 {
-  options.dotfyls.shells.shells.bash.enable = lib.mkEnableOption "Bash" // {
-    default = true;
+  options.dotfyls.shells.shells.bash = {
+    enable = lib.mkEnableOption "Bash" // {
+      default = true;
+    };
+    blesh = {
+      enable = lib.mkEnableOption "ble.sh" // {
+        default = true;
+      };
+      package = lib.mkPackageOption pkgs "ble.sh" { default = "blesh"; };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,16 +42,17 @@ in
       historyFile = "${config.xdg.stateHome}/bash/history";
 
       # blesh parts from: https://github.com/nix-community/home-manager/pull/3238
-      bashrcExtra = ''
-        [[ $- == *i* ]] && source '${pkgs.blesh}/share/blesh/ble.sh' --attach=none
+      bashrcExtra = lib.mkIf cfg.blesh.enable ''
+        [[ $- == *i* ]] && source '${cfg.blesh.package}/share/blesh/ble.sh' --attach=none
       '';
-      initExtra = lib.mkBefore ''
-        ${cfg'.greet}
+      initExtra = lib.mkBefore (
+        cfg'.greet
+        + lib.optionalString cfg.blesh.enable ''
+          [[ ''${BLE_VERSION-} ]] && ble-attach
 
-        [[ ''${BLE_VERSION-} ]] && ble-attach
-
-        bleopt prompt_ps1_final="\e[1;32m❯\e[0m "
-      '';
+          bleopt prompt_ps1_final="\e[1;32m❯\e[0m "
+        ''
+      );
     };
   };
 }

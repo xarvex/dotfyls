@@ -9,19 +9,7 @@ let
   cfg = config.dotfyls.programs.fzf;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "fzf"
-      ]
-      [
-        "programs"
-        "fzf"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "fzf" ] [ "programs" "fzf" ]) ];
 
   options.dotfyls.programs.fzf.enable = lib.mkEnableOption "fzf" // {
     default = true;

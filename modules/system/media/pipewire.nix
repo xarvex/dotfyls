@@ -13,18 +13,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "media"
-        "pipewire"
-        "audio"
-        "wireplumber"
-      ]
-      [
-        "services"
-        "pipewire"
-        "wireplumber"
-      ]
+      [ "dotfyls" "media" "pipewire" "audio" "wireplumber" ]
+      [ "services" "pipewire" "wireplumber" ]
     )
   ];
 

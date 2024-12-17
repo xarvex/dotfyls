@@ -9,19 +9,7 @@ let
   cfg = config.dotfyls.programs.fd;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "fd"
-      ]
-      [
-        "programs"
-        "fd"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "fd" ] [ "programs" "fd" ]) ];
 
   options.dotfyls.programs.fd.enable = lib.mkEnableOption "fd" // {
     default = true;

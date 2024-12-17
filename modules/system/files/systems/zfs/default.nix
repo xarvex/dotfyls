@@ -14,19 +14,7 @@ in
   imports = [
     ./autosnap.nix
 
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "files"
-        "systems"
-        "systems"
-        "zfs"
-      ]
-      [
-        "boot"
-        "zfs"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "systems" "systems" "zfs" ] [ "boot" "zfs" ])
   ];
 
   options.dotfyls.files.systems.systems.zfs = {

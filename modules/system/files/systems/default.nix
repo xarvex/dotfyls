@@ -11,18 +11,11 @@
 
     ./impermanence.nix
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "files"
-        "systems"
-      ]
-      {
-        name = "main";
-        default = "zfs";
-        description = "Main filesystem to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "files" "systems" ] {
+      name = "main";
+      default = "zfs";
+      description = "Main filesystem to use.";
+    })
   ];
 
   options.dotfyls.files.systems.encrypt = lib.mkEnableOption "filesystem encryption" // {

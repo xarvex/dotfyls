@@ -11,18 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "terminals"
-        "terminals"
-        "kitty"
-      ]
-      [
-        "programs"
-        "kitty"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "terminals" "terminals" "kitty" ] [ "programs" "kitty" ])
   ];
 
   options.dotfyls.terminals.terminals.kitty.enable = lib.mkEnableOption "kitty";

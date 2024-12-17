@@ -17,16 +17,8 @@ in
     ./search.nix
 
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "browsers"
-        "browsers"
-        "firefox"
-      ]
-      [
-        "programs"
-        "firefox"
-      ]
+      [ "dotfyls" "browsers" "browsers" "firefox" ]
+      [ "programs" "firefox" ]
     )
   ];
 

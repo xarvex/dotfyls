@@ -11,18 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "shells"
-        "shells"
-        "fish"
-      ]
-      [
-        "programs"
-        "fish"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "shells" "fish" ] [ "programs" "fish" ])
   ];
 
   options.dotfyls.shells.shells.fish.enable = lib.mkEnableOption "Fish";

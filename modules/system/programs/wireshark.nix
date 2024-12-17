@@ -12,17 +12,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "wireshark"
-      ]
-      [
-        "programs"
-        "wireshark"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "wireshark" ] [ "programs" "wireshark" ])
   ];
 
   options.dotfyls.programs.wireshark.enable = lib.mkEnableOption "Wireshark" // {

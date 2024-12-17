@@ -9,19 +9,7 @@ let
   cfg = config.dotfyls.programs.bat;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "bat"
-      ]
-      [
-        "programs"
-        "bat"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "bat" ] [ "programs" "bat" ]) ];
 
   options.dotfyls.programs.bat = {
     enable = lib.mkEnableOption "bat" // {

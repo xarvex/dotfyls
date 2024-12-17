@@ -14,17 +14,11 @@ in
     ./intel.nix
     ./nvidia.nix
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "graphics"
-      ]
-      {
-        name = "provider";
-        default = "intel";
-        description = "Graphics provider to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "graphics" ] {
+      name = "provider";
+      example = "intel";
+      description = "Graphics provider to use.";
+    })
   ];
 
   options.dotfyls.graphics = {

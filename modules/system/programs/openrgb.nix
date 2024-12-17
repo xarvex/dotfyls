@@ -13,16 +13,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "openrgb"
-      ]
-      [
-        "services"
-        "hardware"
-        "openrgb"
-      ]
+      [ "dotfyls" "programs" "openrgb" ]
+      [ "services" "hardware" "openrgb" ]
     )
   ];
 

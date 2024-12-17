@@ -15,16 +15,8 @@ in
     inputs.dotfyls-wezterm.homeManagerModules.wezterm
 
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "terminals"
-        "terminals"
-        "wezterm"
-      ]
-      [
-        "programs"
-        "wezterm"
-      ]
+      [ "dotfyls" "terminals" "terminals" "wezterm" ]
+      [ "programs" "wezterm" ]
     )
   ];
 

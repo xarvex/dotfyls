@@ -21,18 +21,12 @@ in
     ./kitty
     ./wezterm
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "terminals"
-      ]
-      {
-        name = "default";
-        default = "kitty";
-        example = "alacritty";
-        description = "Default terminal to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "terminals" ] {
+      name = "default";
+      default = "kitty";
+      example = "alacritty";
+      description = "Default terminal to use.";
+    })
   ];
 
   options.dotfyls.terminals = {

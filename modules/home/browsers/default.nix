@@ -9,18 +9,12 @@
   imports = [
     ./firefox
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "browsers"
-      ]
-      {
-        name = "default";
-        default = "firefox";
-        example = "firefox";
-        description = "Default browser to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "browsers" ] {
+      name = "default";
+      default = "firefox";
+      example = "firefox";
+      description = "Default browser to use.";
+    })
   ];
 
   options.dotfyls.browsers.enable = lib.mkEnableOption "browsers" // {

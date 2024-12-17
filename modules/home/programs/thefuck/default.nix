@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "thefuck"
-      ]
-      [
-        "programs"
-        "thefuck"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "thefuck" ] [ "programs" "thefuck" ])
   ];
 
   options.dotfyls.programs.thefuck.enable = lib.mkEnableOption "The Fuck" // {

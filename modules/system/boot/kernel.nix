@@ -20,18 +20,7 @@ let
 in
 {
   imports = [
-    (lib.mkAliasOptionModule
-      [
-        "dotfyls"
-        "boot"
-        "kernel"
-        "packages"
-      ]
-      [
-        "boot"
-        "kernelPackages"
-      ]
-    )
+    (lib.mkAliasOptionModule [ "dotfyls" "boot" "kernel" "packages" ] [ "boot" "kernelPackages" ])
   ];
 
   options.dotfyls.boot.kernel.variant = lib.mkOption {

@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "dunst"
-      ]
-      [
-        "services"
-        "dunst"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "dunst" ] [ "services" "dunst" ])
   ];
 
   options.dotfyls.programs.dunst.enable = lib.mkEnableOption "Dunst";

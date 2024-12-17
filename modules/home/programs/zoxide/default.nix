@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "zoxide"
-      ]
-      [
-        "programs"
-        "zoxide"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "zoxide" ] [ "programs" "zoxide" ])
   ];
 
   options.dotfyls.programs.zoxide.enable = lib.mkEnableOption "zoxide" // {

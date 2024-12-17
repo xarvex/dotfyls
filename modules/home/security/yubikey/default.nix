@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  self,
   ...
 }:
 
@@ -13,6 +14,11 @@ in
     inputs.yubigen.homeManagerModules.yubigen
 
     ./yubioath.nix
+
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "security" "yubikey" "yubigen" ]
+      [ "programs" "yubigen" ]
+    )
   ];
 
   options.dotfyls.security.yubikey = {

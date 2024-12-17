@@ -10,17 +10,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "cliphist"
-      ]
-      [
-        "services"
-        "cliphist"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "cliphist" ] [ "services" "cliphist" ])
   ];
 
   options.dotfyls.programs.cliphist.enable = lib.mkEnableOption "cliphist";

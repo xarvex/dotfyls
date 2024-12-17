@@ -13,17 +13,8 @@ in
 {
   imports = [
     (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "display-managers"
-        "display-managers"
-        "sddm"
-      ]
-      [
-        "services"
-        "displayManager"
-        "sddm"
-      ]
+      [ "dotfyls" "display-managers" "display-managers" "sddm" ]
+      [ "services" "displayManager" "sddm" ]
     )
   ];
 

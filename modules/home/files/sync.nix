@@ -11,17 +11,7 @@ let
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "files"
-        "sync"
-      ]
-      [
-        "services"
-        "syncthing"
-      ]
-    )
+    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "sync" ] [ "services" "syncthing" ])
   ];
 
   options.dotfyls.files.sync.enable = lib.mkEnableOption "sync using Syncthing" // {

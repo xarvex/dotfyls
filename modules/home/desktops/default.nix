@@ -12,18 +12,12 @@ in
   imports = [
     ./hyprland
 
-    (self.lib.mkSelectorModule
-      [
-        "dotfyls"
-        "desktops"
-      ]
-      {
-        name = "default";
-        default = "hyprland";
-        example = "hyprland";
-        description = "Default desktop to use.";
-      }
-    )
+    (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {
+      name = "default";
+      default = "hyprland";
+      example = "hyprland";
+      description = "Default desktop to use.";
+    })
   ];
 
   options.dotfyls.desktops =

@@ -9,19 +9,7 @@ let
   cfg = config.dotfyls.programs.eza;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "programs"
-        "eza"
-      ]
-      [
-        "programs"
-        "eza"
-      ]
-    )
-  ];
+  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "eza" ] [ "programs" "eza" ]) ];
 
   options.dotfyls.programs.eza.enable = lib.mkEnableOption "eza" // {
     default = true;
