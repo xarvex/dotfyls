@@ -22,9 +22,7 @@ in
     )
   ];
 
-  options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox" // {
-    default = true;
-  };
+  options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
