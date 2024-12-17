@@ -67,13 +67,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls = {
-          files.systems.systems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
-
-          kernels.version = lib.mkIf (!cfg.unstable) (
-            lib.mkDefault cfg.package.latestCompatibleLinuxPackages.kernel.version
-          );
-        };
+        dotfyls.files.systems.systems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
 
         boot = {
           supportedFilesystems.zfs = true;
