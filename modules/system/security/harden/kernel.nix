@@ -17,8 +17,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Use hardened kernel packages compatible with ZFS.
-    dotfyls.kernels.variant = lib.mkIf cfg.packages (lib.mkDefault "hardened");
+    dotfyls.boot.kernel.variant = lib.mkIf cfg.packages (lib.mkDefault "hardened");
 
     # Hinders security, but necessary for most Electron apps.
     # Relevant when using the hardened kernel.

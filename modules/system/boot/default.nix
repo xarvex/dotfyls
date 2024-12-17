@@ -4,7 +4,10 @@ let
   cfg = config.dotfyls.boot;
 in
 {
-  imports = [ ./plymouth.nix ];
+  imports = [
+    ./kernel.nix
+    ./plymouth.nix
+  ];
 
   options.dotfyls.boot.silent = lib.mkEnableOption "silent boot";
 

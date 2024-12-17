@@ -2,9 +2,9 @@
 
 {
   dotfyls = {
-    graphics.provider = "intel";
+    boot.kernel.variant = "xanmod";
 
-    kernels.variant = "xanmod";
+    graphics.provider = "intel";
 
     power.management = true;
 

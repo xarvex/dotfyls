@@ -2,9 +2,9 @@ _:
 
 {
   dotfyls = {
-    graphics.provider = "nvidia";
+    boot.kernel.variant = "xanmod";
 
-    kernels.variant = "xanmod";
+    graphics.provider = "nvidia";
 
     programs.openrgb = {
       sizes = ./openrgb/sizes.ors;

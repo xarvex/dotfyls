@@ -14,7 +14,6 @@ _:
     ./security
 
     ./home-manager.nix
-    ./kernels.nix
     ./localization.nix
     ./networking.nix
     ./nix.nix

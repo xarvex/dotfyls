@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.dotfyls.kernels;
+  cfg = config.dotfyls.boot.kernel;
 
   kernelFilter =
     {
@@ -23,7 +23,8 @@ in
     (lib.mkAliasOptionModule
       [
         "dotfyls"
-        "kernels"
+        "boot"
+        "kernel"
         "packages"
       ]
       [
@@ -33,7 +34,7 @@ in
     )
   ];
 
-  options.dotfyls.kernels.variant = lib.mkOption {
+  options.dotfyls.boot.kernel.variant = lib.mkOption {
     type = lib.types.enum [
       "hardened"
       "lqx"
@@ -47,7 +48,7 @@ in
   };
 
   config = {
-    dotfyls.kernels.packages = lib.mkDefault (
+    dotfyls.boot.kernel.packages = lib.mkDefault (
       lib.pipe pkgs.linuxKernel.packages [
         builtins.attrValues
         (builtins.filter (
