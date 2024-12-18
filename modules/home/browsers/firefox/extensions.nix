@@ -42,4 +42,85 @@ lib.mkIf (cfg'.enable && cfg.enable) {
     vimium
     youtube-recommended-videos # unhook
   ];
+
+  home.file =
+    lib.mapAttrs'
+      (
+        name: data:
+        lib.nameValuePair ".mozilla/managed-storage/${name}.json" {
+          source = (pkgs.formats.json { }).generate "firefox-managed-storage-${name}" {
+            inherit name;
+            description = "dotfyls";
+            type = "storage";
+            inherit data;
+          };
+        }
+      )
+      {
+        "uBlock0@raymondhill.net" = {
+          userSettings =
+            lib.mapAttrsToList
+              (name: value: [
+                name
+                (if builtins.isBool value then lib.boolToString value else value)
+              ])
+              {
+                collapseBlocked = true;
+                showIconBadge = true;
+                contextMenuEnabled = true;
+                cloudStorageEnabled = false;
+
+                # Privacy
+                prefetchingDisabled = true;
+                hyperlinkAuditingDisabled = true;
+                cnameUncloakEnabled = true;
+
+                # Appearance
+                uiTheme = "dark";
+                colorBlindFriendly = false;
+                tooltipsDisabled = false;
+              };
+          toOverwrite = {
+            filters = [
+              "||accounts.google.com/gsi/iframe/select$subdocument"
+
+              "quizlet.com##.LoginBottomBar"
+              "quizlet.com##+js(set-local-storage-item, setPageVisitsCount, $remove$)"
+            ];
+            filterLists = [
+              "user-filters"
+
+              # Built-in
+              "ublock-filters"
+              "ublock-badware"
+              "ublock-privacy"
+              "ublock-quick-fixes"
+              "ublock-unbreak"
+
+              # Ads
+              "easylist"
+
+              # Privacy
+              "easyprivacy"
+
+              # Malware protection, security
+              "urlhaus-1"
+
+              # Multipurpose
+              "plowe-0"
+
+              # Annoyances
+              "easylist-chat"
+              "easylist-newsletters"
+              "easylist-notifications"
+              "easylist-annoyances"
+              "ublock-annoyances"
+
+              # Regions, languages
+              "JPN-1"
+              "SWE-1"
+            ];
+          };
+        };
+      };
 }
