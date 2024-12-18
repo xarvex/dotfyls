@@ -10,7 +10,9 @@ rec {
     if lib.isDerivation exec then
       exec
     else
-      writeShellApplication ((if lib.isString exec then { text = exec; } else exec) // { inherit name; });
+      writeShellApplication (
+        (if builtins.isString exec then { text = exec; } else exec) // { inherit name; }
+      );
   mkCommand = exec: mkCommand' "dotfyls-command" exec;
 
   mkCommandExe = exec: lib.getExe (mkCommand exec);
