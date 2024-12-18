@@ -105,7 +105,7 @@
             "enabled": false
         },
         "BiggerStreamPreview": {
-            "enabled": false
+            "enabled": true
         },
         "BlurNSFW": {
             "enabled": false
@@ -135,7 +135,7 @@
             "enabled": false
         },
         "CopyUserURLs": {
-            "enabled": false
+            "enabled": true
         },
         "CrashHandler": {
             "enabled": true
@@ -188,22 +188,23 @@
             "enabled": false
         },
         "FixImagesQuality": {
-            "enabled": false
+            "enabled": true
         },
         "FixSpotifyEmbeds": {
-            "enabled": true
+            "enabled": true,
+            "volume": 10
         },
         "FixYoutubeEmbeds": {
             "enabled": true
         },
         "ForceOwnerCrown": {
-            "enabled": false
+            "enabled": true
         },
         "FriendInvites": {
             "enabled": false
         },
         "FriendsSince": {
-            "enabled": false
+            "enabled": true
         },
         "FullSearchContext": {
             "enabled": false
@@ -212,7 +213,7 @@
             "enabled": false
         },
         "GifPaste": {
-            "enabled": false
+            "enabled": true
         },
         "GreetStickerPicker": {
             "enabled": false
@@ -249,10 +250,13 @@
             "enabled": false
         },
         "MemberCount": {
-            "enabled": false
+            "enabled": true,
+            "memberList": true,
+            "toolTip": true
         },
         "MentionAvatars": {
-            "enabled": false
+            "enabled": true,
+            "showAtSymbol": true
         },
         "MessageClickActions": {
             "enabled": false
@@ -264,7 +268,17 @@
             "enabled": false
         },
         "MessageLogger": {
-            "enabled": false
+            "enabled": true,
+            "deleteStyle": "text",
+            "logDeletes": true,
+            "collapseDeleted": false,
+            "logEdits": true,
+            "inlineEdits": true,
+            "ignoreBots": false,
+            "ignoreSelf": false,
+            "ignoreUsers": "",
+            "ignoreChannels": "",
+            "ignoreGuilds": ""
         },
         "MessageTags": {
             "enabled": false
@@ -282,7 +296,7 @@
             "enabled": false
         },
         "MutualGroupDMs": {
-            "enabled": false
+            "enabled": true
         },
         "NewGuildSettings": {
             "enabled": false
@@ -324,7 +338,7 @@
             "enabled": false
         },
         "NoUnblockToJump": {
-            "enabled": false
+            "enabled": true
         },
         "NormalizeMessageLinks": {
             "enabled": false
@@ -357,13 +371,15 @@
             "enabled": false
         },
         "PermissionsViewer": {
-            "enabled": false
+            "enabled": true,
+            "permissionsSortOrder": 0
         },
         "petpet": {
             "enabled": false
         },
         "PictureInPicture": {
-            "enabled": false
+            "enabled": true,
+            "loop": false
         },
         "PinDMs": {
             "enabled": false
@@ -372,7 +388,11 @@
             "enabled": false
         },
         "PlatformIndicators": {
-            "enabled": false
+            "enabled": true,
+            "list": true,
+            "badges": true,
+            "messages": true,
+            "colorMobileIndicator": true
         },
         "PreviewMessage": {
             "enabled": false

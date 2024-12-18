@@ -1,0 +1,3 @@
+nav > div > ul > div:nth-child(5) {
+    display: none;
+}
