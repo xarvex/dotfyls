@@ -6,12 +6,12 @@ let
 in
 lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings.windowrulev2 = [
-    "dimaround, class:^(org.gnupg.pinentry-), floating: 1"
-    "stayfocused, class:^(org.gnupg.pinentry-)"
-
     "float, class:^(firefox)$, title:^(Picture-in-Picture)$"
     "keepaspectratio, class:^(firefox)$, title:^(Picture-in-Picture)$"
     "pin, class:^(firefox)$, title:^(Picture-in-Picture)$"
+
+    "dimaround, class:^(org.gnupg.pinentry-), floating: 1"
+    "stayfocused, class:^(org.gnupg.pinentry-)"
 
     "maxsize 1 1, class:^(xwaylandvideobridge)$"
     "noanim, class:^(xwaylandvideobridge)$"
