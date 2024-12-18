@@ -28,7 +28,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
     engines =
       let
-        snowflake_icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        snowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       in
       {
         "Startpage - English" = {
@@ -87,7 +87,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         "Wikipedia (en)".metaData.alias = "@w";
 
         "Nix Search - Packages" = {
-          icon = snowflake_icon;
+          icon = snowflakeIcon;
           definedAliases = [ "@nixpackages" ];
           urls = [
             {
@@ -108,7 +108,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           metaData.alias = "@np";
         };
         "Nix Search - Options" = {
-          icon = snowflake_icon;
+          icon = snowflakeIcon;
           definedAliases = [ "@nixoptions" ];
           urls = [
             {
@@ -130,7 +130,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         };
 
         "Home Manager Option Search" = {
-          icon = snowflake_icon;
+          icon = snowflakeIcon;
           definedAliases = [ "@homemanager" ];
           urls = [
             {
