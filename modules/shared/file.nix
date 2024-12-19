@@ -61,7 +61,7 @@ in
                 description = "The interval in seconds between Syncthing rescans.";
               };
               watch = {
-                enable = lib.mkEnableOption "Sycnthing change watching" // {
+                enable = lib.mkEnableOption "Syncthing change watching" // {
                   default = true;
                 };
                 delay = lib.mkOption {
