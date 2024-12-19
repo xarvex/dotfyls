@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   user,
   ...
@@ -8,6 +9,8 @@
 
 let
   cfg = config.dotfyls.files.sync;
+
+  syncedFiles = lib.filterAttrs (_: fCfg: fCfg.dir && fCfg.sync.enable) config.dotfyls.file;
 in
 {
   imports = [
@@ -47,8 +50,45 @@ in
           fsWatcherEnabled = fCfg.sync.watch.enable;
           fsWatcherDelayS = fCfg.sync.watch.delay;
           inherit (fCfg.sync) order;
-        }) (lib.filterAttrs (_: fCfg: fCfg.dir && fCfg.sync.enable) config.dotfyls.file);
+        }) syncedFiles;
       };
     };
+
+    systemd.user.services.dotfyls-syncthing-folder-share =
+      let
+        folderShare = pkgs.writeShellApplication {
+          name = "dotfyls-syncthing-folder-share";
+
+          runtimeInputs = [ (self.lib.getCfgPkg cfg) ];
+
+          text = ''
+            while read -r device; do
+            ${builtins.concatStringsSep "\n" (
+              lib.mapAttrsToList (
+                file: _: "    ${''syncthing cli config folders "${file}" devices add --device-id "''${device}"''}"
+              ) syncedFiles
+            )}
+            done <<EOF
+            $(syncthing cli config devices list)
+            EOF
+          '';
+        };
+      in
+      {
+        Unit = {
+          Description = "dotfyls - Syncthing Folder Share";
+          After = [ "syncthing.service" ];
+          Wants = [ "syncthing.service" ];
+          PartOf = [ "syncthing.service" ];
+        };
+
+        Service = {
+          Type = "oneshot";
+          ExecStartPre = "${lib.getExe' pkgs.coreutils "sleep"} 1";
+          ExecStart = lib.getExe folderShare;
+        };
+
+        Install.WantedBy = [ "syncthing.service" ];
+      };
   };
 }
