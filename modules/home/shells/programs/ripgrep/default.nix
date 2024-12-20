@@ -23,8 +23,7 @@ in
       enable = true;
 
       arguments = [
-        "--glob=!.git/*"
-        "--glob=!*/.git/*"
+        "--glob=!.git"
         "--follow"
         "--hidden"
         "--smart-case"
