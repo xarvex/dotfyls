@@ -25,6 +25,7 @@ in
       arguments = [
         "--glob=!.git/*"
         "--glob=!*/.git/*"
+        "--follow"
         "--hidden"
         "--smart-case"
       ];
