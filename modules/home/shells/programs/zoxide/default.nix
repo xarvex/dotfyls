@@ -6,15 +6,16 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.zoxide;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.zoxide;
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "zoxide" ] [ "programs" "zoxide" ])
+    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "zoxide" ] [ "programs" "zoxide" ])
   ];
 
-  options.dotfyls.programs.zoxide.enable = lib.mkEnableOption "zoxide" // {
-    default = true;
+  options.dotfyls.shells.programs.zoxide.enable = lib.mkEnableOption "zoxide" // {
+    default = cfg'.enableUseful;
   };
 
   config = lib.mkIf cfg.enable {

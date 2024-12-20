@@ -6,15 +6,19 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.fastfetch;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.fastfetch;
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "fastfetch" ] [ "programs" "fastfetch" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "shells" "programs" "fastfetch" ]
+      [ "programs" "fastfetch" ]
+    )
   ];
 
-  options.dotfyls.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {
-    default = true;
+  options.dotfyls.shells.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {
+    default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {

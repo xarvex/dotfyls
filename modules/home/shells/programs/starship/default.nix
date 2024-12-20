@@ -6,15 +6,19 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.starship;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.starship;
 in
 {
   imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "starship" ] [ "programs" "starship" ])
+    (self.lib.mkAliasPackageModule
+      [ "dotfyls" "shells" "programs" "starship" ]
+      [ "programs" "starship" ]
+    )
   ];
 
-  options.dotfyls.programs.starship.enable = lib.mkEnableOption "Starship" // {
-    default = true;
+  options.dotfyls.shells.programs.starship.enable = lib.mkEnableOption "Starship" // {
+    default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {

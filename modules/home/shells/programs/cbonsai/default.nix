@@ -1,4 +1,4 @@
-# TODO: make own version
+# TODO: Make own version.
 {
   config,
   lib,
@@ -8,12 +8,13 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.cbonsai;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.cbonsai;
 in
 {
-  options.dotfyls.programs.cbonsai = {
+  options.dotfyls.shells.programs.cbonsai = {
     enable = lib.mkEnableOption "cbonsai" // {
-      default = true;
+      default = cfg'.enableFun;
     };
     package = lib.mkPackageOption pkgs "cbonsai" { };
   };

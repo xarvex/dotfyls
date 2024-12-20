@@ -10,9 +10,8 @@ let
 in
 {
   imports = [
-    ./bash
-    ./fish
-    ./zsh
+    ./programs
+    ./shells
 
     (self.lib.mkSelectorModule [ "dotfyls" "shells" ] {
       name = "default";
@@ -44,8 +43,6 @@ in
   };
 
   config = {
-    dotfyls.shells.shells.bash.enable = lib.mkDefault true;
-
     home = {
       sessionVariables.SHELL =
         let

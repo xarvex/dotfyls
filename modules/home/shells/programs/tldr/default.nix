@@ -7,12 +7,13 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.tldr;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.tldr;
 in
 {
-  options.dotfyls.programs.tldr = {
+  options.dotfyls.shells.programs.tldr = {
     enable = lib.mkEnableOption "tldr" // {
-      default = true;
+      default = cfg'.enableUseful;
     };
     package = lib.mkPackageOption pkgs "tlrc" { };
   };

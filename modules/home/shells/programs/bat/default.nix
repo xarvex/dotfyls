@@ -6,14 +6,17 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.bat;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.bat;
 in
 {
-  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "bat" ] [ "programs" "bat" ]) ];
+  imports = [
+    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "bat" ] [ "programs" "bat" ])
+  ];
 
-  options.dotfyls.programs.bat = {
+  options.dotfyls.shells.programs.bat = {
     enable = lib.mkEnableOption "bat" // {
-      default = true;
+      default = cfg'.enableFun;
     };
     enablePager = lib.mkEnableOption "bat as pager" // {
       default = true;

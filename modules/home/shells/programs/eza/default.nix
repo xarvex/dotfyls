@@ -6,13 +6,16 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.eza;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.eza;
 in
 {
-  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "eza" ] [ "programs" "eza" ]) ];
+  imports = [
+    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "eza" ] [ "programs" "eza" ])
+  ];
 
-  options.dotfyls.programs.eza.enable = lib.mkEnableOption "eza" // {
-    default = true;
+  options.dotfyls.shells.programs.eza.enable = lib.mkEnableOption "eza" // {
+    default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {

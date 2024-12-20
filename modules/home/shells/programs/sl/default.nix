@@ -1,4 +1,4 @@
-# TODO: make own version
+# TODO: Make own version.
 {
   config,
   lib,
@@ -8,12 +8,13 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.sl;
+  cfg' = config.dotfyls.shells.programs;
+  cfg = cfg'.sl;
 in
 {
-  options.dotfyls.programs.sl = {
+  options.dotfyls.shells.programs.sl = {
     enable = lib.mkEnableOption "Steam Locomotive" // {
-      default = true;
+      default = cfg'.enableFun;
     };
     package = lib.mkPackageOption pkgs "Steam Locomotive" { default = "sl"; };
   };
