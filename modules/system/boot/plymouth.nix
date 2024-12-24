@@ -16,13 +16,17 @@ in
   config = lib.mkIf cfg.enable {
     dotfyls.boot.silent = lib.mkDefault true;
 
-    boot.plymouth = {
-      enable = true;
+    boot = {
+      kernelParams = [ "splash" ];
 
-      theme = "rings";
-      themePackages = with pkgs; [
-        (adi1090x-plymouth-themes.override { selected_themes = [ "rings" ]; })
-      ];
+      plymouth = {
+        enable = true;
+
+        theme = "rings";
+        themePackages = with pkgs; [
+          (adi1090x-plymouth-themes.override { selected_themes = [ "rings" ]; })
+        ];
+      };
     };
   };
 }
