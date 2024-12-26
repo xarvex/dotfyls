@@ -48,6 +48,11 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         color = "orange";
         icon = "food";
       };
+      "10 - Services" = {
+        id = 470;
+        color = "yellow";
+        icon = "vacation";
+      };
       "20 - Work" = {
         id = 2;
         color = "green";
@@ -57,6 +62,16 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         id = 270;
         color = "red";
         icon = "fruit";
+      };
+      "80 - Alternative" = {
+        id = 468;
+        color = "purple";
+        icon = "chill";
+      };
+      "90 - Family" = {
+        id = 469;
+        color = "blue";
+        icon = "pet";
       };
       "Facebook" = {
         id = 6;
