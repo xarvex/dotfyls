@@ -24,7 +24,7 @@ in
     hardware.logitech.wireless.enable = true;
 
     systemd.user.services.solaar = {
-      description = "Linux device manager for Logitech devices";
+      description = "Solaar, the open source driver for Logitech devices";
       wantedBy = [ "graphical-session.target" ];
       after = [ "dbus.service" ];
       serviceConfig = {
