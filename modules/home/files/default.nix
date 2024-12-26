@@ -5,6 +5,8 @@
     self.homeManagerModules.file
 
     ./nemo
+    ./neovim
+    ./obsidian
 
     ./gvfs.nix
     ./sync.nix

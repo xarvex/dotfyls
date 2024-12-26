@@ -7,10 +7,10 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.obsidian;
+  cfg = config.dotfyls.files.obsidian;
 in
 {
-  options.dotfyls.programs.obsidian = {
+  options.dotfyls.files.obsidian = {
     enable = lib.mkEnableOption "Obsidian" // {
       default = config.dotfyls.desktops.enable;
     };

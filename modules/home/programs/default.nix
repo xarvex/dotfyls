@@ -8,9 +8,7 @@ _:
     ./distrobox
     ./dunst
     ./flatpak
-    ./neovim
     ./network-manager-applet
-    ./obsidian
     ./openrgb
     ./podman
     ./rofi

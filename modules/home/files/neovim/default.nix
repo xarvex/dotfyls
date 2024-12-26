@@ -7,16 +7,16 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.neovim;
+  cfg = config.dotfyls.files.neovim;
 in
 {
   imports = [
     inputs.dotfyls-neovim.homeManagerModules.neovim
 
-    (self.lib.mkAliasPackageModule [ "dotfyls" "programs" "neovim" ] [ "programs" "neovim" ])
+    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "neovim" ] [ "programs" "neovim" ])
   ];
 
-  options.dotfyls.programs.neovim.enable = lib.mkEnableOption "Neovim" // {
+  options.dotfyls.files.neovim.enable = lib.mkEnableOption "Neovim" // {
     default = true;
   };
 
