@@ -86,6 +86,8 @@ in
           Type = "oneshot";
           ExecStartPre = "${lib.getExe' pkgs.coreutils "sleep"} 1";
           ExecStart = lib.getExe folderShare;
+          Restart = "on-failure";
+          RestartSec = "4";
         };
 
         Install.WantedBy = [ "syncthing.service" ];
