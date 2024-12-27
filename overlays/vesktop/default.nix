@@ -4,7 +4,7 @@ prev.vesktop.overrideAttrs (
   o:
   let
     disableFirstLaunch = final.writeShellApplication {
-      name = "vesktop-disable-first-launch";
+      name = "dotfyls-vesktop-disable-first-launch";
 
       runtimeInputs = with final; [ coreutils ];
 

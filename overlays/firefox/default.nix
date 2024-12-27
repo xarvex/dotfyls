@@ -2,7 +2,7 @@ final: prev:
 
 let
   containerSort = final.writeShellApplication {
-    name = "firefox-container-sort";
+    name = "dotfyls-firefox-container-sort";
 
     runtimeInputs = with final; [
       jq
@@ -17,7 +17,10 @@ prev.firefox.overrideAttrs (o: {
     let
       find = "makeWrapper \"$oldExe\" \\\n  \"\${executablePath}\" \\\n";
     in
-    builtins.replaceStrings [ find ] [
-      (find + "    --run \"${final.lib.getExe containerSort}\" \\\n")
-    ] o.buildCommand;
+    builtins.replaceStrings
+      [ find ]
+      [
+        (find + "    --run \"${final.lib.getExe containerSort}\" \\\n")
+      ]
+      o.buildCommand;
 })

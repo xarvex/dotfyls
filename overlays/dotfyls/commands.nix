@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  writeShellApplication,
-}:
+{ lib, writeShellApplication }:
 
 rec {
   mkCommand' =
@@ -16,8 +12,4 @@ rec {
   mkCommand = exec: mkCommand' "dotfyls-command" exec;
 
   mkCommandExe = exec: lib.getExe (mkCommand exec);
-
-  mkDbusSession =
-    pkg:
-    mkCommand' "dbus-${pkg.pname}-session" "exec ${lib.getExe' pkgs.dbus "dbus-run-session"} ${lib.getExe pkg}";
 }
