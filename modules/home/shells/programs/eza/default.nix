@@ -28,10 +28,6 @@ in
       watchdir = "watch -cn1 -x eza -T --color always -L2";
     };
 
-    programs.eza = {
-      enable = true;
-
-      extraOptions = [ "--hyperlink" ];
-    };
+    programs.eza.enable = true;
   };
 }
