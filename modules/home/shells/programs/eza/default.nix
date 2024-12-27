@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -10,12 +11,11 @@ let
   cfg = cfg'.eza;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "eza" ] [ "programs" "eza" ])
-  ];
-
-  options.dotfyls.shells.programs.eza.enable = lib.mkEnableOption "eza" // {
-    default = cfg'.enableFun;
+  options.dotfyls.shells.programs.eza = {
+    enable = lib.mkEnableOption "eza" // {
+      default = cfg'.enableFun;
+    };
+    package = lib.mkPackageOption pkgs "eza" { };
   };
 
   config = lib.mkIf cfg.enable {
@@ -28,6 +28,6 @@ in
       watchdir = "watch -cn1 -x eza -T --color always -L2";
     };
 
-    programs.eza.enable = true;
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
   };
 }
