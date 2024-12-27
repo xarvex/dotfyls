@@ -110,57 +110,12 @@
         "url": "file:///dev/null"
       }
     },
-    "devenv-root_6": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-d6xi4mKdjkX2JFicDIv5niSzpyI0m/Hnm8GGAIU04kY=",
-        "type": "file",
-        "url": "file:///dev/null"
-      },
-      "original": {
-        "type": "file",
-        "url": "file:///dev/null"
-      }
-    },
-    "dotfyls-neovim": {
-      "inputs": {
-        "devenv": [
-          "devenv"
-        ],
-        "devenv-root": "devenv-root_2",
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nix2container": [
-          "nix2container"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1733218324,
-        "narHash": "sha256-9648mx3YqeE5tjMGXjDhdVi/l9izGtOjfjLzU9L2byY=",
-        "owner": "dotfyls",
-        "repo": "neovim",
-        "rev": "ace9eb1cd84d202a663fb1e5cfc392533a8ae05e",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "dotfyls",
-        "repo": "neovim",
-        "type": "gitlab"
-      }
-    },
     "dotfyls-wezterm": {
       "inputs": {
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_3",
+        "devenv-root": "devenv-root_2",
         "flake-parts": [
           "flake-parts"
         ],
@@ -624,7 +579,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_4",
+        "devenv-root": "devenv-root_3",
         "flake-parts": [
           "flake-parts"
         ],
@@ -684,7 +639,6 @@
       "inputs": {
         "devenv": "devenv",
         "devenv-root": "devenv-root",
-        "dotfyls-neovim": "dotfyls-neovim",
         "dotfyls-wezterm": "dotfyls-wezterm",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts_2",
@@ -786,7 +740,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_5",
+        "devenv-root": "devenv-root_4",
         "flake-parts": [
           "flake-parts"
         ],
@@ -819,7 +773,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_6",
+        "devenv-root": "devenv-root_5",
         "flake-parts": [
           "flake-parts"
         ],

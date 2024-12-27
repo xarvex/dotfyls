@@ -1,7 +1,7 @@
 {
   config,
-  inputs,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -11,8 +11,6 @@ let
 in
 {
   imports = [
-    inputs.dotfyls-neovim.homeManagerModules.neovim
-
     (self.lib.mkAliasPackageModule [ "dotfyls" "files" "neovim" ] [ "programs" "neovim" ])
   ];
 
@@ -47,10 +45,37 @@ in
 
     programs.neovim = {
       enable = true;
+      withNodeJs = lib.mkDefault false;
+      withPython3 = lib.mkDefault false;
+      withRuby = lib.mkDefault false;
+      extraPackages = with pkgs; [
+        chafa
+        delta
+        gcc
+        git
+        gnumake
+        nodejs_22
+      ];
+
       defaultEditor = true;
       vimAlias = true;
-
-      dotfyls.enable = true;
     };
+
+    # TODO: Filter Lua files.
+    xdg.configFile = {
+      "nvim/after" = {
+        recursive = true;
+        source = ./nvim/after;
+      };
+      "nvim/init.lua".source = ./nvim/init.lua;
+      "nvim/lua" = {
+        recursive = true;
+        source = ./nvim/lua;
+      };
+    };
+
+    systemd.user.tmpfiles.rules = [
+      "C+ ${config.xdg.configHome}/nvim/lazy-lock.json 0644 - - - ${./nvim/lazy-lock.json}"
+    ];
   };
 }

@@ -1,0 +1,5 @@
+require("dotfyls.config.cmd")
+require("dotfyls.config.event")
+require("dotfyls.config.global")
+require("dotfyls.config.keymap")
+require("dotfyls.config.opt")
