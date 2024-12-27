@@ -24,6 +24,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "Nix Search - Packages"
       "Nix Search - Options"
       "Home Manager Option Search"
+      "Nerd Fonts"
     ];
 
     engines =
@@ -149,6 +150,24 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           ];
 
           metaData.alias = "@hm";
+        };
+
+        "Nerd Fonts" = {
+          iconURL = "https://www.nerdfonts.com/assets/img/favicon.ico";
+          definedAliases = [ "@nerdfonts" ];
+          urls = [
+            {
+              template = "https://www.nerdfonts.com/cheat-sheet";
+              params = [
+                {
+                  name = "q";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+
+          metaData.alias = "@nf";
         };
 
         "Bing".metaData.hidden = true;
