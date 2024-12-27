@@ -61,16 +61,11 @@ in
       vimAlias = true;
     };
 
-    # TODO: Filter Lua files.
-    xdg.configFile = {
-      "nvim/after" = {
-        recursive = true;
-        source = ./nvim/after;
-      };
-      "nvim/init.lua".source = ./nvim/init.lua;
-      "nvim/lua" = {
-        recursive = true;
-        source = ./nvim/lua;
+    xdg.configFile."nvim" = {
+      recursive = true;
+      source = lib.fileset.toSource {
+        root = ./nvim;
+        fileset = lib.fileset.fileFilter (file: lib.hasSuffix ".lua" file.name) ./nvim;
       };
     };
 
