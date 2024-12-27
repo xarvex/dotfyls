@@ -19,7 +19,12 @@ in
       boot.kernelParams = [ "mem_sleep_default=${if cfg.suspend.light then "s2idle" else "deep"}" ];
     })
     (lib.mkIf (!cfg.suspend.enable) {
-      # TODO: disable if false
+      systemd.targets = {
+        hibernate.enable = false;
+        hybrid-sleep.enable = false;
+        sleep.enable = false;
+        suspend.enable = false;
+      };
     })
 
     (lib.mkIf cfg.management {
