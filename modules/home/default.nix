@@ -16,6 +16,7 @@
     ./shells
     ./terminals
 
+    ./icon.nix
     ./state.nix
   ];
 

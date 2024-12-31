@@ -8,6 +8,8 @@
 let
   cfg' = config.dotfyls.shells.programs;
   cfg = cfg'.starship;
+
+  iCfg = config.dotfyls.icon;
 in
 {
   imports = [
@@ -40,7 +42,7 @@ in
           format = lib.concatStrings [
             "($username$hostname[](${transitionBubbleStyle}))"
             "($directory[](${bubbleStyle}) )"
-            "([](cyan) $git_branch$git_status$git_state )"
+            "([${iCfg.general.branch}](cyan)$git_branch$git_status$git_state )"
             "$nix_shell"
 
             "$fill"
@@ -56,8 +58,8 @@ in
 
           character = {
             success_symbol = "[❯](purple)";
-            error_symbol = "[ ](bold red)";
-            vimcmd_symbol = "[](green)";
+            error_symbol = "[${lib.trimWith { end = true; } iCfg.general.error}](bold red)";
+            vimcmd_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](green)";
           };
           cmd_duration = {
             min_time = 10000;
@@ -67,16 +69,21 @@ in
           directory = rec {
             format = "[ $path ]($style)[$read_only]($read_only_style)";
             style = "${innerBubbleStyle} fg:bold black";
-            read_only = "󰌾 ";
+            read_only = iCfg.file.lock;
             read_only_style = style;
-            home_symbol = " ";
+            home_symbol = iCfg.general.home;
 
             substitutions = {
-              "Documents" = "󰈙 ";
-              "Downloads" = " ";
-              "Music" = "󰧔 ";
-              "Pictures" = " ";
-              "Videos" = "󰨛 ";
+              inherit (iCfg.byDirname)
+                Desktop
+                Documents
+                Downloads
+                Music
+                Pictures
+                Public
+                Templates
+                Videos
+                ;
             };
           };
           fill.symbol = " ";
@@ -99,7 +106,7 @@ in
           git_status = {
             format = "[[(*$conflicted$deleted$renamed$modified$typechanged$staged)($untracked)](red)( $ahead_behind$stashed)]($style)";
             conflicted = "​";
-            stashed = "≡";
+            stashed = iCfg.general.stash;
             modified = "​";
             staged = "​";
             renamed = "​";
@@ -115,19 +122,19 @@ in
           line_break.disabled = false;
           nix_shell = {
             format = "[$symbol]($style)";
-            symbol = " ";
+            symbol = iCfg.code.nix;
             style = "magenta";
             impure_msg = "";
             pure_msg = "";
           };
           shlvl = {
             format = "[$symbol$shlvl]($style)";
-            symbol = "󰽘 ";
+            symbol = iCfg.general.layer;
             style = "green";
             disabled = false;
           };
           time = {
-            format = "[  $time ]($style)";
+            format = "[ ${iCfg.general.clock}$time ]($style)";
             time_format = "%H:%M";
             style = innerBubbleStyle;
             disabled = false;
