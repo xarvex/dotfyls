@@ -9,16 +9,6 @@
       flake = false;
     };
 
-    dotfyls-wezterm = {
-      url = "gitlab:dotfyls/wezterm";
-      inputs = {
-        devenv.follows = "devenv";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";

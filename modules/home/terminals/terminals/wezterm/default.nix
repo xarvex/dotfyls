@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   self,
   ...
@@ -12,8 +11,6 @@ let
 in
 {
   imports = [
-    inputs.dotfyls-wezterm.homeManagerModules.wezterm
-
     (self.lib.mkAliasPackageModule
       [ "dotfyls" "terminals" "terminals" "wezterm" ]
       [ "programs" "wezterm" ]
@@ -29,5 +26,16 @@ in
     };
 
     programs.wezterm.enable = true;
+
+    xdg.configFile = {
+      wezterm = {
+        recursive = true;
+        source = lib.fileset.toSource {
+          root = ./wezterm;
+          fileset = lib.fileset.fileFilter (file: lib.hasSuffix ".lua" file.name) ./wezterm;
+        };
+      };
+      "wezterm/wezterm.lua".enable = false;
+    };
   };
 }
