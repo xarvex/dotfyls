@@ -511,11 +511,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734232075,
-        "narHash": "sha256-/cuM5RHBpakfslRRYXAyEQExDrbkExI5xZ99VOM67jY=",
+        "lastModified": 1735698698,
+        "narHash": "sha256-XbEZgUJxH1+COJ1V9Ecz6hpO3EjkbKx7ESwzdAe/gO0=",
         "owner": "xarvex",
         "repo": "persistwd",
-        "rev": "1b4cacf6583e3eae8163570626775a17c32f3c57",
+        "rev": "3afa30b64fb10c834b7821fde1b94f471bdc597b",
         "type": "gitlab"
       },
       "original": {
@@ -656,11 +656,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726729308,
-        "narHash": "sha256-xRiCTVCxFJMap+dU30+yCUWBkMP2uEHOfpMa38swGDg=",
+        "lastModified": 1735699193,
+        "narHash": "sha256-7LH5JDHAwsxlPR+I85ERWGeZcUHC2urM4zXVeTkNWVw=",
         "owner": "xarvex",
         "repo": "wherenver",
-        "rev": "44f8a60fa6a6de8d032edb3ddcb9750ef235ed6d",
+        "rev": "edb2006ee7a7a97323c8373cd2519be3c41e1788",
         "type": "gitlab"
       },
       "original": {
