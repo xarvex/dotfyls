@@ -1,4 +1,4 @@
-local function get(weight) return require("wezterm").font("Iosevka Term SS14", { stretch = "SemiExpanded", weight = weight }) end
+local function get(weight) return require("wezterm").font("monospace", { weight = weight }) end
 
 return {
     get = get,
