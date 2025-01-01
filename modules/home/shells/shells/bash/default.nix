@@ -47,6 +47,7 @@ in
       '';
       initExtra = lib.mkBefore (
         cfg'.greet
+        + lib.optionalString (cfg'.greet != "") "\n"
         + lib.optionalString cfg.blesh.enable ''
           [[ ''${BLE_VERSION-} ]] && ble-attach
 
