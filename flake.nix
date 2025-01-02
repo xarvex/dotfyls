@@ -77,66 +77,12 @@
   outputs =
     inputs@{
       flake-parts,
-      home-manager,
       nixpkgs,
       self,
       ...
     }:
     let
       inherit (nixpkgs) lib;
-
-      hosts =
-        let
-          user = "xarvex"; # Change this if you aren't me!
-
-          unfreePkgs = [
-            "discord"
-            "nvidia-settings"
-            "nvidia-x11"
-            "obsidian"
-            "spotify"
-            "steam"
-            "steam-original"
-            "steam-run"
-            "steam-unwrapped"
-            "vintagestory"
-            "zsh-abbr"
-          ];
-
-          defaultHost = id: system: {
-            inherit
-              home-manager
-              id
-              nixpkgs
-              system
-              unfreePkgs
-              user
-              ;
-          };
-        in
-        {
-          artemux = defaultHost "fd9daca2" "x86_64-linux";
-          matrix = defaultHost "3bb44cc9" "x86_64-linux";
-          pioneer = defaultHost "3540bf30" "x86_64-linux";
-          sentinel = defaultHost "ef01cd45" "x86_64-linux";
-        };
-
-      nixosHosts = {
-        inherit (hosts)
-          artemux
-          matrix
-          pioneer
-          sentinel
-          ;
-      };
-      homeManagerHosts = {
-        inherit (hosts)
-          artemux
-          matrix
-          pioneer
-          sentinel
-          ;
-      };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ inputs.devenv.flakeModule ];
@@ -154,25 +100,18 @@
         };
 
       flake = {
-        nixosConfigurations =
-          builtins.mapAttrs self.lib.mkNixosConfiguration nixosHosts
-          # Keep installer separate for now.
-          // {
-            installer = lib.nixosSystem {
-              specialArgs = { inherit self; };
-
-              modules = [ ./modules/hosts/installer ];
-            };
-          };
-        homeConfigurations = builtins.mapAttrs self.lib.mkHomeManagerConfiguration homeManagerHosts;
-
-        inherit (import ./modules { inherit lib; }) nixosModules homeManagerModules;
+        inherit (import ./modules { inherit inputs lib self; })
+          nixosConfigurations
+          homeConfigurations
+          nixosModules
+          homeManagerModules
+          ;
 
         overlays = import ./overlays { inherit lib self; };
 
         templates = import ./templates;
 
-        lib = import ./lib { inherit inputs lib self; };
+        lib = import ./lib { inherit lib; };
       };
     };
 }
