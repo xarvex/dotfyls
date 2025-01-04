@@ -1,5 +1,5 @@
 [package]
-name = "rust"
+name = "project-slug"
 version = "0.0.1"
 authors = ["Xarvex"]
 edition = "2021"
@@ -8,6 +8,8 @@ description = "Rust"
 repository = "https://gitlab.com/xarvex"
 
 [dependencies]
+
+[build-dependencies]
 
 [profile.release]
 opt-level = 3

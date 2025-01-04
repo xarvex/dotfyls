@@ -1,5 +1,5 @@
 {
-  description = "Rust with Cargo workspaces";
+  description = "project-name";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -25,7 +25,12 @@
   };
 
   outputs =
-    inputs@{ flake-parts, nixpkgs, ... }:
+    inputs@{
+      flake-parts,
+      nixpkgs,
+      self,
+      ...
+    }:
     let
       inherit (nixpkgs) lib;
     in
@@ -36,71 +41,30 @@
 
       perSystem =
         { pkgs, ... }:
-        let
-          manifest = (lib.importTOML ./Cargo.toml).workspace.package;
-        in
         {
           packages = rec {
-            default = name;
-
-            name = pkgs.rustPlatform.buildRustPackage rec {
-              pname = "name";
-              inherit (manifest) version;
-
-              src = ./.;
-              cargoLock.lockFile = ./Cargo.lock;
-
-              meta = {
-                inherit (manifest) description;
-                homepage = manifest.repository;
-                license = lib.licenses.mit;
-                maintainers = with lib.maintainers; [ xarvex ];
-                mainProgram = pname;
-                platforms = lib.platforms.linux;
-              };
-            };
+            default = project-slug;
+            project-slug = pkgs.callPackage ./nix/package.nix { };
           };
 
           devenv.shells = rec {
-            default = name;
-
-            name = {
-              devenv.root =
-                let
-                  devenvRoot = builtins.readFile inputs.devenv-root.outPath;
-                in
-                # If not overridden (/dev/null), --impure is necessary.
-                lib.mkIf (devenvRoot != "") devenvRoot;
-
-              name = "Rust with Cargo workspaces";
-
-              packages = with pkgs; [
-                cargo-deny
-                cargo-edit
-                cargo-expand
-                cargo-msrv
-                cargo-udeps
-
-                codespell
-              ];
-
-              languages = {
-                nix.enable = true;
-                rust.enable = true;
-              };
-
-              pre-commit.hooks = {
-                clippy.enable = true;
-                deadnix.enable = true;
-                flake-checker.enable = true;
-                nixfmt-rfc-style.enable = true;
-                rustfmt.enable = true;
-                statix.enable = true;
-              };
-            };
+            default = project-slug;
+            project-slug = import ./nix/devenv.nix { inherit inputs lib pkgs; };
           };
 
           formatter = pkgs.nixfmt-rfc-style;
         };
+
+      flake = {
+        nixosModules = rec {
+          default = project-slug;
+          project-slug = import ./nix/nixos.nix { inherit self; };
+        };
+
+        homeManagerModules = rec {
+          default = project-slug;
+          project-slug = import ./nix/home-manager.nix { inherit self; };
+        };
+      };
     };
 }

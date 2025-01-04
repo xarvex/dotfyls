@@ -1,0 +1,3 @@
+[cC]onfig
+sublicense
+Xarvex

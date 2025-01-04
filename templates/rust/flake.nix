@@ -1,5 +1,5 @@
 {
-  description = "Rust";
+  description = "project-name";
 
   inputs = {
     devenv.url = "github:cachix/devenv";
@@ -43,13 +43,13 @@
         { pkgs, ... }:
         {
           packages = rec {
-            default = project-name;
-            project-name = pkgs.callPackage ./nix/package.nix { };
+            default = project-slug;
+            project-slug = pkgs.callPackage ./nix/package.nix { };
           };
 
           devenv.shells = rec {
-            default = project-name;
-            project-name = import ./nix/devenv.nix { inherit inputs lib pkgs; };
+            default = project-slug;
+            project-slug = import ./nix/devenv.nix { inherit inputs lib pkgs; };
           };
 
           formatter = pkgs.nixfmt-rfc-style;
@@ -57,13 +57,13 @@
 
       flake = {
         nixosModules = rec {
-          default = project-name;
-          project-name = import ./nix/nixos.nix { inherit self; };
+          default = project-slug;
+          project-slug = import ./nix/nixos.nix { inherit self; };
         };
 
         homeManagerModules = rec {
-          default = project-name;
-          project-name = import ./nix/home-manager.nix { inherit self; };
+          default = project-slug;
+          project-slug = import ./nix/home-manager.nix { inherit self; };
         };
       };
     };
