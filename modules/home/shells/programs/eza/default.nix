@@ -25,12 +25,12 @@ in
       packages = [ (self.lib.getCfgPkg cfg) ];
 
       shellAliases = {
-        "l." = "eza -d .* --icons auto";
-        ll = "eza -la --git";
-        ls = "eza --icons auto";
-        tree = "eza -T --icons auto -L2";
+        "l." = "eza --group-directories-first --icons auto -d .*";
+        ll = "eza --group-directories-first --icons auto -la --git";
+        ls = "eza --group-directories-first --icons auto";
+        tree = "eza --group-directories-first --icons auto -T";
 
-        watchdir = "watch -cn1 -x eza -T --color always -L2";
+        watchdir = "watch -cn1 -x eza --group-directories-first -T --color always";
       };
     };
 
