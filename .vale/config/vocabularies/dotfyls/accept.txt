@@ -1,0 +1,5 @@
+[cC]onfig
+dotfyls
+Neovim
+sublicense
+Xarvex
