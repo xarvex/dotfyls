@@ -7,6 +7,7 @@
     ./nemo
     ./neovim
     ./obsidian
+    ./systems
 
     ./gvfs.nix
     ./sync.nix
