@@ -8,7 +8,6 @@ keymap("n", "<leader>rD", "<Nop>", { silent = true })
 return {
     "mrcjkb/rustaceanvim",
     version = "^5",
-    cond = require("dotfyls.languages").lsp.path["rust-analyzer"],
     ft = "rust",
     config = function()
         keymap(

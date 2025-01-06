@@ -16,6 +16,8 @@
 
   packages = with pkgs; [
     codespell
+    fish-lsp
+    vscode-langservers-extracted
     vale-ls
   ];
 

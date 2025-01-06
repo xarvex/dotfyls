@@ -1,7 +1,6 @@
 return {
     {
         "folke/lazydev.nvim",
-        cond = require("dotfyls.languages").lsp.path["lua-language-server"],
         cmd = "LazyDev",
         ft = "lua",
         opts = {
