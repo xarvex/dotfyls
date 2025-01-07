@@ -11,7 +11,6 @@ let
 in
 {
   options.dotfyls.shells.shells = {
-    bash.package = lib.mkPackageOption pkgs "bash" { };
     fish = {
       enable = lib.mkEnableOption "Fish" // {
         default = hmCfg.shells.fish.enable;
