@@ -21,6 +21,7 @@ return {
             python = { "ruff_format" },
             sh = { "shfmt" },
             sql = { "sql_formatter" },
+            typst = { "typstyle" },
             ["_"] = { "trim_whitespace" },
         },
         default_format_opts = {
