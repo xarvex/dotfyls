@@ -50,9 +50,11 @@ return {
                 },
                 buffers = {
                     prompt = " ",
+                    silent = true,
                 },
                 files = {
                     prompt = " ",
+                    silent = true,
                     cwd_prompt = false,
                     actions = {
                         ["alt-i"] = { require("fzf-lua.actions").toggle_ignore },
@@ -74,6 +76,7 @@ return {
                 },
                 grep = {
                     prompt = " ",
+                    silent = true,
                     actions = {
                         ["alt-i"] = { require("fzf-lua.actions").toggle_ignore },
                         ["alt-h"] = { require("fzf-lua.actions").toggle_hidden },
@@ -81,6 +84,7 @@ return {
                 },
                 lsp = {
                     prompt = " ",
+                    silent = true,
                     code_actions = {
                         previewer = vim.fn.executable("delta") and "codeaction_native" or nil,
                     },
