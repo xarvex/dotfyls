@@ -8,15 +8,14 @@
 let
   cfg = config.dotfyls.boot.kernel;
 
-  kernelFilter =
-    {
-      hardened = kernel: kernel.isHardened;
-      lqx = kernel: kernel.pname == "linux-lqx";
-      stable = kernel: kernel.pname == "linux" && kernel.meta.branch != "testing";
-      xanmod = kernel: kernel.pname == "linux-xanmod";
-      zen = kernel: kernel.pname == "linux-zen";
-    }
-    .${cfg.variant};
+  kernelFilters = {
+    hardened = kernel: kernel.isHardened;
+    lqx = kernel: kernel.pname == "linux-lqx";
+    stable = kernel: kernel.pname == "linux" && kernel.meta.branch != "testing";
+    xanmod = kernel: kernel.pname == "linux-xanmod";
+    zen = kernel: kernel.pname == "linux-zen";
+  };
+  kernelFilter = kernelFilters.${cfg.variant};
 in
 {
   imports = [
@@ -24,13 +23,7 @@ in
   ];
 
   options.dotfyls.boot.kernel.variant = lib.mkOption {
-    type = lib.types.enum [
-      "hardened"
-      "lqx"
-      "stable"
-      "xanmod"
-      "zen"
-    ];
+    type = lib.types.enum (builtins.attrNames kernelFilters);
     default = "stable";
     example = "hardened";
     description = "Variant of kernel to use.";
