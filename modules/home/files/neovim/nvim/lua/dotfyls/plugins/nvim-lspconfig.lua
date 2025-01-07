@@ -3,21 +3,6 @@ return {
     cmd = { "LspInfo", "LspLog", "LspStart" },
     event = { "BufNewFile", "BufReadPost" },
     config = function()
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            require("lazy.core.config").plugins["cmp-nvim-lsp"] and require("cmp_nvim_lsp").default_capabilities() or {},
-            {
-                workspace = {
-                    fileOperations = {
-                        didRename = true,
-                        willRename = true,
-                    },
-                },
-            }
-        )
-
         local servers = {
             astro = true,
             bashls = true,
@@ -52,9 +37,11 @@ return {
 
         for server, opts in pairs(servers) do
             if opts ~= false then
-                require("lspconfig")[server].setup(
-                    vim.tbl_deep_extend("force", { capabilities = vim.deepcopy(capabilities) }, type(opts) == "table" and opts or {})
-                )
+                opts = type(opts) == "table" and opts or {}
+                if require("lazy.core.config").plugins["blink.cmp"] then
+                    opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities, true)
+                end
+                require("lspconfig")[server].setup(opts)
             end
         end
     end,
