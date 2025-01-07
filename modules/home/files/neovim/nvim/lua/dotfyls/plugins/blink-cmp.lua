@@ -151,6 +151,14 @@ return {
                         },
                     },
                 },
+                snippets = {
+                    expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+                    active = function(filter)
+                        return (filter and filter.direction) and require("luasnip").jumpable(filter.direction)
+                            or require("luasnip").in_snippet()
+                    end,
+                    jump = function(direction) require("luasnip").jump(direction) end,
+                },
             }
         end,
     },
