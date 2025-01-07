@@ -2,7 +2,7 @@
 # Configurations in harden are optional (though enabled by default).
 # Configurations outside of that are required.
 # What did you expect from a cybersecurity guy?
-# 
+#
 # Resources used:
 #   https://nixos.wiki/wiki/Security
 #   https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/profiles/hardened.nix
@@ -16,6 +16,7 @@ _:
   imports = [
     ./harden
     ./gnome-keyring
+    ./wireshark
     ./yubikey
 
     ./kernel.nix

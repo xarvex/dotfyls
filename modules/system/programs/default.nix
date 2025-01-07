@@ -7,6 +7,5 @@ _:
     ./podman.nix
     ./solaar.nix
     ./virt-manager.nix
-    ./wireshark.nix
   ];
 }
