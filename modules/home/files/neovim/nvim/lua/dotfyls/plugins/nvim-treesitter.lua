@@ -64,6 +64,7 @@ return {
             "make",
             "markdown",
             "markdown_inline",
+            "meson",
             "nix",
             "passwd",
             "python",
