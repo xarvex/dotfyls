@@ -7,7 +7,7 @@ fi
 
 devenv_root_file="$(mktemp -t devenv-root-XXXXXXXX)"
 printf %s "${PWD}" >"${devenv_root_file}"
-if ! use flake .#dotfyls-wezterm --override-input devenv-root "file+file://${devenv_root_file}"; then
+if ! use flake .#dotfyls-modules-home-terminals-terminals-wezterm-wezterm --override-input devenv-root "file+file://${devenv_root_file}"; then
     printf '%s\n' "devenv could not be built. The devenv environment was not loaded. Make the necessary changes to devenv.nix and hit enter to try again." >&2
 fi
 rm "${devenv_root_file}"
