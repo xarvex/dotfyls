@@ -104,9 +104,9 @@ return {
                 },
                 -- signature = { enabled = true },
                 sources = {
-                    default = { "lsp", "path", "snippets", "luasnip", "buffer", "ripgrep", "dictionary", "spell" },
+                    default = { "lsp", "path", "snippets", "buffer", "ripgrep", "dictionary", "spell" },
                     per_filetype = {
-                        lua = { "lazydev", "lsp", "path", "snippets", "luasnip", "buffer", "ripgrep", "dictionary", "spell" },
+                        lua = { "lazydev", "lsp", "path", "snippets", "buffer", "ripgrep", "dictionary", "spell" },
                     },
                     providers = {
                         lazydev = {
@@ -123,7 +123,6 @@ return {
                             score_offset = 10,
                         },
                         snippets = { score_offset = 1 },
-                        luasnip = { score_offset = 1 },
                         buffer = {
                             transform_items = transform_items_capitalization,
                             min_keyword_length = 3,
@@ -151,14 +150,7 @@ return {
                         },
                     },
                 },
-                snippets = {
-                    expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
-                    active = function(filter)
-                        return (filter and filter.direction) and require("luasnip").jumpable(filter.direction)
-                            or require("luasnip").in_snippet()
-                    end,
-                    jump = function(direction) require("luasnip").jump(direction) end,
-                },
+                snippets = { preset = "luasnip" },
             }
         end,
     },
