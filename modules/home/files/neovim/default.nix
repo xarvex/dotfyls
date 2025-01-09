@@ -8,6 +8,18 @@
 
 let
   cfg = config.dotfyls.files.neovim;
+
+  copyLock = pkgs.writeShellApplication {
+    name = "dotfyls-neovim-copy-lock";
+
+    runtimeInputs = with pkgs; [ coreutils ];
+
+    text = ''
+      mkdir -p "''${XDG_CONFIG_HOME:-''${HOME}/.config}/nvim" || exit 0
+      cp ${./nvim/lazy-lock.json} "''${XDG_CONFIG_HOME:-''${HOME}/.config}/nvim/lazy-lock.json" || exit 0
+      chmod u+w "''${XDG_CONFIG_HOME:-''${HOME}/.config}/nvim/lazy-lock.json" || exit 0
+    '';
+  };
 in
 {
   imports = [
@@ -56,6 +68,10 @@ in
         gnumake
         nodejs_22
       ];
+      extraWrapperArgs = [
+        "--run"
+        (lib.getExe copyLock)
+      ];
 
       defaultEditor = true;
       vimAlias = true;
@@ -68,9 +84,5 @@ in
         fileset = lib.fileset.fileFilter (file: lib.hasSuffix ".lua" file.name) ./nvim;
       };
     };
-
-    systemd.user.tmpfiles.rules = [
-      "C+ ${config.xdg.configHome}/nvim/lazy-lock.json 0644 - - - ${./nvim/lazy-lock.json}"
-    ];
   };
 }
