@@ -8,6 +8,10 @@ lib.mkIf (cfg'.enable && cfg.enable) {
   wayland.windowManager.hyprland.settings = {
     general.no_focus_fallback = true;
 
+    dwindle.preserve_split = true;
+
+    master.new_status = "master";
+
     input = {
       touchpad = {
         natural_scroll = true;
