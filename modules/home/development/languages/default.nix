@@ -8,5 +8,6 @@ _:
     ./lua
     ./python
     ./rust
+    ./typst
   ];
 }
