@@ -73,6 +73,8 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.file.".cache/gtk-4.0/vulkan-pipeline-cache".cache = true;
+
     gtk = {
       enable = true;
 
