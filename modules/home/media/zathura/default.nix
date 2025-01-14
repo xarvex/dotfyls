@@ -18,5 +18,12 @@ in
     default = config.dotfyls.desktops.enable;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) { programs.zathura.enable = true; };
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.file.".local/share/zathura" = {
+      mode = "0700";
+      cache = true;
+    };
+
+    programs.zathura.enable = true;
+  };
 }
