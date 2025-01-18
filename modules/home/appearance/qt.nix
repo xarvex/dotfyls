@@ -88,8 +88,8 @@ in
         };
 
         "Kvantum" = {
-          inherit (cfg.theme) source;
           recursive = true;
+          inherit (cfg.theme) source;
         };
         "Kvantum/kvantum.kvconfig".text = lib.generators.toINI { } {
           # TODO: Change dynamically with heuniform.
