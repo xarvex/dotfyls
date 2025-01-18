@@ -9,7 +9,6 @@ let
     "firefox"
     "nix-index-unwrapped"
     "vesktop"
-    "wezterm"
   ];
 in
 lib.genAttrs overlays (overlay: final: prev: { ${overlay} = import ./${overlay} final prev; })

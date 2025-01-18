@@ -7,10 +7,10 @@ M.check_for_updates = false
 
 M.color_scheme = "carbonfox" -- default
 
+M.default_prog = { os.getenv("DOTFYLS_SHELL") }
+
 M.enable_kitty_keyboard = true
 M.enable_tab_bar = false
-
-M.front_end = "WebGpu"
 
 M.warn_about_missing_glyphs = false
 

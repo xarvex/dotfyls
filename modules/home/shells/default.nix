@@ -44,11 +44,14 @@ in
 
   config = {
     home = {
-      sessionVariables.SHELL =
-        let
-          sCfg = cfg.shells.${cfg.default};
-        in
-        lib.mkIf (sCfg ? package) (self.lib.getCfgExe sCfg);
+      sessionVariables = rec {
+        DOTFYLS_SHELL = SHELL;
+        SHELL =
+          let
+            sCfg = cfg.shells.${cfg.default};
+          in
+          lib.mkIf (sCfg ? package) (self.lib.getCfgExe sCfg);
+      };
 
       shellAliases = {
         ".." = "cd ..";
