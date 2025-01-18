@@ -43,3 +43,7 @@ end
 
 bind -M insert \e\[1\;5A dumb_history_backward
 bind -M insert \e\[1\;5B dumb_history_forward
+
+function starship_transient_prompt_func
+    starship module character
+end

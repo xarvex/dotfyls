@@ -57,7 +57,7 @@ in
           ];
 
           character = {
-            success_symbol = "[❯](purple)";
+            success_symbol = "[${lib.trimWith { end = true; } " "}](purple)";
             error_symbol = "[${lib.trimWith { end = true; } iCfg.general.error}](bold red)";
             vimcmd_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](green)";
           };
