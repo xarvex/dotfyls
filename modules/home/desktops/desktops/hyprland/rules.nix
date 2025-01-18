@@ -13,6 +13,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
     "dimaround, class:org\.gnupg\.pinentry-.+, floating: 1"
     "stayfocused, class:org\.gnupg\.pinentry-.+"
 
+    "float, class:discord|vesktop, title:Discord Popout"
+    "pin, class:discord|vesktop, title:Discord Popout"
+
     "maxsize 1 1, class:xwaylandvideobridge"
     "noanim, class:xwaylandvideobridge"
     "noblur, class:xwaylandvideobridge"
