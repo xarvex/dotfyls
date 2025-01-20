@@ -32,6 +32,8 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
+      desktops.dotpanel.enable = lib.mkDefault true;
+
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
 
@@ -41,7 +43,6 @@ in
         dunst.enable = lib.mkDefault true;
         rofi.enable = lib.mkDefault true;
         swww.enable = lib.mkDefault true;
-        waybar.enable = lib.mkDefault true;
         wl-clipboard.enable = true;
       };
     };

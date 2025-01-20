@@ -16,7 +16,6 @@ _:
     ./swww
     ./ventoy
     ./vesktop
-    ./waybar
     ./wl-clipboard
   ];
 }

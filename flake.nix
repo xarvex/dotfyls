@@ -9,6 +9,17 @@
       flake = false;
     };
 
+    dotpanel = {
+      url = "git+https://codeberg.org/xarvex/dotpanel";
+      inputs = {
+        devenv.follows = "devenv";
+        flake-parts.follows = "flake-parts";
+        nix2container.follows = "nix2container";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "astal": {
+      "inputs": {
+        "nixpkgs": [
+          "dotpanel",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736497508,
+        "narHash": "sha256-murrCQMYKtZ8rkZ5O726ZCsCDee1l3ZdmV8yC9gRaIc=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "ef4f95608481414053ecdbe4de29bd86fb452813",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "astal",
+        "type": "github"
+      }
+    },
     "cachix": {
       "inputs": {
         "devenv": [
@@ -96,6 +117,52 @@
       "original": {
         "type": "file",
         "url": "file:///dev/null"
+      }
+    },
+    "devenv-root_5": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-d6xi4mKdjkX2JFicDIv5niSzpyI0m/Hnm8GGAIU04kY=",
+        "type": "file",
+        "url": "file:///dev/null"
+      },
+      "original": {
+        "type": "file",
+        "url": "file:///dev/null"
+      }
+    },
+    "dotpanel": {
+      "inputs": {
+        "astal": "astal",
+        "devenv": [
+          "devenv"
+        ],
+        "devenv-root": "devenv-root_2",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nix2container": [
+          "nix2container"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737353737,
+        "narHash": "sha256-CT2ms6OTtOWi2LwuGepYyFbZYETRdhEVEG26Dxdgg00=",
+        "ref": "refs/heads/main",
+        "rev": "dbc11501dca9e470c0a8c2e082c221ab027ff5c1",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://codeberg.org/xarvex/dotpanel"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/xarvex/dotpanel"
       }
     },
     "firefox-addons": {
@@ -496,7 +563,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_2",
+        "devenv-root": "devenv-root_3",
         "flake-parts": [
           "flake-parts"
         ],
@@ -556,6 +623,7 @@
       "inputs": {
         "devenv": "devenv",
         "devenv-root": "devenv-root",
+        "dotpanel": "dotpanel",
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
@@ -641,7 +709,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_3",
+        "devenv-root": "devenv-root_4",
         "flake-parts": [
           "flake-parts"
         ],
@@ -674,7 +742,7 @@
         "devenv": [
           "devenv"
         ],
-        "devenv-root": "devenv-root_4",
+        "devenv-root": "devenv-root_5",
         "flake-parts": [
           "flake-parts"
         ],
