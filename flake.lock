@@ -152,11 +152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737402333,
-        "narHash": "sha256-69W7ctBU+1S00Y/zJd47N6H8uP4qPVlVFnKIapMPAdE=",
+        "lastModified": 1737404711,
+        "narHash": "sha256-UlFn69WAygtvGXc5z4KYVMPPvyVc84EWhYNvvGwKlUs=",
         "ref": "refs/heads/main",
-        "rev": "02e4260424fc73486e4cd87683e33e8f9ad733f8",
-        "revCount": 8,
+        "rev": "7a28475088e87a9e13b6b24d50cbc736299eb7e4",
+        "revCount": 9,
         "type": "git",
         "url": "https://codeberg.org/xarvex/dotpanel"
       },
