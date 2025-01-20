@@ -55,6 +55,15 @@ in
         ".cache/dotfyls/devshell/nvim".cache = true;
       };
 
+    home.packages = [
+      (lib.hiPrio (
+        pkgs.runCommand "nvim.desktop" { } ''
+          mkdir -p $out/share/applications
+          cp ${cfg.package}/share/applications/nvim.desktop $out/share/applications/nvim.desktop
+        ''
+      ))
+    ];
+
     programs.neovim = {
       enable = true;
       withNodeJs = lib.mkDefault false;
