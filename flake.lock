@@ -152,11 +152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737361955,
-        "narHash": "sha256-Szfc22C7tb/etMx4tYQ+Bf4DxxVodCC8sfCVUKBeSHM=",
+        "lastModified": 1737402333,
+        "narHash": "sha256-69W7ctBU+1S00Y/zJd47N6H8uP4qPVlVFnKIapMPAdE=",
         "ref": "refs/heads/main",
-        "rev": "2556848dda434ca3c02118c042336a01c41c89ea",
-        "revCount": 4,
+        "rev": "02e4260424fc73486e4cd87683e33e8f9ad733f8",
+        "revCount": 8,
         "type": "git",
         "url": "https://codeberg.org/xarvex/dotpanel"
       },
@@ -174,11 +174,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1737345819,
-        "narHash": "sha256-1lMv2u4kQ+YloYXKhZoe9tFnwnWAGVPm1yXBtpSO7xw=",
+        "lastModified": 1737395602,
+        "narHash": "sha256-dj+HVt6iDAKrILFMPx4XyX7YcGyKOxruFcUlcyW9n9s=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "12f2f8d9744c29ac622d723ef173a54223de39af",
+        "rev": "a25f6834e79e4d59cfd17fa0b8892e88b2a36a97",
         "type": "gitlab"
       },
       "original": {
@@ -351,11 +351,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737299337,
-        "narHash": "sha256-0NBrY2A7buujKmeCbieopOMSbLxTu8TFcTLqAbTnQDw=",
+        "lastModified": 1737394973,
+        "narHash": "sha256-EW4oXMfnfA5sNM9Jqm+y98horWVvN66Gu7YIcEpFYZc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f8ef4541bb8a54a8b52f19b52912119e689529b3",
+        "rev": "9786661d57c476021c8a0c3e53bf9fa2b4f3328b",
         "type": "github"
       },
       "original": {
