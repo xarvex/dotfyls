@@ -1,5 +1,6 @@
 [cC]onfig
 dotfyls
-Neovim
+[nN]eovim
 sublicense
 Xarvex
+[zZ]sh
