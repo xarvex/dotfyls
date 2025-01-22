@@ -33,6 +33,7 @@ return {
             vala_ls = true,
             vale_ls = true,
             vuels = true,
+            zls = true,
         }
 
         for server, opts in pairs(servers) do

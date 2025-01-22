@@ -89,6 +89,7 @@ return {
             "xresources",
             "yaml",
             "zathurarc",
+            "zig",
         },
         highlight = { enable = true },
         indent = { enable = true },
