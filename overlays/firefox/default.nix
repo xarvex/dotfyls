@@ -13,14 +13,8 @@ let
   };
 in
 prev.firefox.overrideAttrs (o: {
-  buildCommand =
-    let
-      find = "makeWrapper \"$oldExe\" \\\n  \"\${executablePath}\" \\\n";
-    in
-    builtins.replaceStrings
-      [ find ]
-      [
-        (find + "    --run \"${final.lib.getExe containerSort}\" \\\n")
-      ]
-      o.buildCommand;
+  makeWrapperArgs = o.makeWrapperArgs ++ [
+    "--run"
+    (final.lib.getExe containerSort)
+  ];
 })
