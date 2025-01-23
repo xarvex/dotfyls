@@ -27,8 +27,11 @@ in
         size = cfg'.fontSize;
       };
       settings = {
+        # Text cursor customization
+        cursor_trail = 3;
+
         # Scrollback
-        scrollback_lines = 10000;
+        scrollback_lines = cfg'.scrollback;
 
         # Mouse
         strip_trailing_spaces = "never";
@@ -41,14 +44,12 @@ in
         remember_window_size = false;
 
         # Color scheme
-        background_opacity = toString 0.85;
+        background_opacity = toString cfg'.opacity;
 
         # Advanced
         update_check_interval = 0;
       };
-      extraConfig = ''
-        include themes.conf
-      '';
+      themeFile = "ChallengerDeep";
     };
   };
 }

@@ -24,18 +24,17 @@ in
       enable = true;
 
       settings = {
-        font = {
-          normal.family = "monospace";
-          size = cfg'.fontSize;
-        };
         window = {
-          dimensions = {
-            columns = 80;
-            lines = 24;
-          };
-          opacity = 0.85;
+          decorations = "None";
+          inherit (cfg') opacity;
         };
-        cursor.style.blinking = "Never";
+        scrolling.history = cfg'.scrollback;
+        font.size = cfg'.fontSize;
+        cursor.style = {
+          shape = "Beam";
+          blinking = "On";
+        };
+        mouse.hide_when_typing = true;
       };
     };
   };
