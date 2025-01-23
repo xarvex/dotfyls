@@ -78,6 +78,11 @@ in
           ))
           ++ [ ", preferred, auto, auto" ];
 
+        workspace = self.lib.genWorkspaceList' (
+          display: workspace: key:
+          "${toString workspace}, monitor:${display.name}, key:${key}"
+        ) cfg'.displays;
+
         env = lib.mapAttrsToList (name: value: "${name}, ${toString value}") cfg'.wayland.sessionVariables;
 
         exec-once = [ "swww-daemon &" ];
