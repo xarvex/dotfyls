@@ -29,6 +29,8 @@ in
       settings = {
         # Text cursor customization
         cursor_trail = 3;
+        cursor_trail_decay = "0.1 0.2";
+        cursor_trail_start_threshold = 0;
 
         # Scrollback
         scrollback_lines = cfg'.scrollback;
