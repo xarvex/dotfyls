@@ -1,3 +1,10 @@
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    group = require("dotfyls.interop").group,
+    pattern = "*.slint",
+    callback = function(event) vim.bo[event.buf].filetype = "slint" end,
+    desc = "Set slint filetype",
+})
+
 -- https://www.reddit.com/r/neovim/comments/wlkq0e/neovim_configuration_to_backup_files_with
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = require("dotfyls.interop").group,
