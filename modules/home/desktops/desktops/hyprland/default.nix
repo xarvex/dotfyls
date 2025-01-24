@@ -65,6 +65,8 @@ in
           explicit_sync_kms = explicit_sync;
         };
 
+        ecosystem.no_update_news = true;
+
         monitor =
           (lib.forEach cfg'.displays (
             display:
