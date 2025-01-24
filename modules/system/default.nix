@@ -10,6 +10,7 @@ _:
     ./games
     ./graphics
     ./media
+    ./power
     ./programs
     ./security
 
@@ -17,7 +18,6 @@ _:
     ./localization.nix
     ./networking.nix
     ./nix.nix
-    ./power.nix
     ./shells.nix
     ./state.nix
     ./users.nix
