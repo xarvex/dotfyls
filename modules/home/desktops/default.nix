@@ -12,6 +12,7 @@ in
   imports = [
     ./desktops
     ./dotpanel
+    ./swww
 
     (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {
       name = "default";

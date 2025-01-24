@@ -13,7 +13,6 @@ _:
     ./podman
     ./rofi
     ./solaar
-    ./swww
     ./ventoy
     ./vesktop
     ./wl-clipboard

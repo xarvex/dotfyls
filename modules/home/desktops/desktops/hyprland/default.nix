@@ -32,7 +32,10 @@ in
 
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
-      desktops.dotpanel.enable = lib.mkDefault true;
+      desktops = {
+        dotpanel.enable = lib.mkDefault true;
+        swww.enable = lib.mkDefault true;
+      };
 
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
@@ -42,7 +45,6 @@ in
         cliphist.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
         rofi.enable = lib.mkDefault true;
-        swww.enable = lib.mkDefault true;
         wl-clipboard.enable = true;
       };
     };
@@ -84,8 +86,6 @@ in
         ) cfg'.displays;
 
         env = lib.mapAttrsToList (name: value: "${name}, ${toString value}") cfg'.wayland.sessionVariables;
-
-        exec-once = [ "swww-daemon &" ];
       };
     };
   };
