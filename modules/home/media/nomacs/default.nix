@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "nomacs" // {
       default = config.dotfyls.desktops.enable;
     };
-    package = lib.mkPackageOption pkgs "nomacs" { };
+    package = lib.mkPackageOption pkgs "nomacs" { default = "nomacs-qt6"; };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
