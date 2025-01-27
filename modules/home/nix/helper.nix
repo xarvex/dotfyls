@@ -15,5 +15,11 @@ in
     default = true;
   };
 
-  config = lib.mkIf cfg.enable { programs.nh.enable = true; };
+  config = lib.mkIf cfg.enable {
+    home.sessionVariables = lib.optionalAttrs config.dotfyls.files.sync.enable {
+      FLAKE = "${config.xdg.userDirs.documents}/Projects/dotfyls";
+    };
+
+    programs.nh.enable = true;
+  };
 }

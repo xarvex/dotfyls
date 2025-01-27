@@ -17,8 +17,6 @@ _:
       LC_PAPER = "en_US.UTF-8";
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_DK.UTF-8";
-
-      LANGUAGE = "en_US:en:en_GB:C:sv_SE:sv";
     };
   };
 }

@@ -58,9 +58,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
         "$mod, Return, exec, xdg-terminal-exec"
 
-        # HACK: desktop entries are showing other languages when explicit
-        # English entry does not exist, must figure out how to show default.
-        "$mod_SHIFT, Return, exec, LANGUAGE='' rofi -show drun"
+        "$mod_SHIFT, Return, exec, rofi -show drun"
         "$mod_SHIFT, V, exec, rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons"
 
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
