@@ -14,9 +14,8 @@ return {
             ---@module "blink.cmp"
             ---@param ctx blink.cmp.Context
             ---@param items blink.cmp.CompletionItem[]
-            ---@param label string?
             ---@return blink.cmp.CompletionItem[]
-            local function transform_items_capitalization(ctx, items, label)
+            local function transform_items_capitalization(ctx, items)
                 local keyword = ctx.get_keyword()
                 local correct, case
                 if keyword:match("^%l") then
@@ -37,14 +36,28 @@ return {
                         local text = case(insertText:sub(1, 1)) .. insertText:sub(2)
                         item.insertText = text
                         item.label = text
-                        if label ~= nil then item.labelDetails = { description = "(" .. label .. ")" } end
                     end
                     if not seen[item.insertText] then
                         seen[item.insertText] = true
                         table.insert(out, item)
                     end
                 end
+
                 return out
+            end
+
+            ---@module "blink.cmp"
+            ---@param ctx blink.cmp.Context
+            ---@param items blink.cmp.CompletionItem[]
+            ---@param label string
+            ---@return blink.cmp.CompletionItem[]
+            ---@diagnostic disable-next-line: unused-local
+            local function transform_items_label(ctx, items, label)
+                for _, item in ipairs(items) do
+                    if label ~= nil then item.labelDetails = { description = "(" .. label .. ")" } end
+                end
+
+                return items
             end
 
             ---@module "blink.cmp"
@@ -65,7 +78,7 @@ return {
                     menu = {
                         draw = {
                             treesitter = { "lsp" },
-                            columns = { { "kind_icon" }, { "label", gap = 1 } },
+                            columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
                             components = {
                                 kind_icon = {
                                     ellipsis = false,
@@ -74,6 +87,21 @@ return {
                                 label = {
                                     text = require("colorful-menu").blink_components_text,
                                     highlight = require("colorful-menu").blink_components_highlight,
+                                },
+                                label_description = {
+                                    text = function(ctx)
+                                        if ctx.source_id == "lsp" then
+                                            local label = require("colorful-menu").blink_highlights(ctx).label
+                                            if
+                                                label ~= ctx.label
+                                                or label == ctx.label_description
+                                                or ctx.label == ctx.label_description
+                                            then
+                                                return nil
+                                            end
+                                        end
+                                        return ctx.label_description
+                                    end,
                                 },
                             },
                         },
@@ -124,7 +152,9 @@ return {
                         },
                         snippets = { score_offset = 1 },
                         buffer = {
-                            transform_items = transform_items_capitalization,
+                            transform_items = function(ctx, items)
+                                return transform_items_label(ctx, transform_items_capitalization(ctx, items), "buf")
+                            end,
                             min_keyword_length = 3,
                         },
                         ripgrep = {
@@ -134,19 +164,25 @@ return {
                             ---@type blink-ripgrep.Options
                             opts = { prefix_min_len = 3 },
                             async = true,
-                            transform_items = function(ctx, items) return transform_items_capitalization(ctx, items, "rg") end,
+                            transform_items = function(ctx, items)
+                                return transform_items_label(ctx, transform_items_capitalization(ctx, items), "rg")
+                            end,
                             min_keyword_length = 3,
                         },
                         dictionary = {
                             name = "dictionary",
                             module = "blink.compat.source",
-                            transform_items = function(ctx, items) return transform_items_capitalization(ctx, items, "dict") end,
+                            transform_items = function(ctx, items)
+                                return transform_items_label(ctx, transform_items_capitalization(ctx, items), "dict")
+                            end,
                             min_keyword_length = 3,
                         },
                         spell = {
                             name = "spell",
                             module = "blink.compat.source",
-                            transform_items = function(ctx, items) return transform_items_capitalization(ctx, items, "spell") end,
+                            transform_items = function(ctx, items)
+                                return transform_items_label(ctx, transform_items_capitalization(ctx, items), "spell")
+                            end,
                             min_keyword_length = 3,
                         },
                     },
