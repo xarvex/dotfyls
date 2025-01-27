@@ -2,6 +2,8 @@ _:
 
 {
   dotfyls = {
+    browsers.browsers.chromium.enable = true;
+
     desktops.displays = [
       {
         name = "HDMI-A-1";

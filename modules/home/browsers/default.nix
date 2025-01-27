@@ -7,12 +7,13 @@
 
 {
   imports = [
+    ./chromium
     ./firefox
 
     (self.lib.mkSelectorModule [ "dotfyls" "browsers" ] {
       name = "default";
       default = "firefox";
-      example = "firefox";
+      example = "chromium";
       description = "Default browser to use.";
     })
   ];
