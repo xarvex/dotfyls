@@ -58,11 +58,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1737729971,
-        "narHash": "sha256-q9aKFibB8t+9pl9w7eGs6lW4iZ2aJqN6BWskS1w1Ue8=",
+        "lastModified": 1737908954,
+        "narHash": "sha256-yrXs3TjsI2pNh0Ud+7hDNlHdoB4pb6/qN2sws2dBa9o=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "68a6d54dbeb5622b8435d7f1acf9ce239a075635",
+        "rev": "52448c52aa63ebdae05dc08fcc2a112911ac7886",
         "type": "github"
       },
       "original": {
@@ -152,15 +152,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1737895228,
-        "narHash": "sha256-sh6gfhBG0T/JgZ6bwj/txoUxUP/U9vhT/bp/zzbdWdE=",
+        "lastModified": 1737950238,
+        "narHash": "sha256-tdV86dft0D/b7Vu5VaqqUkpgP/7uSeYb5NaLMApGaT0=",
         "ref": "refs/heads/main",
-        "rev": "a9641899b4a9b5e8b97bab2622fb983465b168ba",
-        "revCount": 31,
+        "rev": "4cb3d34af311544a73d692cd738c8841ca183831",
+        "revCount": 35,
+        "submodules": true,
         "type": "git",
         "url": "https://codeberg.org/xarvex/dotpanel"
       },
       "original": {
+        "submodules": true,
         "type": "git",
         "url": "https://codeberg.org/xarvex/dotpanel"
       }
@@ -174,11 +176,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1737864207,
-        "narHash": "sha256-pmww5SaFlgqYxgzAZ5He/LWMLFWyh37kebwLHBDNvQk=",
+        "lastModified": 1737950601,
+        "narHash": "sha256-YqqJiLjAY0EWgVOtEv06EIoaNzgrzjpsXGrITNpAc/Y=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "6770d28ffd09fee64fcded7b9f1cbeaf2883a9f6",
+        "rev": "0335c7d8263a7af3f1006ca71869aa0c93c07c4a",
         "type": "gitlab"
       },
       "original": {
@@ -541,11 +543,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1737746512,
-        "narHash": "sha256-nU6AezEX4EuahTO1YopzueAXfjFfmCHylYEFCagduHU=",
+        "lastModified": 1737885589,
+        "narHash": "sha256-Zf0hSrtzaM1DEz8//+Xs51k/wdSajticVrATqDrfQjg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "825479c345a7f806485b7f00dbe3abb50641b083",
+        "rev": "852ff1d9e153d8875a83602e03fdef8a63f0ecf8",
         "type": "github"
       },
       "original": {

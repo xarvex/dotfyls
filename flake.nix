@@ -10,7 +10,7 @@
     };
 
     dotpanel = {
-      url = "git+https://codeberg.org/xarvex/dotpanel";
+      url = "git+https://codeberg.org/xarvex/dotpanel?submodules=1";
       inputs = {
         devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
