@@ -132,7 +132,8 @@ return {
                             name = "Ripgrep",
                             ---@module "blink-ripgrep"
                             ---@type blink-ripgrep.Options
-                            opts = { prefix_min_len = 0 },
+                            opts = { prefix_min_len = 3 },
+                            async = true,
                             transform_items = function(ctx, items) return transform_items_capitalization(ctx, items, "rg") end,
                             min_keyword_length = 3,
                         },
