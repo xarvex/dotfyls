@@ -26,13 +26,16 @@ in
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {
-      ".mozilla" = {
+      ".mozilla".mode = "0700";
+      ".mozilla/firefox" = {
         mode = "0700";
-        persist = true;
+        cache = true;
       };
-      ".cache/mozilla" = {
+
+      ".cache/mozilla".mode = "0700";
+      ".cache/mozilla/firefox" = {
         mode = "0700";
-        persist = true;
+        cache = true;
       };
     };
 
