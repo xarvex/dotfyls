@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -22,12 +21,5 @@ in
 
   options.dotfyls.desktops.desktops.hyprland.enable = lib.mkEnableOption "Hyprland";
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
-    programs.hyprland.enable = true;
-
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    };
-  };
+  config = lib.mkIf (cfg'.enable && cfg.enable) { programs.hyprland.enable = true; };
 }

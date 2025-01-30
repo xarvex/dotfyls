@@ -27,6 +27,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.pathsToLink = [
+      "/share/applications"
+      "/share/xdg-desktop-portal"
+    ];
+
     services.xserver = {
       updateDbusEnvironment = true;
       xkb = {

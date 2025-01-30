@@ -124,7 +124,11 @@ in
       };
     };
 
-    xdg.configFile."menus/applications.menu".source = ./applications.menu;
+    xdg = {
+      portal.xdgOpenUsePortal = true;
+
+      configFile."menus/applications.menu".source = ./applications.menu;
+    };
 
     dconf.settings."ca/desrt/dconf-editor".show-warning = false;
   };

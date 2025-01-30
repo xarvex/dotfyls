@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -48,6 +49,8 @@ in
         wl-clipboard.enable = true;
       };
     };
+
+    xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 
     wayland.windowManager.hyprland = {
       enable = true;
