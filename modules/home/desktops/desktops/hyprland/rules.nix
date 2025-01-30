@@ -34,8 +34,8 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "opacity 0.0 override, class:xwaylandvideobridge"
     ];
     layerrule = [
-      "blur, dotpanel-bar"
-      "ignorezero, dotpanel-bar"
+      "blur, dotpanel-.+"
+      "ignorezero, dotpanel-.+"
     ];
   };
 }
