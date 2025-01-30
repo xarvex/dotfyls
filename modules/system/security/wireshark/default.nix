@@ -29,6 +29,6 @@ in
 
     programs.wireshark.enable = true;
 
-    users.users.${user}.extraGroups = [ "wireshark" ];
+    users.groups.wireshark.members = [ user ];
   };
 }

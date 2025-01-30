@@ -6,6 +6,7 @@
 
     ./systems
 
+    ./file-roller.nix
     ./gvfs.nix
   ];
 }

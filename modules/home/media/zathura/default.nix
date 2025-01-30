@@ -19,9 +19,16 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file.".local/share/zathura" = {
-      mode = "0700";
-      cache = true;
+    dotfyls = {
+      file.".local/share/zathura" = {
+        mode = "0700";
+        cache = true;
+      };
+
+      mime-apps.media = {
+        ebook = lib.mkAfter "org.pwmt.zathura.desktop";
+        pdf = "org.pwmt.zathura.desktop";
+      };
     };
 
     programs.zathura.enable = true;

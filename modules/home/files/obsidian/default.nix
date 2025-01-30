@@ -18,9 +18,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.file.".config/obsidian" = {
-      mode = "0700";
-      cache = true;
+    dotfyls = {
+      file.".config/obsidian" = {
+        mode = "0700";
+        cache = true;
+      };
+
+      mime-apps.extraSchemes.obsidian = "obsidian.desktop";
     };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];

@@ -6,6 +6,7 @@ _:
     ./pgp
     ./proton
     ./ssh
+    ./wireshark
     ./yubikey
   ];
 }

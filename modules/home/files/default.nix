@@ -9,6 +9,7 @@
     ./obsidian
     ./systems
 
+    ./file-roller.nix
     ./gvfs.nix
     ./sync.nix
   ];

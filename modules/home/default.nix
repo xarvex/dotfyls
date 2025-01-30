@@ -9,6 +9,7 @@
     ./files
     ./games
     ./graphics
+    ./management
     ./media
     ./nix
     ./programs
@@ -17,6 +18,7 @@
     ./terminals
 
     ./icon.nix
+    ./mime-apps.nix
     ./state.nix
   ];
 

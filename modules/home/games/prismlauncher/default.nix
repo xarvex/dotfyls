@@ -19,7 +19,17 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file.".local/share/PrismLauncher".persist = true;
+    dotfyls = {
+      file.".local/share/PrismLauncher".persist = true;
+
+      mime-apps = {
+        extraSchemes = {
+          curseforge = "prismlauncher.desktop";
+          prismlauncher = "prismlauncher.desktop";
+        };
+        extraAssociations."application/x-modrinth-modpack+zip" = "prismlauncher.desktop";
+      };
+    };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];
   };

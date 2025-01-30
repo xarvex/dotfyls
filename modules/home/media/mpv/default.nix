@@ -17,14 +17,21 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file = {
-      ".local/state/mpv" = {
-        mode = "0700";
-        cache = true;
+    dotfyls = {
+      file = {
+        ".local/state/mpv" = {
+          mode = "0700";
+          cache = true;
+        };
+        ".cache/mpv" = {
+          mode = "0700";
+          cache = true;
+        };
       };
-      ".cache/mpv" = {
-        mode = "0700";
-        cache = true;
+
+      mime-apps.media = {
+        audio = lib.mkAfter "mpv.desktop";
+        video = "mpv.desktop";
       };
     };
 

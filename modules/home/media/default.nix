@@ -3,13 +3,14 @@
 {
   imports = [
     ./foliate
+    ./inkscape
     ./libreoffice
     ./mpv
     ./nomacs
+    ./plattenalbum
     ./spotify
     ./zathura
 
-    ./mime-apps.nix
     ./mpris.nix
     ./pipewire.nix
   ];

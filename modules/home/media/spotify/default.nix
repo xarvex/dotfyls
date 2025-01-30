@@ -19,9 +19,13 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file = {
-      ".config/spotify".cache = true;
-      ".cache/spotify".cache = true;
+    dotfyls = {
+      file = {
+        ".config/spotify".cache = true;
+        ".cache/spotify".cache = true;
+      };
+
+      mime-apps.extraSchemes.spotify = "spotify.desktop";
     };
 
     home.packages = [ (self.lib.getCfgPkg cfg) ];

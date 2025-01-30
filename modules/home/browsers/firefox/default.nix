@@ -25,18 +25,22 @@ in
   options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file = {
-      ".mozilla".mode = "0700";
-      ".mozilla/firefox" = {
-        mode = "0700";
-        cache = true;
+    dotfyls = {
+      file = {
+        ".mozilla".mode = "0700";
+        ".mozilla/firefox" = {
+          mode = "0700";
+          cache = true;
+        };
+
+        ".cache/mozilla".mode = "0700";
+        ".cache/mozilla/firefox" = {
+          mode = "0700";
+          cache = true;
+        };
       };
 
-      ".cache/mozilla".mode = "0700";
-      ".cache/mozilla/firefox" = {
-        mode = "0700";
-        cache = true;
-      };
+      mime-apps.extraAssociations."application/vnd.mozilla.xul+xml" = "firefox.desktop";
     };
 
     programs.firefox = {

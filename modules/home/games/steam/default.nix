@@ -10,11 +10,18 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file = {
-      ".steam".cache = true;
-      ".local/share/Steam" = {
-        mode = "0700";
-        cache = true;
+    dotfyls = {
+      file = {
+        ".steam".cache = true;
+        ".local/share/Steam" = {
+          mode = "0700";
+          cache = true;
+        };
+      };
+
+      mime-apps.extraSchemes = {
+        steam = "steam.desktop";
+        steamlink = "steam.desktop";
       };
     };
   };

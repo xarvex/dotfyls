@@ -31,29 +31,33 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.file =
-      {
-        ".local/share/nvim" = {
-          mode = "0700";
-          persist = true;
+    dotfyls = {
+      file =
+        {
+          ".local/share/nvim" = {
+            mode = "0700";
+            persist = true;
+          };
+          ".local/state/nvim" = {
+            mode = "0700";
+            persist = true;
+          };
+          ".cache/nvim".cache = true;
+        }
+        // lib.optionalAttrs config.dotfyls.development.enable {
+          ".local/share/dotfyls/devshell/nvim" = {
+            mode = "0700";
+            persist = true;
+          };
+          ".local/state/dotfyls/devshell/nvim" = {
+            mode = "0700";
+            persist = true;
+          };
+          ".cache/dotfyls/devshell/nvim".cache = true;
         };
-        ".local/state/nvim" = {
-          mode = "0700";
-          persist = true;
-        };
-        ".cache/nvim".cache = true;
-      }
-      // lib.optionalAttrs config.dotfyls.development.enable {
-        ".local/share/dotfyls/devshell/nvim" = {
-          mode = "0700";
-          persist = true;
-        };
-        ".local/state/dotfyls/devshell/nvim" = {
-          mode = "0700";
-          persist = true;
-        };
-        ".cache/dotfyls/devshell/nvim".cache = true;
-      };
+
+      mime-apps.files.plaintext = "nvim.desktop";
+    };
 
     home.packages = [
       (lib.hiPrio (
@@ -63,6 +67,12 @@ in
         ''
       ))
     ];
+
+    home.sessionVariables = rec {
+      VISUAL = "nvim";
+      EDITOR = VISUAL;
+      SUDO_EDITOR = EDITOR;
+    };
 
     programs.neovim = {
       enable = true;
@@ -82,7 +92,6 @@ in
         (lib.getExe copyLock)
       ];
 
-      defaultEditor = true;
       vimAlias = true;
     };
 

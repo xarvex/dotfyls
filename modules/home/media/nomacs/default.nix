@@ -19,6 +19,11 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.mime-apps.media = {
+      image = "org.nomacs.ImageLounge.desktop";
+      vector = "org.nomacs.ImageLounge.desktop";
+    };
+
     home.packages = [ (self.lib.getCfgPkg cfg) ];
 
     xdg.configFile."nomacs/Image Lounge.conf".source = ./${"Image Lounge.conf"};

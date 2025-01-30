@@ -15,8 +15,17 @@ in
       default = config.dotfyls.desktops.enable;
     };
     package = lib.mkPackageOption pkgs "Nemo" { default = "nemo-with-extensions"; };
-    extraPackages = self.lib.mkExtraPackagesOption "Nemo" // {
-      default = with pkgs; [ webp-pixbuf-loader ];
+    finalPackage = self.lib.mkFinalPackageOption "Nemo" // {
+      default = pkgs.symlinkJoin {
+        inherit (cfg.package) name meta;
+
+        paths =
+          [ cfg.package ]
+          ++ (with pkgs; [
+            nemo-fileroller
+            webp-pixbuf-loader
+          ]);
+      };
     };
   };
 
@@ -27,10 +36,15 @@ in
         cache = true;
       };
 
-      files.gvfs.enable = true;
+      files = {
+        file-roller.enable = lib.mkDefault true;
+        gvfs.enable = true;
+      };
+
+      mime-apps.files.directory = "nemo.desktop";
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ] ++ cfg.extraPackages;
+    home.packages = [ (self.lib.getCfgPkg cfg) ];
 
     dconf.settings."org/nemo/preferences" = {
       click-double-parent-folder = true;

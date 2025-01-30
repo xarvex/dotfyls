@@ -19,9 +19,13 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file.".config/Proton Mail" = {
-      mode = "0700";
-      cache = true;
+    dotfyls = {
+      file.".config/Proton Mail" = {
+        mode = "0700";
+        cache = true;
+      };
+
+      mime-apps.web.email = lib.mkBefore "proton-mail.desktop";
     };
 
     home.packages = [ (lib.hiPrio (self.lib.getCfgPkg cfg)) ];

@@ -22,7 +22,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       };
 
       blur = {
-        size = 2;
+        size = 3;
         passes = 3;
       };
     };
