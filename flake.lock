@@ -58,11 +58,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1737908954,
-        "narHash": "sha256-yrXs3TjsI2pNh0Ud+7hDNlHdoB4pb6/qN2sws2dBa9o=",
+        "lastModified": 1738175053,
+        "narHash": "sha256-GtF/ohn41pJkvO7nQXeBHz68+K9+eG9HcJodJ+6/E9E=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "52448c52aa63ebdae05dc08fcc2a112911ac7886",
+        "rev": "cf1d4aa532b3d3169435e26c8d45f11199d4c5d3",
         "type": "github"
       },
       "original": {
@@ -152,11 +152,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737950238,
-        "narHash": "sha256-tdV86dft0D/b7Vu5VaqqUkpgP/7uSeYb5NaLMApGaT0=",
+        "lastModified": 1738084290,
+        "narHash": "sha256-d7naWH/+QUIsyZcGLHJMdw9r25V2dkk1oAR7WYGe/kg=",
         "ref": "refs/heads/main",
-        "rev": "4cb3d34af311544a73d692cd738c8841ca183831",
-        "revCount": 35,
+        "rev": "ffb6ff5bf12faab6b8a8b6ada9d12bb162d266d8",
+        "revCount": 36,
         "submodules": true,
         "type": "git",
         "url": "https://codeberg.org/xarvex/dotpanel"
@@ -176,11 +176,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1737950601,
-        "narHash": "sha256-YqqJiLjAY0EWgVOtEv06EIoaNzgrzjpsXGrITNpAc/Y=",
+        "lastModified": 1738178746,
+        "narHash": "sha256-On4XeWQ6PMCyOnxpKVIU+mWDUapjp/acVdldm5e9WI8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "0335c7d8263a7af3f1006ca71869aa0c93c07c4a",
+        "rev": "343a6fbeee2ff028f2241d22ea240ec06498e54b",
         "type": "gitlab"
       },
       "original": {
@@ -353,11 +353,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737762889,
-        "narHash": "sha256-5HGG09bh/Yx0JA8wtBMAzt0HMCL1bYZ93x4IqzVExio=",
+        "lastModified": 1738200030,
+        "narHash": "sha256-z2DVxun8fEH0yeVIyfL68hXht+k2h3vEwNVxJPOMCgU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "daf04c5950b676f47a794300657f1d3d14c1a120",
+        "rev": "86a0d627cae02e8cc5d29eeb03de97f8c652a4bb",
         "type": "github"
       },
       "original": {
@@ -543,11 +543,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1737885589,
-        "narHash": "sha256-Zf0hSrtzaM1DEz8//+Xs51k/wdSajticVrATqDrfQjg=",
+        "lastModified": 1738142207,
+        "narHash": "sha256-NGqpVVxNAHwIicXpgaVqJEJWeyqzoQJ9oc8lnK9+WC4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "852ff1d9e153d8875a83602e03fdef8a63f0ecf8",
+        "rev": "9d3ae807ebd2981d593cddd0080856873139aa40",
         "type": "github"
       },
       "original": {

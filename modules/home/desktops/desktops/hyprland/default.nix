@@ -65,7 +65,10 @@ in
           explicit_sync_kms = explicit_sync;
         };
 
-        ecosystem.no_update_news = true;
+        ecosystem = {
+          no_update_news = true;
+          no_donation_nag = true;
+        };
 
         monitor =
           (lib.forEach cfg'.displays (
