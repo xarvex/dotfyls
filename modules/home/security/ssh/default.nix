@@ -19,8 +19,17 @@ in
       persist = true;
     };
 
-    programs.ssh.enable = true;
+    programs.ssh = {
+      enable = true;
+
+      userKnownHostsFile = builtins.concatStringsSep " " [
+        "${config.xdg.configHome}/ssh/known_hosts"
+        "${config.xdg.configHome}/ssh/known_hosts_generated"
+      ];
+    };
 
     services.ssh-agent.enable = lib.mkIf cfg.agent.enable true;
+
+    xdg.configFile."ssh/known_hosts_generated".source = ./known_hosts;
   };
 }
