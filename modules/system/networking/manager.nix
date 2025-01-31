@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 
 let
   cfg' = config.dotfyls.networking;
@@ -19,5 +24,7 @@ in
     };
 
     networking.networkmanager.enable = true;
+
+    users.groups.networkmanager.members = [ user ];
   };
 }
