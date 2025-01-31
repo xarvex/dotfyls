@@ -20,7 +20,7 @@ let
       suffix = if json.logo.type == "small" then "_small" else "";
     in
     ''
-      #!${pkgs.dash}/bin/dash
+      #!${lib.getExe pkgs.dash}
        
       logo="$(fastfetch -c none -s OS --format json | ${jq} -r .[0].result.id)${suffix}"
       file="${./logos}/''${logo}.txt"
