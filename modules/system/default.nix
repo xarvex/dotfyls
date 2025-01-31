@@ -10,13 +10,13 @@ _:
     ./games
     ./graphics
     ./media
+    ./networking
     ./power
     ./programs
     ./security
 
     ./home-manager.nix
     ./localization.nix
-    ./networking.nix
     ./nix.nix
     ./shells.nix
     ./state.nix

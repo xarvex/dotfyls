@@ -6,7 +6,6 @@ _:
     ./discord
     ./distrobox
     ./flatpak
-    ./network-manager-applet
     ./openrgb
     ./podman
     ./solaar

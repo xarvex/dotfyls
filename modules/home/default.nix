@@ -11,6 +11,7 @@
     ./graphics
     ./management
     ./media
+    ./networking
     ./nix
     ./programs
     ./security
