@@ -1,19 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.shells.programs;
   cfg = cfg'.bat;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "bat" ] [ "programs" "bat" ])
-  ];
-
   options.dotfyls.shells.programs.bat = {
     enable = lib.mkEnableOption "bat" // {
       default = cfg'.enableFun;

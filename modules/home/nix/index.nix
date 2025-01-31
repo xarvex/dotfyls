@@ -3,7 +3,6 @@
   inputs,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,21 +10,7 @@ let
   cfg = config.dotfyls.nix.index;
 in
 {
-  imports = [
-    inputs.nix-index-database.hmModules.nix-index
-
-    (self.lib.mkAliasPackageModule
-      [
-        "dotfyls"
-        "nix"
-        "index"
-      ]
-      [
-        "programs"
-        "nix-index"
-      ]
-    )
-  ];
+  imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
   options.dotfyls.nix.index.enable = lib.mkEnableOption "nix-index" // {
     default = true;

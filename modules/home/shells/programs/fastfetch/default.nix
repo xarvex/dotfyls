@@ -10,19 +10,12 @@ let
   cfg = cfg'.fastfetch;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "shells" "programs" "fastfetch" ]
-      [ "programs" "fastfetch" ]
-    )
-  ];
-
   options.dotfyls.shells.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {
     default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.shells.greet = self.lib.getCfgExe cfg;
+    dotfyls.shells.greet = self.lib.getCfgExe config.programs.fastfetch;
 
     home.shellAliases = rec {
       f = fetch;

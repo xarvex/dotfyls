@@ -2,7 +2,6 @@
   config,
   inputs,
   lib,
-  self,
   ...
 }:
 
@@ -10,11 +9,7 @@ let
   cfg = config.dotfyls.desktops.dotpanel;
 in
 {
-  imports = [
-    inputs.dotpanel.homeManagerModules.dotpanel
-
-    (self.lib.mkAliasPackageModule [ "dotfyls" "desktops" "dotpanel" ] [ "programs" "dotpanel" ])
-  ];
+  imports = [ inputs.dotpanel.homeManagerModules.dotpanel ];
 
   options.dotfyls.desktops.dotpanel.enable = lib.mkEnableOption "dotpanel";
 

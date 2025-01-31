@@ -2,7 +2,6 @@
   config,
   inputs,
   lib,
-  self,
   ...
 }:
 
@@ -14,11 +13,6 @@ in
     inputs.yubigen.homeManagerModules.yubigen
 
     ./yubioath.nix
-
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "security" "yubikey" "yubigen" ]
-      [ "programs" "yubigen" ]
-    )
   ];
 
   options.dotfyls.security.yubikey = {
@@ -36,13 +30,15 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls.file.".config/Yubico" = {
-          mode = "0700";
-          persist = true;
+        dotfyls = {
+          development.git.key = lib.mkIf cfg.enableGitIntegration "0046A18B1037C201";
+
+          file.".config/Yubico" = {
+            mode = "0700";
+            persist = true;
+          };
         };
       }
-
-      (lib.mkIf cfg.enableGitIntegration { dotfyls.development.git.key = "0046A18B1037C201"; })
 
       (lib.mkIf cfg.enableSshIntegration {
         dotfyls.file.".local/share/yubigen/ssh" = {

@@ -11,13 +11,6 @@ let
   hmCfg = config.hm.dotfyls.programs.openrgb;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "programs" "openrgb" ]
-      [ "services" "hardware" "openrgb" ]
-    )
-  ];
-
   options.dotfyls.programs.openrgb = {
     enable = lib.mkEnableOption "OpenRGB" // {
       default = hmCfg.enable;

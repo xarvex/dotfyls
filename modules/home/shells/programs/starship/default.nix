@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.shells.programs;
@@ -12,13 +7,6 @@ let
   iCfg = config.dotfyls.icon;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "shells" "programs" "starship" ]
-      [ "programs" "starship" ]
-    )
-  ];
-
   options.dotfyls.shells.programs.starship.enable = lib.mkEnableOption "Starship" // {
     default = cfg'.enableFun;
   };

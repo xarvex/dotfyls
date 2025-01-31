@@ -3,7 +3,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -12,16 +11,13 @@ let
   cfg = cfg'.sl;
 in
 {
-  options.dotfyls.shells.programs.sl = {
-    enable = lib.mkEnableOption "Steam Locomotive" // {
-      default = cfg'.enableFun;
-    };
-    package = lib.mkPackageOption pkgs "Steam Locomotive" { default = "sl"; };
+  options.dotfyls.shells.programs.sl.enable = lib.mkEnableOption "Steam Locomotive" // {
+    default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = [ (self.lib.getCfgPkg cfg) ];
+      packages = with pkgs; [ sl ];
 
       shellAliases.sl = "sl -cew10";
     };

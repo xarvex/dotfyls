@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -12,11 +11,6 @@ let
   hmCfg = config.hm.dotfyls.games.steam;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "games" "steam" ] [ "programs" "steam" ])
-    (self.lib.mkAliasPackageModule [ "dotfyls" "games" "steam" "gamescope" ] [ "programs" "gamescope" ])
-  ];
-
   options.dotfyls.games.steam = {
     enable = lib.mkEnableOption "Steam" // {
       default = hmCfg.enable;

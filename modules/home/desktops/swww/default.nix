@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -10,17 +9,14 @@ let
   cfg = config.dotfyls.desktops.swww;
 in
 {
-  options.dotfyls.desktops.swww = {
-    enable = lib.mkEnableOption "swww" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "swww" { };
+  options.dotfyls.desktops.swww.enable = lib.mkEnableOption "swww" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {
     dotfyls.file.".cache/swww".cache = true;
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ swww ];
 
     systemd.user.services.swww = {
       Unit = {
@@ -30,8 +26,8 @@ in
       };
 
       Service = {
-        ExecStart = lib.getExe' cfg.package "swww-daemon";
-        ExecStartPost = "${lib.getExe cfg.package} restore";
+        ExecStart = lib.getExe' pkgs.swww "swww-daemon";
+        ExecStartPost = "${lib.getExe pkgs.swww} restore";
         Restart = "on-failure";
       };
 

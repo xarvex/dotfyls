@@ -1,22 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.terminals;
   cfg = cfg'.terminals.wezterm;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "terminals" "terminals" "wezterm" ]
-      [ "programs" "wezterm" ]
-    )
-  ];
-
   options.dotfyls.terminals.terminals.wezterm.enable = lib.mkEnableOption "WezTerm";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {

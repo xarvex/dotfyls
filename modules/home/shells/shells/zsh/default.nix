@@ -15,11 +15,10 @@ let
     (lib.optionalString (config.programs.zsh.dotDir != null) (config.programs.zsh.dotDir + "/")) + file;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "shells" "zsh" ] [ "programs" "zsh" ])
-  ];
-
-  options.dotfyls.shells.shells.zsh.enable = lib.mkEnableOption "Zsh";
+  options.dotfyls.shells.shells.zsh = {
+    enable = lib.mkEnableOption "Zsh";
+    package = self.lib.mkStaticPackageOption (self.lib.getCfgPkg config.programs.zsh);
+  };
 
   config = lib.mkIf cfg.enable {
     dotfyls.file = {

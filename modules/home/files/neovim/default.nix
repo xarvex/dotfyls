@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -22,10 +21,6 @@ let
   };
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "neovim" ] [ "programs" "neovim" ])
-  ];
-
   options.dotfyls.files.neovim.enable = lib.mkEnableOption "Neovim" // {
     default = true;
   };
@@ -63,7 +58,7 @@ in
       (lib.hiPrio (
         pkgs.runCommand "nvim.desktop" { } ''
           mkdir -p $out/share/applications
-          cp ${cfg.package}/share/applications/nvim.desktop $out/share/applications/nvim.desktop
+          cp ${config.programs.neovim.package}/share/applications/nvim.desktop $out/share/applications/nvim.desktop
         ''
       ))
     ];

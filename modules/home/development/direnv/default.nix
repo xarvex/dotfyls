@@ -1,23 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.development;
   cfg = cfg'.direnv;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "development" "direnv" ] [ "programs" "direnv" ])
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "development" "direnv" "wherenver" ]
-      [ "programs" "direnv" "wherenver" ]
-    )
-  ];
-
   options.dotfyls.development.direnv.enable = lib.mkEnableOption "direnv" // {
     default = true;
   };

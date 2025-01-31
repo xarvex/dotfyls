@@ -1,18 +1,9 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.dotfyls.power;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "power" "management" "upower" ] [ "services" "upower" ])
-  ];
-
   options.dotfyls.power.management = {
     enable = lib.mkEnableOption "power management";
     upower.enable = lib.mkEnableOption "UPower power management support" // {

@@ -1,19 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.shells.programs;
   cfg = cfg'.zoxide;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "programs" "zoxide" ] [ "programs" "zoxide" ])
-  ];
-
   options.dotfyls.shells.programs.zoxide.enable = lib.mkEnableOption "zoxide" // {
     default = cfg'.enableUseful;
   };

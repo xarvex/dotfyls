@@ -1,24 +1,12 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.files.systems.systems.zfs;
   cfg = cfg'.autosnap;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "files" "systems" "systems" "zfs" "autosnap" ]
-      [ "services" "sanoid" ]
-    )
-  ];
-
   options.dotfyls.files.systems.systems.zfs.autosnap.enable =
-    lib.mkEnableOption "autosnap using Sanoid"
+    lib.mkEnableOption "Sanoid ZFS autosnap"
     // {
       default = true;
     };

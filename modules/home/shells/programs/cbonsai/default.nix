@@ -3,7 +3,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -12,12 +11,9 @@ let
   cfg = cfg'.cbonsai;
 in
 {
-  options.dotfyls.shells.programs.cbonsai = {
-    enable = lib.mkEnableOption "cbonsai" // {
-      default = cfg'.enableFun;
-    };
-    package = lib.mkPackageOption pkgs "cbonsai" { };
+  options.dotfyls.shells.programs.cbonsai.enable = lib.mkEnableOption "cbonsai" // {
+    default = cfg'.enableFun;
   };
 
-  config = lib.mkIf cfg.enable { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf cfg.enable { home.packages = with pkgs; [ cbonsai ]; };
 }

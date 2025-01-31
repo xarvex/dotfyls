@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.media;
   cfg = cfg'.mpv;
 in
 {
-  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "media" "mpv" ] [ "programs" "mpv" ]) ];
-
   options.dotfyls.media.mpv.enable = lib.mkEnableOption "mpv" // {
     default = config.dotfyls.desktops.enable;
   };

@@ -10,10 +10,6 @@ let
   cfg = cfg'.lazygit;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "development" "git" "lazygit" ] [ "programs" "lazygit" ])
-  ];
-
   options.dotfyls.development.git.lazygit.enable = lib.mkEnableOption "lazygit" // {
     default = true;
   };
@@ -34,7 +30,7 @@ in
           nerdFontsVersion = "3";
           filterMode = "fuzzy";
         };
-        git.paging.externalDiffCommand = lib.mkIf cfg'.difftastic.enable "${self.lib.getCfgExe cfg'.difftastic} --color always";
+        git.paging.externalDiffCommand = lib.mkIf cfg'.difftastic.enable "${self.lib.getCfgExe config.programs.lazygit} --color always";
         update.method = "never";
         quitOntopLevelReturn = true;
         disableStartupPopups = true;

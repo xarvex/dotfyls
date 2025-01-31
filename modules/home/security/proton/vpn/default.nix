@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,15 +10,12 @@ let
   cfg = cfg'.vpn;
 in
 {
-  options.dotfyls.security.proton.vpn = {
-    enable = lib.mkEnableOption "Proton VPN" // {
-      default = true;
-    };
-    package = lib.mkPackageOption pkgs "Proton VPN" { default = "protonvpn-gui"; };
+  options.dotfyls.security.proton.vpn.enable = lib.mkEnableOption "Proton VPN" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ protonvpn-gui ];
 
     xdg.configFile = {
       "Proton/VPN/app-config.json".source = ./app-config.json;

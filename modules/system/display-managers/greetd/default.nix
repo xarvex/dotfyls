@@ -13,11 +13,6 @@ in
   imports = [
     ./greeter
 
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "display-managers" "display-managers" "greetd" ]
-      [ "services" "greetd" ]
-    )
-
     (self.lib.mkSelectorModule [ "dotfyls" "display-managers" "display-managers" "greetd" "greeter" ] {
       name = "provider";
       default = "tuigreet";

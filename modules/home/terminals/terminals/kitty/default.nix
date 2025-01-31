@@ -1,19 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.terminals;
   cfg = cfg'.terminals.kitty;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "terminals" "terminals" "kitty" ] [ "programs" "kitty" ])
-  ];
-
   options.dotfyls.terminals.terminals.kitty.enable = lib.mkEnableOption "kitty";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {

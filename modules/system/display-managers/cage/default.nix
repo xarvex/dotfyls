@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,14 +10,7 @@ let
   cfg = cfg'.display-managers.cage;
 in
 {
-  options.dotfyls.display-managers.display-managers.cage = {
-    enable = lib.mkEnableOption "Cage";
-    startCommand = self.lib.mkCommandOption "start with Cage" // {
-      default = pkgs.dotfyls.mkCommand ''
-        exec ${lib.getExe pkgs.foot} -o shell="sudo /run/current-system/sw/bin/login" -o font=monospace:size=16
-      '';
-    };
-  };
+  options.dotfyls.display-managers.display-managers.cage.enable = lib.mkEnableOption "Cage";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     services.cage = {
@@ -26,7 +18,17 @@ in
 
       user = "caged";
       environment.WLR_RENDERER = "pixman";
-      program = lib.getExe cfg.startCommand;
+      program = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "dotfyls-cage-login";
+
+          runtimeInputs = with pkgs; [ foot ];
+
+          text = ''
+            exec foot -o shell="sudo /run/current-system/sw/bin/login" -o font=monospace:size=16
+          '';
+        }
+      );
     };
 
     security.sudo.extraRules = [

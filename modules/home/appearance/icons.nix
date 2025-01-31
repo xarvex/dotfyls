@@ -22,48 +22,19 @@ in
       default = config.dotfyls.desktops.enable;
     };
 
-    theme = lib.mkOption rec {
-      type = lib.types.submodule {
-        options = {
-          name = lib.mkOption {
-            type = lib.types.str;
-            example = "Colloid-Red-Catppuccin-Dark";
-            description = "Name of the icon theme.";
-          };
-          package = lib.mkOption {
-            type = lib.types.package;
-            example = lib.literalExpression ''
-              pkgs.colloid-icon-theme.override {
-                schemeVariants = [ "catppuccin" ];
-                colorVariants = [ "all" ];
-              }
-            '';
-            description = "Package providing the icon theme.";
-          };
-        };
-      };
-      default = {
-        name = "Colloid-Red-Catppuccin-Dark";
-        package = pkgs.colloid-icon-theme.override {
-          schemeVariants = [ "catppuccin" ];
-          colorVariants = [ "all" ];
-        };
-      };
-      defaultText = lib.literalExpression ''
-        {
-          name = "Colloid-Red-Catppuccin-Dark";
-          package = pkgs.colloid-icon-theme.override {
-            schemeVariants = [ "catppuccin" ];
-            colorVariants = [ "all" ];
-          };
-        }
-      '';
-      example = defaultText;
-      description = "Icon theme used.";
+    name = lib.mkOption {
+      internal = true;
+      readOnly = true;
+      type = lib.types.str;
+      default = "Colloid-Red-Catppuccin-Dark";
     };
+    package = self.lib.mkStaticPackageOption (
+      pkgs.colloid-icon-theme.override {
+        schemeVariants = [ "catppuccin" ];
+        colorVariants = [ "all" ];
+      }
+    );
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
-    home.packages = [ (self.lib.getCfgPkg cfg.theme) ];
-  };
+  config = lib.mkIf (cfg'.enable && cfg.enable) { home.packages = [ cfg.package ]; };
 }

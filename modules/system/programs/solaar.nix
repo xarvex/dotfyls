@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,15 +10,12 @@ let
   hmCfg = config.hm.dotfyls.programs.solaar;
 in
 {
-  options.dotfyls.programs.solaar = {
-    enable = lib.mkEnableOption "Solaar" // {
-      default = hmCfg.enable;
-    };
-    package = lib.mkPackageOption pkgs "Solaar" { default = "solaar"; };
+  options.dotfyls.programs.solaar.enable = lib.mkEnableOption "Solaar" // {
+    default = hmCfg.enable;
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ (self.lib.getCfgPkg cfg) ];
+    environment.systemPackages = with pkgs; [ solaar ];
 
     hardware.logitech.wireless.enable = true;
 
@@ -29,7 +25,7 @@ in
       after = [ "dbus.service" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${self.lib.getCfgExe' cfg "solaar"} --window hide";
+        ExecStart = "${lib.getExe' pkgs.solaar "solaar"} --window hide";
         Restart = "on-failure";
         RestartSec = "5";
       };

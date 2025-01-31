@@ -10,13 +10,6 @@ let
   cfg = cfg'.mpris;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "media" "mpris" "playerctl" ]
-      [ "services" "playerctld" ]
-    )
-  ];
-
   options.dotfyls.media.mpris = {
     enable = lib.mkEnableOption "MPRIS2" // {
       default = config.dotfyls.desktops.enable;
@@ -39,7 +32,7 @@ in
       (lib.mkIf cfg.proxy.enable { services.mpris-proxy.enable = true; })
 
       (lib.mkIf cfg.playerctl.enable {
-        home.packages = [ (self.lib.getCfgPkg cfg.playerctl) ];
+        home.packages = [ (self.lib.getCfgPkg config.services.playerctld) ];
 
         services.playerctld.enable = lib.mkIf cfg.playerctl.daemon.enable true;
       })

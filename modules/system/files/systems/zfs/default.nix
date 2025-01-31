@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,7 @@ let
   cfg = cfg'.systems.zfs;
 in
 {
-  imports = [
-    ./autosnap.nix
-
-    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "systems" "systems" "zfs" ] [ "boot" "zfs" ])
-  ];
+  imports = [ ./autosnap.nix ];
 
   options.dotfyls.files.systems.systems.zfs = {
     enable = lib.mkEnableOption "ZFS filesystem";
@@ -55,12 +50,12 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        dotfyls.files.systems.systems.zfs.package = lib.mkIf cfg.unstable (lib.mkDefault pkgs.zfs_unstable);
-
         boot = {
           supportedFilesystems.zfs = true;
 
           zfs = {
+            package = lib.mkIf cfg.unstable pkgs.zfs_unstable;
+
             devNodes = "/dev/disk/${cfg.nodes}";
             requestEncryptionCredentials = cfg'.encrypt;
           };

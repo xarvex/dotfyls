@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -15,11 +14,6 @@ in
     ./containers.nix
     ./extensions.nix
     ./search.nix
-
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "browsers" "browsers" "firefox" ]
-      [ "programs" "firefox" ]
-    )
   ];
 
   options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox";

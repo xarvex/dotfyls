@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -10,14 +9,8 @@ let
   cfg = config.dotfyls.programs.vesktop;
 in
 {
-  options.dotfyls.programs.vesktop = {
-    enable = lib.mkEnableOption "Vesktop" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "Vesktop" { default = "vesktop"; } // {
-      default = pkgs.vesktop.override { withSystemVencord = true; };
-      defaultText = "pkgs.vesktop.override { withSystemVencord = true; }";
-    };
+  options.dotfyls.programs.vesktop.enable = lib.mkEnableOption "Vesktop" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,7 +19,7 @@ in
       cache = true;
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ (vesktop.override { withSystemVencord = true; }) ];
 
     xdg.configFile = {
       "vesktop/settings.json".source = ./settings.json;

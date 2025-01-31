@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,23 +10,8 @@ let
   cfg = cfg'.libreoffice;
 in
 {
-  options.dotfyls.media.libreoffice = {
-    enable = lib.mkEnableOption "LibreOffice" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "LibreOffice" { default = "libreoffice"; };
-    finalPackage = self.lib.mkFinalPackageOption "LibreOffice" // {
-      default = pkgs.symlinkJoin {
-        inherit (cfg.package) name meta;
-
-        paths =
-          [ cfg.package ]
-          ++ (with pkgs.hunspellDicts; [
-            en_US
-            sv_SE
-          ]);
-      };
-    };
+  options.dotfyls.media.libreoffice.enable = lib.mkEnableOption "LibreOffice" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -54,6 +38,16 @@ in
       };
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [
+      (symlinkJoin {
+        inherit (libreoffice) name meta;
+
+        paths = [
+          libreoffice
+          hunspellDicts.en_US
+          hunspellDicts.sv_SE
+        ];
+      })
+    ];
   };
 }

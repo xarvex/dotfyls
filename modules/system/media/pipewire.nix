@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.media;
@@ -11,13 +6,6 @@ let
   hmCfg = config.hm.dotfyls.media.pipewire;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "media" "pipewire" "audio" "wireplumber" ]
-      [ "services" "pipewire" "wireplumber" ]
-    )
-  ];
-
   options.dotfyls.media.pipewire = {
     enable = lib.mkEnableOption "PipeWire" // {
       default = hmCfg.enable;

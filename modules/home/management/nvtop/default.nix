@@ -3,7 +3,6 @@
   lib,
   osConfig ? null,
   pkgs,
-  self,
   ...
 }:
 
@@ -17,19 +16,6 @@ in
   options.dotfyls.management.nvtop = {
     enable = lib.mkEnableOption "NVTOP" // {
       default = true;
-    };
-    package =
-      lib.mkPackageOption pkgs "NVTOP" {
-        default = [
-          "nvtopPackages"
-          "full"
-        ];
-      }
-      // {
-        default = pkgs.callPackage (getModule pkgs.nvtopPackages.full) { };
-      };
-    finalPackage = self.lib.mkFinalPackageOption "NVTOP" // {
-      default = pkgs.callPackage (getModule cfg.package) cfg.families;
     };
 
     families =
@@ -52,5 +38,7 @@ in
       };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) { home.packages = [ (self.lib.getCfgPkg cfg) ]; };
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
+    home.packages = [ (pkgs.callPackage (getModule pkgs.nvtopPackages.full) cfg.families) ];
+  };
 }

@@ -1,12 +1,13 @@
 { lib }:
 
 rec {
-  mkFinalPackageOption =
-    name:
+  mkStaticPackageOption =
+    pkg:
     lib.mkOption {
+      internal = true;
       readOnly = true;
       type = lib.types.package;
-      description = "Resulting ${name} package.";
+      default = pkg;
     };
 
   mkExtraPackagesOption =
@@ -15,13 +16,6 @@ rec {
       type = with lib.types; listOf package;
       default = [ ];
       description = "Extra packages available to ${name}.";
-    };
-
-  mkCommandOption =
-    action:
-    lib.mkOption {
-      type = lib.types.package;
-      description = "Command used to ${action}.";
     };
 
   getCfgPkg = cfg: cfg.finalPackage or cfg.package;

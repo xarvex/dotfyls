@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # Package also provides nm-connection-editor.
-    home.packages = [ pkgs.networkmanagerapplet ];
+    home.packages = with pkgs; [ networkmanagerapplet ];
 
     services.network-manager-applet.enable = true;
   };

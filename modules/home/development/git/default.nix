@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.development;
@@ -13,8 +8,6 @@ in
   imports = [
     ./difftastic.nix
     ./lazygit.nix
-
-    (self.lib.mkAliasPackageModule [ "dotfyls" "development" "git" ] [ "programs" "git" ])
   ];
 
   options.dotfyls.development.git = {

@@ -1,19 +1,10 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.management;
   cfg = cfg'.btop;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "management" "btop" ] [ "programs" "btop" ])
-  ];
-
   options.dotfyls.management.btop.enable = lib.mkEnableOption "Btop" // {
     default = true;
   };

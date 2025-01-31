@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -10,10 +9,7 @@ let
   cfg = config.dotfyls.programs.discord;
 in
 {
-  options.dotfyls.programs.discord = {
-    enable = lib.mkEnableOption "Discord";
-    package = lib.mkPackageOption pkgs "Discord" { default = "discord"; };
-  };
+  options.dotfyls.programs.discord.enable = lib.mkEnableOption "Discord";
 
   config = lib.mkIf cfg.enable {
     dotfyls.file.".config/discord" = {
@@ -21,6 +17,6 @@ in
       cache = true;
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ discord ];
   };
 }

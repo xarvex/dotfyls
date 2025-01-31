@@ -21,11 +21,11 @@ in
     enable = lib.mkEnableOption "xdg-terminal-exec" // {
       default = true;
     };
-    package = lib.mkPackageOption pkgs "xdg-terminal-exec" { };
+    package = self.lib.mkStaticPackageOption pkgs.xdg-terminal-exec;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ xdg-terminal-exec ];
 
     xdg.configFile."xdg-terminals.list".text = ''
       ${desktopFiles.${cfg'.default}}
@@ -34,8 +34,8 @@ in
     '';
 
     dconf.settings = {
-      "org/cinnamon/desktop/applications/terminal".exec = self.lib.getCfgExe cfg;
-      "org/gnome/desktop/applications/terminal".exec = self.lib.getCfgExe cfg;
+      "org/cinnamon/desktop/applications/terminal".exec = lib.getExe pkgs.xdg-terminal-exec;
+      "org/gnome/desktop/applications/terminal".exec = lib.getExe pkgs.xdg-terminal-exec;
     };
   };
 }

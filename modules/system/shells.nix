@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg = config.dotfyls.shells;
@@ -11,17 +6,11 @@ let
 in
 {
   options.dotfyls.shells.shells = {
-    fish = {
-      enable = lib.mkEnableOption "Fish" // {
-        default = hmCfg.shells.fish.enable;
-      };
-      package = lib.mkPackageOption pkgs "fish" { };
+    fish.enable = lib.mkEnableOption "Fish" // {
+      default = hmCfg.shells.fish.enable;
     };
-    zsh = {
-      enable = lib.mkEnableOption "Zsh" // {
-        default = hmCfg.shells.zsh.enable;
-      };
-      package = lib.mkPackageOption pkgs "zsh" { };
+    zsh.enable = lib.mkEnableOption "Zsh" // {
+      default = hmCfg.shells.zsh.enable;
     };
   };
 

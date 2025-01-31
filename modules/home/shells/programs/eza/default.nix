@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -13,16 +12,13 @@ let
   iCfg = config.dotfyls.icon;
 in
 {
-  options.dotfyls.shells.programs.eza = {
-    enable = lib.mkEnableOption "eza" // {
-      default = cfg'.enableFun;
-    };
-    package = lib.mkPackageOption pkgs "eza" { };
+  options.dotfyls.shells.programs.eza.enable = lib.mkEnableOption "eza" // {
+    default = cfg'.enableFun;
   };
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = [ (self.lib.getCfgPkg cfg) ];
+      packages = with pkgs; [ eza ];
 
       shellAliases = {
         "l." = "eza --group-directories-first --icons auto -d .*";

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,25 +10,8 @@ let
   cfg = cfg'.vintagestory;
 in
 {
-  options.dotfyls.games.vintagestory = {
-    enable = lib.mkEnableOption "Vintage Story" // {
-      default = true;
-    };
-    package = lib.mkPackageOption pkgs "Vintage Story" { default = "vintagestory"; };
-    finalPackage = self.lib.mkFinalPackageOption "Vintage Story" // {
-      default = cfg.package.override {
-        dotnet-runtime_7 = pkgs.dotnet-runtime_7.overrideAttrs (o: {
-          src = o.src.overrideAttrs (o: {
-            meta = o.meta // {
-              knownVulnerabilities = [ ];
-            };
-          });
-          meta = o.meta // {
-            knownVulnerabilities = [ ];
-          };
-        });
-      };
-    };
+  options.dotfyls.games.vintagestory.enable = lib.mkEnableOption "Vintage Story" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -46,6 +28,19 @@ in
       };
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = [
+      (pkgs.vintagestory.override {
+        dotnet-runtime_7 = pkgs.dotnet-runtime_7.overrideAttrs (o: {
+          src = o.src.overrideAttrs (o: {
+            meta = o.meta // {
+              knownVulnerabilities = [ ];
+            };
+          });
+          meta = o.meta // {
+            knownVulnerabilities = [ ];
+          };
+        });
+      })
+    ];
   };
 }

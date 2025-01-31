@@ -10,41 +10,8 @@ let
   cfg = cfg'.qt;
 in
 {
-  options.dotfyls.appearance.qt = {
-    enable = lib.mkEnableOption "Qt" // {
-      default = true;
-    };
-
-    theme = lib.mkOption rec {
-      type = lib.types.submodule {
-        options = {
-          name = lib.mkOption {
-            type = lib.types.str;
-            example = "catppuccin-mocha-maroon";
-            description = "Name of the Qt Kvantum theme.";
-          };
-          source = lib.mkOption {
-            type = lib.types.path;
-            example = lib.literalExpression ''
-              "''${pkgs.catppuccin-kvantum.src}/themes"
-            '';
-            description = "Source providing the Qt Kvantum theme.";
-          };
-        };
-      };
-      default = {
-        name = "catppuccin-mocha-maroon";
-        source = "${pkgs.catppuccin-kvantum.src}/themes";
-      };
-      defaultText = lib.literalExpression ''
-        {
-          name = "catppuccin-mocha-maroon";
-          source = "''${pkgs.catppuccin-kvantum.src}/themes";
-        }
-      '';
-      example = defaultText;
-      description = "Qt Kvantum theme used.";
-    };
+  options.dotfyls.appearance.qt.enable = lib.mkEnableOption "Qt" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -74,7 +41,7 @@ in
         qtctConf = {
           Appearance = {
             custom_palette = false;
-            icon_theme = cfg'.icons.theme.name;
+            icon_theme = cfg'.icons.name;
             standard_dialogs = "xdgdesktopportal";
             style = "kvantum";
           };
@@ -84,16 +51,16 @@ in
       in
       {
         "kdeglobals".text = lib.generators.toINI { } {
-          Icons.Theme = cfg'.icons.theme.name;
+          Icons.Theme = cfg'.icons.name;
         };
 
         "Kvantum" = {
           recursive = true;
-          inherit (cfg.theme) source;
+          source = "${pkgs.catppuccin-kvantum.src}/themes";
         };
         "Kvantum/kvantum.kvconfig".text = lib.generators.toINI { } {
           # TODO: Change dynamically with heuniform.
-          General.theme = cfg.theme.name;
+          General.theme = "catppuccin-mocha-maroon";
         };
 
         "qt5ct/qt5ct.conf".text = lib.generators.toINI { } (

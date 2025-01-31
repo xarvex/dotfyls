@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   user,
   ...
 }:
@@ -13,10 +12,6 @@ let
   syncedFiles = lib.filterAttrs (_: fCfg: fCfg.dir && fCfg.sync.enable) config.dotfyls.file;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "files" "sync" ] [ "services" "syncthing" ])
-  ];
-
   options.dotfyls.files.sync.enable = lib.mkEnableOption "sync using Syncthing" // {
     default = true;
   };
@@ -59,7 +54,7 @@ in
         folderShare = pkgs.writeShellApplication {
           name = "dotfyls-syncthing-folder-share";
 
-          runtimeInputs = [ (self.lib.getCfgPkg cfg) ];
+          runtimeInputs = [ config.services.syncthing.package ];
 
           text = ''
             while read -r device; do

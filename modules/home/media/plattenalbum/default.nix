@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,15 +10,8 @@ let
   cfg = cfg'.plattenalbum;
 in
 {
-  imports = [
-    (lib.mkAliasOptionModule [ "dotfyls" "media" "plattenalbum" "mpdPackage" ] [ "services" "mpd" ])
-  ];
-
-  options.dotfyls.media.plattenalbum = {
-    enable = lib.mkEnableOption "Plattenalbum" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "Plattenalbum" { default = "plattenalbum"; };
+  options.dotfyls.media.plattenalbum.enable = lib.mkEnableOption "Plattenalbum" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -31,6 +23,6 @@ in
       network.startWhenNeeded = true;
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ plattenalbum ];
   };
 }

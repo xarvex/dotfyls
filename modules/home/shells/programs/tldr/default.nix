@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,16 +10,13 @@ let
   cfg = cfg'.tldr;
 in
 {
-  options.dotfyls.shells.programs.tldr = {
-    enable = lib.mkEnableOption "tldr" // {
-      default = cfg'.enableUseful;
-    };
-    package = lib.mkPackageOption pkgs "tlrc" { };
+  options.dotfyls.shells.programs.tldr.enable = lib.mkEnableOption "tldr" // {
+    default = cfg'.enableUseful;
   };
 
   config = lib.mkIf cfg.enable {
     dotfyls.file.".cache/tlrc".cache = true;
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ tlrc ];
   };
 }

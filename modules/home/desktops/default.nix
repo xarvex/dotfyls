@@ -10,9 +10,14 @@ let
 in
 {
   imports = [
+    ./cliphist
     ./desktops
     ./dotpanel
     ./swww
+
+    ./dunst.nix
+    ./rofi.nix
+    ./wl-clipboard.nix
 
     (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {
       name = "default";

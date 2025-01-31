@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  self,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg'' = config.dotfyls.desktops;
@@ -11,13 +6,6 @@ let
   cfg = cfg'.lock;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "desktops" "desktops" "hyprland" "lock" ]
-      [ "programs" "hyprlock" ]
-    )
-  ];
-
   options.dotfyls.desktops.desktops.hyprland.lock.enable = lib.mkEnableOption "hyprlock" // {
     default = true;
   };

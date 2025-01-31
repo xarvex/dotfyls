@@ -18,10 +18,6 @@ let
   kernelFilter = kernelFilters.${cfg.variant};
 in
 {
-  imports = [
-    (lib.mkAliasOptionModule [ "dotfyls" "boot" "kernel" "packages" ] [ "boot" "kernelPackages" ])
-  ];
-
   options.dotfyls.boot.kernel.variant = lib.mkOption {
     type = lib.types.enum (builtins.attrNames kernelFilters);
     default = "stable";
@@ -30,7 +26,7 @@ in
   };
 
   config = {
-    dotfyls.boot.kernel.packages = lib.mkDefault (
+    boot.kernelPackages = lib.mkDefault (
       lib.pipe pkgs.linuxKernel.packages [
         builtins.attrValues
         (builtins.filter (

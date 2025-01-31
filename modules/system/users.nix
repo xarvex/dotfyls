@@ -2,20 +2,12 @@
   config,
   inputs,
   lib,
-  self,
   user,
   ...
 }:
 
 {
-  imports = [
-    inputs.persistwd.nixosModules.persistwd
-
-    (self.lib.mkAliasPackageModule
-      [ "dotfyls" "users" "persistwd" ]
-      [ "security" "shadow" "persistwd" ]
-    )
-  ];
+  imports = [ inputs.persistwd.nixosModules.persistwd ];
 
   config = {
     dotfyls.file.${config.security.shadow.persistwd.directory} = {

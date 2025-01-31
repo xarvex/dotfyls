@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,8 @@ let
   cfg = cfg'.prismlauncher;
 in
 {
-  options.dotfyls.games.prismlauncher = {
-    enable = lib.mkEnableOption "Prism Launcher" // {
-      default = true;
-    };
-    package = lib.mkPackageOption pkgs "Prism Launcher" { default = "prismlauncher"; };
+  options.dotfyls.games.prismlauncher.enable = lib.mkEnableOption "Prism Launcher" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -31,6 +27,6 @@ in
       };
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ prismlauncher ];
   };
 }

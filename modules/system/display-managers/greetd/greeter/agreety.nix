@@ -16,6 +16,7 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
-    services.greetd.settings.default_session.command = "${self.lib.getCfgExe' cfg' "agreety"}";
+    services.greetd.settings.default_session.command =
+      "${self.lib.getCfgExe' config.services.greetd "agreety"}";
   };
 }

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,8 @@ let
   cfg = cfg'.nomacs;
 in
 {
-  options.dotfyls.media.nomacs = {
-    enable = lib.mkEnableOption "nomacs" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "nomacs" { default = "nomacs-qt6"; };
+  options.dotfyls.media.nomacs.enable = lib.mkEnableOption "nomacs" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -24,7 +20,7 @@ in
       vector = "org.nomacs.ImageLounge.desktop";
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ nomacs-qt6 ];
 
     xdg.configFile."nomacs/Image Lounge.conf".source = ./${"Image Lounge.conf"};
   };

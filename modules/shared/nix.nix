@@ -11,8 +11,6 @@ let
   cfg = config.dotfyls.nix;
 in
 {
-  imports = [ (self.lib.mkAliasPackageModule [ "dotfyls" "nix" ] [ "nix" ]) ];
-
   options.dotfyls.nix = lib.optionalAttrs (!system) {
     enableSettings = lib.mkEnableOption "configuring Nix settings";
   };

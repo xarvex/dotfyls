@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -10,23 +9,8 @@ let
   cfg = config.dotfyls.files.nemo;
 in
 {
-  options.dotfyls.files.nemo = {
-    enable = lib.mkEnableOption "Nemo" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "Nemo" { default = "nemo-with-extensions"; };
-    finalPackage = self.lib.mkFinalPackageOption "Nemo" // {
-      default = pkgs.symlinkJoin {
-        inherit (cfg.package) name meta;
-
-        paths =
-          [ cfg.package ]
-          ++ (with pkgs; [
-            nemo-fileroller
-            webp-pixbuf-loader
-          ]);
-      };
-    };
+  options.dotfyls.files.nemo.enable = lib.mkEnableOption "Nemo" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {
@@ -44,7 +28,17 @@ in
       mime-apps.files.directory = "nemo.desktop";
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [
+      (symlinkJoin {
+        inherit (nemo-with-extensions) name meta;
+
+        paths = [
+          nemo-with-extensions
+          nemo-fileroller
+          webp-pixbuf-loader
+        ];
+      })
+    ];
 
     dconf.settings."org/nemo/preferences" = {
       click-double-parent-folder = true;

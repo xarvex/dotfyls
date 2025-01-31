@@ -3,10 +3,8 @@
 let
   overlays = [
     "bat-extras"
-    "dotfyls"
     "evil-winrm"
     "fastfetch"
-    "firefox"
     "nix-index-unwrapped"
     "vesktop"
   ];

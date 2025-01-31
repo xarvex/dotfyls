@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,8 @@ let
   cfg = cfg'.foliate;
 in
 {
-  options.dotfyls.media.foliate = {
-    enable = lib.mkEnableOption "Foliate" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "Foliate" { default = "foliate"; };
+  options.dotfyls.media.foliate.enable = lib.mkEnableOption "Foliate" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -31,6 +27,6 @@ in
       };
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ foliate ];
   };
 }

@@ -12,7 +12,7 @@ let
 in
 {
   imports = [
-    ./hyprland
+    ./hyprland.nix
 
     (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {
       name = "default";

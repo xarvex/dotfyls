@@ -10,11 +10,10 @@ let
   cfg = cfg'.shells.fish;
 in
 {
-  imports = [
-    (self.lib.mkAliasPackageModule [ "dotfyls" "shells" "shells" "fish" ] [ "programs" "fish" ])
-  ];
-
-  options.dotfyls.shells.shells.fish.enable = lib.mkEnableOption "Fish";
+  options.dotfyls.shells.shells.fish = {
+    enable = lib.mkEnableOption "Fish";
+    package = self.lib.mkStaticPackageOption (self.lib.getCfgPkg config.programs.fish);
+  };
 
   config = lib.mkIf cfg.enable {
     dotfyls.file.".local/share/fish" = {

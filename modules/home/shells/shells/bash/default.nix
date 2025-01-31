@@ -14,11 +14,8 @@ in
     enable = lib.mkEnableOption "Bash" // {
       default = true;
     };
-    blesh = {
-      enable = lib.mkEnableOption "ble.sh" // {
-        default = true;
-      };
-      package = lib.mkPackageOption pkgs "ble.sh" { default = "blesh"; };
+    blesh.enable = lib.mkEnableOption "ble.sh" // {
+      default = true;
     };
   };
 
@@ -43,7 +40,7 @@ in
 
       # blesh parts from: https://github.com/nix-community/home-manager/pull/3238
       bashrcExtra = lib.mkIf cfg.blesh.enable ''
-        [[ $- == *i* ]] && source '${cfg.blesh.package}/share/blesh/ble.sh' --attach=none
+        [[ $- == *i* ]] && source '${pkgs.blesh}/share/blesh/ble.sh' --attach=none
       '';
       initExtra = lib.mkBefore (
         cfg'.greet

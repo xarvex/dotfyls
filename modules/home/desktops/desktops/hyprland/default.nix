@@ -19,11 +19,6 @@ in
     ./interaction.nix
     ./keybinds.nix
     ./rules.nix
-
-    (self.lib.mkAliasPackageModule'
-      [ "dotfyls" "desktops" "desktops" "hyprland" ]
-      [ "wayland" "windowManager" "hyprland" ]
-    )
   ];
 
   options.dotfyls.desktops.desktops.hyprland = {
@@ -34,20 +29,18 @@ in
   config = lib.mkIf (config.dotfyls.desktops.enable && cfg.enable) {
     dotfyls = {
       desktops = {
+        cliphist.enable = lib.mkDefault true;
         dotpanel.enable = lib.mkDefault true;
+        dunst.enable = lib.mkDefault true;
+        rofi.enable = lib.mkDefault true;
         swww.enable = lib.mkDefault true;
+        wl-clipboard.enable = true;
       };
 
       # TODO: Confirm permissions.
       file.".cache/hyprland".cache = true;
 
-      programs = {
-        brightnessctl.enable = lib.mkDefault true;
-        cliphist.enable = lib.mkDefault true;
-        dunst.enable = lib.mkDefault true;
-        rofi.enable = lib.mkDefault true;
-        wl-clipboard.enable = true;
-      };
+      programs.brightnessctl.enable = lib.mkDefault true;
     };
 
     xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

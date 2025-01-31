@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,8 @@ let
   cfg = cfg'.spotify;
 in
 {
-  options.dotfyls.media.spotify = {
-    enable = lib.mkEnableOption "Spotify" // {
-      default = config.dotfyls.desktops.enable;
-    };
-    package = lib.mkPackageOption pkgs "Spotify" { default = "spotify"; };
+  options.dotfyls.media.spotify.enable = lib.mkEnableOption "Spotify" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -28,6 +24,6 @@ in
       mime-apps.extraSchemes.spotify = "spotify.desktop";
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ spotify ];
   };
 }

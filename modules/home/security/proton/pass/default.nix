@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  self,
   ...
 }:
 
@@ -11,11 +10,8 @@ let
   cfg = cfg'.pass;
 in
 {
-  options.dotfyls.security.proton.pass = {
-    enable = lib.mkEnableOption "Proton Pass" // {
-      default = true;
-    };
-    package = lib.mkPackageOption pkgs "Proton Pass" { default = "proton-pass"; };
+  options.dotfyls.security.proton.pass.enable = lib.mkEnableOption "Proton Pass" // {
+    default = true;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
@@ -24,6 +20,6 @@ in
       cache = true;
     };
 
-    home.packages = [ (self.lib.getCfgPkg cfg) ];
+    home.packages = with pkgs; [ proton-pass ];
   };
 }
