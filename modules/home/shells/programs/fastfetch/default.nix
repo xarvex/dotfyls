@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -8,6 +9,29 @@
 let
   cfg' = config.dotfyls.shells.programs;
   cfg = cfg'.fastfetch;
+
+  json = lib.importJSON ./config.jsonc;
+
+  choose-logo = pkgs.writeScript "dotfyls-fastfetch-choose-logo" (
+    let
+      jq = lib.getExe pkgs.jq;
+      printf = lib.getExe' pkgs.coreutils "printf";
+
+      suffix = if json.logo.type == "small" then "_small" else "";
+    in
+    ''
+      #!${pkgs.dash}/bin/dash
+       
+      logo="$(fastfetch -c none -s OS --format json | ${jq} -r .[0].result.id)${suffix}"
+      file="${./logos}/''${logo}.txt"
+
+      if [ -e "''${file}" ]; then
+          ${printf} '%s' "''${file}"
+      else
+          ${printf} '%s' "${pkgs.fastfetch.src}/src/logo/ascii/''${logo}.txt"
+      fi
+    ''
+  );
 in
 {
   options.dotfyls.shells.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {
@@ -21,11 +45,17 @@ in
       f = fetch;
       fetch = "fastfetch";
 
-      neofetch = "fastfetch --config neofetch";
+      neofetch = "fastfetch -c neofetch";
     };
 
-    programs.fastfetch.enable = true;
+    programs.fastfetch = {
+      enable = true;
 
-    xdg.configFile."fastfetch/config.jsonc".source = ./config.jsonc;
+      settings = json // {
+        logo = (builtins.removeAttrs json.logo [ "type" ]) // {
+          source = "$(${choose-logo})";
+        };
+      };
+    };
   };
 }

@@ -4,7 +4,6 @@ let
   overlays = [
     "bat-extras"
     "evil-winrm"
-    "fastfetch"
     "nix-index-unwrapped"
     "vesktop"
   ];
