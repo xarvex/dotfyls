@@ -72,6 +72,7 @@ return {
             "regex",
             "requirements",
             "rust",
+            "scss",
             "slint",
             "sql",
             "ssh_config",
