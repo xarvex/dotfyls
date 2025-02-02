@@ -15,7 +15,7 @@ in
 {
   options.dotfyls.management.nvtop = {
     enable = lib.mkEnableOption "NVTOP" // {
-      default = true;
+      default = config.dotfyls.graphics.enable;
     };
 
     families =
@@ -38,7 +38,7 @@ in
       };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     home.packages = [ (pkgs.callPackage (getModule pkgs.nvtopPackages.full) cfg.families) ];
   };
 }

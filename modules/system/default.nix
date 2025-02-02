@@ -9,6 +9,7 @@ _:
     ./files
     ./games
     ./graphics
+    ./management
     ./media
     ./networking
     ./power
@@ -16,11 +17,9 @@ _:
     ./security
 
     ./home-manager.nix
-    ./localization.nix
     ./nix.nix
     ./shells.nix
     ./state.nix
-    ./users.nix
   ];
 
   dotfyls.file = {

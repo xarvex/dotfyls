@@ -40,6 +40,10 @@ in
     programs.firefox = {
       enable = true;
 
+      languagePacks = [
+        "en-US"
+        "sv-SE"
+      ];
       profiles.${config.home.username}.extraConfig = ''
         ${builtins.readFile "${pkgs.arkenfox-userjs}/user.js"}
 

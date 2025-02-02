@@ -9,7 +9,7 @@ in
     default = true;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf cfg.enable {
     programs.btop = {
       enable = true;
 
