@@ -4,7 +4,10 @@ let
   cfg = config.dotfyls.power;
 in
 {
-  imports = [ ./management.nix ];
+  imports = [
+    ./management.nix
+    ./upower.nix
+  ];
 
   options.dotfyls.power.suspend = {
     enable = lib.mkEnableOption "suspend" // {
