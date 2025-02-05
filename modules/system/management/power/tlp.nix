@@ -1,10 +1,13 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.power.management;
+  cfg' = config.dotfyls.management.power;
+  cfg = cfg'.tlp;
 in
 {
-  options.dotfyls.power.management.enable = lib.mkEnableOption "power management";
+  options.dotfyls.management.power.tlp.enable = lib.mkEnableOption "TLP" // {
+    default = cfg'.battery;
+  };
 
   config = lib.mkIf cfg.enable {
     services.tlp = {

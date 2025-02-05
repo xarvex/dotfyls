@@ -1,12 +1,12 @@
 { config, lib, ... }:
 
 let
-  cfg' = config.dotfyls.power;
+  cfg' = config.dotfyls.management.power;
   cfg = cfg'.upower;
 in
 {
-  options.dotfyls.power.upower.enable = lib.mkEnableOption "UPower" // {
-    default = cfg'.management.enable;
+  options.dotfyls.management.power.upower.enable = lib.mkEnableOption "UPower" // {
+    default = cfg'.battery;
   };
 
   config = lib.mkIf cfg.enable {

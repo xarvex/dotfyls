@@ -1,19 +1,22 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.power;
+  cfg = config.dotfyls.management.power;
 in
 {
   imports = [
-    ./management.nix
+    ./tlp.nix
     ./upower.nix
   ];
 
-  options.dotfyls.power.suspend = {
-    enable = lib.mkEnableOption "suspend" // {
-      default = true;
+  options.dotfyls.management.power = {
+    battery = lib.mkEnableOption "battery";
+    suspend = {
+      enable = lib.mkEnableOption "suspend" // {
+        default = true;
+      };
+      light = lib.mkEnableOption "lighter suspend method";
     };
-    light = lib.mkEnableOption "lighter suspend method";
   };
 
   config = lib.mkMerge [

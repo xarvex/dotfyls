@@ -12,7 +12,6 @@ _:
     ./management
     ./media
     ./networking
-    ./power
     ./programs
     ./security
 

@@ -6,7 +6,7 @@
 
     graphics.provider = "intel";
 
-    power.management.enable = true;
+    management.power.battery = true;
 
     security.harden.kernel.packages = false;
   };
