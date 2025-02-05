@@ -5,6 +5,8 @@ keymap("n", "<leader>re", "<Nop>", { silent = true })
 keymap("n", "<leader>rC", "<Nop>", { silent = true })
 keymap("n", "<leader>rD", "<Nop>", { silent = true })
 
+---@module "lazy"
+---@type LazySpec
 return {
     "mrcjkb/rustaceanvim",
     version = "^5",
@@ -25,8 +27,9 @@ return {
         keymap("n", "<leader>rC", function() vim.cmd.RustLsp("openCargo") end, { silent = true, desc = "Open Cargo.toml (rustaceanvim)" })
         keymap("n", "<leader>rD", function() vim.cmd.RustLsp("openDocs") end, { silent = true, desc = "Open docs.rs (rustaceanvim)" })
 
+        local lsp_opts = require("dotfyls.files").lsp_config("rust_analyzer", true)
         vim.g.rustaceanvim = {
-            tools = {}, -- TODO: configure tools
+            tools = {}, -- TODO: Configure tools.
             server = {
                 on_attach = function(_, bufnr)
                     keymap(
@@ -42,11 +45,9 @@ return {
                         { silent = true, buffer = bufnr, desc = "LSP code action (rustaceanvim)" }
                     )
                 end,
-                default_settings = {
-                    ["rust-analyzer"] = {}, -- TODO: set desired
-                },
+                default_settings = (lsp_opts ~= nil and lsp_opts.settings ~= nil) and lsp_opts.settings or { ["rust-analyzer"] = {} },
             },
-            dap = {}, -- TODO: set up dap
+            dap = { adapter = require("dap").adapters.codelldb },
         }
     end,
 }

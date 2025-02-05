@@ -13,6 +13,8 @@ local function map_oil(bufnr, dir)
     )
 end
 
+---@module "lazy"
+---@type LazySpec
 return {
     {
         "stevearc/oil.nvim",

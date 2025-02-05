@@ -18,7 +18,7 @@ let
 in
 lib.mkIf (cfg'.enable && cfg.enable) {
   programs.firefox.profiles.${config.home.username}.extensions =
-    builtins.map
+    map
       (
         pkg:
         pkg.overrideAttrs (o: {

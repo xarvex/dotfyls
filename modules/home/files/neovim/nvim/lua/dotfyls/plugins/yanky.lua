@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     "gbprod/yanky.nvim",
     event = { "BufNewFile", "BufReadPost" },

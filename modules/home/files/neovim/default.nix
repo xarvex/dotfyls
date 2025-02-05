@@ -74,14 +74,16 @@ in
       withNodeJs = lib.mkDefault false;
       withPython3 = lib.mkDefault false;
       withRuby = lib.mkDefault false;
-      extraPackages = with pkgs; [
-        chafa
-        delta
-        gcc
-        git
-        gnumake
-        nodejs_22
-      ];
+      extraPackages =
+        (with pkgs; [
+          chafa
+          delta
+          gcc
+          git
+          gnumake
+          nodejs_22
+        ])
+        ++ lib.optionals config.dotfyls.development.enable config.dotfyls.development.tools;
       extraWrapperArgs = [
         "--run"
         (lib.getExe copyLock)

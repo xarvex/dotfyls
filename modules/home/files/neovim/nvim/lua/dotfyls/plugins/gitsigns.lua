@@ -1,4 +1,6 @@
--- TODO: reconfigure
+---@module "lazy"
+---@type LazySpec
+-- TODO: Reconfigure.
 return {
     "lewis6991/gitsigns.nvim",
     event = { "BufNewFile", "BufReadPost" },

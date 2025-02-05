@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     "mfussenegger/nvim-lint",
     event = { "BufNewFile", "BufReadPost" },
@@ -7,16 +9,21 @@ return {
     config = function()
         require("lint").linters_by_ft = {
             fish = { "fish" },
+            go = { "revive" },
             lua = { "selene" },
+            md = { "markdownlint-cli2" },
+            nix = { "nix", "deadnix", "statix" },
+            python = { "ruff", "bandit" },
             sh = { "shellcheck" },
-            nix = { "deadnix", "statix" },
+            sql = { "sqlfluff" },
+            vala = { "vala_lint" },
+            yaml = { "yamllint" },
             zsh = { "zsh" },
         }
+        table.insert(require("lint").linters.vala_lint.args, 1, "--config=vala-lint.conf")
 
-        local codespell_blacklist = require("dotfyls.list").into_set({ "markdown", "text", "tex" })
         local function lint(bufnr)
-            local linters = vim.list_extend({}, require("lint")._resolve_linter_by_ft(vim.bo.filetype))
-            if not codespell_blacklist[vim.bo.filetype] then linters[#linters + 1] = "codespell" end
+            local linters = vim.list_extend({ "codespell", "editorconfig-checker" }, require("lint")._resolve_linter_by_ft(vim.bo.filetype))
 
             local ctx = { filename = vim.api.nvim_buf_get_name(bufnr or 0) }
             ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
@@ -33,7 +40,7 @@ return {
 
         lint()
 
-        local timer = vim.uv.new_timer()
+        local timer = assert(vim.uv.new_timer())
         vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
             group = require("dotfyls.interop").group,
             callback = function(args)

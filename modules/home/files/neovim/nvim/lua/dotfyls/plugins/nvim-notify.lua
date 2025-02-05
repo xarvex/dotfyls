@@ -1,4 +1,6 @@
--- TODO: adjust appearance
+---@module "lazy"
+---@type LazySpec
+-- TODO: Adjust appearance.
 return {
     "rcarriga/nvim-notify",
     keys = {

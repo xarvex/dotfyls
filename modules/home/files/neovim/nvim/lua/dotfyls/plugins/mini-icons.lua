@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     "echasnovski/mini.icons",
     specs = { { "nvim-tree/nvim-web-devicons", enabled = false, optional = true } },

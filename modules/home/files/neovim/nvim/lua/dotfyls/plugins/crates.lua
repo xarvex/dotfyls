@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     "saecki/crates.nvim",
     cmd = "Crates",

@@ -1,0 +1,8 @@
+[lints]
+mixed_table="allow"
+
+[vim]
+any = true
+
+[assert]
+any = true

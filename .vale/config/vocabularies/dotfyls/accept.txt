@@ -1,6 +1,0 @@
-[cC]onfig
-dotfyls
-[nN]eovim
-sublicense
-Xarvex
-[zZ]sh

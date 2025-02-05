@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     {
         -- DEPENDENCIES: rg and plenary for searching.

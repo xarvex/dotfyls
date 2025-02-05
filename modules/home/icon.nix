@@ -538,7 +538,7 @@ in
         "requirements.txt"
       ] code.python)
       (withExt [ "py" "pyc" "pyd" "pyi" "pyo" "pyw" ] code.python)
-      (withExt [ "r" "rdata" "rds" ] code.r)
+      (withExt [ "R" "r" "rdata" "rds" ] code.r)
       (withExt [ "raku" "rakudoc" "rakumod" "rakutest" ] code.raku)
       (withExt "rkt" code.racket)
       (withExt [ "red" "reds" ] code.red)

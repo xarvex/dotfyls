@@ -1,14 +1,18 @@
+local keymap = vim.keymap.set
+
+keymap("n", "<leader>ch", "<Nop>", { silent = true })
+
+---@module "lazy"
+---@type LazySpec
 return {
     "neovim/nvim-lspconfig",
     cmd = { "LspInfo", "LspLog", "LspStart" },
     event = { "BufNewFile", "BufReadPost" },
     config = function()
         local servers = {
-            astro = true,
-            bashls = true,
             clangd = {
                 on_attach = function(_, bufnr)
-                    vim.keymap.set(
+                    keymap(
                         "n",
                         "<leader>ch",
                         vim.cmd.ClangdSwitchSourceHeader,
@@ -16,33 +20,85 @@ return {
                     )
                 end,
             },
-            cssls = true,
-            denols = { root_dir = require("lspconfig").util.root_pattern("deno.json", "deno.jsonc") },
-            fish_lsp = true,
-            gopls = { settings = { gofumpt = true } },
-            html = true,
-            jsonls = true,
-            lua_ls = true,
-            nil_ls = true,
-            pyright = true,
+            gopls = {
+                on_attach = function(_, bufnr)
+                    -- NOTE: neotest-go has no DAP strategy.
+                    -- See: https://github.com/nvim-neotest/neotest-go/issues/12
+                    keymap(
+                        "n",
+                        "<leader>td",
+                        function() require("dap-go").debug_test() end,
+                        { silent = true, buffer = bufnr, desc = "Debug nearest test (nvim-dap-go)" }
+                    )
+                end,
+            },
+            jsonls = {
+                settings = {
+                    json = {
+                        schemas = require("schemastore").json.schemas(),
+                    },
+                },
+            },
             rust_analyzer = false,
-            slint_lsp = true,
-            svelte = true,
-            tinymist = true,
-            ts_ls = { root_dir = require("lspconfig").util.root_pattern("tsconfig.json") },
-            vala_ls = true,
-            vale_ls = true,
-            vuels = true,
-            zls = true,
+            vale_ls = {
+                filetypes = {
+                    "asciidoc",
+                    "c",
+                    "cpp",
+                    "cs",
+                    "css",
+                    "go",
+                    "haskell",
+                    "html",
+                    "java",
+                    "javascript",
+                    "lua",
+                    "markdown",
+                    "org",
+                    "perl",
+                    "php",
+                    "pod",
+                    "proto",
+                    "ps1",
+                    "python",
+                    "r",
+                    "rst",
+                    "ruby",
+                    "rust",
+                    "sass",
+                    "sbt",
+                    "scala",
+                    "swift",
+                    "tex",
+                    "text",
+                    "typescript",
+                    "typescriptreact",
+                    "xhtml",
+                    "xml",
+                },
+            },
+            yamlls = {
+                settings = {
+                    yaml = {
+                        schemaStore = { enable = false, url = "" },
+                        schemas = require("schemastore").yaml.schemas(),
+                    },
+                },
+            },
         }
 
-        for server, opts in pairs(servers) do
-            if opts ~= false then
-                opts = type(opts) == "table" and opts or {}
-                if require("lazy.core.config").plugins["blink.cmp"] then
-                    opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities, true)
+        for _, file in pairs(vim.fn.readdir(require("dotfyls.files").lsp_directory)) do
+            local server = file:gsub("%.json$", "")
+            local opts = require("dotfyls.files").lsp_config(file)
+            if opts ~= nil then
+                local override = servers[server]
+                if override ~= false then
+                    if override ~= nil then opts = vim.tbl_deep_extend("force", opts, override) end
+                    if require("lazy.core.config").plugins["blink.cmp"] then
+                        opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities, true)
+                    end
+                    require("lspconfig")[server].setup(opts)
                 end
-                require("lspconfig")[server].setup(opts)
             end
         end
     end,

@@ -1,9 +1,11 @@
+---@module "lazy"
+---@type LazySpec
 return {
     {
         "Saghen/blink.cmp",
         cond = vim.fn.executable("nix") == 1 or vim.fn.executable("cargo") == 1,
         build = "sh -c '(unset CARGO_TARGET_DIR && "
-            .. (vim.fn.executable("nix") == 1 and "nix run .#build-plugin" or "cargo build --release")
+            .. (vim.fn.executable("nix") == 1 and "nix run .#build-plugin --override-input nixpkgs nixpkgs" or "cargo build --release")
             .. ")'",
         dependencies = {
             "f3fora/cmp-spell",
@@ -32,14 +34,15 @@ return {
                 local out = {}
                 for _, item in ipairs(items) do
                     local insertText = item.insertText
-                    if insertText ~= nil and insertText:match(correct) then
-                        local text = case(insertText:sub(1, 1)) .. insertText:sub(2)
-                        item.insertText = text
-                        item.label = text
-                    end
-                    if not seen[item.insertText] then
-                        seen[item.insertText] = true
-                        table.insert(out, item)
+                    if insertText ~= nil then
+                        if insertText:match(correct) then
+                            local text = case(insertText:sub(1, 1)) .. insertText:sub(2)
+                            item.insertText = text
+                            item.label = text
+                        elseif not seen[insertText] then
+                            seen[insertText] = true
+                            table.insert(out, item)
+                        end
                     end
                 end
 

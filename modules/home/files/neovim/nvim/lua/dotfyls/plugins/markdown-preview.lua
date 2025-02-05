@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 -- WARNING: UNMAINTAINED
 return {
     "iamcco/markdown-preview.nvim",

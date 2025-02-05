@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     -- DEPENDENCIES: gnumake (optional) for building jsregexp.
     "L3MON4D3/LuaSnip",

@@ -1,3 +1,5 @@
+---@module "lazy"
+---@type LazySpec
 return {
     {
         -- DEPENDENCIES: rg for more features, and grep as fallback.

@@ -1,4 +1,5 @@
--- TODO: lazy loading filetypes
+---@module "lazy"
+---@type LazySpec
 return {
     "stevearc/conform.nvim",
     cmd = "ConformInfo",
@@ -14,14 +15,12 @@ return {
     opts = {
         formatters_by_ft = {
             fish = { "fish_indent" },
-            go = { "gofumpt", "goimports", "gofmt" },
             javascript = { "prettierd", "prettier" },
             lua = { "stylua" },
             nix = { "nixfmt" },
             python = { "ruff_format" },
             sh = { "shfmt" },
-            sql = { "sql_formatter" },
-            typst = { "typstyle" },
+            sql = { "sqlfluff" },
             ["_"] = { "trim_whitespace" },
         },
         default_format_opts = {

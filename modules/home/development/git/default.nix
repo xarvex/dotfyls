@@ -73,6 +73,7 @@ in
         patch = "diff --patch --no-ext-diff";
         tree = "log --all --graph";
         unpushed = "log @{push}.. --patch --ext-diff";
+        unstage = "restore --staged";
       };
 
       extraConfig = {

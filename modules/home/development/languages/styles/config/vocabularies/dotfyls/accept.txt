@@ -1,0 +1,11 @@
+chafa
+codelldb
+[cC]onfigs?
+dotfyls
+fd
+[nN]eovim
+rg
+stylua
+sublicense
+Xarvex
+[zZ]sh

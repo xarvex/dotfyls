@@ -1,4 +1,6 @@
--- TODO: adjust appearance
+---@module "lazy"
+---@type LazySpec
+-- TODO: Adjust appearance.
 return {
     {
         "folke/noice.nvim",
@@ -46,7 +48,16 @@ return {
                     {
                         filter = {
                             event = "msg_show",
-                            find = "%d+L, %d+B",
+                            kind = "",
+                            find = "%d+L, %d+B$",
+                        },
+                        opts = { skip = true },
+                    },
+                    {
+                        filter = {
+                            event = "msg_show",
+                            kind = "lua_error",
+                            find = "Vim%(mkview%):E190: Cannot open.+lazy/nvim%-ufo.+in function 'applyFoldRanges'",
                         },
                         opts = { skip = true },
                     },

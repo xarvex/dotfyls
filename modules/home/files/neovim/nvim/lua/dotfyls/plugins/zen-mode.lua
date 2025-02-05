@@ -1,4 +1,6 @@
--- TODO: reconfigure and split
+---@module "lazy"
+---@type LazySpec
+-- TODO: Reconfigure and split.
 return {
     "folke/zen-mode.nvim",
     dependencies = {
