@@ -3,6 +3,7 @@
 {
   imports = [
     ./bluetooth.nix
+    ./dns.nix
     ./firewall.nix
     ./manager.nix
   ];
