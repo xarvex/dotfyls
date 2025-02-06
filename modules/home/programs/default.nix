@@ -11,5 +11,6 @@ _:
     ./solaar
     ./ventoy
     ./vesktop
+    ./virt-manager
   ];
 }

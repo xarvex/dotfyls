@@ -38,6 +38,8 @@ in
           cache = true;
         };
         ".cache/python".cache = true;
+
+        ".cache/python-entrypoints".cache = true;
         ".cache/pip".cache = true;
         ".local/share/virtualenv".cache = true;
 

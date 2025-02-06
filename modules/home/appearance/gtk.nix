@@ -15,7 +15,10 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.file.".cache/gtk-4.0/vulkan-pipeline-cache".cache = true;
+    dotfyls.file = {
+      ".cache/gtk-4.0/vulkan-pipeline-cache".cache = true;
+      ".cache/gstreamer-1.0".cache = true;
+    };
 
     gtk =
       let
