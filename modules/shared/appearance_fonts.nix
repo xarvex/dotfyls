@@ -9,6 +9,7 @@ system:
 let
   cfg' = config.dotfyls.appearance;
   cfg = cfg'.fonts;
+  hmCfg = config.hm.dotfyls.appearance.fonts;
 
   mkFont = name: package: { inherit name package; };
 
@@ -35,7 +36,7 @@ let
 in
 {
   options.dotfyls.appearance.fonts.enable = lib.mkEnableOption "fonts" // {
-    default = config.dotfyls.desktops.enable;
+    default = if system then hmCfg.enable else config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) (

@@ -10,7 +10,7 @@ let
 in
 {
   options.dotfyls.boot.plymouth.enable = lib.mkEnableOption "Plymouth" // {
-    default = true;
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {

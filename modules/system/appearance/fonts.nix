@@ -12,5 +12,5 @@ in
 {
   imports = [ self.nixosModules.appearance_fonts ];
 
-  config = lib.mkIf cfg.enable { fonts.enableDefaultPackages = false; };
+  config = lib.mkIf (cfg'.enable && cfg.enable) { fonts.enableDefaultPackages = false; };
 }

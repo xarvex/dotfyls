@@ -6,7 +6,8 @@
 }:
 
 let
-  cfg' = config.dotfyls.development.git;
+  cfg'' = config.dotfyls.development;
+  cfg' = cfg''.git;
   cfg = cfg'.lazygit;
 in
 {
@@ -14,7 +15,7 @@ in
     default = true;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     programs.lazygit = {
       enable = true;
 

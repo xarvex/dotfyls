@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ./cage
     ./greetd
     ./sddm
 

@@ -1,10 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  dotfyls.display-managers = {
-    enable = true;
-    provider = "cage";
-  };
+  dotfyls.files.systems.systems.zfs.autosnap.enable = false;
 
   services = {
     qemuGuest.enable = true;

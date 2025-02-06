@@ -7,7 +7,7 @@ in
 {
   options.dotfyls.networking.bluetooth = {
     enable = lib.mkEnableOption "Bluetooth" // {
-      default = true;
+      default = config.dotfyls.desktops.enable;
     };
     blueman.enable = lib.mkEnableOption "Blueman" // {
       default = config.dotfyls.desktops.enable;

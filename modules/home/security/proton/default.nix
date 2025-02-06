@@ -11,7 +11,7 @@ in
   ];
 
   options.dotfyls.security.proton.enable = lib.mkEnableOption "Proton services" // {
-    default = true;
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf cfg.enable {

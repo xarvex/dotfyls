@@ -10,7 +10,7 @@ in
     default = true;
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) {
+  config = lib.mkIf (cfg''.enable && cfg'.enable && cfg.enable) {
     programs.hyprlock = {
       enable = true;
 

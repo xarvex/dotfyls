@@ -144,4 +144,4 @@ read -r rev
 
 printf '$%s%s%s\n' "${blue}" 'Running install...' "${reset}"
 sudo nixos-install --no-root-password --flake "gitlab:dotfyls/dotfyls/${rev:-main}#${host}"
-nixos-enter --root /mnt -- persistwd populate-hashes --passwd
+sudo nixos-enter --root /mnt -- persistwd populate-hashes --passwd

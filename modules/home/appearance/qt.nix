@@ -11,7 +11,7 @@ let
 in
 {
   options.dotfyls.appearance.qt.enable = lib.mkEnableOption "Qt" // {
-    default = true;
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
