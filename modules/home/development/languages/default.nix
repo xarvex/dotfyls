@@ -63,7 +63,7 @@ in
   config = lib.mkIf cfg'.enable {
     dotfyls.development = {
       tools = lib.optional cfg.codespell pkgs.codespell ++ lib.optional cfg.vale pkgs.vale-ls;
-      languages.servers.vale_ls.init_options.installVale = false;
+      languages.servers = lib.mkIf cfg.vale { vale_ls.init_options.installVale = false; };
     };
 
     xdg.configFile = lib.mkMerge [
