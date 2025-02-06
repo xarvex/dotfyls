@@ -12,6 +12,7 @@ let
 
   desktopFiles = {
     alacritty = "Alacritty.desktop";
+    foot = "foot.desktop";
     kitty = "kitty.desktop";
     wezterm = "org.wezfurlong.wezterm.desktop";
   };

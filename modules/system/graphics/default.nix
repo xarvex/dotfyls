@@ -16,6 +16,7 @@ in
 
     (self.lib.mkSelectorModule [ "dotfyls" "graphics" ] {
       name = "provider";
+      default = "intel"; # TODO: Remove default.
       example = "intel";
       description = "Graphics provider to use.";
     })

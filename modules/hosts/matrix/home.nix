@@ -9,6 +9,9 @@ _:
 
     desktops.enable = false;
 
-    terminals.enable = false;
+    terminals = {
+      enable = false;
+      default = "foot";
+    };
   };
 }

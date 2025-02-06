@@ -30,6 +30,7 @@ _:
 
     terminals.terminals = {
       alacritty.enable = true;
+      foot.enable = true;
       wezterm.enable = true;
     };
   };
