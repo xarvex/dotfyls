@@ -12,7 +12,10 @@ in
       enable = true;
 
       settings = {
-        main.font = "monospace:size=${toString cfg'.fontSize}";
+        main = {
+          font = "monospace:size=${toString cfg'.fontSize}";
+          include = "${config.programs.foot.package.src}/themes/rose-pine";
+        };
         scrollback.lines = cfg'.scrollback;
         cursor = {
           style = "beam";
