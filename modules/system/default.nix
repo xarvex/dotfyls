@@ -44,4 +44,6 @@ _:
   '';
 
   services.dbus.implementation = "broker";
+
+  systemd.enableStrictShellChecks = true;
 }
