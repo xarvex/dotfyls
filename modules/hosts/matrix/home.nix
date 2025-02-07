@@ -24,11 +24,14 @@
     };
   };
 
-  home.packages = with pkgs; [ gitMinimal ];
+  home.packages = with pkgs; [
+    gitMinimal
+    wl-clipboard
+  ];
 
   programs.bash.profileExtra = ''
     if [ "$(${lib.getExe' pkgs.coreutils "tty"})" = "/dev/tty1" ]; then
-        WLR_RENDERER=pixman exec ${lib.getExe' pkgs.dbus "dbus-run-session"} ${lib.getExe pkgs.cage} -ds -- ${lib.getExe config.programs.foot.package}
+        WLR_RENDERER=pixman exec ${lib.getExe pkgs.cage} -ds -- ${lib.getExe config.programs.foot.package}
     fi
   '';
 
