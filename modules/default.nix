@@ -19,7 +19,9 @@ let
     in
     {
       artemux = mkHost "fd9daca2" "x86_64-linux";
-      matrix = mkHost "3bb44cc9" "x86_64-linux";
+      matrix = mkHost "3bb44cc9" "x86_64-linux" // {
+        user = "neo";
+      };
       pioneer = mkHost "3540bf30" "x86_64-linux";
       sentinel = mkHost "ef01cd45" "x86_64-linux";
     };
