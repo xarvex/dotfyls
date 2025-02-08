@@ -12,26 +12,18 @@ let
 
   json = lib.importJSON ./config.jsonc;
 
-  choose-logo = pkgs.writeScript "dotfyls-fastfetch-choose-logo" (
-    let
-      jq = lib.getExe pkgs.jq;
-      printf = lib.getExe' pkgs.coreutils "printf";
+  choose-logo = pkgs.writers.writeDash "dotfyls-fastfetch-choose-logo" ''
+    logo="$(fastfetch -c none -s OS --format json | ${lib.getExe pkgs.jq} -r .[0].result.id)${
+      if json.logo.type == "small" then "_small" else ""
+    }"
+    file="${./logos}/''${logo}.txt"
 
-      suffix = if json.logo.type == "small" then "_small" else "";
-    in
-    ''
-      #!${lib.getExe pkgs.dash}
-       
-      logo="$(fastfetch -c none -s OS --format json | ${jq} -r .[0].result.id)${suffix}"
-      file="${./logos}/''${logo}.txt"
-
-      if [ -e "''${file}" ]; then
-          ${printf} '%s' "''${file}"
-      else
-          ${printf} '%s' "${pkgs.fastfetch.src}/src/logo/ascii/''${logo}.txt"
-      fi
-    ''
-  );
+    if [ -e "''${file}" ]; then
+        ${lib.getExe' pkgs.coreutils "printf"} '%s' "''${file}"
+    else
+        ${lib.getExe' pkgs.coreutils "printf"} '%s' "${pkgs.fastfetch.src}/src/logo/ascii/''${logo}.txt"
+    fi
+  '';
 in
 {
   options.dotfyls.shells.programs.fastfetch.enable = lib.mkEnableOption "Fastfetch" // {
