@@ -12,7 +12,6 @@
     "modules": [
         {
             "type": "title",
-            "format": "{6}",
             "key": "╭────"
         },
         {
