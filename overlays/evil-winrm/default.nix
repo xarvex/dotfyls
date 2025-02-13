@@ -1,4 +1,4 @@
-final: prev:
+_: final: prev:
 
 # Requires legacy OpenSSL compatibility, limit to just this package.
 # WARNING: untested

@@ -1,4 +1,4 @@
-_: prev:
+_: _: prev:
 
 # https://github.com/nix-community/nix-index/issues/210
 prev.nix-index-unwrapped.overrideAttrs (o: {

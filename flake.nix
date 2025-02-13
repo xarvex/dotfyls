@@ -49,6 +49,8 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nixpkgs-master.url = "github:NixOS/nixpkgs";
+
     persistwd = {
       url = "gitlab:xarvex/persistwd";
       inputs = {
@@ -118,7 +120,7 @@
           homeManagerModules
           ;
 
-        overlays = import ./overlays { inherit lib self; };
+        overlays = import ./overlays { inherit inputs lib self; };
 
         templates = import ./templates;
 

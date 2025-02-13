@@ -1,4 +1,4 @@
-final: prev:
+_: final: prev:
 
 prev.vesktop.overrideAttrs (
   o:
