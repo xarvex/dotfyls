@@ -9,7 +9,6 @@ let
     "bat-extras"
     "colloid-icon-theme"
     "evil-winrm"
-    "llvmPackages_14"
     "nix-index-unwrapped"
     "vesktop"
   ];
