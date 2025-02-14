@@ -40,6 +40,8 @@ in
     ./vala
     ./yaml
     ./zig
+
+    ./vale.nix
   ];
 
   options.dotfyls.development.languages = {
@@ -50,9 +52,6 @@ in
     codespell = lib.mkEnableOption "codespell" // {
       default = true;
     };
-    vale = lib.mkEnableOption "Vale" // {
-      default = true;
-    };
     servers = lib.mkOption {
       type = lib.types.attrsOf jsonFormat.type;
       default = { };
@@ -61,39 +60,13 @@ in
   };
 
   config = lib.mkIf cfg'.enable {
-    dotfyls.development = {
-      tools = lib.optional cfg.codespell pkgs.codespell ++ lib.optional cfg.vale pkgs.vale-ls;
-      languages.servers = lib.mkIf cfg.vale { vale_ls.init_options.installVale = false; };
-    };
+    dotfyls.development.tools = lib.optional cfg.codespell pkgs.codespell;
 
-    xdg.configFile = lib.mkMerge [
-      (lib.mapAttrs' (
-        server: configuration:
-        lib.nameValuePair "dotfyls/lsp/${server}.json" {
-          source = jsonFormat.generate "${server}-configuration" configuration;
-        }
-      ) cfg.servers)
-      {
-        "vale/styles" = {
-          recursive = true;
-          source = ./styles;
-        };
-        "vale/.vale.ini".text = ''
-          StylesPath = styles
-          Vocab = dotfyls
-          MinAlertLevel = suggestion
-
-          [formats]
-          rs = md
-
-          [*]
-          BasedOnStyles = Vale
-          Vale.Spelling = suggestion
-          Vale.Terms = suggestion
-          Vale.Avoid = suggestion
-          Vale.Repetition = suggestion
-        '';
+    xdg.configFile = lib.mapAttrs' (
+      server: configuration:
+      lib.nameValuePair "dotfyls/lsp/${server}.json" {
+        source = jsonFormat.generate "${server}-configuration" configuration;
       }
-    ];
+    ) cfg.servers;
   };
 }
