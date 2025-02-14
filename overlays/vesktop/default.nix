@@ -1,6 +1,6 @@
 _: final: prev:
 
-prev.vesktop.overrideAttrs (
+(prev.vesktop.overrideAttrs (
   o:
   let
     disableFirstLaunch = final.writeShellApplication {
@@ -22,4 +22,12 @@ prev.vesktop.overrideAttrs (
         wrapProgram $out/bin/vesktop --run "${final.lib.getExe disableFirstLaunch}"
       '';
   }
-)
+)).override
+  {
+    # INFO: Electron 34 breaks notifications and screensharing.
+    electron =
+      assert (
+        final.lib.assertMsg (final.lib.versionAtLeast "34.1.1" final.electron.version) "Electron updated, check if override on Vesktop is still needed"
+      );
+      final.electron_33;
+  }
