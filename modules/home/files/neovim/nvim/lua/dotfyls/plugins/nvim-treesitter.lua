@@ -35,6 +35,7 @@ return {
             "bash",
             "c",
             "comment",
+            "commonlisp",
             "cpp",
             "css",
             "csv",

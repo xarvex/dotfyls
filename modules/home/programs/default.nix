@@ -8,7 +8,6 @@ _:
     ./flatpak
     ./openrgb
     ./podman
-    ./solaar
     ./ventoy
     ./vesktop
     ./virt-manager

@@ -21,7 +21,7 @@ _:
       }
     ];
 
-    programs.solaar = {
+    input.solaar = {
       enable = true;
       deviceConfig = ./solaar/config.yaml;
     };

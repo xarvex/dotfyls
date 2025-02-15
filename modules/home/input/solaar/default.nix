@@ -1,10 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.dotfyls.programs.solaar;
+  cfg' = config.dotfyls.input;
+  cfg = cfg'.solaar;
 in
 {
-  options.dotfyls.programs.solaar = {
+  options.dotfyls.input.solaar = {
     enable = lib.mkEnableOption "Solaar";
     deviceConfig = lib.mkOption {
       type = with lib.types; nullOr path;
@@ -13,7 +14,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     xdg.configFile =
       {
         "solaar/rules.yaml".source = ./rules.yaml;

@@ -9,6 +9,7 @@ _:
     ./files
     ./games
     ./graphics
+    ./input
     ./management
     ./media
     ./networking

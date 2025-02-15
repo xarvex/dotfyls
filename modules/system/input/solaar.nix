@@ -6,15 +6,16 @@
 }:
 
 let
-  cfg = config.dotfyls.programs.solaar;
-  hmCfg = config.hm.dotfyls.programs.solaar;
+  cfg' = config.dotfyls.input;
+  cfg = cfg'.solaar;
+  hmCfg = config.hm.dotfyls.input.solaar;
 in
 {
-  options.dotfyls.programs.solaar.enable = lib.mkEnableOption "Solaar" // {
+  options.dotfyls.input.solaar.enable = lib.mkEnableOption "Solaar" // {
     default = hmCfg.enable;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     environment.systemPackages = with pkgs; [ solaar ];
 
     hardware.logitech.wireless.enable = true;
