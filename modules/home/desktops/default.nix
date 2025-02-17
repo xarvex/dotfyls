@@ -91,12 +91,8 @@ in
                 default = "0x0";
                 description = "Position of the display.";
               };
-              vertical = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-                example = true;
-                description = "Vertical state of the display.";
-              };
+              vrr = lib.mkEnableOption "VRR for the display";
+              vertical = lib.mkEnableOption "vertical transformation for the display";
             };
           }
         );

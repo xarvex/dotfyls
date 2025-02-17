@@ -76,7 +76,14 @@ in
                 display.position
                 (toString display.scale)
               ]
-              ++ lib.optionals display.vertical [ "transform, 1" ]
+              ++ lib.optionals display.vrr [
+                "vrr"
+                "1"
+              ]
+              ++ lib.optionals display.vertical [
+                "transform"
+                "1"
+              ]
             )
           ))
           ++ [ ", preferred, auto, auto" ];
