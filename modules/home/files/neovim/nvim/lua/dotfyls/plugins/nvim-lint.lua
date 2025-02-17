@@ -20,6 +20,12 @@ return {
             yaml = { "yamllint" },
             zsh = { "zsh" },
         }
+        table.insert(
+            require("lint").linters.codespell.args,
+            1,
+            "--config="
+                .. vim.fs.joinpath(vim.env.XDG_CONFIG_DIR or vim.fs.joinpath(assert(vim.env.HOME), ".config"), "codespell", ".codespellrc")
+        )
         table.insert(require("lint").linters.vala_lint.args, 1, "--config=vala-lint.conf")
 
         local function lint(bufnr)

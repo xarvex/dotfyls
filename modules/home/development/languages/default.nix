@@ -40,8 +40,6 @@ in
     ./vala
     ./yaml
     ./zig
-
-    ./vale.nix
   ];
 
   options.dotfyls.development.languages = {
@@ -49,9 +47,6 @@ in
       default = true;
     };
 
-    codespell = lib.mkEnableOption "codespell" // {
-      default = true;
-    };
     servers = lib.mkOption {
       type = lib.types.attrsOf jsonFormat.type;
       default = { };
@@ -60,8 +55,6 @@ in
   };
 
   config = lib.mkIf cfg'.enable {
-    dotfyls.development.tools = lib.optional cfg.codespell pkgs.codespell;
-
     xdg.configFile = lib.mapAttrs' (
       server: configuration:
       lib.nameValuePair "dotfyls/lsp/${server}.json" {

@@ -13,9 +13,11 @@ in
   imports = [
     inputs.wherenver.homeManagerModules.wherenver
 
+    ./codespell
     ./direnv
     ./git
     ./languages
+    ./vale
   ];
 
   options.dotfyls.development = {
