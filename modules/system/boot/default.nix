@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./console.nix
     ./kernel.nix
     ./plymouth.nix
   ];

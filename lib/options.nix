@@ -1,6 +1,12 @@
 { lib }:
 
 rec {
+  listOrSingleton =
+    type:
+    lib.types.coercedTo (lib.types.either (lib.types.listOf type) type) lib.toList (
+      lib.types.listOf type
+    );
+
   mkStaticPackageOption =
     pkg:
     lib.mkOption {

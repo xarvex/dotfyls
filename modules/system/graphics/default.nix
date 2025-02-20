@@ -26,6 +26,19 @@ in
     enable = lib.mkEnableOption "graphics" // {
       default = config.dotfyls.desktops.enable;
     };
+    drivers = lib.mkOption {
+      type = self.lib.listOrSingleton lib.types.str;
+      default = [ ];
+      description = "Drivers to be used for graphics.";
+    };
+    earlyKMSModules = lib.mkOption {
+      type = self.lib.listOrSingleton lib.types.str;
+      default = [ ];
+      description = ''
+        Kernel modules to be used for early KMS graphics.
+        For more information, see: https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start.
+      '';
+    };
     extraPackages = self.lib.mkExtraPackagesOption "graphics";
   };
 
@@ -43,10 +56,15 @@ in
       vulkan-validation-layers
     ];
 
+    services.xserver.videoDrivers = cfg.drivers;
+
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
       inherit (cfg) extraPackages;
     };
+
+    # INFO: https://wiki.archlinux.org/title/Kernel_mode_setting#Early_KMS_start
+    boot.initrd.kernelModules = cfg.earlyKMSModules;
   };
 }

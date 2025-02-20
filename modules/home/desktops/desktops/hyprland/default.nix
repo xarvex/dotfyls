@@ -71,7 +71,9 @@ in
             display:
             builtins.concatStringsSep ", " (
               [
-                display.name
+                (if (display.connector == null) then "desc:${display.make} ${display.model}" else display.connector)
+              ]
+              ++ [
                 "${toString display.width}x${toString display.height}@${toString display.refresh}"
                 display.position
                 (toString display.scale)
@@ -89,8 +91,11 @@ in
           ++ [ ", preferred, auto, auto" ];
 
         workspace = self.lib.genWorkspaceList' (
-          display: workspace: key:
-          "${toString workspace}, monitor:${display.name}, key:${key}"
+          display: workspace: _:
+          "${toString workspace}, monitor:${
+            if (display.connector == null) then "desc:${display.make} ${display.model}" else display.connector
+          }"
+          + lib.optionalString (workspace == (lib.head display.workspaces)) ", default:true"
         ) cfg'.displays;
 
         env = lib.mapAttrsToList (name: value: "${name}, ${toString value}") cfg'.wayland.sessionVariables;

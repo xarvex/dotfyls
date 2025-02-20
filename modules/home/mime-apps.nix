@@ -1,14 +1,17 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
 let
   cfg = config.dotfyls.mime-apps;
 
-  strListOrSingleton = with lib.types; coercedTo (either (listOf str) str) lib.toList (listOf str);
-
   mkMimeAppOption =
     category:
     lib.mkOption {
-      type = strListOrSingleton;
+      type = self.lib.listOrSingleton lib.types.str;
       default = [ ];
       description = "Application to use for ${category} mime-types.";
     };
@@ -79,12 +82,12 @@ in
     };
 
     extraSchemes = lib.mkOption {
-      type = lib.types.attrsOf strListOrSingleton;
+      type = lib.types.attrsOf (self.lib.listOrSingleton lib.types.str);
       default = { };
       description = "Extra scheme handler associations of applications.";
     };
     extraAssociations = lib.mkOption {
-      type = lib.types.attrsOf strListOrSingleton;
+      type = lib.types.attrsOf (self.lib.listOrSingleton lib.types.str);
       default = { };
       description = "Associations of applications.";
     };

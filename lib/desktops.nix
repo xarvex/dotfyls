@@ -6,18 +6,13 @@ rec {
     generator: displays:
     builtins.concatMap (
       display:
-      let
-        workspaces = 10 / (builtins.length displays);
-      in
-      builtins.genList (
-        n:
-        let
-          workspace = (n + 1) + (workspaces * display.index);
-        in
-        generator display.value workspace (toString (lib.mod workspace 10))
-      ) workspaces
-    ) (lib.imap0 (index: value: { inherit index value; }) displays);
+      map (workspace: generator display workspace (toString (lib.mod workspace 10))) display.workspaces
+    ) displays;
 
   # generator = workspace: key: ()
-  genWorkspaceList = generator: genWorkspaceList' (_: generator) [ null ];
+  genWorkspaceList =
+    generator:
+    genWorkspaceList' (_: generator) [
+      { workspaces = builtins.genList (workspace: workspace + 1) 10; }
+    ];
 }

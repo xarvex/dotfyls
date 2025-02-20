@@ -18,7 +18,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         clickfinger_behavior = true;
       };
 
-      touchdevice.output = lib.mkIf (builtins.any (display: display.name == "eDP-1") cfg'.displays) (
+      touchdevice.output = lib.mkIf (builtins.any (display: display.connector == "eDP-1") cfg'.displays) (
         lib.mkDefault "eDP-1"
       );
     };

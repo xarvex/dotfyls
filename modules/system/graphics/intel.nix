@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 
@@ -9,7 +10,13 @@ let
   cfg' = config.dotfyls.graphics;
   cfg = cfg'.graphics.intel;
 
-  driver = if cfg.experimentalDrivers then "xe" else "i915";
+  force-full-rgb = pkgs.writers.writeDash "dotfyls-intel-force-full-rgb" (
+    lib.concatStrings (
+      map (connector: ''
+        ${lib.getExe' pkgs.libdrm "proptest"} -M i915 -D /dev/dri/card1 ${toString connector} connector 317 1
+      '') cfg.forceFullRGB
+    )
+  );
 in
 {
   options.dotfyls.graphics.graphics.intel = {
@@ -17,22 +24,34 @@ in
     experimentalDrivers = lib.mkEnableOption "Intel Xe graphics" // {
       default = true;
     };
+    forceFullRGB = lib.mkOption {
+      type = self.lib.listOrSingleton lib.types.int;
+      default = [ ];
+      description = "Display connectors (integers from proptest) to force broadcasting full RGB.";
+    };
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.graphics.extraPackages = with pkgs; [
-      intel-media-driver
-      (intel-vaapi-driver.override { enableHybridCodec = true; })
+    dotfyls.graphics = {
+      drivers = lib.optional cfg.experimentalDrivers "xe" ++ [ "i915" ];
+      earlyKMSModules = "i915";
+      extraPackages = with pkgs; [
+        intel-media-driver
+        (intel-vaapi-driver.override { enableHybridCodec = true; })
 
-      libvpl
+        libvpl
 
-      vpl-gpu-rt
-    ];
+        vpl-gpu-rt
+      ];
+    };
 
     environment.sessionVariables.ANV_VIDEO_DECODE = 1;
 
-    services.xserver.videoDrivers = [ driver ];
-
-    boot.initrd.kernelModules = [ driver ];
+    services.udev.extraRules = lib.mkIf (cfg.forceFullRGB != [ ]) ''
+      ACTION=="add", \
+        SUBSYSTEM=="module", \
+        KERNEL=="i915", \
+        RUN+="${force-full-rgb}"
+    '';
   };
 }

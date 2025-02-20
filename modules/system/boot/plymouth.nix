@@ -17,7 +17,10 @@ in
     dotfyls.boot.silent = lib.mkDefault true;
 
     boot = {
-      kernelParams = [ "splash" ];
+      kernelParams = [
+        "splash"
+        "plymouth.use-simpledrm"
+      ];
 
       plymouth = {
         enable = true;

@@ -6,18 +6,33 @@ _:
 
     desktops.displays = [
       {
-        name = "HDMI-A-1";
-        width = 1920;
-        height = 1080;
-        refresh = 75;
-        position = "-1920x0";
-      }
-      {
-        name = "eDP-1";
+        connector = "eDP-1";
         width = 1920;
         height = 1200;
         refresh = 60;
         scale = 1.3333;
+        workspaces = [
+          7
+          8
+          9
+          10
+        ];
+      }
+      {
+        make = "Lenovo Group Limited";
+        model = "Q24i-1L";
+        width = 1920;
+        height = 1080;
+        refresh = 75;
+        position = "-1920x0";
+        workspaces = [
+          1
+          2
+          3
+          4
+          5
+          6
+        ];
       }
     ];
 

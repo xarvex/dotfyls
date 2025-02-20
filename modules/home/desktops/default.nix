@@ -60,10 +60,19 @@ in
         type = lib.types.listOf (
           lib.types.submodule {
             options = {
-              name = lib.mkOption {
-                type = lib.types.str;
+              connector = lib.mkOption {
+                type = with lib.types; nullOr str;
+                default = null;
                 example = "eDP-1";
-                description = "Name of the display.";
+                description = "Connector of the display.";
+              };
+              make = lib.mkOption {
+                type = with lib.types; nullOr str;
+                description = "Make of the display.";
+              };
+              model = lib.mkOption {
+                type = with lib.types; nullOr str;
+                description = "Model of the display.";
               };
               width = lib.mkOption {
                 type = lib.types.int;
@@ -86,13 +95,18 @@ in
                 default = "auto";
                 description = "Scale of the display.";
               };
+              vrr = lib.mkEnableOption "VRR for the display";
+              vertical = lib.mkEnableOption "vertical transformation for the display";
               position = lib.mkOption {
                 type = lib.types.str;
                 default = "0x0";
                 description = "Position of the display.";
               };
-              vrr = lib.mkEnableOption "VRR for the display";
-              vertical = lib.mkEnableOption "vertical transformation for the display";
+              workspaces = lib.mkOption {
+                type = with lib.types; listOf int;
+                default = [ ];
+                description = "Workspaces of the display.";
+              };
             };
           }
         );
