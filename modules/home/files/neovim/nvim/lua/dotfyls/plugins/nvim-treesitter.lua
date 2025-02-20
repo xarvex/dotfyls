@@ -33,6 +33,7 @@ return {
         ensure_installed = {
             "astro",
             "bash",
+            "blueprint",
             "c",
             "comment",
             "commonlisp",
