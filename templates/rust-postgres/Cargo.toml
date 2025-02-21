@@ -3,9 +3,10 @@ name = "project-slug"
 version = "0.0.1"
 authors = ["Xarvex"]
 edition = "2021"
-rust-version = "1.74.1"                  # cargo-msrv on 2024-09-14
+rust-version = "1.74.1" # cargo-msrv on 2024-09-14
+
 description = "Rust + Postgres"
-repository = "https://gitlab.com/xarvex"
+repository = "https://codeberg.org/xarvex/project-slug"
 
 [dependencies]
 
