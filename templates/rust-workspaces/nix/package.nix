@@ -3,7 +3,7 @@
 let
   manifest = (lib.importTOML ../Cargo.toml).package;
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = manifest.name;
   inherit (manifest) version;
 
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     homepage = manifest.repository;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ xarvex ];
-    mainProgram = pname;
+    mainProgram = manifest.name;
     platforms = lib.platforms.linux;
   };
 }
