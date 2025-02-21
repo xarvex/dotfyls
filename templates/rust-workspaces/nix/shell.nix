@@ -1,8 +1,4 @@
-{
-  pkgs,
-  self,
-  ...
-}:
+{ pkgs, self, ... }:
 
 let
   inherit (self.checks.${pkgs.system}) pre-commit;
