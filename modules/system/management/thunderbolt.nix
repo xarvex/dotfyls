@@ -5,8 +5,12 @@ let
 in
 {
   options.dotfyls.management.thunderbolt.enable = lib.mkEnableOption "Thunderbolt" // {
-    default = builtins.elem "thunderbolt" config.boot.initrd.availableKernelModules;
+    default = true;
   };
 
-  config = lib.mkIf cfg.enable { services.hardware.bolt.enable = true; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.file."/var/lib/boltd/devices".cache = true;
+
+    services.hardware.bolt.enable = true;
+  };
 }
