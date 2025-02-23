@@ -35,6 +35,7 @@ in
         paths = [
           nemo-with-extensions
           nemo-fileroller
+
           webp-pixbuf-loader
         ];
       })
