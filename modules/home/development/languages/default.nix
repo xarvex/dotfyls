@@ -18,6 +18,7 @@ let
 in
 {
   imports = [
+    ./blueprint
     ./c
     ./css
     ./go
