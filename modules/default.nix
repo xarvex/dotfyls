@@ -33,6 +33,7 @@ let
       config.allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
+          "corefonts"
           "discord"
           "nvidia-settings"
           "nvidia-x11"
@@ -43,6 +44,7 @@ let
           "steam-run"
           "steam-unwrapped"
           "vintagestory"
+          "vista-fonts"
           "zsh-abbr"
         ];
     };

@@ -46,6 +46,9 @@ in
           libreoffice
           hunspellDicts.en_US
           hunspellDicts.sv_SE
+
+          corefonts
+          vista-fonts
         ];
       })
     ];
