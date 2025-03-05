@@ -2,19 +2,11 @@
   description = "dotfyls";
 
   inputs = {
-    devenv.url = "github:cachix/devenv";
-
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
-    };
-
     dotpanel = {
       url = "git+https://codeberg.org/xarvex/dotpanel?submodules=1";
       inputs = {
-        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
-        nix2container.follows = "nix2container";
+        git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -30,6 +22,11 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,21 +39,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix2container = {
-      url = "github:nlewo/nix2container";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixpkgs-master.url = "github:NixOS/nixpkgs";
 
     persistwd = {
-      url = "gitlab:xarvex/persistwd";
+      url = "git+https://codeberg.org/xarvex/persistwd";
       inputs = {
-        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
-        nix2container.follows = "nix2container";
+        git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -65,22 +56,20 @@
     systems.url = "github:nix-systems/default";
 
     wherenver = {
-      url = "gitlab:xarvex/wherenver";
+      url = "git+https://codeberg.org/xarvex/wherenver";
       inputs = {
-        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
-        nix2container.follows = "nix2container";
+        git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
     };
 
     yubigen = {
-      url = "gitlab:xarvex/yubigen";
+      url = "git+https://codeberg.org/xarvex/yubigen";
       inputs = {
-        devenv.follows = "devenv";
         flake-parts.follows = "flake-parts";
-        nix2container.follows = "nix2container";
+        git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -98,16 +87,25 @@
       inherit (nixpkgs) lib;
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ inputs.devenv.flakeModule ];
-
       systems = import inputs.systems;
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, system, ... }:
         {
           packages = import ./packages { inherit pkgs; };
 
-          devenv.shells = import ./devenv { inherit inputs lib pkgs; };
+          devShells = import ./shells { inherit pkgs self; };
+
+          checks.pre-commit = inputs.git-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              deadnix.enable = true;
+              flake-checker.enable = true;
+              nixfmt-rfc-style.enable = true;
+              statix.enable = true;
+              stylua.enable = true;
+            };
+          };
 
           formatter = pkgs.nixfmt-rfc-style;
         };

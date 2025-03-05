@@ -182,7 +182,6 @@ pyrightconfig.json
 
 !lib/
 
-.devenv
 .pre-commit-config.yaml
 
 result

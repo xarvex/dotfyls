@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "name"
+name = "project-slug"
 version = "0.0.1"
 description = ""
 authors = [{ name = "Xarvex" }]
@@ -27,10 +27,13 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Repository = "https://gitlab.com/xarvex"
+Repository = "https://codeberg.org/xarvex/project-slug"
+
+[project.scripts]
+project-slug = "project_slug.main:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/project_slug"]
 
 [tool.ruff]
 target-version = "py38"

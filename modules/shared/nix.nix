@@ -2,6 +2,7 @@ system:
 {
   config,
   lib,
+  osConfig ? null,
   pkgs,
   self,
   ...
@@ -46,6 +47,8 @@ in
       };
     };
 
-    nixpkgs.overlays = [ self.overlays.default ];
+    nixpkgs = lib.mkIf (system || osConfig == null || !osConfig.home-manager.useGlobalPkgs) {
+      overlays = [ self.overlays.default ];
+    };
   };
 }

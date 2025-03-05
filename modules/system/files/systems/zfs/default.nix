@@ -50,6 +50,8 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
+        dotfyls.boot.kernel.filterBroken = [ config.boot.zfs.package.kernelModuleAttribute ];
+
         boot = {
           supportedFilesystems.zfs = true;
 

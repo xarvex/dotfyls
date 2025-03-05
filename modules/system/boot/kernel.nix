@@ -18,11 +18,18 @@ let
   kernelFilter = kernelFilters.${cfg.variant};
 in
 {
-  options.dotfyls.boot.kernel.variant = lib.mkOption {
-    type = lib.types.enum (builtins.attrNames kernelFilters);
-    default = "stable";
-    example = "hardened";
-    description = "Variant of kernel to use.";
+  options.dotfyls.boot.kernel = {
+    variant = lib.mkOption {
+      type = lib.types.enum (builtins.attrNames kernelFilters);
+      default = "stable";
+      example = "hardened";
+      description = "Variant of kernel to use.";
+    };
+    filterBroken = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
+      description = "List of kernel module names used to filter a kernel without any marked broken.";
+    };
   };
 
   config = {
@@ -32,6 +39,7 @@ in
         (builtins.filter (
           kPkgs: (builtins.tryEval kPkgs).success && kPkgs ? kernel && kernelFilter kPkgs.kernel
         ))
+        (builtins.filter (kPkgs: !(builtins.any (module: kPkgs.${module}.meta.broken) cfg.filterBroken)))
         (builtins.sort (a: b: lib.versionOlder a.kernel.version b.kernel.version))
         lib.last
       ]

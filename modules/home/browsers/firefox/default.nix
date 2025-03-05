@@ -11,8 +11,9 @@ let
 in
 {
   imports = [
+    ./extensions
+
     ./containers.nix
-    ./extensions.nix
     ./search.nix
   ];
 

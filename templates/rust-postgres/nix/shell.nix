@@ -4,16 +4,14 @@ let
   inherit (self.checks.${pkgs.system}) pre-commit;
 in
 pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    cargo
-    rustc
-  ];
-  buildInputs =
+  nativeBuildInputs =
     pre-commit.enabledPackages
     ++ (with pkgs; [
+      cargo
+      rustc
+
       clippy
       rust-analyzer
-      sqlx-cli
 
       cargo-deny
       cargo-edit
@@ -22,8 +20,10 @@ pkgs.mkShell {
       cargo-udeps
     ]);
 
-  RUST_BACKTRACE = 1;
-  RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
+  env = {
+    RUST_BACKTRACE = 1;
+    RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
+  };
 
   inherit (pre-commit) shellHook;
 }

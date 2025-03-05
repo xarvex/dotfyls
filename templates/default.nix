@@ -22,7 +22,7 @@ rec {
   };
 
   py = python;
-  python = python-poetry;
+  python = python-uv;
 
   py-poetry = python-poetry;
   python-poetry = {
