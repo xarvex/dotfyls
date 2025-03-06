@@ -31,7 +31,7 @@ let
   );
   virtualenv = editablePythonSet.mkVirtualEnv "project-slug-virtualenv" uv-workspace.deps.all;
 in
-pkgs.mkShell {
+pkgs.mkShellNoCC {
   nativeBuildInputs = pre-commit.enabledPackages ++ [ virtualenv ] ++ (with pkgs; [ uv ]);
 
   env = {

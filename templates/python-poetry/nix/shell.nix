@@ -8,7 +8,7 @@
 let
   inherit (self.checks.${pkgs.system}) pre-commit;
 in
-pkgs.mkShell {
+pkgs.mkShellNoCC {
   nativeBuildInputs = pre-commit.enabledPackages ++ [
     (poetry2nix.mkPoetryEnv { projectDir = ./.; })
   ];
