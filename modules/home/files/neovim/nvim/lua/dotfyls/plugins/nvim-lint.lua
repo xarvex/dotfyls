@@ -13,7 +13,7 @@ return {
             lua = { "selene" },
             md = { "markdownlint-cli2" },
             nix = { "nix", "deadnix", "statix" },
-            python = { "ruff", "bandit" },
+            python = { "ruff", "mypy", "bandit" },
             sh = { "shellcheck" },
             sql = { "sqlfluff" },
             vala = { "vala_lint" },
