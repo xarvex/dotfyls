@@ -16,9 +16,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.file.".local/share/fish" = {
-      mode = "0700";
-      persist = true;
+    dotfyls.file = {
+      ".local/share/fish" = {
+        mode = "0700";
+        persist = true;
+      };
+
+      ".cache/fish".mode = "0700";
+      ".cache/fish/generated_completions".cache = true;
     };
 
     programs.fish = {
