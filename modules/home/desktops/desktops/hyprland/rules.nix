@@ -15,10 +15,15 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "float, class:electron, title:Open Files"
       "size 50% 50%, class:electron, title:Open Files"
 
-      "float, class:firefox, title:Library|Picture-in-Picture"
-      "keepaspectratio, class:firefox, title:Picture-in-Picture"
-      "pin, class:firefox, title:Picture-in-Picture"
-      "size 50% 50%, class:firefox, title:Library"
+      "float, class:firefox, title:About Mozilla Firefox"
+      "float, class:firefox|librewolf, title:Library|Picture-in-Picture"
+      "keepaspectratio, class:firefox|librewolf, title:Picture-in-Picture"
+      "pin, class:firefox|librewolf, title:Picture-in-Picture"
+      "size 25% 25%, class:firefox, title:About Mozilla Firefox"
+      "size 50% 50%, class:firefox|librewolf, title:Library"
+
+      "float, class:librewolf, title:About LibreWolf"
+      "size 25% 25%, class:librewolf, title:About LibreWolf"
 
       "center, class:soffice, floating:1"
       "size 50% 50%, class:soffice, floating:1"
