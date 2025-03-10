@@ -35,7 +35,7 @@ in
 
     systemd = {
       services.openrgb.serviceConfig.ExecStart = lib.mkForce ''
-        ${self.lib.getCfgExe cfg} --server \
+        ${self.lib.getCfgExe config.services.hardware.openrgb} --server \
           --server-port ${toString config.services.hardware.openrgb.server.port} \
           --profile ${cfg.bootProfile}
       '';
