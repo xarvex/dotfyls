@@ -21,7 +21,12 @@ let
   multi-language = mkFont "Noto Sans" (
     with pkgs;
     (symlinkJoin {
-      inherit (noto-fonts) name meta;
+      inherit (noto-fonts)
+        pname
+        name
+        version
+        meta
+        ;
 
       paths = [
         noto-fonts
