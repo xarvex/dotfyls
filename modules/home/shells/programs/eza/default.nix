@@ -30,7 +30,7 @@ in
       };
     };
 
-    xdg.configFile."eza/theme.yml".source = pkgs.runCommand "dotfyls-eza-theme" {
+    xdg.configFile."eza/theme.yml".source = pkgs.runCommandNoCCLocal "dotfyls-eza-theme" {
       buildInputs = with pkgs; [ yj ];
       json = builtins.toJSON {
         filenames = builtins.mapAttrs (_: icon: {
