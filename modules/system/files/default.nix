@@ -8,5 +8,6 @@
 
     ./file-roller.nix
     ./gvfs.nix
+    ./localsend.nix
   ];
 }
