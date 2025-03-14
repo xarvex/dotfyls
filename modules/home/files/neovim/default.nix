@@ -56,7 +56,7 @@ in
 
     home.packages = [
       (lib.hiPrio (
-        pkgs.runCommandNoCCLocal "nvim.desktop" { } ''
+        pkgs.runCommandNoCCLocal "nvim-desktop" { } ''
           mkdir -p $out/share/applications
           cp ${config.programs.neovim.package}/share/applications/nvim.desktop $out/share/applications/nvim.desktop
         ''
