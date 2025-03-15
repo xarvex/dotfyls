@@ -21,10 +21,7 @@ in
     };
 
     xdg.configFile = {
-      "vale/styles" = {
-        recursive = true;
-        source = ./styles;
-      };
+      "vale/styles".source = ./styles;
       "vale/.vale.ini".source = ./.vale.ini;
     };
   };

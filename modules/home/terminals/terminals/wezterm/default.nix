@@ -16,13 +16,7 @@ in
     programs.wezterm.enable = true;
 
     xdg.configFile = {
-      wezterm = {
-        recursive = true;
-        source = lib.fileset.toSource {
-          root = ./wezterm;
-          fileset = lib.fileset.fileFilter (file: lib.hasSuffix ".lua" file.name) ./wezterm;
-        };
-      };
+      "wezterm/wezterm.lua".source = ./wezterm/wezterm.lua;
       "wezterm/nix.lua".text = ''
         return {
             ---@param config table

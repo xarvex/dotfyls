@@ -92,12 +92,10 @@ in
       vimAlias = true;
     };
 
-    xdg.configFile."nvim" = {
-      recursive = true;
-      source = lib.fileset.toSource {
-        root = ./nvim;
-        fileset = lib.fileset.fileFilter (file: lib.hasSuffix ".lua" file.name) ./nvim;
-      };
+    xdg.configFile = {
+      "nvim/after".source = ./nvim/after;
+      "nvim/lua".source = ./nvim/lua;
+      "nvim/init.lua".source = ./nvim/init.lua;
     };
   };
 }
