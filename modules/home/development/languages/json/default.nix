@@ -1,7 +1,3 @@
-# TODO: Complete checklist:
-# [x] LSP
-# [ ] Linter
-# [ ] Formatter
 {
   config,
   lib,
@@ -23,10 +19,16 @@ in
     dotfyls.development = {
       tools = with pkgs; [ vscode-langservers-extracted ];
 
-      # NOTE: Default, but must still specify as the value is flipped to false
-      # when a configuration is given.
-      # See: https://github.com/b0o/SchemaStore.nvim/issues/8
-      languages.servers.jsonls.settings.json.validate.enable = true;
+      languages.servers.jsonls = {
+        # NOTE: jsonls has a formatter.enable option that defaults to false,
+        # however it does nothing.
+        init_options.provideFormatter = lib.mkIf cfg'.javascript.enable false;
+
+        # NOTE: Default, but must still specify as the value is flipped to false
+        # when a configuration is given.
+        # See: https://github.com/b0o/SchemaStore.nvim/issues/8
+        settings.json.validate.enable = true;
+      };
     };
   };
 }

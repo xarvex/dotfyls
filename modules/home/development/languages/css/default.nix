@@ -1,7 +1,7 @@
 # TODO: Complete checklist:
 # [/] LSP
-# [ ] Linter
-# [ ] Formatter
+# [x] Linter
+# [x] Formatter
 # [ ] Debugger
 # [ ] Tester
 {
@@ -22,6 +22,9 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
-    dotfyls.development.tools = with pkgs; [ vscode-langservers-extracted ];
+    dotfyls.development = {
+      tools = with pkgs; [ vscode-langservers-extracted ];
+      languages.servers.cssls.init_options.provideFormatter = lib.mkIf cfg'.javascript.enable false;
+    };
   };
 }

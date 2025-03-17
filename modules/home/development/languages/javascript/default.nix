@@ -1,6 +1,6 @@
 # TODO: Complete checklist:
 # [/] LSP
-# [ ] Linter
+# [/] Linter
 # [/] Formatter
 # [ ] Debugger
 # [ ] Tester
@@ -15,6 +15,8 @@ let
   cfg'' = config.dotfyls.development;
   cfg' = cfg''.languages;
   cfg = cfg'.javascript;
+
+  jsonFormat = pkgs.formats.json { };
 in
 {
   options.dotfyls.development.languages.javascript.enable = lib.mkEnableOption "JavaScript" // {
@@ -23,10 +25,13 @@ in
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
     dotfyls = {
-      development.tools = with pkgs; [
-        prettierd
-        typescript-language-server
-      ];
+      development = {
+        tools = with pkgs; [
+          biome
+          typescript-language-server
+        ];
+        languages.servers.biome.single_file_support = true;
+      };
 
       file = {
         ".local/share/node".cache = true;
@@ -51,6 +56,21 @@ in
       NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     };
 
-    xdg.configFile."npm/npmrc".source = ./npmrc;
+    xdg.configFile = {
+      "npm/npmrc".source = ./npmrc;
+
+      "biome/biome.json".source = jsonFormat.generate "biome-json" {
+        formatter = {
+          indentStyle = "space";
+          indentWidth = 4;
+          lineWidth = 120;
+          useEditorconfig = true;
+        };
+        css = {
+          parser.cssModules = true;
+          linter.enabled = true;
+        };
+      };
+    };
   };
 }

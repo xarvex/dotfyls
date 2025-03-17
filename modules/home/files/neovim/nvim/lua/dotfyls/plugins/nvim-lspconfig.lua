@@ -10,6 +10,19 @@ return {
     event = { "BufNewFile", "BufReadPost" },
     config = function()
         local servers = {
+            biome = function()
+                local default_config = require("lspconfig.configs.biome").default_config
+                local cmd = default_config.cmd
+
+                if default_config.root_dir() == nil then
+                    cmd = vim.list_extend(
+                        { [#cmd + 1] = "--config-path=" .. vim.fs.joinpath(require("dotfyls.files").config_dir, "biome") },
+                        cmd
+                    )
+                end
+
+                return { cmd = cmd }
+            end,
             clangd = {
                 on_attach = function(_, bufnr)
                     keymap(
@@ -93,7 +106,9 @@ return {
             if opts ~= nil then
                 local override = servers[server]
                 if override ~= false then
-                    if override ~= nil then opts = vim.tbl_deep_extend("force", opts, override) end
+                    if override ~= nil then
+                        opts = vim.tbl_deep_extend("force", opts, type(override) == "function" and override() or override)
+                    end
                     if require("lazy.core.config").plugins["blink.cmp"] then
                         opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities, true)
                     end

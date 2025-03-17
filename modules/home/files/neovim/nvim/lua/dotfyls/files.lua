@@ -1,6 +1,10 @@
 local M = {}
 
-M.lsp_directory = vim.fs.joinpath(vim.env.XDG_CONFIG_DIR or vim.fs.joinpath(assert(vim.env.HOME), ".config"), "dotfyls", "lsp")
+M.config_dir = vim.fs.joinpath(vim.env.XDG_CONFIG_HOME or vim.fs.joinpath(assert(vim.env.HOME), ".config"))
+M.data_dir = vim.fs.joinpath(vim.env.XDG_DATA_HOME or vim.fs.joinpath(assert(vim.env.HOME), ".local/share"))
+M.state_dir = vim.fs.joinpath(vim.env.XDG_STATE_HOME or vim.fs.joinpath(assert(vim.env.HOME), ".local/state"))
+
+M.lsp_directory = vim.fs.joinpath(M.config_dir, "dotfyls", "lsp")
 
 ---@param filename string
 ---@param extension boolean?
