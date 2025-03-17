@@ -8,6 +8,7 @@ return {
     end,
     config = function()
         require("lint").linters_by_ft = {
+            bash = { "shellcheck" },
             fish = { "fish" },
             go = { "revive" },
             lua = { "selene" },

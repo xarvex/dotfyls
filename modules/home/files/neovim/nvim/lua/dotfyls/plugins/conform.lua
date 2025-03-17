@@ -14,6 +14,7 @@ return {
     },
     opts = {
         formatters_by_ft = {
+            bash = { "shfmt" },
             fish = { "fish_indent" },
             javascript = { "prettierd", "prettier" },
             lua = { "stylua" },
