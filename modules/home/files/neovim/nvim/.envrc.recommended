@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # If you wish to use this file, copy or symlink it to `.envrc` for direnv to read it.
 # This will use the flake development shell.
 
