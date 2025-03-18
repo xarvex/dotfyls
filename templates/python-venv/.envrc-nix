@@ -1,18 +1,19 @@
 # shellcheck shell=bash
 
-# If you wish to use this file, copy or symlink it to `.envrc` for direnv to read it.
-# This will use the flake development shell.
+# If you wish to use this file, symlink or copy it to `.envrc` for direnv to read it.
+# This will use the Nix flake development shell.
+#
+# ln -s contrib/.envrc-nix .envrc
 
-if ! has nix_direnv_version || ! nix_direnv_version 3.0.5; then
-    source_url "https://raw.githubusercontent.com/nix-community/nix-direnv/3.0.5/direnvrc" "sha256-RuwIS+QKFj/T9M2TFXScjBsLR6V3A17YVoEW/Q6AZ1w="
+if ! has nix_direnv_version || ! nix_direnv_version 3.0.6; then
+    source_url "https://raw.githubusercontent.com/nix-community/nix-direnv/3.0.6/direnvrc" "sha256-RYcUJaRMf8oF5LznDrlCXbkOQrywm0HDv1VjYGaJGdM="
 fi
 
-devenv_root_file="$(mktemp -t devenv-root-XXXXXXXX)"
-printf %s "${PWD}" >"${devenv_root_file}"
-if ! use flake . --override-input devenv-root "file+file://${devenv_root_file}"; then
-    printf '%s\n' "devenv could not be built. The devenv environment was not loaded. Make the necessary changes to devenv.nix and hit enter to try again." >&2
-fi
-rm "${devenv_root_file}"
-unset devenv_root_file
+watch_file nix/shell.nix pyproject.toml
+
+use flake
+
+# Only watch now, or direnv will execute again if created or modified by itself.
+watch_file "${UV_PROJECT_ENVIRONMENT:-.venv}"/bin/activate
 
 # vi: ft=bash
