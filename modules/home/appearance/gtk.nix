@@ -20,10 +20,7 @@ in
       ".cache/gstreamer-1.0".cache = true;
     };
 
-    home.sessionVariables = {
-      GTK_USE_PORTAL = 1;
-      GTK_DEBUG = "portals";
-    };
+    home.sessionVariables.GTK_USE_PORTAL = 1;
 
     gtk =
       let
