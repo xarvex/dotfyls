@@ -9,6 +9,7 @@
     ./nomacs
     ./plattenalbum
     ./spotify
+    ./tagstudio
     ./zathura
 
     ./mpris.nix

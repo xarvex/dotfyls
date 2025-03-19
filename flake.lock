@@ -348,6 +348,7 @@
         "nixpkgs-master": "nixpkgs-master",
         "persistwd": "persistwd",
         "systems": "systems",
+        "tagstudio": "tagstudio",
         "wherenver": "wherenver",
         "yubigen": "yubigen"
       }
@@ -364,6 +365,32 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tagstudio": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742261766,
+        "narHash": "sha256-+C6hZC2ns1VbAzZIv45TW0hBMojsCg1QQ9sSou4/rj4=",
+        "owner": "TagStudioDev",
+        "repo": "TagStudio",
+        "rev": "010a4524d67451e1c177b795a347fd728f102067",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TagStudioDev",
+        "repo": "TagStudio",
         "type": "github"
       }
     },

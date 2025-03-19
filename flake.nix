@@ -55,6 +55,15 @@
 
     systems.url = "github:nix-systems/default";
 
+    tagstudio = {
+      url = "github:TagStudioDev/TagStudio";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     wherenver = {
       url = "git+https://codeberg.org/xarvex/wherenver";
       inputs = {
