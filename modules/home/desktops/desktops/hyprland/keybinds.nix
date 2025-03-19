@@ -58,7 +58,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
         "$mod, Return, exec, xdg-terminal-exec"
 
-        "$mod_SHIFT, Return, exec, rofi -show drun"
+        "$mod_SHIFT, Return, exec, rofi -show drun -show-icons"
         "$mod_SHIFT, V, exec, rofi -modi clipboard:cliphist-rofi-img -show clipboard -show-icons"
 
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
