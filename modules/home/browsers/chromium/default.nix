@@ -28,5 +28,13 @@ in
       enable = true;
       package = pkgs.ungoogled-chromium;
     };
+
+    xdg.mimeApps.associations.removed = lib.genAttrs [
+      "application/pdf"
+      "image/gif"
+      "image/jpeg"
+      "image/png"
+      "image/webp"
+    ] (_: "chromium-browser.desktop");
   };
 }
