@@ -11,12 +11,6 @@ let
   cfg = cfg'.icons;
 in
 {
-  imports = [
-    ./fonts.nix
-    ./gtk.nix
-    ./qt.nix
-  ];
-
   options.dotfyls.appearance.icons = {
     enable = lib.mkEnableOption "icons" // {
       default = config.dotfyls.desktops.enable;
