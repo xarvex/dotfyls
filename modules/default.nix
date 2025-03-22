@@ -136,5 +136,5 @@ in
     }
   ) (lib.filterAttrs (_: host: host.enableHome) hosts);
 
-  inherit (import ./shared { inherit lib; }) nixosModules homeManagerModules;
+  inherit (import ./shared { inherit lib; }) nixosModules homeModules;
 }

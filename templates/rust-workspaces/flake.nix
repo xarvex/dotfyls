@@ -71,9 +71,9 @@
           project-slug = import ./nix/nixos.nix { inherit inputs self; };
         };
 
-        homeManagerModules = rec {
+        homeModules = rec {
           default = project-slug;
-          project-slug = import ./nix/home-manager.nix { inherit inputs self; };
+          project-slug = import ./nix/home.nix { inherit inputs self; };
         };
       };
     };

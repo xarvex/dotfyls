@@ -124,7 +124,7 @@
           nixosConfigurations
           homeConfigurations
           nixosModules
-          homeManagerModules
+          homeModules
           ;
 
         overlays = import ./overlays { inherit inputs lib self; };

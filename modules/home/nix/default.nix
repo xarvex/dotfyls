@@ -2,7 +2,7 @@
 
 {
   imports = [
-    self.homeManagerModules.nix
+    self.homeModules.nix
 
     ./helper.nix
     ./index.nix

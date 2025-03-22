@@ -2,7 +2,7 @@
 
 {
   imports = [
-    self.homeManagerModules.file
+    self.homeModules.file
 
     ./nemo
     ./neovim

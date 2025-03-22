@@ -10,7 +10,7 @@ let
   cfg = cfg'.fonts;
 in
 {
-  imports = [ self.homeManagerModules.appearance_fonts ];
+  imports = [ self.homeModules.appearance_fonts ];
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file.".cache/fontconfig".cache = true;

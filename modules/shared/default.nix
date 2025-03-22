@@ -11,5 +11,5 @@ in
 {
   nixosModules = builtins.mapAttrs (_: module: module true) modules;
 
-  homeManagerModules = builtins.mapAttrs (_: module: module false) modules;
+  homeModules = builtins.mapAttrs (_: module: module false) modules;
 }
