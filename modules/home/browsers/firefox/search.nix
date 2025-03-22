@@ -13,18 +13,18 @@ lib.mkIf (cfg'.enable && cfg.enable) {
   programs.firefox.profiles.${config.home.username}.search = {
     force = true;
 
-    default = "Startpage - English";
-    privateDefault = "Startpage - English";
+    default = "startpage";
+    privateDefault = "startpage";
 
     order = [
-      "Startpage - English"
-      "DuckDuckGo"
-      "Google"
-      "Wikipedia (en)"
-      "Nix Search - Packages"
-      "Nix Search - Options"
-      "Home Manager Option Search"
-      "Nerd Fonts"
+      "startpage"
+      "ddg"
+      "google"
+      "wikipedia"
+      "nix-packages"
+      "nix-options"
+      "home-manager"
+      "nerd-fonts"
     ];
 
     engines =
@@ -32,8 +32,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         snowflakeIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
       in
       {
-        "Startpage - English" = {
-          iconURL = "https://www.startpage.com/favicon.ico";
+        startpage = {
+          name = "Startpage - English";
+          icon = "https://www.startpage.com/favicon.ico";
           definedAliases = [
             "@startpage"
             "startpage"
@@ -83,12 +84,14 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           metaData.alias = "@s";
         };
 
-        "DuckDuckGo".metaData.alias = "@d";
-        "Google".metaData.alias = "@g";
-        "Wikipedia (en)".metaData.alias = "@w";
+        ddg.metaData.alias = "@d";
+        google.metaData.alias = "@g";
+        wikipedia.metaData.alias = "@w";
 
-        "Nix Search - Packages" = {
+        nix-packages = {
+          name = "Nix Search - Packages";
           icon = snowflakeIcon;
+          iconMapObj."16" = "https://search.nixos.org/favicon.png";
           definedAliases = [ "@nixpackages" ];
           urls = [
             {
@@ -108,8 +111,10 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
           metaData.alias = "@np";
         };
-        "Nix Search - Options" = {
+        nix-options = {
+          name = "Nix Search - Options";
           icon = snowflakeIcon;
+          iconMapObj."16" = "https://search.nixos.org/favicon.png";
           definedAliases = [ "@nixoptions" ];
           urls = [
             {
@@ -130,8 +135,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           metaData.alias = "@no";
         };
 
-        "Home Manager Option Search" = {
-          icon = snowflakeIcon;
+        home-manager = {
+          name = "Home Manager Option Search";
+          icon = "https://home-manager-options.extranix.com/images/favicon.png";
           definedAliases = [ "@homemanager" ];
           urls = [
             {
@@ -152,8 +158,9 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           metaData.alias = "@hm";
         };
 
-        "Nerd Fonts" = {
-          iconURL = "https://www.nerdfonts.com/assets/img/favicon.ico";
+        nerd-fonts = {
+          name = "Nerd Fonts";
+          icon = "https://www.nerdfonts.com/assets/img/favicon.ico";
           definedAliases = [ "@nerdfonts" ];
           urls = [
             {
@@ -170,7 +177,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           metaData.alias = "@nf";
         };
 
-        "Bing".metaData.hidden = true;
+        bing.metaData.hidden = true;
       };
   };
 }
