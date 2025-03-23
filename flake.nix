@@ -99,22 +99,11 @@
       systems = import inputs.systems;
 
       perSystem =
-        { pkgs, system, ... }:
+        { pkgs, ... }:
         {
           packages = import ./packages { inherit pkgs; };
 
-          devShells = import ./shells { inherit pkgs self; };
-
-          checks.pre-commit = inputs.git-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              deadnix.enable = true;
-              flake-checker.enable = true;
-              nixfmt-rfc-style.enable = true;
-              statix.enable = true;
-              stylua.enable = true;
-            };
-          };
+          devShells = import ./shells { inherit pkgs; };
 
           formatter = pkgs.nixfmt-rfc-style;
         };

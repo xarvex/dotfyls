@@ -26,5 +26,23 @@ in
         yaml = { };
       };
     };
+
+    xdg.configFile."yamllint/config.yaml".source =
+      pkgs.runCommandNoCCLocal "yamllint-config"
+        {
+          nativeBuildInputs = with pkgs; [ yj ];
+
+          json = builtins.toJSON {
+            extends = "default";
+            rules.line-length = {
+              max = 120;
+              level = "warning";
+            };
+          };
+          passAsFile = [ "json" ];
+        }
+        ''
+          yj -jy <$jsonPath >$out
+        '';
   };
 }

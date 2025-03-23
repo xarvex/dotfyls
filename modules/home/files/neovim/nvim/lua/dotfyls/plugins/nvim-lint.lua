@@ -19,7 +19,7 @@ return {
             sql = { "sqlfluff" },
             vala = { "vala_lint" },
             yaml = { "yamllint" },
-            zsh = { "zsh" },
+            zsh = { "zsh", "shellcheck" },
         }
         table.insert(
             require("lint").linters.codespell.args,
@@ -27,6 +27,11 @@ return {
             "--config=" .. vim.fs.joinpath(require("dotfyls.files").config_dir, "codespell", ".codespellrc")
         )
         table.insert(require("lint").linters.vala_lint.args, 1, "--config=vala-lint.conf")
+        table.insert(
+            require("lint").linters.yamllint.args,
+            1,
+            "--config-file=" .. vim.fs.joinpath(require("dotfyls.files").config_dir, "yamllint", "config.yaml")
+        )
 
         local function lint(bufnr)
             local linters = vim.list_extend({ "codespell", "editorconfig-checker" }, require("lint")._resolve_linter_by_ft(vim.bo.filetype))

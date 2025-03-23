@@ -1,0 +1,70 @@
+---
+repos:
+  - repo: local
+    hooks:
+      - id: deadnix
+        name: deadnix
+        entry: deadnix
+        language: system
+        types: [nix]
+        args: [--fail]
+
+      - id: flake-checker
+        name: flake-checker
+        entry: flake-checker
+        language: system
+        files: ^flake.(?:lock|nix)$
+        always_run: true
+        pass_filenames: false
+        args: [--no-telemetry, --fail-mode]
+
+      - id: nixfmt
+        name: nixfmt
+        entry: nixfmt
+        language: system
+        types: [nix]
+
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        language: system
+        types: [shell]
+        require_serial: true
+
+      - id: selene
+        name: selene
+        entry: selene
+        language: system
+        exclude: ^modules/home/(?:files/neovim/nvim|terminals/terminals/wezterm/wezterm)/
+        types: [lua]
+
+      - id: selene-modules-home-files-neovim-nvim
+        name: selene (modules/home/files/neovim/nvim)
+        entry: selene
+        language: system
+        files: ^modules/home/files/neovim/nvim/
+        types: [lua]
+        args: [--config, modules/home/files/neovim/nvim/selene.toml]
+
+      - id: selene-modules-home-terminals-terminals-wezterm-wezterm
+        name: selene (modules/home/terminals/terminals/wezterm/wezterm)
+        entry: selene
+        language: system
+        files: ^modules/home/terminals/terminals/wezterm/wezterm/
+        types: [lua]
+        args: [--config, modules/home/terminals/terminals/wezterm/wezterm/selene.toml]
+
+      - id: statix
+        name: statix
+        entry: statix
+        language: system
+        types: [nix]
+        pass_filenames: false
+        args: [check, --format, errfmt]
+
+      - id: stylua
+        name: stylua
+        entry: stylua
+        language: system
+        types: [lua]
+        args: [--respect-ignores]

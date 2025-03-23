@@ -58,8 +58,10 @@ else
     main_part="${disk}-part1"
 fi
 
+# shellcheck disable=SC3030
 encryption_options=()
 if confirm "${red}Use disk encryption?${reset}"; then
+    # shellcheck disable=SC3030
     encryption_options=(-O encryption=aes-256-gcm -O keyformat=passphrase -O keylocation=prompt)
 fi
 
@@ -85,6 +87,7 @@ printf '%s%s%s\n' "${blue}" 'Configuring boot...' "${reset}"
 sudo mkfs.fat -F 32 "${boot_part}" -n NIXBOOT
 
 printf '%s%s%s\n' "${blue}" 'Creating zpool...' "${reset}"
+# shellcheck disable=SC3054
 sudo zpool create -f \
     -o ashift=12 \
     -o autotrim=on \

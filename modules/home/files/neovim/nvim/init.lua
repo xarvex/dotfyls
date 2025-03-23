@@ -17,8 +17,7 @@ if vim.fn.executable("git") == 1 then
 
     require("lazy").setup("dotfyls.plugins", {
         dev = {
-            path = vim.env.DOTFYLS_PROJECTS_DIR
-                or vim.fs.joinpath(vim.env.XDG_DOCUMENTS_DIR or vim.fs.joinpath(assert(vim.env.HOME), "Documents"), "Projects"),
+            path = vim.fs.joinpath(vim.env.XDG_DOCUMENTS_DIR or vim.fs.joinpath(require("dotfyls.files").home, "Documents"), "Projects"),
         },
         change_detection = { notify = false },
         performance = {

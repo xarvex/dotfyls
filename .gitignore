@@ -8,7 +8,5 @@
 
 # End of https://www.toptal.com/developers/gitignore/api/direnv
 
-.pre-commit-config.yaml
-
 result
 result-*

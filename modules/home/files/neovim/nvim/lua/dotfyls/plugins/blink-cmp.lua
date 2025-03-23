@@ -50,12 +50,12 @@ return {
             end
 
             ---@module "blink.cmp"
-            ---@param ctx blink.cmp.Context
+            ---@param _ctx blink.cmp.Context
             ---@param items blink.cmp.CompletionItem[]
             ---@param label string
             ---@return blink.cmp.CompletionItem[]
             ---@diagnostic disable-next-line: unused-local
-            local function transform_items_label(ctx, items, label)
+            local function transform_items_label(_ctx, items, label)
                 for _, item in ipairs(items) do
                     if label ~= nil then item.labelDetails = { description = "(" .. label .. ")" } end
                 end

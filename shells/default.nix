@@ -1,9 +1,9 @@
-{ pkgs, self }:
+{ pkgs }:
 
 rec {
   default = dotfyls;
 
-  dotfyls = import ./dotfyls.nix { inherit pkgs self; };
+  dotfyls = import ./dotfyls.nix { inherit pkgs; };
 
   dotfyls-modules-home-files-neovim-nvim = import ./dotfyls-modules-home-files-neovim-nvim.nix {
     inherit dotfyls pkgs;

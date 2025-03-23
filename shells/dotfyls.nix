@@ -1,16 +1,22 @@
-{ pkgs, self }:
+{ pkgs }:
 
-let
-  inherit (self.checks.${pkgs.system}) pre-commit;
-in
 pkgs.mkShellNoCC {
-  nativeBuildInputs =
-    pre-commit.enabledPackages
-    ++ (with pkgs; [
-      nix
+  nativeBuildInputs = with pkgs; [
+    nix
 
-      shellcheck
-    ]);
+    deadnix
+    flake-checker
+    nixfmt-rfc-style
+    pre-commit
+    selene
+    shellcheck
+    statix
+    stylua
+  ];
 
-  inherit (pre-commit) shellHook;
+  env.FLAKE_CHECKER_NO_TELEMETRY = "true";
+
+  shellHook = ''
+    pre-commit install
+  '';
 }

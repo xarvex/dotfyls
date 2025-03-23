@@ -1,3 +1,5 @@
+# shellcheck shell=sh disable=SC1087,SC2016,SC2028,SC2034,SC2086,SC2113,SC2152,SC2154,SC3003,SC3006,SC3010,SC3033,SC3043,SC3054
+
 zmodload zsh/parameter
 setopt extendedglob
 
