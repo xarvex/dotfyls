@@ -30,18 +30,23 @@ in
       };
     };
 
-    xdg.configFile."eza/theme.yml".source = pkgs.runCommandNoCCLocal "eza-theme" {
-      nativeBuildInputs = with pkgs; [ yj ];
+    xdg.configFile."eza/theme.yml".source =
+      pkgs.runCommandNoCCLocal "eza-theme"
+        {
+          nativeBuildInputs = with pkgs; [ yj ];
 
-      json = builtins.toJSON {
-        filenames = builtins.mapAttrs (_: icon: {
-          icon.glyph = lib.trimWith { end = true; } icon;
-        }) iCfg.byName;
-        extensions = builtins.mapAttrs (_: icon: {
-          icon.glyph = lib.trimWith { end = true; } icon;
-        }) iCfg.byExtension;
-      };
-      passAsFile = [ "json" ];
-    } "yj -jy <$jsonPath >$out";
+          json = builtins.toJSON {
+            filenames = builtins.mapAttrs (_: icon: {
+              icon.glyph = lib.trimWith { end = true; } icon;
+            }) iCfg.byName;
+            extensions = builtins.mapAttrs (_: icon: {
+              icon.glyph = lib.trimWith { end = true; } icon;
+            }) iCfg.byExtension;
+          };
+          passAsFile = [ "json" ];
+        }
+        ''
+          yj -jy <$jsonPath >$out
+        '';
   };
 }
