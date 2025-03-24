@@ -17,6 +17,7 @@ in
 
     ./dunst.nix
     ./rofi.nix
+    ./soteria.nix
     ./wl-clipboard.nix
 
     (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {

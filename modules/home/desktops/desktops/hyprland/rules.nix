@@ -35,6 +35,10 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "float, class:xdg-desktop-portal-.+"
       "size 50% 50%, class:xdg-desktop-portal-.+"
 
+      "dimaround, class:soteria|gay\.vaskel\.Soteria, floating:1"
+      "stayfocused, class:soteria|gay\.vaskel\.Soteria, floating:1"
+      "pin, class:soteria|gay\.vaskel\.Soteria, floating:1"
+
       "maxsize 1 1, class:xwaylandvideobridge"
       "noanim, class:xwaylandvideobridge"
       "noblur, class:xwaylandvideobridge"

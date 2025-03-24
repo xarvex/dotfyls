@@ -33,6 +33,7 @@ in
         dotpanel.enable = lib.mkDefault true;
         dunst.enable = lib.mkDefault true;
         rofi.enable = lib.mkDefault true;
+        soteria.enable = lib.mkDefault true;
         swww.enable = lib.mkDefault true;
         wl-clipboard.enable = true;
       };
