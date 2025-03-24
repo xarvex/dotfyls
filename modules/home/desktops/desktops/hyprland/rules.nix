@@ -29,7 +29,8 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "size 50% 50%, class:soffice, floating:1"
 
       "dimaround, class:org\.gnupg\.pinentry-.+, floating:1"
-      "stayfocused, class:org\.gnupg\.pinentry-.+"
+      "stayfocused, class:org\.gnupg\.pinentry-.+, floating:1"
+      "pin, class:org\.gnupg\.pinentry-.+, floating:1"
 
       "float, class:xdg-desktop-portal-.+"
       "size 50% 50%, class:xdg-desktop-portal-.+"
