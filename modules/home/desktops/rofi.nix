@@ -8,12 +8,13 @@
 }:
 
 let
-  cfg = config.dotfyls.desktops.rofi;
+  cfg' = config.dotfyls.desktops;
+  cfg = cfg'.rofi;
 in
 {
   options.dotfyls.desktops.rofi.enable = lib.mkEnableOption "Rofi";
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
