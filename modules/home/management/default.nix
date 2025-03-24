@@ -2,8 +2,8 @@ _:
 
 {
   imports = [
-    ./btop
-    ./nvtop
+    ./disk
+    ./usage
 
     ./locale.nix
   ];

@@ -2,6 +2,7 @@ _:
 
 {
   imports = [
+    ./disk
     ./power
 
     ./geolocation.nix

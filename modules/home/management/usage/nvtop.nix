@@ -7,13 +7,13 @@
 }:
 
 let
-  cfg' = config.dotfyls.management;
+  cfg' = config.dotfyls.management.usage;
   cfg = cfg'.nvtop;
 
   getModule = pkg: (builtins.head (lib.splitString ":" pkg.meta.position));
 in
 {
-  options.dotfyls.management.nvtop = {
+  options.dotfyls.management.usage.nvtop = {
     enable = lib.mkEnableOption "NVTOP" // {
       default = config.dotfyls.graphics.enable;
     };
@@ -38,7 +38,7 @@ in
       };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
     home.packages = [ (pkgs.callPackage (getModule pkgs.nvtopPackages.full) cfg.families) ];
   };
 }
