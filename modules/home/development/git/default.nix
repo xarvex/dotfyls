@@ -26,6 +26,8 @@ in
     dotfyls.file.".cache/pre-commit".cache = true;
 
     home.shellAliases = {
+      g = "git";
+
       ga = "git add";
       gap = "git add -p";
       gaa = "git add -A";
@@ -41,6 +43,9 @@ in
       gco = "git checkout";
       gcob = "git checkout -b";
 
+      gsw = "git switch";
+      gswc = "git switch -c";
+
       gd = "git diff";
       gds = "git diff --staged";
 
@@ -52,10 +57,11 @@ in
       gp = "git push";
       gpf = "git push --force-with-lease";
 
-      grbc = "git rebase --continue";
-      grbi = "git rebase -i";
+      gr = "git rebase";
+      grc = "git rebase --continue";
+      gri = "git rebase -i";
 
-      gs = "git status -sb";
+      gs = "git status";
     };
 
     programs.git = {
@@ -83,6 +89,14 @@ in
         };
         format.pretty = "format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset";
         init.defaultBranch = "main";
+        push.autoSetupRemote = true;
+        stash.showIncludeUntracked = true;
+        status = {
+          short = true;
+          branch = true;
+          showStash = true;
+          showUntrackedFiles = "all";
+        };
       };
     };
   };
