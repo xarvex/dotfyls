@@ -23,7 +23,6 @@ in
 
     xdg.configFile = {
       "vesktop/settings.json".source = ./settings.json;
-      "vesktop/settings/quickCss.css".source = ./settings/quickCss.css;
       "vesktop/settings/settings.json".source = ./settings/settings.json;
     };
   };
