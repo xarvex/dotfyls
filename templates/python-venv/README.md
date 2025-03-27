@@ -1,3 +1,3 @@
-# name
+# project-name
 
 Description.
