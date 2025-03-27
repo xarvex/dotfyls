@@ -13,7 +13,7 @@ repos:
         name: flake-checker
         entry: flake-checker
         language: system
-        files: ^flake.(?:lock|nix)$
+        files: ^flake\.(?:lock|nix)$
         always_run: true
         pass_filenames: false
         args: [--no-telemetry, --fail-mode]
