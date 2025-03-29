@@ -50,11 +50,10 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         )
       )
       ++ [
-
         "$mod, W, exec, firefox"
         "$mod, E, exec, nemo"
         "$mod, O, exec, obsidian"
-        "$mod, D, exec, if command -v vesktop >/dev/null; then vesktop; else Discord; fi"
+        "$mod, D, exec, if command -v vesktop; then vesktop; else Discord; fi"
 
         "$mod, Return, exec, xdg-terminal-exec"
 
@@ -66,6 +65,14 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPrev, exec, playerctl previous"
+
+        # INFO: Electron Wayland does not capture shortcut unless focused.
+        # See: https://github.com/hyprwm/Hyprland/issues/6576
+        # Otherwise, this would be used:
+        # `"$mod_CTRL_SHIFT, M, sendshortcut, CTRL_SHIFT, M, class:vesktop"`
+        # TODO: Implement a proper workaround.
+        # This exec does not change focus if window is on a different monitor than the current.
+        "$mod_CTRL_SHIFT, M, exec, hyprctl dispatch focuswindow class:vesktop && hyprctl dispatch sendshortcut CONTROL SHIFT, M, class:vesktop && hyprctl dispatch focuscurrentorlast"
       ];
 
     binde = [
