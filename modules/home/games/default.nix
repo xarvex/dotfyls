@@ -5,6 +5,8 @@
     ./prismlauncher
     ./steam
     ./vintagestory
+
+    ./r2modman.nix
   ];
 
   options.dotfyls.games.enable = lib.mkEnableOption "games" // {
