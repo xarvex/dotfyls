@@ -7,11 +7,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     systems.url = "github:nix-systems/default-linux";
@@ -31,7 +26,7 @@
       systems = import inputs.systems;
 
       perSystem =
-        { pkgs, system, ... }:
+        { pkgs, ... }:
         {
           packages = rec {
             default = project-slug;
@@ -47,18 +42,6 @@
                 pkgs
                 self
                 ;
-            };
-          };
-
-          checks.pre-commit = inputs.git-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              clippy.enable = true;
-              deadnix.enable = true;
-              flake-checker.enable = true;
-              nixfmt-rfc-style.enable = true;
-              rustfmt.enable = true;
-              statix.enable = true;
             };
           };
 

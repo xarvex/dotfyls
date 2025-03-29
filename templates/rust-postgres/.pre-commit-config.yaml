@@ -1,0 +1,66 @@
+---
+repos:
+  - repo: local
+    hooks:
+      - id: cargo-deny
+        name: cargo-deny
+        entry: cargo-deny
+        language: system
+        files: ^Cargo\.(?:lock|toml)$
+        types: [toml]
+        pass_filenames: false
+        args: [--color, always, --all-features, --locked, check]
+
+      - id: cargo-sort
+        name: cargo-sort
+        entry: cargo-sort
+        language: rust
+        files: ^Cargo\.toml$
+        types: [toml]
+        pass_filenames: false
+        args: [--check]
+
+      - id: clippy
+        name: clippy
+        entry: cargo-clippy
+        language: system
+        types: [rust]
+        pass_filenames: false
+        args: [--all-targets, --all-features, --frozen, --, --deny, clippy::all]
+
+      - id: deadnix
+        name: deadnix
+        entry: deadnix
+        language: system
+        types: [nix]
+        args: [--fail]
+
+      - id: flake-checker
+        name: flake-checker
+        entry: flake-checker
+        language: system
+        files: ^flake\.(?:lock|nix)$
+        pass_filenames: false
+        args: [--no-telemetry, --fail-mode]
+
+      - id: nixfmt
+        name: nixfmt
+        entry: nixfmt
+        language: system
+        types: [nix]
+
+      - id: rustfmt
+        name: rustfmt
+        entry: cargo-fmt
+        language: system
+        types: [rust]
+        pass_filenames: false
+        args: [fmt, --all, --, --check, --color, always]
+
+      - id: statix
+        name: statix
+        entry: statix
+        language: system
+        types: [nix]
+        pass_filenames: false
+        args: [check, --format, errfmt]
