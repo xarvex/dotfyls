@@ -41,11 +41,18 @@ lib.mkIf (cfg'.enable && cfg.enable) {
         "SWE-1"
       ];
 
-      user-filters = builtins.concatStringsSep "\n" [
-        "||accounts.google.com/gsi/iframe/select$subdocument"
+      user-filters = ''
+        ||accounts.google.com/gsi/iframe/select$subdocument
 
-        "quizlet.com##.LoginBottomBar"
-        "quizlet.com##+js(set-local-storage-item, setPageVisitsCount, $remove$)"
-      ];
+        quizlet.com##.LoginBottomBar
+        quizlet.com##.paywalled-section .hideBelow--s
+        quizlet.com##.paywalled-section .hideAbove--s
+        quizlet.com##.ExplanationSolutionsContainer:style(max-height: unset !important;)
+        quizlet.com##.ExplanationsSolutionCard div:style(filter: unset !important; -webkit-user-select: unset !important; user-select: unset !important;)
+        quizlet.com##[data-testid="PayWallOverlay"]
+        quizlet.com##+js(set-local-storage-item, setPageVisitsCount, $remove$)
+
+        *##*:matches-css(filter: /blur/):style(filter: none !important;)
+      '';
     };
 }
