@@ -16,5 +16,10 @@ in
       if (osConfig == null) then config.dotfyls.desktops.enable else osConfig.dotfyls.graphics.enable;
   };
 
-  config = lib.mkIf cfg.enable { dotfyls.file.".cache/mesa_shader_cache_db".cache = true; };
+  config = lib.mkIf cfg.enable {
+    dotfyls.file = {
+      ".local/share/vulkan/implicit_layer.d".cache = true;
+      ".cache/mesa_shader_cache_db".cache = true;
+    };
+  };
 }
