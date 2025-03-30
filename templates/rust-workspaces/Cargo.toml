@@ -19,3 +19,4 @@ memberX = { path = "memberX" }
 opt-level = 3
 strip = true
 lto = true
+panic = "abort"

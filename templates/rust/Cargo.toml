@@ -16,3 +16,4 @@ repository = "https://codeberg.org/xarvex/project-slug"
 opt-level = 3
 strip = true
 lto = true
+panic = "abort"
