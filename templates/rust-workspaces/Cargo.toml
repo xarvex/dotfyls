@@ -5,8 +5,9 @@ members = ["member1", "member2", "member3"]
 [workspace.package]
 version = "0.0.1"
 authors = ["Xarvex"]
+license-file = "LICENSE"
 edition = "2021"
-rust-version = "1.76.0" # cargo-msrv on 2024-09-14
+rust-version = "1.76.0"  # cargo-msrv on 2024-09-14
 
 description = "Rust with Cargo workspaces"
 repository = "https://codeberg.org/xarvex/project-slug"
