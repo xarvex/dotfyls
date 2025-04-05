@@ -22,6 +22,9 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
-    dotfyls.development.tools = with pkgs; [ slint-lsp ];
+    dotfyls.development = {
+      tools = with pkgs; [ slint-lsp ];
+      languages.servers.slint_lsp = { };
+    };
   };
 }
