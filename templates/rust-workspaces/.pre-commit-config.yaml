@@ -26,7 +26,7 @@ repos:
         language: system
         types: [rust]
         pass_filenames: false
-        args: [--all-targets, --all-features, --frozen, --, --deny, clippy::all]
+        args: [--all-targets, --all-features, --locked, --, --deny, clippy::all]
 
       - id: deadnix
         name: deadnix
