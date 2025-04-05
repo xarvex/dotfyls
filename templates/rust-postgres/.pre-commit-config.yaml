@@ -6,7 +6,7 @@ repos:
         name: cargo-deny
         entry: cargo-deny
         language: system
-        files: ^Cargo\.(?:lock|toml)$
+        files: ^(?:.+/)?Cargo\.(?:lock|toml)$
         types: [toml]
         pass_filenames: false
         args: [--color, always, --all-features, --locked, check]
@@ -15,7 +15,7 @@ repos:
         name: cargo-sort
         entry: cargo-sort
         language: rust
-        files: ^Cargo\.toml$
+        files: ^(?:.+/)?Cargo\.toml$
         types: [toml]
         pass_filenames: false
         args: [--check]
