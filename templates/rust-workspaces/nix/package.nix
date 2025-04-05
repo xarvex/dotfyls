@@ -1,10 +1,10 @@
 { lib, rustPlatform }:
 
 let
-  manifest = (lib.importTOML ../Cargo.toml).package;
+  manifest = (lib.importTOML ../Cargo.toml).workspace.package;
 in
 rustPlatform.buildRustPackage {
-  pname = manifest.name;
+  pname = "project-slug";
   inherit (manifest) version;
 
   src = ../.;
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage {
     homepage = manifest.repository;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ xarvex ];
-    mainProgram = manifest.name;
+    mainProgram = "project-slug";
     platforms = lib.platforms.linux;
   };
 }
