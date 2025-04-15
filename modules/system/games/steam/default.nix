@@ -23,17 +23,7 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) (
     lib.mkMerge [
       {
-        programs.steam = {
-          enable = true;
-          extraCompatPackages = with pkgs; [ proton-ge-bin ];
-
-          remotePlay.openFirewall = true;
-          dedicatedServer.openFirewall = true;
-        };
-      }
-
-      (lib.mkIf cfg.gamescope.enable {
-        programs = {
+        programs = lib.mkIf cfg.gamescope.enable {
           gamescope = {
             enable = true;
             capSysNice = true;
@@ -42,10 +32,15 @@ in
               "--expose-wayland"
             ];
           };
+          steam = {
+            enable = true;
+            extraCompatPackages = with pkgs; [ proton-ge-bin ];
 
-          steam.gamescopeSession.enable = true;
+            remotePlay.openFirewall = true;
+            dedicatedServer.openFirewall = true;
+          };
         };
-      })
+      }
     ]
   );
 }
