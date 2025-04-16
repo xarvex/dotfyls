@@ -27,6 +27,7 @@ in
           vscode-extensions.vadimcn.vscode-lldb.adapter
         ];
         languages.servers.rust_analyzer.settings.rust-analyzer = {
+          cargo.features = "all";
           hover = {
             gotoTypeDef.enable = false;
             implementations.enable = false;
@@ -54,7 +55,7 @@ in
       packages = [ pkgs.mold-wrapped ];
       sessionVariables = rec {
         RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
-        RUSTFLAGS = "-C link-arg=-fuse-ld=mold";
+        RUSTFLAGS = "-C link-arg=-fuse-ld=mold -C target-cpu=native";
         RUSTDOCFLAGS = RUSTFLAGS;
 
         CARGO_HOME = "${config.xdg.dataHome}/cargo";
