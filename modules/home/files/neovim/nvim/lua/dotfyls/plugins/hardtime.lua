@@ -4,9 +4,11 @@
 return {
     {
         "m4xshen/hardtime.nvim",
-        event = "VeryLazy",
+        cmd = "Hardtime",
+        event = { "BufNewFile", "BufReadPost" },
         opts = {
             max_count = 5,
+            disable_mouse = false,
             disabled_keys = {
                 ["<Up>"] = { "i", "v", "x" },
                 ["<Down>"] = { "i", "v", "x" },
@@ -16,5 +18,4 @@ return {
         },
     },
     { "MunifTanjim/nui.nvim", lazy = true },
-    { "nvim-lua/plenary.nvim", lazy = true },
 }

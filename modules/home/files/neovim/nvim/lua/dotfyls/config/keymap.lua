@@ -30,32 +30,61 @@ keymap("n", "<leader>d", function() vim.diagnostic.open_float({ border = "rounde
 keymap(
     "n",
     "[d",
-    function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end,
+    function() vim.diagnostic.jump({ count = -(vim.v.count > 0 and vim.v.count or 1), float = { border = "rounded" } }) end,
     { silent = true, desc = "Previous diagnostic" }
 )
-keymap("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, { silent = true, desc = "Next diagnostic" })
+keymap(
+    "n",
+    "]d",
+    function() vim.diagnostic.jump({ count = vim.v.count > 0 and vim.v.count or 1, float = { border = "rounded" } }) end,
+    { silent = true, desc = "Next diagnostic" }
+)
 keymap(
     "n",
     "[w",
-    function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end,
+    function()
+        vim.diagnostic.jump({
+            count = -(vim.v.count > 0 and vim.v.count or 1),
+            severity = vim.diagnostic.severity.WARN,
+            float = { border = "rounded" },
+        })
+    end,
     { silent = true, desc = "Previous diagnostic warning" }
 )
 keymap(
     "n",
     "]w",
-    function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } }) end,
+    function()
+        vim.diagnostic.jump({
+            count = vim.v.count > 0 and vim.v.count or 1,
+            severity = vim.diagnostic.severity.WARN,
+            float = { border = "rounded" },
+        })
+    end,
     { silent = true, desc = "Next diagnostic warning" }
 )
 keymap(
     "n",
     "[e",
-    function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } }) end,
+    function()
+        vim.diagnostic.jump({
+            count = -(vim.v.count > 0 and vim.v.count or 1),
+            severity = vim.diagnostic.severity.ERROR,
+            float = { border = "rounded" },
+        })
+    end,
     { silent = true, desc = "Previous diagnostic error" }
 )
 keymap(
     "n",
     "]e",
-    function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } }) end,
+    function()
+        vim.diagnostic.jump({
+            count = vim.v.count > 0 and vim.v.count or 1,
+            severity = vim.diagnostic.severity.ERROR,
+            float = { border = "rounded" },
+        })
+    end,
     { silent = true, desc = "Next diagnostic error" }
 )
 
@@ -95,7 +124,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             keymap(
                 "n",
                 "<leader>i",
-                function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }), { bufnr = args.buf }) end,
+                function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf })) end,
                 { silent = true, buffer = args.buf, desc = "LSP toggle inlay hint" }
             )
         end

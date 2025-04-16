@@ -35,23 +35,29 @@ return {
             },
             gopls = {
                 on_attach = function(_, bufnr)
-                    -- NOTE: neotest-go has no DAP strategy.
-                    -- See: https://github.com/nvim-neotest/neotest-go/issues/12
-                    keymap(
-                        "n",
-                        "<leader>td",
-                        function() require("dap-go").debug_test() end,
-                        { silent = true, buffer = bufnr, desc = "Debug nearest test (nvim-dap-go)" }
-                    )
+                    if require("lazy.core.config").plugins["nvim-dap-go"] then
+                        -- NOTE: neotest-go has no DAP strategy.
+                        -- See: https://github.com/nvim-neotest/neotest-go/issues/12
+                        keymap(
+                            "n",
+                            "<leader>td",
+                            function() require("dap-go").debug_test() end,
+                            { silent = true, buffer = bufnr, desc = "Debug nearest test (nvim-dap-go)" }
+                        )
+                    end
                 end,
             },
-            jsonls = {
-                settings = {
-                    json = {
-                        schemas = require("schemastore").json.schemas(),
-                    },
-                },
-            },
+            jsonls = function()
+                return require("lazy.core.config").plugins["schemastore.nvim"]
+                        and {
+                            settings = {
+                                json = {
+                                    schemas = require("schemastore").json.schemas(),
+                                },
+                            },
+                        }
+                    or {}
+            end,
             rust_analyzer = false,
             vale_ls = {
                 filetypes = {
@@ -90,15 +96,38 @@ return {
                     "xml",
                 },
             },
-            yamlls = {
-                settings = {
-                    yaml = {
-                        schemaStore = { enable = false, url = "" },
-                        schemas = require("schemastore").yaml.schemas(),
+            yamlls = function()
+                return require("lazy.core.config").plugins["schemastore.nvim"]
+                        and {
+                            settings = {
+                                yaml = {
+                                    schemaStore = { enable = false, url = "" },
+                                    schemas = require("schemastore").yaml.schemas(),
+                                },
+                            },
+                        }
+                    or {}
+            end,
+        }
+
+        local default_opts = {}
+
+        if require("lazy.core.config").plugins["blink.cmp"] then default_opts.capabilities = require("blink.cmp").get_lsp_capabilities() end
+
+        if require("lazy.core.config").plugins["nvim-ufo"] then
+            default_opts = vim.tbl_deep_extend("force", default_opts, {
+                capabilities = {
+                    textDocument = {
+                        foldingRange = {
+                            dynamicRegistration = false,
+                            lineFoldingOnly = true,
+                        },
                     },
                 },
-            },
-        }
+            })
+        end
+
+        vim.lsp.config["*"] = default_opts
 
         for _, file in pairs(vim.fn.readdir(require("dotfyls.files").lsp_directory)) do
             local server = file:gsub("%.json$", "")
@@ -109,10 +138,9 @@ return {
                     if override ~= nil then
                         opts = vim.tbl_deep_extend("force", opts, type(override) == "function" and override() or override)
                     end
-                    if require("lazy.core.config").plugins["blink.cmp"] then
-                        opts.capabilities = require("blink.cmp").get_lsp_capabilities(opts.capabilities, true)
-                    end
-                    require("lspconfig")[server].setup(opts)
+
+                    vim.tbl_deep_extend("force", vim.lsp.config[server], opts)
+                    vim.lsp.enable(server)
                 end
             end
         end

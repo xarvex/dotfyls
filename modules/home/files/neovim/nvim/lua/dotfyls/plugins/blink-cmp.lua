@@ -11,7 +11,7 @@ return {
             "f3fora/cmp-spell",
             "uga-rosa/cmp-dictionary",
         },
-        event = { "CmdlineEnter", "InsertEnter" },
+        event = { "BufNewFile", "BufReadPost" },
         opts = function()
             ---@module "blink.cmp"
             ---@param ctx blink.cmp.Context

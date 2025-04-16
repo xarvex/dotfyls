@@ -9,7 +9,7 @@ keymap("n", "<leader>rD", "<Nop>", { silent = true })
 ---@type LazySpec
 return {
     "mrcjkb/rustaceanvim",
-    version = "^5",
+    version = "^6",
     ft = "rust",
     config = function()
         keymap(
