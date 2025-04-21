@@ -39,7 +39,7 @@ repos:
         name: flake-checker
         entry: flake-checker
         language: system
-        files: ^flake\.(?:lock|nix)$
+        files: ^(?:.+/)?flake\.(?:lock|nix)$
         pass_filenames: false
         args: [--no-telemetry, --fail-mode]
 
@@ -48,6 +48,7 @@ repos:
         entry: nixfmt
         language: system
         types: [nix]
+        args: [--check]
 
       - id: rustfmt
         name: rustfmt

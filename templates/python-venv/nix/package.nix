@@ -11,7 +11,13 @@ buildPythonPackage {
   pname = pyproject.name;
   inherit (pyproject) version;
 
-  src = ../.;
+  src = lib.fileset.toSource {
+    root = ../.;
+    fileset = lib.fileset.unions [
+      ../pyproject.toml
+      (lib.fileset.fileFilter (file: lib.strings.hasSuffix ".py" file.name) ../.)
+    ];
+  };
 
   pythonImportsCheck = [ pyproject.name ];
 

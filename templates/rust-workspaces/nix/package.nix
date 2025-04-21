@@ -7,7 +7,15 @@ rustPlatform.buildRustPackage {
   pname = "project-slug";
   inherit (manifest) version;
 
-  src = ../.;
+  src = lib.fileset.toSource {
+    root = ../.;
+    fileset = lib.fileset.unions [
+      ../Cargo.lock
+      (lib.fileset.fileFilter (
+        file: file.name == "Cargo.toml" || lib.strings.hasSuffix ".rs" file.name
+      ) ../.)
+    ];
+  };
   cargoLock.lockFile = ../Cargo.lock;
 
   meta = {
