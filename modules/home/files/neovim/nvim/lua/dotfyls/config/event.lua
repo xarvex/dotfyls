@@ -1,3 +1,32 @@
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    group = require("dotfyls.interop").group,
+    callback = function()
+        -- TODO: Figure out why `vim.lsp.config` is sometimes nil, and handle.
+        -- Currently, the only known occurrence is with Git commit writing.
+        if vim.lsp.config ~= nil then
+            vim.lsp.config["*"] = require("dotfyls.lsp").default_opts()
+
+            for _, file in pairs(vim.fn.readdir(require("dotfyls.files").lsp_directory)) do
+                local server = file:gsub("%.json$", "")
+                local opts = require("dotfyls.files").lsp_config(file)
+                if opts ~= nil then
+                    local override = require("dotfyls.lsp").server_opts[server]
+                    if override ~= false then
+                        if override ~= nil then
+                            opts = vim.tbl_deep_extend("force", opts, type(override) == "function" and override() or override)
+                        end
+
+                        vim.lsp.config[server] = vim.tbl_deep_extend("force", vim.lsp.config[server], opts)
+                        vim.lsp.enable(server)
+                    end
+                end
+            end
+        end
+    end,
+    once = true,
+    desc = "Set LSP configuration",
+})
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = require("dotfyls.interop").group,
     pattern = "*.slint",
@@ -37,30 +66,6 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Quit keymap assignment",
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = require("dotfyls.interop").group,
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client ~= nil then
-            if client.name == "gopls" then
-                if not client.server_capabilities.semanticTokensProvider then
-                    local semantic = client.config.capabilities.textDocument.semanticTokens
-                    if semantic ~= nil then
-                        client.server_capabilities.semanticTokensProvider = {
-                            full = true,
-                            legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
-                            range = true,
-                        }
-                    end
-                end
-            elseif client.name == "nil_ls" then
-                client.server_capabilities.renameProvider = false
-            end
-        end
-    end,
-    desc = "LSP server fixes",
-})
-
 vim.api.nvim_create_autocmd("VimEnter", {
     group = require("dotfyls.interop").group,
     callback = function()
@@ -76,10 +81,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
                     end
                 end
             end)
-        else
-            local has_lazy, lazy_config = pcall(require, "lazy.core.config")
-
-            if has_lazy and lazy_config.plugins["oil.nvim"] then require("lazy").load({ plugins = { "oil.nvim" } }) end
         end
     end,
     once = true,

@@ -50,10 +50,8 @@ o.updatetime = 200
 o.undolevels = 10000
 o.swapfile = false
 o.backup = true
----@diagnostic disable-next-line: param-type-mismatch
 o.backupdir = vim.fs.joinpath(vim.fn.stdpath("state"), "backup")
 o.undofile = true
----@diagnostic disable-next-line: param-type-mismatch
 o.undodir = vim.fs.joinpath(vim.fn.stdpath("state"), "undo")
 opt.shortmess:append({ C = true, I = true, W = true, c = true })
 

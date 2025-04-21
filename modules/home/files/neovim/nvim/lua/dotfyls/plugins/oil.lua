@@ -19,6 +19,7 @@ return {
     {
         "stevearc/oil.nvim",
         cmd = "Oil",
+        event = "VimEnter",
         init = function()
             map_oil()
 

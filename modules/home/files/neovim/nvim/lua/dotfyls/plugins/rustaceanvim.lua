@@ -28,10 +28,21 @@ return {
         keymap("n", "<leader>rD", function() vim.cmd.RustLsp("openDocs") end, { silent = true, desc = "Open docs.rs (rustaceanvim)" })
 
         local lsp_opts = require("dotfyls.files").lsp_config("rust_analyzer", true)
+        vim.lsp.config.rust_analyzer = lsp_opts
+        ---@module "rustaceanvim"
+        ---@type rustaceanvim.Opts
         vim.g.rustaceanvim = {
             tools = {}, -- TODO: Configure tools.
             server = {
-                on_attach = function(_, bufnr)
+                on_attach = function(client, bufnr)
+                    local default_opts = require("dotfyls.lsp").default_opts()
+                    client.capabilities = vim.tbl_deep_extend(
+                        "force",
+                        require("rustaceanvim.config.server").create_client_capabilities(),
+                        default_opts.capabilities ~= nil and default_opts.capabilities or {},
+                        (lsp_opts ~= nil and lsp_opts.capabilities ~= nil) and lsp_opts.capabilities or {}
+                    )
+
                     keymap(
                         { "n", "v" },
                         "J",
@@ -47,6 +58,7 @@ return {
                 end,
                 default_settings = (lsp_opts ~= nil and lsp_opts.settings ~= nil) and lsp_opts.settings or { ["rust-analyzer"] = {} },
             },
+            ---@module "dap"
             dap = { adapter = require("dap").adapters.codelldb },
         }
     end,

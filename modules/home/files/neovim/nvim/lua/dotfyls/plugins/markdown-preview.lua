@@ -5,17 +5,14 @@ return {
     "iamcco/markdown-preview.nvim",
     build = function(plugin)
         if vim.fn.executable("npx") == 1 then
-            vim.cmd("!cd '" .. plugin.dir .. "'/app && npx -y yarn install")
+            local job = vim.fn.jobstart({ "npx", "-y", "yarn", "install" }, { cwd = vim.fs.joinpath(plugin.dir, "app") })
+            vim.fn.jobwait({ job })
         else
             require("lazy").load({ plugins = { plugin.name } })
             vim.fn["mkdp#util#install"]()
         end
     end,
-    cmd = {
-        "MarkdownPreview",
-        "MarkdownPreviewStop",
-        "MarkdownPreviewToggle",
-    },
+    cmd = { "MarkdownPreview", "MarkdownPreviewToggle" },
     keys = {
         { "<leader>md", vim.cmd.MarkdownPreviewToggle },
     },

@@ -3,10 +3,28 @@
 return {
     {
         "Saghen/blink.cmp",
-        cond = vim.fn.executable("nix") == 1 or vim.fn.executable("cargo") == 1,
-        build = "sh -c '(unset CARGO_TARGET_DIR && "
-            .. (vim.fn.executable("nix") == 1 and "nix run .#build-plugin --override-input nixpkgs nixpkgs" or "cargo build --release")
-            .. ")'",
+        build = function(plugin)
+            ---@type string[]?
+            local command = nil
+            if vim.fn.executable("nix") == 1 then
+                command = { "nix", "run", ".#build-plugin", "--override-input", "nixpkgs", "nixpkgs" }
+            elseif vim.fn.executable("cargo") == 1 then
+                command = { "cargo", "build", "--release" }
+            end
+
+            if command ~= nil then
+                local job = vim.fn.jobstart(command, { cwd = plugin.dir })
+                vim.fn.jobwait({ job })
+
+                local cargo_target_dir = vim.env.CARGO_TARGET_DIR
+                if cargo_target_dir ~= nil then
+                    vim.fn.filecopy(
+                        vim.fs.joinpath(cargo_target_dir, "release", "libblink_cmp_fuzzy.so"),
+                        vim.fs.joinpath(plugin.dir, "target", "release", "libblink_cmp_fuzzy.so")
+                    )
+                end
+            end
+        end,
         dependencies = {
             "f3fora/cmp-spell",
             "uga-rosa/cmp-dictionary",
@@ -50,12 +68,11 @@ return {
             end
 
             ---@module "blink.cmp"
-            ---@param _ctx blink.cmp.Context
+            ---@param _ blink.cmp.Context
             ---@param items blink.cmp.CompletionItem[]
             ---@param label string
             ---@return blink.cmp.CompletionItem[]
-            ---@diagnostic disable-next-line: unused-local
-            local function transform_items_label(_ctx, items, label)
+            local function transform_items_label(_, items, label)
                 for _, item in ipairs(items) do
                     if label ~= nil then item.labelDetails = { description = "(" .. label .. ")" } end
                 end
@@ -194,7 +211,7 @@ return {
             }
         end,
     },
-    { "Saghen/blink.compat", lazy = true, opts = { impersonate_nvim_cmp = true, debug = true } },
+    { "Saghen/blink.compat", lazy = true, opts = {} },
     { "mikavilpas/blink-ripgrep.nvim", lazy = true },
     { "onsails/lspkind.nvim", lazy = true },
     { "rafamadriz/friendly-snippets", lazy = true },

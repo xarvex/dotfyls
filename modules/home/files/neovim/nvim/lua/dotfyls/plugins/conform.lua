@@ -12,6 +12,8 @@ return {
             desc = "Format (conform.nvim)",
         },
     },
+    ---@module "conform"
+    ---@type conform.setupOpts
     opts = {
         formatters_by_ft = {
             bash = { "shfmt" },
@@ -22,7 +24,7 @@ return {
             python = { "ruff_format" },
             sh = { "shfmt" },
             sql = { "sqlfluff" },
-            ["_"] = { "trim_whitespace" },
+            ["_"] = { "trim_whitespace", lsp_format = "prefer" },
         },
         default_format_opts = {
             lsp_format = "fallback",

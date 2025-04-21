@@ -6,11 +6,7 @@ return {
     dependencies = {
         {
             "folke/twilight.nvim",
-            cmd = {
-                "Twilight",
-                "TwilightDisable",
-                "TwilightEnable",
-            },
+            cmd = { "Twilight", "TwilightEnable" },
             opts = {
                 dimming = { inactive = true },
                 context = 10,

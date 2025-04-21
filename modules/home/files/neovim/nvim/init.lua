@@ -1,7 +1,6 @@
 require("dotfyls.config")
 
 if vim.fn.executable("git") == 1 then
-    ---@diagnostic disable-next-line: param-type-mismatch
     local lazypath = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy/lazy.nvim")
     if vim.fn.isdirectory(lazypath) == 0 then
         vim.fn.system({

@@ -7,7 +7,7 @@ I really enjoy lazy loading. Everything is lazy loaded if possible.
 
 ## Prerequisites
 
-- [Neovim] >= 0.10.0
+- [Neovim] >= 0.11.0
 - [Git](https://git-scm.com)
 - [GCC](https://gcc.gnu.org)
 - [GNU Make](https://www.gnu.org/software/make)
