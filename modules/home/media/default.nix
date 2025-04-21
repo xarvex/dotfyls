@@ -4,6 +4,7 @@
   imports = [
     ./foliate
     ./inkscape
+    ./krita
     ./libreoffice
     ./mpv
     ./nomacs
