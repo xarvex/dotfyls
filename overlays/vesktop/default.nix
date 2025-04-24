@@ -1,6 +1,6 @@
 _: final: prev:
 
-prev.vesktop.overrideAttrs (
+(prev.vesktop.overrideAttrs (
   o:
   let
     disableFirstLaunch = final.writeShellApplication {
@@ -22,4 +22,14 @@ prev.vesktop.overrideAttrs (
         wrapProgram $out/bin/vesktop --run "${final.lib.getExe disableFirstLaunch}"
       '';
   }
-)
+)).override
+  {
+    vencord = prev.vencord.overrideAttrs (o: {
+      postInstall =
+        (o.postInstall or "")
+        # bash
+        + ''
+          cp package.json $out
+        '';
+    });
+  }
