@@ -17,6 +17,17 @@ in
           mode = "0700";
           cache = true;
         };
+
+        ".config/StardewValley".cache = true;
+        ".config/StardewValley/Saves" = {
+          persist = true;
+          sync = {
+            enable = true;
+            rescan = 0;
+            watch.delay = 15 * 60;
+            order = "newestFirst";
+          };
+        };
       };
 
       mime-apps.extraSchemes = {

@@ -16,7 +16,18 @@ in
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls = {
-      file.".local/share/PrismLauncher".persist = true;
+      file = {
+        ".local/share/PrismLauncher".cache = true;
+        ".local/share/PrismLauncher/instances" = {
+          persist = true;
+          sync = {
+            enable = true;
+            rescan = 0;
+            watch.delay = 15 * 60;
+            order = "newestFirst";
+          };
+        };
+      };
 
       mime-apps = {
         extraSchemes = {
