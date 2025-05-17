@@ -16,14 +16,14 @@ return {
     ---@type conform.setupOpts
     opts = {
         formatters_by_ft = {
-            bash = { "shfmt" },
+            bash = { "shfmt", "shellcheck" },
             fish = { "fish_indent" },
-            javascript = { "prettierd", "prettier" },
             lua = { "stylua" },
             nix = { "nixfmt" },
-            python = { "ruff_format" },
-            sh = { "shfmt" },
+            python = { "ruff_fix", "ruff_format" },
+            sh = { "shfmt", "shellcheck" },
             sql = { "sqlfluff" },
+            zsh = { "shfmt", "shellcheck" },
             ["_"] = { "trim_whitespace", lsp_format = "prefer" },
         },
         default_format_opts = {

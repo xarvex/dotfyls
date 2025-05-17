@@ -1,7 +1,7 @@
 # TODO: Complete checklist:
 # [/] LSP
-# [/] Linter
-# [/] Formatter
+# [x] Linter
+# [x] Formatter
 # [ ] Debugger
 # [ ] Tester
 {
@@ -19,18 +19,37 @@ let
   jsonFormat = pkgs.formats.json { };
 in
 {
-  options.dotfyls.development.languages.javascript.enable = lib.mkEnableOption "JavaScript" // {
-    default = cfg'.defaultEnable;
+  options.dotfyls.development.languages.javascript = {
+    enable = lib.mkEnableOption "JavaScript" // {
+      default = cfg'.defaultEnable;
+    };
+
+    frameworks.astro = lib.mkEnableOption "Astro" // {
+      default = cfg'.defaultEnable;
+    };
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
     dotfyls = {
       development = {
-        tools = with pkgs; [
-          biome
-          typescript-language-server
-        ];
-        languages.servers.biome.single_file_support = true;
+        tools =
+          (with pkgs; [
+            biome
+            typescript-language-server
+          ])
+          ++ lib.optional cfg.frameworks.astro pkgs.astro-language-server;
+        languages.servers = {
+          astro = { };
+          biome.workspace_required = false;
+          ts_ls = {
+            settings.implicitProjectConfiguration.checkJs = true;
+            filetypes = [
+              "javascript"
+              "javascript.jsx"
+              "javascriptreact"
+            ];
+          };
+        };
       };
 
       file = {
@@ -48,13 +67,19 @@ in
         ".cache/pnpm".cache = true;
 
         ".cache/yarn".cache = true;
+
+        ".cache/typescript".cache = true;
       };
     };
 
-    home.sessionVariables = {
-      NODE_REPL_HISTORY = "${config.xdg.stateHome}/node/repl_history";
-      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-    };
+    home.sessionVariables =
+      {
+        NODE_REPL_HISTORY = "${config.xdg.stateHome}/node/repl_history";
+        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+      }
+      // lib.optionalAttrs cfg.frameworks.astro {
+        ASTRO_TELEMETRY_DISABLED = 1;
+      };
 
     xdg.configFile = {
       "npm/npmrc".source = ./npmrc;
@@ -70,6 +95,20 @@ in
           parser.cssModules = true;
           linter.enabled = true;
         };
+        # INFO: https://biomejs.dev/internals/language-support/#html-super-languages-support
+        overrides = [
+          {
+            include = [
+              "*.astro"
+              "*.svelte"
+              "*.vue"
+            ];
+            linter.rules.style = {
+              useConst = "off";
+              useImportType = "off";
+            };
+          }
+        ];
       };
     };
   };

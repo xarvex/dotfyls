@@ -22,6 +22,8 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
-    dotfyls.development.tools = with pkgs; [ vscode-langservers-extracted ];
+    dotfyls.development = {
+      tools = with pkgs; [ vscode-langservers-extracted ];
+    };
   };
 }

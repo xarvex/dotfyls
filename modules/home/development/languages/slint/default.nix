@@ -1,9 +1,3 @@
-# TODO: Complete checklist:
-# [/] LSP
-# [ ] Linter
-# [ ] Formatter
-# [ ] Debugger
-# [ ] Tester
 {
   config,
   lib,

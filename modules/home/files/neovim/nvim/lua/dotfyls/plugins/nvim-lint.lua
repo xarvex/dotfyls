@@ -8,14 +8,12 @@ return {
     end,
     config = function()
         require("lint").linters_by_ft = {
-            bash = { "shellcheck" },
             fish = { "fish" },
             go = { "revive" },
             lua = { "selene" },
             md = { "markdownlint-cli2" },
             nix = { "nix", "deadnix", "statix" },
-            python = { "ruff", "mypy", "bandit" },
-            sh = { "shellcheck" },
+            python = { "mypy", "bandit" },
             sql = { "sqlfluff" },
             vala = { "vala_lint" },
             yaml = { "yamllint" },

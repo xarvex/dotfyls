@@ -30,19 +30,25 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
-    dotfyls.development.tools =
-      (with pkgs; [
-        bash-language-server
-        shellcheck
-        shfmt
-      ])
-      ++ lib.optionals cfg.fishSupport (
-        with pkgs;
-        [
-          fish # NOTE: Provides linter and formatter.
-          fish-lsp
-        ]
-      )
-      ++ lib.optional cfg.zshSupport pkgs.zsh; # NOTE: Provides linter.
+    dotfyls.development = {
+      tools =
+        (with pkgs; [
+          bash-language-server
+          shellcheck
+          shfmt
+        ])
+        ++ lib.optionals cfg.fishSupport (
+          with pkgs;
+          [
+            fish # NOTE: Provides linter and formatter.
+            fish-lsp
+          ]
+        )
+        ++ lib.optional cfg.zshSupport pkgs.zsh; # NOTE: Provides linter.
+      languages.servers = {
+        bashls = { };
+        fish_lsp = lib.mkIf cfg.fishSupport { };
+      };
+    };
   };
 }

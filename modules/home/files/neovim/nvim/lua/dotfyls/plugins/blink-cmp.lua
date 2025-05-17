@@ -3,19 +3,9 @@
 return {
     {
         "Saghen/blink.cmp",
-        build = function(plugin)
-            ---@type string[]?
-            local command = nil
-            if vim.fn.executable("nix") == 1 then
-                command = { "nix", "run", ".#build-plugin", "--override-input", "nixpkgs", "nixpkgs" }
-            elseif vim.fn.executable("cargo") == 1 then
-                command = { "cargo", "build", "--release" }
-            end
-
-            if command ~= nil then
-                local job = vim.fn.jobstart(command, { cwd = plugin.dir })
-                vim.fn.jobwait({ job })
-
+        build = {
+            vim.fn.executable("nix") == 1 and "nix run .#build-plugin --override-input nixpkgs nixpkgs" or "cargo build --release",
+            function(plugin)
                 local cargo_target_dir = vim.env.CARGO_TARGET_DIR
                 if cargo_target_dir ~= nil then
                     vim.fn.filecopy(
@@ -23,8 +13,8 @@ return {
                         vim.fs.joinpath(plugin.dir, "target", "release", "libblink_cmp_fuzzy.so")
                     )
                 end
-            end
-        end,
+            end,
+        },
         dependencies = {
             "f3fora/cmp-spell",
             "uga-rosa/cmp-dictionary",

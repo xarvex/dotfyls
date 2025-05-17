@@ -59,9 +59,15 @@ M.server_opts = {
             or {}
     end,
     nil_ls = {
-        on_attach = function(client, _) client.server_capabilities.renameProvider = false end,
+        on_attach = function(client) client.server_capabilities.renameProvider = false end,
     },
     rust_analyzer = require("lazy.core.config").plugins["rustaceanvim"] and false,
+    ts_ls = {
+        on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+    },
     vale_ls = {
         filetypes = {
             "asciidoc",

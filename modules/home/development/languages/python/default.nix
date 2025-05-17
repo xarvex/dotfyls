@@ -1,6 +1,6 @@
 # TODO: Complete checklist:
 # [x] LSP
-# [/] Linter
+# [x] Linter
 # [x] Formatter
 # [ ] Debugger
 # [ ] Tester
@@ -29,7 +29,13 @@ in
           basedpyright
           ruff
         ];
-        languages.servers.basedpyright.settings.basedpyright = { };
+        languages.servers = {
+          basedpyright.settings.basedpyright.disableOrganizeImports = true;
+          ruff.init_options.settings = {
+            configuration.extend-exclude = cfg''.ignoreDirs;
+            configurationPreference = "filesystemFirst";
+          };
+        };
       };
 
       file = {
@@ -46,13 +52,19 @@ in
         ".cache/pypoetry".cache = true;
 
         ".cache/uv".cache = true;
+
+        ".cache/mypy".cache = true;
+        ".cache/ruff".cache = true;
       };
     };
 
     home.sessionVariables = {
       PYTHONUSERBASE = "${config.xdg.dataHome}/python";
-      PYTHON_HISTORY = "${config.xdg.stateHome}/python/history"; # 3.13
+      PYTHON_HISTORY = "${config.xdg.stateHome}/python/history";
       PYTHONPYCACHEPREFIX = "${config.xdg.cacheHome}/python";
+
+      MYPY_CACHE_DIR = "${config.xdg.cacheHome}/mypy";
+      RUFF_CACHE_DIR = "${config.xdg.cacheHome}/ruff";
     };
   };
 }
