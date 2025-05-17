@@ -56,7 +56,7 @@
     systems.url = "github:nix-systems/default";
 
     tagstudio = {
-      url = "github:TagStudioDev/TagStudio/nix-pyside-override";
+      url = "github:TagStudioDev/TagStudio/Alpha-v9.5.3";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
