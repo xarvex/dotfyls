@@ -18,9 +18,9 @@
     optimise = {
       automatic = true;
 
-      dates = [ "daily" ];
+      dates = [ "*-*-* 06:00:00" ];
     };
   };
 
-  systemd.tmpfiles.rules = [ "R /nix/var/nix/profiles/per-user - - - 0" ];
+  systemd.tmpfiles.settings.dotfyls-nix."/nix/var/nix/profiles/per-user".R.age = "0";
 }

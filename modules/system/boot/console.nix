@@ -67,9 +67,9 @@ in
   config = lib.mkIf cfg.enable {
     boot = {
       kernelParams =
-        # INFO: https://docs.kernel.org/fb/efifb.html
+        # https://docs.kernel.org/fb/efifb.html
         lib.optional (cfg.efi != null) "video=efifb:${toString cfg.efi.width}x${toString cfg.efi.height}"
-        # INFO: https://docs.kernel.org/fb/modedb.html
+        # https://docs.kernel.org/fb/modedb.html
         ++ lib.optionals (cfg.displays != [ ]) (
           lib.mapAttrsToList (
             connector: display:
@@ -77,18 +77,20 @@ in
           ) cfg.displays
         );
 
-      # INFO: https://discourse.nixos.org/t/how-to-show-characters-for-disk-encryption-passphrase/50181/4
+      # https://discourse.nixos.org/t/how-to-show-characters-for-disk-encryption-passphrase/50181/4
       initrd.systemd = {
         extraBin.setleds = lib.getExe' pkgs.kbd "setleds";
         services.dotfyls-tty-numlock = {
           description = "dotfyls - TTY Numlock";
-          wantedBy = [ "initrd.target" ];
           before = [ "systemd-udevd.service" ];
-          serviceConfig.Type = "oneshot";
           unitConfig.DefaultDependencies = false;
+
+          serviceConfig.Type = "oneshot";
           script = builtins.concatStringsSep "\n" (
             builtins.genList (tty: "/bin/setleds -D +num </dev/tty${toString (tty + 1)}") 6
           );
+
+          wantedBy = [ "initrd.target" ];
         };
       };
     };
@@ -96,7 +98,7 @@ in
     console = {
       earlySetup = true;
 
-      # INFO: https://github.com/rose-pine/linux-tty
+      # https://github.com/rose-pine/linux-tty
       colors = [
         "191724"
         "eb6f92"

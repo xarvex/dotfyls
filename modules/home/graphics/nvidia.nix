@@ -7,14 +7,13 @@
 
 let
   cfg' = config.dotfyls.graphics;
-  cfg = cfg'.graphics.nvidia;
+  cfg = cfg'.nvidia;
+  osCfg = if osConfig == null then null else osConfig.dotfyls.graphics.nvidia;
 in
 {
-  options.dotfyls.graphics.graphics.nvidia.enable =
-    lib.mkEnableOption "Nvidia graphics"
-    // lib.optionalAttrs (osConfig != null) {
-      default = osConfig.dotfyls.graphics.graphics.nvidia.enable;
-    };
+  options.dotfyls.graphics.nvidia.enable = lib.mkEnableOption "Nvidia" // {
+    default = osCfg != null && osCfg.enable;
+  };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.file = {

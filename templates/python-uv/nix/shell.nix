@@ -40,10 +40,9 @@ pkgs.mkShellNoCC {
     UV_PYTHON_DOWNLOADS = "never";
   };
 
-  shellHook =
-    pre-commit.shellHook
-    + ''
-      unset PYTHONPATH
-      export REPO_ROOT="$(git rev-parse --show-toplevel)"
-    '';
+  shellHook = pre-commit.shellHook + ''
+    unset PYTHONPATH
+    REPO_ROOT=$(git rev-parse --show-toplevel)
+    export REPO_ROOT
+  '';
 }

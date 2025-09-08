@@ -1,14 +1,15 @@
-_:
-
 {
   imports = [
-    ./disk
     ./power
 
     ./geolocation.nix
+    ./input.nix
     ./locale.nix
+    ./monitor.nix
+    ./partition.nix
+    ./rgb.nix
+    ./solaar.nix
     ./thunderbolt.nix
-    ./time.nix
-    ./users.nix
+    ./timezone.nix
   ];
 }

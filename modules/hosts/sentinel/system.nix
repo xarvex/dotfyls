@@ -1,16 +1,23 @@
-_:
-
 {
   dotfyls = {
-    boot.kernel.variant = "xanmod";
+    meta = {
+      machine.type = "desktop";
+      hardware.threads = 20;
+    };
+
+    boot.kernel = {
+      variant = "xanmod";
+      harden.enable = false;
+    };
 
     graphics.provider = "nvidia";
 
-    programs.openrgb = {
+    management.rgb = {
+      enable = true;
       sizes = ./openrgb/sizes.ors;
       bootProfile = ./openrgb/Overglow.orp;
     };
-
-    security.harden.kernel.enable = false;
   };
+
+  time.timeZone = "America/Chicago";
 }

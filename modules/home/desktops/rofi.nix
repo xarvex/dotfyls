@@ -19,9 +19,13 @@ in
       enable = true;
       package = pkgs.rofi-wayland;
 
-      terminal = lib.mkIf config.dotfyls.terminals.xdg-terminal-exec.enable (
-        self.lib.getCfgExe config.dotfyls.terminals.xdg-terminal-exec
-      );
+      terminal = lib.mkIf config.xdg.terminal-exec.enable (self.lib.getCfgExe config.xdg.terminal-exec);
     };
+
+    wayland.windowManager.hyprland.settings.bind =
+    [
+      "SUPER_SHIFT, Return, exec, ${self.lib.getCfgExe config.programs.rofi} -show drun -show-icons${lib.optionalString cfg'.wayland.uwsm.enable " -run-command '${cfg'.wayland.uwsm.prefix}{cmd}'"}"
+    ]
+    ++ lib.optional config.services.cliphist.enable "SUPER_SHIFT, V, exec, ${self.lib.getCfgExe config.programs.rofi} -modi clipboard:cliphist-rofi-img -show clipboard -show-icons";
   };
 }

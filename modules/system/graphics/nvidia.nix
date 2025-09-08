@@ -7,27 +7,12 @@
 
 let
   cfg' = config.dotfyls.graphics;
-  cfg = cfg'.graphics.nvidia;
+  cfg = cfg'.nvidia;
 in
 {
-  options.dotfyls.graphics.graphics.nvidia.enable = lib.mkEnableOption "Nvidia graphics";
+  options.dotfyls.graphics.nvidia.enable = lib.mkEnableOption "Nvidia graphics";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.graphics = {
-      drivers = "nvidia";
-      earlyKMSModules = [
-        "nvidia"
-        "nvidia_modeset"
-        "nvidia_uvm"
-        "nvidia_drm"
-      ];
-      extraPackages = with pkgs; [
-        egl-wayland
-
-        libglvnd
-      ];
-    };
-
     environment.sessionVariables = {
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -40,18 +25,36 @@ in
       VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.${pkgs.stdenv.hostPlatform.linuxArch}.json";
     };
 
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      nvidiaSettings = true;
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+    services.xserver.videoDrivers = [ "nvidia" ];
+
+    hardware = {
+      graphics.extraPackages = with pkgs; [
+        egl-wayland
+
+        libglvnd
+        libva-vdpau-driver
+      ];
+      nvidia = {
+        modesetting.enable = true;
+        powerManagement.enable = true;
+        nvidiaSettings = true;
+        open = true;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
+      };
     };
 
-    boot.blacklistedKernelModules = [
-      "amdgpu"
-      "i915"
-      "xe"
-    ];
+    boot = {
+      initrd.kernelModules = lib.optionals (!config.boot.plymouth.enable) [
+        "nvidia"
+        "nvidia_modeset"
+        "nvidia_uvm"
+        "nvidia_drm"
+      ];
+      blacklistedKernelModules = [
+        "amdgpu"
+        "i915"
+        "xe"
+      ];
+    };
   };
 }

@@ -5,9 +5,9 @@ let
 in
 {
   imports = [
-    ./mail
-    ./pass
-    ./vpn
+    ./mail.nix
+    ./pass.nix
+    ./vpn.nix
   ];
 
   options.dotfyls.security.proton.enable = lib.mkEnableOption "Proton services" // {

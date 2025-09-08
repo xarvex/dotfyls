@@ -13,5 +13,12 @@ in
       mode = "0700";
       persist = true;
     };
+
+    wayland.windowManager.hyprland.settings.windowrule = [
+      "tag +important-prompt, class:gcr-prompter"
+
+      "noscreenshare, class:gcr-prompter"
+      "dimaround, class:gcr-prompter, floating:1"
+    ];
   };
 }

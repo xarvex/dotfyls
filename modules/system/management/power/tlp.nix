@@ -6,12 +6,13 @@ let
 in
 {
   options.dotfyls.management.power.tlp.enable = lib.mkEnableOption "TLP" // {
-    default = cfg'.battery;
+    default = config.dotfyls.meta.machine.battery;
   };
 
   config = lib.mkIf cfg.enable {
     services.tlp = {
       enable = true;
+
       settings = {
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";

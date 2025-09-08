@@ -7,23 +7,33 @@
 
 let
   cfg' = config.dotfyls.display-managers;
-  cfg = cfg'.display-managers.greetd;
+  cfg = cfg'.greetd;
 in
 {
   imports = [
-    ./greeter
+    ./agreety.nix
+    ./tuigreet.nix
+  ];
 
-    (self.lib.mkSelectorModule [ "dotfyls" "display-managers" "display-managers" "greetd" "greeter" ] {
-      name = "provider";
+  options.dotfyls.display-managers.greetd = {
+    enable = lib.mkEnableOption "greetd";
+    provider = lib.mkOption {
+      type = lib.types.enum [
+        "agreety"
+        "tuigreet"
+      ];
       default = "tuigreet";
       example = "agreety";
       description = "Greeter to use for greetd.";
-    })
-  ];
-
-  options.dotfyls.display-managers.display-managers.greetd.enable = lib.mkEnableOption "greetd";
+    };
+  };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
+    dotfyls.display-managers.greetd.greeter = self.lib.enableSelected cfg.provider [
+      "agreety"
+      "tuigreet"
+    ];
+
     services.greetd.enable = true;
 
     security.pam.services.greetd.u2fAuth = config.security.pam.services.login.u2fAuth;

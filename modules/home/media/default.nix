@@ -2,19 +2,22 @@
 
 {
   imports = [
-    ./foliate
-    ./inkscape
-    ./krita
-    ./libreoffice
     ./mpv
     ./nomacs
-    ./plattenalbum
-    ./spotify
-    ./tagstudio
-    ./zathura
 
+    ./control.nix
+    ./foliate.nix
+    ./inkscape.nix
+    ./krita.nix
+    ./libreoffice.nix
     ./mpris.nix
+    ./obs.nix
     ./pipewire.nix
+    ./plattenalbum.nix
+    ./spotify.nix
+    ./tagstudio.nix
+    ./yt-dlp.nix
+    ./zathura.nix
   ];
 
   options.dotfyls.media.enable = lib.mkEnableOption "media" // {

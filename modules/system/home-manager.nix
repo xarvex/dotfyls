@@ -1,7 +1,9 @@
-{ lib, user, ... }:
+{ config, lib, ... }:
 
 {
-  imports = [ (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" user ]) ];
+  imports = [
+    (lib.mkAliasOptionModule [ "hm" ] [ "home-manager" "users" config.dotfyls.meta.user ])
+  ];
 
   home-manager = {
     useGlobalPkgs = true;

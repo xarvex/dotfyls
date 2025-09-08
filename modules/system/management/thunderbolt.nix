@@ -5,7 +5,7 @@ let
 in
 {
   options.dotfyls.management.thunderbolt.enable = lib.mkEnableOption "Thunderbolt" // {
-    default = true;
+    default = config.dotfyls.meta.machine.isLaptop;
   };
 
   config = lib.mkIf cfg.enable {

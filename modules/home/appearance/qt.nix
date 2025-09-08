@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 
@@ -36,31 +37,28 @@ in
   config = lib.mkIf (cfg'.enable && cfg.enable) {
     dotfyls.desktops.wayland.sessionVariables.QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
 
-    home = {
-      packages = with pkgs; [
-        qt5.qtsvg
-        qt6.qtsvg
+    home.packages = with pkgs; [
+      qt5.qtsvg
+      qt6.qtsvg
 
-        qt5.qtwayland
-        qt6.qtwayland
+      qt5.qtwayland
+      qt6.qtwayland
 
-        # kde (6)
-        kdePackages.kio
-        kdePackages.plasma-integration
-        kdePackages.systemsettings
+      # kde (6)
+      kdePackages.kio
+      kdePackages.plasma-integration
+      kdePackages.systemsettings
 
-        kdePackages.qqc2-desktop-style
+      kdePackages.qqc2-desktop-style
 
-        # kvantum
-        libsForQt5.qtstyleplugin-kvantum
-        kdePackages.qtstyleplugin-kvantum
+      # kvantum
+      libsForQt5.qtstyleplugin-kvantum
+      kdePackages.qtstyleplugin-kvantum
 
-        # qtct
-        libsForQt5.qt5ct
-        kdePackages.qt6ct
-      ];
-      sessionVariables.PLASMA_INTEGRATION_USE_PORTAL = 1;
-    };
+      # qtct
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
+    ];
 
     qt = {
       enable = true;
@@ -108,9 +106,12 @@ in
         in
         {
           kdeglobals.source =
-            pkgs.runCommandNoCCLocal "kdeglobals"
+            pkgs.runCommand "kdeglobals"
               {
-                nativeBuildInputs = with pkgs; [ crudini ];
+                nativeBuildInputs = with pkgs; [
+                  coreutils
+                  crudini
+                ];
 
                 package = pkgs.catppuccin-kde.override {
                   flavour = [ "mocha" ];
@@ -122,7 +123,7 @@ in
                     # TODO:
                     # AccentColor = R,G,B,A;
                     AllowKDEAppsToRememberWindowPositions = false;
-                    TerminalApplication = "xdg-terminal-exec";
+                    TerminalApplication = self.lib.getCfgExe config.xdg.terminal-exec;
                   };
 
                   Icons.Theme = cfg'.icons.name;

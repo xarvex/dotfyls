@@ -1,16 +1,11 @@
-_:
-
 {
   dotfyls = {
-    graphics.provider = "intel";
-
-    management.power.battery = true;
+    meta.machine.type = "laptop";
 
     # Causes suspending to suddenly cut power.
-    security.harden.kernel = {
-      packages = false;
-      poison = false;
-    };
+    boot.kernel.harden.poison = false;
+
+    graphics.provider = "intel";
   };
 
   # Intel Bay Trail CPU bug.

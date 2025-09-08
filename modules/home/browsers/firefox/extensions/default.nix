@@ -8,7 +8,7 @@
 
 let
   cfg' = config.dotfyls.browsers;
-  cfg = cfg'.browsers.firefox;
+  cfg = cfg'.firefox;
 
   unfreePkgs = import inputs.nixpkgs {
     inherit (pkgs) system;
@@ -45,7 +45,7 @@ in
               dearrow
               decentraleyes
               # dont-track-me-google # DOES NOT EXIST
-              enhancer-for-youtube
+              # enhancer-for-youtube # Removed in https://gitlab.com/rycee/nur-expressions/-/commit/9a00bf979f32dec33d60189140f7ec0a2492e42b.
               facebook-container
               # google-container # DOES NOT EXIST
               greasemonkey

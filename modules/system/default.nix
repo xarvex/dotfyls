@@ -1,25 +1,28 @@
-_:
+{ self, ... }:
 
 {
   imports = [
+    self.nixosModules.meta
+
     ./appearance
     ./boot
+    ./containers
     ./desktops
     ./display-managers
     ./files
+    ./filesystems
     ./games
     ./graphics
-    ./input
     ./management
     ./media
     ./networking
-    ./programs
     ./security
 
     ./home-manager.nix
     ./nix.nix
     ./shells.nix
     ./state.nix
+    ./users.nix
   ];
 
   dotfyls.file = {
@@ -30,8 +33,13 @@ _:
       persist = true;
     };
 
+    "/var/lib/systemd/catalog".cache = true;
     "/var/lib/systemd/coredump".cache = true;
+    "/var/lib/systemd/timers".cache = true;
+    "/var/lib/systemd/timesync".cache = true;
+
     "/var/log".persist = true;
+
     "/var/lib/private".mode = "0700";
     "/var/cache/private".mode = "0700";
 

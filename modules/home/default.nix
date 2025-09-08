@@ -1,32 +1,37 @@
-{ user, ... }:
+{ config, self, ... }:
 
 {
   imports = [
+    self.homeModules.meta
+
     ./appearance
     ./browsers
+    ./containers
     ./desktops
     ./development
+    ./editors
     ./files
+    ./filesystems
     ./games
     ./graphics
-    ./input
     ./management
     ./media
     ./networking
-    ./nix
-    ./programs
     ./security
     ./shells
+    ./social
     ./terminals
 
     ./icon.nix
-    ./mime-apps.nix
+    ./nix.nix
     ./state.nix
   ];
 
+  dotfyls.file.".local/share/systemd/timers".cache = true;
+
   home = {
-    username = user;
-    homeDirectory = "/home/${user}";
+    username = config.dotfyls.meta.user;
+    homeDirectory = config.dotfyls.meta.home;
   };
 
   programs.home-manager.enable = true;

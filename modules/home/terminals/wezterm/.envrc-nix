@@ -1,0 +1,14 @@
+# shellcheck shell=bash
+
+# If you wish to use this file, symlink or copy it to `.envrc` for direnv to read it.
+# This will use the Nix flake development shell.
+
+if ! has nix_direnv_version || ! nix_direnv_version 3.0.6; then
+    source_url "https://raw.githubusercontent.com/nix-community/nix-direnv/3.0.6/direnvrc" "sha256-RYcUJaRMf8oF5LznDrlCXbkOQrywm0HDv1VjYGaJGdM="
+fi
+
+watch_file "$(git rev-parse --show-toplevel)"/shells/dotfyls-modules-home-terminals-wezterm.nix
+
+use flake .#dotfyls-modules-home-terminals-wezterm
+
+# vi: ft=bash

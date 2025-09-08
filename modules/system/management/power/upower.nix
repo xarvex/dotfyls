@@ -6,7 +6,7 @@ let
 in
 {
   options.dotfyls.management.power.upower.enable = lib.mkEnableOption "UPower" // {
-    default = cfg'.battery;
+    default = config.dotfyls.meta.machine.battery;
   };
 
   config = lib.mkIf cfg.enable {
@@ -14,6 +14,7 @@ in
 
     services.upower = {
       enable = true;
+
       noPollBatteries = true;
     };
   };

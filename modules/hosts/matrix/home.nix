@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 
@@ -14,10 +15,6 @@
 
     desktops.enable = false;
 
-    files.sync.enable = false;
-
-    security.yubikey.enable = false;
-
     terminals = {
       enable = true;
       default = "foot";
@@ -29,11 +26,13 @@
     wl-clipboard
   ];
 
-  programs.bash.profileExtra = ''
-    if [ "$(${lib.getExe' pkgs.coreutils "tty"})" = "/dev/tty1" ]; then
-        WLR_RENDERER=pixman exec ${lib.getExe pkgs.cage} -ds -- ${lib.getExe config.programs.foot.package}
-    fi
-  '';
+  programs.bash.profileExtra =
+    # bash
+    ''
+      if [ "$(${lib.getExe' pkgs.coreutils "tty"})" = "/dev/tty1" ]; then
+          WLR_RENDERER=pixman exec ${lib.getExe pkgs.cage} -ds -- ${self.lib.getCfgExe config.programs.foot}
+      fi
+    '';
 
   dconf.enable = false;
 }

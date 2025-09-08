@@ -12,38 +12,47 @@ let
     chromium = "chromium-browser.desktop";
     firefox = "firefox.desktop";
   };
-  defaultDesktopFile = desktopFiles.${cfg.default};
-  otherDesktopFiles = lib.mapAttrsToList (name: _: desktopFiles.${name}) (
-    lib.filterAttrs (name: browser: browser.enable && name != cfg.default) cfg.browsers
-  );
 in
 {
   imports = [
-    ./chromium
     ./firefox
 
-    (self.lib.mkSelectorModule [ "dotfyls" "browsers" ] {
-      name = "default";
+    ./chromium.nix
+  ];
+
+  options.dotfyls.browsers = {
+    enable = lib.mkEnableOption "browsers" // {
+      default = config.dotfyls.desktops.enable;
+    };
+    default = lib.mkOption {
+      type = lib.types.enum [
+        "firefox"
+        "chromium"
+      ];
       default = "firefox";
       example = "chromium";
       description = "Default browser to use.";
-    })
-  ];
-
-  options.dotfyls.browsers.enable = lib.mkEnableOption "browsers" // {
-    default = config.dotfyls.desktops.enable;
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    dotfyls.mime-apps.web = lib.mkMerge [
-      {
-        email = defaultDesktopFile;
-        webpage = defaultDesktopFile;
-      }
-      {
-        email = lib.mkAfter otherDesktopFiles;
-        webpage = lib.mkAfter otherDesktopFiles;
-      }
+    dotfyls.browsers = self.lib.enableSelected cfg.default [
+      "chromium"
+      "firefox"
     ];
+
+    xdg.mimeApps.defaultApplications =
+      (lib.genAttrs [
+        "application/xhtml+xml"
+        "application/xhtml_xml"
+        "application/xml"
+        "text/html"
+        "text/htmlh"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+      ] (_: desktopFiles.${cfg.default}))
+      // {
+        "x-scheme-handler/mailto" = lib.mkAfter desktopFiles.${cfg.default};
+      };
   };
 }

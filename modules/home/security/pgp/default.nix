@@ -43,11 +43,18 @@ in
       (lib.mkIf cfg.agent.enable {
         services.gpg-agent = {
           enable = true;
-          pinentryPackage = pkgs.pinentry-qt;
+          pinentry.package = pkgs.pinentry-qt;
 
           maxCacheTtl = 0;
           maxCacheTtlSsh = 0;
         };
+
+        wayland.windowManager.hyprland.settings.windowrule = [
+          "tag +important-prompt, class:${lib.escapeRegex "org.gnupg.pinentry-"}.+"
+
+          "noscreenshare, class:${lib.escapeRegex "org.gnupg.pinentry-"}.+"
+          "dimaround, class:${lib.escapeRegex "org.gnupg.pinentry-"}.+, floating:1"
+        ];
       })
     ]
   );

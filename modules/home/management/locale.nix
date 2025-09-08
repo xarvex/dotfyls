@@ -1,5 +1,3 @@
-_:
-
 {
   # Denmark (English) is closest to Sweden (English) which does not exist.
   home = {

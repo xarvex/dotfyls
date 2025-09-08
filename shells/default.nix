@@ -1,15 +1,15 @@
-{ pkgs }:
+{ lib, pkgs }:
 
 rec {
   default = dotfyls;
 
-  dotfyls = import ./dotfyls.nix { inherit pkgs; };
+  dotfyls = import ./dotfyls.nix { inherit lib pkgs; };
 
-  dotfyls-modules-home-files-neovim-nvim = import ./dotfyls-modules-home-files-neovim-nvim.nix {
+  dotfyls-modules-home-editors-neovim = import ./dotfyls-modules-home-editors-neovim.nix {
     inherit dotfyls pkgs;
   };
 
-  dotfyls-modules-home-terminals-terminals-wezterm-wezterm =
-    import ./dotfyls-modules-home-terminals-terminals-wezterm-wezterm.nix
-      { inherit dotfyls pkgs; };
+  dotfyls-modules-home-terminals-wezterm = import ./dotfyls-modules-home-terminals-wezterm.nix {
+    inherit dotfyls pkgs;
+  };
 }

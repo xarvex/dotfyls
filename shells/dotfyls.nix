@@ -1,9 +1,7 @@
-{ pkgs }:
+{ lib, pkgs }:
 
 pkgs.mkShellNoCC {
   nativeBuildInputs = with pkgs; [
-    nix
-
     deadnix
     flake-checker
     nixfmt-rfc-style
@@ -14,7 +12,7 @@ pkgs.mkShellNoCC {
     stylua
   ];
 
-  env.FLAKE_CHECKER_NO_TELEMETRY = "true";
+  env.FLAKE_CHECKER_NO_TELEMETRY = lib.boolToString true;
 
   shellHook = ''
     pre-commit install

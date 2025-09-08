@@ -2,12 +2,13 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 
 let
   cfg' = config.dotfyls.browsers;
-  cfg = cfg'.browsers.firefox;
+  cfg = cfg'.firefox;
 in
 {
   imports = [
@@ -17,25 +18,21 @@ in
     ./search.nix
   ];
 
-  options.dotfyls.browsers.browsers.firefox.enable = lib.mkEnableOption "Firefox";
+  options.dotfyls.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls = {
-      file = {
-        ".mozilla".mode = "0700";
-        ".mozilla/firefox" = {
-          mode = "0700";
-          cache = true;
-        };
-
-        ".cache/mozilla".mode = "0700";
-        ".cache/mozilla/firefox" = {
-          mode = "0700";
-          cache = true;
-        };
+    dotfyls.file = {
+      ".mozilla".mode = "0700";
+      ".mozilla/firefox" = {
+        mode = "0700";
+        cache = true;
       };
 
-      mime-apps.extraAssociations."application/vnd.mozilla.xul+xml" = "firefox.desktop";
+      ".cache/mozilla".mode = "0700";
+      ".cache/mozilla/firefox" = {
+        mode = "0700";
+        cache = true;
+      };
     };
 
     programs.firefox = {
@@ -50,6 +47,22 @@ in
 
         ${builtins.readFile ./user-overrides.js}
       '';
+    };
+
+    wayland.windowManager.hyprland.settings = {
+      bind = [ "SUPER, W, exec, ${self.lib.getCfgExe config.programs.firefox}" ];
+      windowrule = [
+        "tag +dialog, class:firefox, title:About Mozilla Firefox"
+
+        "tag +picker, class:firefox, title:Library"
+
+        "noscreenshare, class:firefox, title:Library"
+
+        "tag +popout, class:firefox, title:Picture-in-Picture"
+
+        "keepaspectratio, class:firefox, title:Picture-in-Picture"
+        "noscreenshare, class:firefox, title:Picture-in-Picture"
+      ];
     };
   };
 }

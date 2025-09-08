@@ -23,32 +23,30 @@ in
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
     dotfyls = {
-      development = {
-        tools = with pkgs; [
-          delve
-          go
-          gofumpt
-          gopls
-          revive
-        ];
-        languages.servers.gopls.settings.gopls = {
-          directoryFilters = map (dir: "-${dir}") cfg''.ignoreDirs;
-          gofumpt = true;
-          codelenses.run_govulncheck = true;
-          semanticTokens = true;
-          usePlaceholders = true;
-          analyses.shadow = true;
-          staticcheck = true;
-          vulncheck = "Imports";
-          hints = {
-            assignVariableTypes = true;
-            compositeLiteralFields = true;
-            compositeLiteralTypes = true;
-            constantValues = true;
-            functionTypeParameters = true;
-            parameterNames = true;
-            rangeVariabletypes = true;
-          };
+      development.tools = with pkgs; [
+        delve
+        go
+        gofumpt
+        gopls
+        revive
+      ];
+      editors.neovim.lsp.gopls.settings.gopls = {
+        directoryFilters = map (dir: "-${dir}") cfg''.ignoreDirs;
+        gofumpt = true;
+        codelenses.run_govulncheck = true;
+        semanticTokens = true;
+        usePlaceholders = true;
+        analyses.shadow = true;
+        staticcheck = true;
+        vulncheck = "Imports";
+        hints = {
+          assignVariableTypes = true;
+          compositeLiteralFields = true;
+          compositeLiteralTypes = true;
+          constantValues = true;
+          functionTypeParameters = true;
+          parameterNames = true;
+          rangeVariabletypes = true;
         };
       };
 

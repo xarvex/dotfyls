@@ -1,4 +1,4 @@
-# TODO: combine with rest of config
+# TODO: Combine with rest of config.
 {
   lib,
   modulesPath,
@@ -10,8 +10,10 @@
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
 
-  # TODO: rework installer when attributes are passed through.
-  environment.systemPackages = [ self.packages.${pkgs.system}.dotfyls-install ];
+  environment = {
+    systemPackages = [ self.packages.${pkgs.system}.dotfyls-install ];
+    sessionVariables.DOTFYLS_FLAKE = self;
+  };
 
   networking = {
     wireless.enable = lib.mkImageMediaOverride false;

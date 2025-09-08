@@ -7,111 +7,53 @@
 let
   hosts =
     let
-      mkHost = id: system: {
-        enableHome = true;
+      mkHost = id: {
         enableSystem = true;
-        inherit
-          id
-          system
-          ;
-        user = "xarvex";
+        enableHome = true;
+        inherit id;
       };
     in
     {
-      artemux = mkHost "fd9daca2" "x86_64-linux";
-      matrix = mkHost "3bb44cc9" "x86_64-linux" // {
-        user = "neo";
-      };
-      pioneer = mkHost "3540bf30" "x86_64-linux";
-      sentinel = mkHost "ef01cd45" "x86_64-linux";
+      artemux = mkHost "fd9daca2";
+      matrix = mkHost "3bb44cc9";
+      pioneer = mkHost "3540bf30";
+      sentinel = mkHost "ef01cd45";
     };
 
-  mkPkgs =
-    system:
-    import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "corefonts"
-          "cuda-merged"
-          "cuda_cccl"
-          "cuda_cudart"
-          "cuda_cuobjdump"
-          "cuda_cupti"
-          "cuda_cuxxfilt"
-          "cuda_gdb"
-          "cuda_nvcc"
-          "cuda_nvdisasm"
-          "cuda_nvml_dev"
-          "cuda_nvprune"
-          "cuda_nvrtc"
-          "cuda_nvtx"
-          "cuda_profiler_api"
-          "cuda_sanitizer_api"
-          "discord"
-          "libcublas"
-          "libcufft"
-          "libcurand"
-          "libcusolver"
-          "libcusparse"
-          "libnpp"
-          "libnvjitlink"
-          "nvidia-settings"
-          "nvidia-x11"
-          "obsidian"
-          "spotify"
-          "steam"
-          "steam-original"
-          "steam-run"
-          "steam-unwrapped"
-          "vintagestory"
-          "vista-fonts"
-          "zsh-abbr"
-        ];
-    };
+  mkCommonModule = id: name: { dotfyls.meta = { inherit id name; }; };
+  mkHomeModules = name: [
+    ./home
+    ./hosts/${name}/home.nix
+  ];
 in
 {
   nixosConfigurations =
     builtins.mapAttrs (
-      hostname:
-      {
-        enableHome,
-        id,
-        system,
-        user,
-        ...
-      }:
+      name:
+      { enableHome, id, ... }:
       lib.nixosSystem rec {
-        pkgs = mkPkgs system;
+        specialArgs = { inherit inputs self; };
+        modules = [
+          ./system
+          ./hosts/${name}/hardware.nix
+          ./hosts/${name}/system.nix
 
-        specialArgs = { inherit inputs self user; };
-        modules =
-          [
-            ./system
-            ./hosts/${hostname}/hardware.nix
-            ./hosts/${hostname}/system.nix
+          (mkCommonModule id name)
+        ]
+        ++ lib.optionals enableHome [
+          inputs.home-manager.nixosModules.home-manager
 
-            {
-              networking = {
-                hostId = id;
-                hostName = hostname;
-              };
-            }
-          ]
-          ++ lib.optionals enableHome [
-            inputs.home-manager.nixosModules.home-manager
+          (
+            { config, ... }:
 
             {
               home-manager = {
                 extraSpecialArgs = specialArgs;
-                users.${user}.imports = [
-                  ./home
-                  ./hosts/${hostname}/home.nix
-                ];
+                users.${config.dotfyls.meta.user}.imports = mkHomeModules name;
               };
             }
-          ];
+          )
+        ];
       }
     ) (lib.filterAttrs (_: host: host.enableSystem) hosts)
     // {
@@ -123,18 +65,13 @@ in
     };
 
   homeConfigurations = builtins.mapAttrs (
-    hostname:
-    { system, user, ... }:
+    name:
+    { id, ... }:
     inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = mkPkgs system;
-
-      extraSpecialArgs = { inherit inputs self user; };
-      modules = [
-        ./home
-        ./hosts/${hostname}/home.nix
-      ];
+      extraSpecialArgs = { inherit inputs self; };
+      modules = mkCommonModule id name ++ mkHomeModules name;
     }
-  ) (lib.filterAttrs (_: host: host.enableHome) hosts);
+  ) (lib.filterAttrs (_: host: !host.enableSystem && host.enableHome) hosts);
 
-  inherit (import ./shared { inherit lib; }) nixosModules homeModules;
+  inherit (import ./shared { inherit lib self; }) nixosModules homeModules;
 }

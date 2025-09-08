@@ -1,0 +1,31 @@
+;; Adapted: https://github.com/jtroo/kanata/discussions/1455
+;; See: https://www.reddit.com/r/KeyboardLayouts/comments/1hsecri/kanata_skip_home_row_mods_while_typing
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc)
+
+(deftemplate charmod (char mod)
+  (switch
+    ((key-timing 3 less-than 375)) $char break
+    () (tap-hold-release 200 500 $char $mod) break
+  )
+)
+
+(deflayermap (main)
+  a (t! charmod a lmet)
+  s (t! charmod s lalt)
+  d (t! charmod d lctl)
+  f (t! charmod f lsft)
+  g (t! charmod g esc)
+
+  h (t! charmod h esc)
+  j (t! charmod j rsft)
+  k (t! charmod k rctl)
+  l (t! charmod l ralt)
+  ; (t! charmod ; rmet)
+)
+
+;; vi: ft=lisp

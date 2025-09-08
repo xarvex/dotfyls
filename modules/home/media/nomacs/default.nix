@@ -15,13 +15,30 @@ in
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    dotfyls.mime-apps.media = {
-      image = "org.nomacs.ImageLounge.desktop";
-      vector = "org.nomacs.ImageLounge.desktop";
-    };
-
     home.packages = with pkgs; [ nomacs-qt6 ];
 
-    xdg.configFile."nomacs/Image Lounge.conf".source = ./${"Image Lounge.conf"};
+    xdg = {
+      mimeApps.defaultApplications = lib.genAttrs [
+        "image/avif"
+        "image/bmp"
+        "image/gif"
+        "image/heic"
+        "image/heif"
+        "image/jpeg"
+        "image/jxl"
+        "image/png"
+        "image/tiff"
+        "image/webp"
+        "image/x-eps"
+        "image/x-ico"
+        "image/x-portable-bitmap"
+        "image/x-portable-graymap"
+        "image/x-portable-pixmap"
+        "image/x-xbitmap"
+        "image/x-xpixmap"
+      ] (_: "org.nomacs.ImageLounge.desktop");
+
+      configFile."nomacs/Image Lounge.conf".source = ./${"Image Lounge.conf"};
+    };
   };
 }

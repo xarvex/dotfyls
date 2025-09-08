@@ -9,21 +9,22 @@ in
     ./upower.nix
   ];
 
-  options.dotfyls.management.power = {
-    battery = lib.mkEnableOption "battery";
-    suspend = {
-      enable = lib.mkEnableOption "suspend" // {
-        default = true;
-      };
-      light = lib.mkEnableOption "lighter suspend method";
+  options.dotfyls.management.power.suspend = {
+    enable = lib.mkEnableOption "suspend" // {
+      default = true;
     };
+
+    light = lib.mkEnableOption "lighter suspend method";
   };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.suspend.enable {
       boot.kernelParams = [ "mem_sleep_default=${if cfg.suspend.light then "s2idle" else "deep"}" ];
     })
+
     (lib.mkIf (!cfg.suspend.enable) {
+      boot.kernelParams = [ "nohibernate" ];
+
       systemd.targets = {
         hibernate.enable = false;
         hybrid-sleep.enable = false;

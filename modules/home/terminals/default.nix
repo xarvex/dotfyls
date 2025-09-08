@@ -1,21 +1,37 @@
-{ lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 
+let
+  cfg = config.dotfyls.terminals;
+in
 {
   imports = [
-    ./terminals
-    ./xdg-terminal-exec
+    ./wezterm
 
-    (self.lib.mkSelectorModule [ "dotfyls" "terminals" ] {
-      name = "default";
-      default = "kitty";
-      example = "alacritty";
-      description = "Default terminal to use.";
-    })
+    ./alacritty.nix
+    ./foot.nix
+    ./kitty.nix
+    ./xdg-terminal-exec.nix
   ];
 
   options.dotfyls.terminals = {
     enable = lib.mkEnableOption "terminals" // {
       default = true;
+    };
+    default = lib.mkOption {
+      type = lib.types.enum [
+        "alacritty"
+        "foot"
+        "kitty"
+        "wezterm"
+      ];
+      default = "kitty";
+      example = "alacritty";
+      description = "Default terminal to use.";
     };
 
     fontSize = lib.mkOption {
@@ -36,5 +52,14 @@
       example = 100000;
       description = "Number of scrollback lines to use for terminals.";
     };
+  };
+
+  config = lib.mkIf cfg.enable {
+    dotfyls.terminals = self.lib.enableSelected cfg.default [
+      "alacritty"
+      "foot"
+      "kitty"
+      "wezterm"
+    ];
   };
 }

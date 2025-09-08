@@ -1,8 +1,6 @@
-_:
-
 {
   dotfyls = {
-    browsers.browsers.chromium.enable = true;
+    browsers.chromium.enable = true;
 
     desktops.displays = [
       {
@@ -11,6 +9,7 @@ _:
         height = 1200;
         refresh = 60;
         scale = 1.3333;
+        touchscreen = true;
         workspaces = [
           7
           8
@@ -36,14 +35,17 @@ _:
       }
     ];
 
-    input.solaar = {
-      enable = true;
-      deviceConfig = ./solaar/config.yaml;
+    management = {
+      image.supportRPI = true;
+      solaar = {
+        enable = true;
+        deviceConfig = ./solaar/config.yaml;
+      };
     };
 
-    shells.shells.zsh.enable = true;
+    shells.zsh.enable = true;
 
-    terminals.terminals = {
+    terminals = {
       alacritty.enable = true;
       foot.enable = true;
       wezterm.enable = true;

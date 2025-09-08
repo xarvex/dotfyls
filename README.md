@@ -16,6 +16,6 @@ They have all been consolidated into this repository, with the old put into a br
 | Program | Location                                           | Legacy Branch  |
 |---------|----------------------------------------------------|----------------|
 | Firefox | ./modules/home/browsers/firefox                    | legacy-firefox |
-| Neovim  | ./modules/home/files/neovim/nvim                   | legacy-neovim  |
-| WezTerm | ./modules/home/terminals/terminals/wezterm/wezterm | legacy-wezterm |
-| Zsh     | ./modules/home/shells/shells/zsh                   | legacy-zsh     |
+| Neovim  | ./modules/home/editors/neovim                      | legacy-neovim  |
+| WezTerm | ./modules/home/terminals/wezterm                   | legacy-wezterm |
+| Zsh     | ./modules/home/shells/zsh                          | legacy-zsh     |

@@ -10,8 +10,20 @@ in
     enable = lib.mkEnableOption "firewall" // {
       default = true;
     };
-    allowPing = lib.mkEnableOption "allow IPv4 pinging";
+
+    allowPing = lib.mkEnableOption "allow IPv4 pinging" // {
+      default = config.dotfyls.meta.machine.isServer;
+    };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) { networking.firewall.allowPing = cfg.allowPing; };
+  config = {
+    networking = {
+      firewall = {
+        inherit (cfg) enable;
+
+        inherit (cfg) allowPing;
+      };
+      nftables.enable = cfg.enable;
+    };
+  };
 }

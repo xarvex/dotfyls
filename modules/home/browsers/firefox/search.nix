@@ -7,7 +7,7 @@
 
 let
   cfg' = config.dotfyls.browsers;
-  cfg = cfg'.browsers.firefox;
+  cfg = cfg'.firefox;
 in
 lib.mkIf (cfg'.enable && cfg.enable) {
   programs.firefox.profiles.${config.home.username}.search = {
@@ -21,9 +21,13 @@ lib.mkIf (cfg'.enable && cfg.enable) {
       "ddg"
       "google"
       "wikipedia"
+
       "nix-packages"
       "nix-options"
       "home-manager"
+
+      "crates"
+
       "nerd-fonts"
     ];
 
@@ -83,7 +87,6 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
           metaData.alias = "@s";
         };
-
         ddg.metaData.alias = "@d";
         google.metaData.alias = "@g";
         wikipedia.metaData.alias = "@w";
@@ -134,7 +137,6 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
           metaData.alias = "@no";
         };
-
         home-manager = {
           name = "Home Manager Option Search";
           icon = "https://home-manager-options.extranix.com/images/favicon.png";
@@ -156,6 +158,25 @@ lib.mkIf (cfg'.enable && cfg.enable) {
           ];
 
           metaData.alias = "@hm";
+        };
+
+        crates = {
+          name = "crates.io";
+          icon = "https://crates.io/favicon.ico";
+          definedAliases = [ "@crates" ];
+          urls = [
+            {
+              template = "https://crates.io/search";
+              params = [
+                {
+                  name = "q";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+
+          metaData.alias = "@c";
         };
 
         nerd-fonts = {

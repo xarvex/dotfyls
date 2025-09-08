@@ -2,10 +2,9 @@
 
 {
   imports = [
-    ./prismlauncher
-    ./steam
-    ./vintagestory
-
+    ./prismlauncher.nix
+    ./steam.nix
+    ./vintagestory.nix
     ./r2modman.nix
   ];
 

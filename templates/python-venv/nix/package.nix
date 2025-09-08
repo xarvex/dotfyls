@@ -5,7 +5,7 @@
 }:
 
 let
-  pyproject = (lib.importTOML ../../pyproject.toml).project;
+  pyproject = (lib.importTOML ../pyproject.toml).project;
 in
 buildPythonPackage {
   pname = pyproject.name;

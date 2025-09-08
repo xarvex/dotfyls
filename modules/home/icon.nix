@@ -19,6 +19,7 @@ let
     branch = " ";
     commit = " ";
     stash = "≡";
+    prompt = "";
     vim = " ";
 
     spellcheck = " ";

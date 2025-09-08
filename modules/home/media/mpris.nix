@@ -14,28 +14,25 @@ in
     enable = lib.mkEnableOption "MPRIS2" // {
       default = config.dotfyls.desktops.enable;
     };
-    proxy.enable = lib.mkEnableOption "MPRIS2 proxy" // {
+    bluetoothProxy = lib.mkEnableOption "MPRIS2 proxy for Bluetooth MIDI" // {
       default = true;
-    };
-    playerctl = {
-      enable = lib.mkEnableOption "playerctl" // {
-        default = true;
-      };
-      daemon.enable = lib.mkEnableOption "playerctld" // {
-        default = true;
-      };
     };
   };
 
-  config = lib.mkIf (cfg'.enable && cfg.enable) (
-    lib.mkMerge [
-      (lib.mkIf cfg.proxy.enable { services.mpris-proxy.enable = true; })
+  config = lib.mkIf (cfg'.enable && cfg.enable) {
+    services = {
+      playerctld.enable = true;
+      mpris-proxy.enable = cfg.bluetoothProxy;
+    };
 
-      (lib.mkIf cfg.playerctl.enable {
-        home.packages = [ (self.lib.getCfgPkg config.services.playerctld) ];
-
-        services.playerctld.enable = lib.mkIf cfg.playerctl.daemon.enable true;
-      })
-    ]
-  );
+    wayland.windowManager.hyprland.settings.bindl =
+      let
+        playerctl = self.lib.getCfgExe config.services.playerctld;
+      in
+      [
+        ", XF86AudioNext, exec, ${playerctl} next"
+        ", XF86AudioPlay, exec, ${playerctl} play-pause"
+        ", XF86AudioPrev, exec, ${playerctl} previous"
+      ];
+  };
 }

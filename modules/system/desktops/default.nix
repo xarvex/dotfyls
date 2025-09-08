@@ -13,24 +13,29 @@ in
 {
   imports = [
     ./hyprland.nix
+    ./portal.nix
+  ];
 
-    (self.lib.mkSelectorModule [ "dotfyls" "desktops" ] {
-      name = "default";
+  options.dotfyls.desktops = {
+    enable = lib.mkEnableOption "desktops" // {
+      default = hmCfg.enable;
+    };
+    default = lib.mkOption {
+      type = lib.types.enum [ "hyprland" ];
       inherit (hmCfg) default;
       example = "hyprland";
       description = "Default desktop to use.";
-    })
-  ];
+    };
 
-  options.dotfyls.desktops.enable = lib.mkEnableOption "desktops" // {
-    default = hmCfg.enable;
+    hyprlock.enable = lib.mkEnableOption "hyprlock" // {
+      default = hmCfg.hyprlock.enable;
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.pathsToLink = [
-      "/share/applications"
-      "/share/xdg-desktop-portal"
-    ];
+    dotfyls.desktops = self.lib.enableSelected cfg.default [ "hyprland" ];
+
+    environment.pathsToLink = [ "/share/applications" ];
 
     services.xserver = {
       updateDbusEnvironment = true;
@@ -44,6 +49,8 @@ in
     security = {
       polkit.enable = true;
       rtkit.enable = true;
+
+      pam.services.hyprlock.u2fAuth = cfg.hyprlock.enable && config.security.pam.services.login.u2fAuth;
     };
   };
 }

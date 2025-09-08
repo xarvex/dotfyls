@@ -41,8 +41,6 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-master.url = "github:NixOS/nixpkgs";
-
     persistwd = {
       url = "git+https://codeberg.org/xarvex/persistwd";
       inputs = {
@@ -56,7 +54,7 @@
     systems.url = "github:nix-systems/default";
 
     tagstudio = {
-      url = "github:TagStudioDev/TagStudio/Alpha-v9.5.3";
+      url = "github:TagStudioDev/TagStudio";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
@@ -74,11 +72,19 @@
       };
     };
 
+    yt-dli = {
+      url = "git+https://codeberg.org/xarvex/yt-dli";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     yubigen = {
       url = "git+https://codeberg.org/xarvex/yubigen";
       inputs = {
         flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
@@ -103,7 +109,7 @@
         {
           packages = import ./packages { inherit pkgs; };
 
-          devShells = import ./shells { inherit pkgs; };
+          devShells = import ./shells { inherit lib pkgs; };
 
           formatter = pkgs.nixfmt-rfc-style;
         };

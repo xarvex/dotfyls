@@ -1,12 +1,16 @@
-{ lib }:
+{ lib, self }:
 
 let
   modules' = [
-    "appearance_fonts"
-    "file"
-    "nix"
+    ./appearance_fonts.nix
+    ./file.nix
+    ./filesystems_drives.nix
+    ./meta.nix
+    ./nix.nix
   ];
-  modules = lib.genAttrs modules' (module': import ./${module'}.nix);
+  modules = builtins.listToAttrs (
+    map (module: lib.nameValuePair (self.lib.moduleNameOf module) (import module)) modules'
+  );
 in
 {
   nixosModules = builtins.mapAttrs (_: module: module true) modules;

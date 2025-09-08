@@ -1,66 +1,41 @@
-# NOTE: Motivation for including all these tools in my home is that they can
-# still be overridden via PATH per-project. I have these tools to accelerate
-# and give ease towards working on something quickly.
+# Motivation for including all these tools in my home is that they can still
+# be overridden via PATH per-project. I have these tools to accelerate and
+# give ease towards working on something quickly.
 # Also, quite simply, not all of these need to be per-project.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, ... }:
 
-let
-  cfg' = config.dotfyls.development;
-  cfg = cfg'.languages;
-
-  jsonFormat = pkgs.formats.json { };
-in
 {
   imports = [
-    ./blueprint
-    ./c
-    ./css
     ./go
-    ./html
-    ./java
     ./javascript
-    ./json
-    ./kotlin
-    ./lua
-    ./markdown
-    ./nix
-    ./python
-    ./rust
-    ./shellscript
-    ./slint
-    ./sql
-    ./toml
-    ./typescript
-    ./typst
-    ./vala
-    ./yaml
-    ./zig
+
+    ./blueprint.nix
+    ./c.nix
+    ./css.nix
+    ./html.nix
+    ./java.nix
+    ./json.nix
+    ./kotlin.nix
+    ./lua.nix
+    ./markdown.nix
+    ./nix.nix
+    ./python.nix
+    ./rust.nix
+    ./shellscript.nix
+    ./slint.nix
+    ./sql.nix
+    ./toml.nix
+    ./typescript.nix
+    ./typst.nix
+    ./vala.nix
+    ./yaml.nix
+    ./zig.nix
   ];
 
-  options.dotfyls.development.languages = {
-    defaultEnable = lib.mkEnableOption "all languages by default" // {
+  options.dotfyls.development.languages.defaultEnable =
+    lib.mkEnableOption "all languages by default"
+    // {
       default = true;
     };
-
-    servers = lib.mkOption {
-      type = lib.types.attrsOf jsonFormat.type;
-      default = { };
-      description = "Attrset of language servers and their configuration.";
-    };
-  };
-
-  config = lib.mkIf cfg'.enable {
-    xdg.configFile = lib.mapAttrs' (
-      server: configuration:
-      lib.nameValuePair "dotfyls/lsp/${server}.json" {
-        source = jsonFormat.generate "${server}-configuration" configuration;
-      }
-    ) cfg.servers;
-  };
 }

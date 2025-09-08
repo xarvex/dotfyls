@@ -31,24 +31,25 @@ in
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
     dotfyls = {
-      development = {
-        tools =
-          (with pkgs; [
-            biome
-            typescript-language-server
-          ])
-          ++ lib.optional cfg.frameworks.astro pkgs.astro-language-server;
-        languages.servers = {
-          astro = { };
-          biome.workspace_required = false;
-          ts_ls = {
-            settings.implicitProjectConfiguration.checkJs = true;
-            filetypes = [
-              "javascript"
-              "javascript.jsx"
-              "javascriptreact"
-            ];
-          };
+      development.tools =
+        (with pkgs; [
+          biome
+          typescript-language-server
+        ])
+        ++ lib.optional cfg.frameworks.astro pkgs.astro-language-server;
+      editors.neovim.lsp = {
+        astro = { };
+        biome = {
+          settings.biome.configurationPath = "${config.xdg.configHome}/biome/biome.json";
+          workspace_required = false;
+        };
+        ts_ls = {
+          settings.implicitProjectConfiguration.checkJs = true;
+          filetypes = [
+            "javascript"
+            "javascript.jsx"
+            "javascriptreact"
+          ];
         };
       };
 
@@ -72,14 +73,14 @@ in
       };
     };
 
-    home.sessionVariables =
-      {
-        NODE_REPL_HISTORY = "${config.xdg.stateHome}/node/repl_history";
-        NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-      }
-      // lib.optionalAttrs cfg.frameworks.astro {
-        ASTRO_TELEMETRY_DISABLED = 1;
-      };
+    home.sessionVariables = {
+      NODE_REPL_HISTORY = "${config.xdg.stateHome}/node/repl_history";
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+
+      ASTRO_TELEMETRY_DISABLED = lib.mkIf cfg.frameworks.astro 1;
+
+      BIOME_CONFIG_PATH = "${config.xdg.configHome}/biome";
+    };
 
     xdg.configFile = {
       "npm/npmrc".source = ./npmrc;
@@ -95,17 +96,23 @@ in
           parser.cssModules = true;
           linter.enabled = true;
         };
-        # INFO: https://biomejs.dev/internals/language-support/#html-super-languages-support
+        # https://biomejs.dev/internals/language-support/#html-super-languages-support
         overrides = [
           {
-            include = [
-              "*.astro"
-              "*.svelte"
-              "*.vue"
+            includes = [
+              "**/*.astro"
+              "**/*.svelte"
+              "**/*.vue"
             ];
-            linter.rules.style = {
-              useConst = "off";
-              useImportType = "off";
+            linter.rules = {
+              style = {
+                useConst = "off";
+                useImportType = "off";
+              };
+              correctness = {
+                noUnusedVariables = "off";
+                noUnusedImports = "off";
+              };
             };
           }
         ];

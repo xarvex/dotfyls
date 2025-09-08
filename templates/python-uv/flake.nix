@@ -63,7 +63,7 @@
                 lib.composeManyExtensions [
                   inputs.pyproject-build-systems.overlays.default
                   (uv-workspace.mkPyprojectOverlay { sourcePreference = "wheel"; })
-                  # NOTE: Put overlays here:
+                  # Put overlays here:
                   # (final: prev: {})
                 ]
               );

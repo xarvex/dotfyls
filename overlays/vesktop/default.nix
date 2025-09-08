@@ -12,14 +12,12 @@ prev.vesktop.overrideAttrs (
     };
   in
   {
-    nativeBuildInputs = o.nativeBuildInputs ++ [ final.makeWrapper ];
+    nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [ final.makeWrapper ];
 
     patches = (o.patches or [ ]) ++ [ ./remove-splash-image.patch ];
 
-    postFixup =
-      (o.postFixup or "")
-      + ''
-        wrapProgram $out/bin/vesktop --run "${final.lib.getExe disableFirstLaunch}"
-      '';
+    postFixup = (o.postFixup or "") + ''
+      wrapProgram $out/bin/vesktop --run ${final.lib.getExe disableFirstLaunch}
+    '';
   }
 )

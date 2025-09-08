@@ -1,7 +1,10 @@
 { lib, pkgs, ... }:
 
 {
-  dotfyls.files.systems.systems.zfs.autosnap.enable = false;
+  dotfyls.meta = {
+    user = "neo";
+    machine.type = "virtual";
+  };
 
   services = {
     qemuGuest.enable = true;

@@ -13,6 +13,7 @@ user_pref("ui.systemUsesDarkTheme", 1);
 user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
 user_pref("widget.use-xdg-desktop-portal.location", 1);
 user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
+user_pref("widget.use-xdg-desktop-portal.native-messaging", 1);
 user_pref("widget.use-xdg-desktop-portal.open-uri", 1);
 user_pref("widget.use-xdg-desktop-portal.settings", 1);
 
@@ -206,9 +207,8 @@ user_pref("__user-overrides.js.cat", "2700 Error: The cat is dead!");
 
 /*** [SECTION 2800]: SHUTDOWN & SANITIZING ***/
 user_pref("__user-overrides.js.cat", "2800 Error: The cat is dead!");
-user_pref("privacy.clearOnShutdown.history", false);
-user_pref("privacy.clearHistory.historyFormDataAndDownloads", false);
 user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false);
+user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", false);
 user_pref("privacy.clearHistory.historyFormDataAndDownloads", false);
 
 

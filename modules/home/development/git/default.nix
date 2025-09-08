@@ -14,6 +14,7 @@ in
     enable = lib.mkEnableOption "Git" // {
       default = true;
     };
+
     key = lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
@@ -62,6 +63,11 @@ in
       gri = "git rebase -i";
 
       gs = "git status";
+
+      gf = "git fetch";
+      gfa = "git fetch --all";
+
+      gP = "git pull";
     };
 
     programs.git = {

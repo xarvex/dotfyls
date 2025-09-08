@@ -5,8 +5,10 @@ let
 in
 {
   imports = [
+    ./kernel
+
     ./console.nix
-    ./kernel.nix
+    ./loader.nix
     ./plymouth.nix
   ];
 
@@ -14,25 +16,15 @@ in
 
   config = lib.mkMerge [
     {
-      boot = {
-        initrd.systemd.enable = true;
-        loader = {
-          efi.canTouchEfiVariables = true;
-          systemd-boot = {
-            enable = true;
-            memtest86.enable = true;
-          };
-        };
-      };
-
       hardware.enableRedistributableFirmware = true;
+
+      boot.initrd.systemd.enable = true;
     }
 
     (lib.mkIf cfg.silent {
       boot = {
         consoleLogLevel = 0;
         initrd.verbose = false;
-        loader.timeout = 0;
 
         kernelParams = [
           "boot.shell_on_fail"

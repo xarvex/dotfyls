@@ -17,6 +17,7 @@ in
     package = lib.mkPackageOption self.packages.${pkgs.system} "project-name" {
       default = "project-slug";
     };
+
     settings = lib.mkOption {
       inherit (tomlFormat) type;
       default = { };

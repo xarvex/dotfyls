@@ -35,24 +35,24 @@ repos:
         name: selene
         entry: selene
         language: system
-        exclude: ^modules/home/(?:files/neovim/nvim|terminals/terminals/wezterm/wezterm)/
+        exclude: ^modules/home/(?:editors/neovim|terminals/wezterm)/
         types: [lua]
 
-      - id: selene-modules-home-files-neovim-nvim
-        name: selene (modules/home/files/neovim/nvim)
+      - id: selene-modules-home-editors-neovim
+        name: selene (modules/home/editors/neovim)
         entry: selene
         language: system
-        files: ^modules/home/files/neovim/nvim/
+        files: ^modules/home/editors/neovim/
         types: [lua]
-        args: [--config, modules/home/files/neovim/nvim/selene.toml]
+        args: [--config, modules/home/editors/neovim/selene.toml]
 
-      - id: selene-modules-home-terminals-terminals-wezterm-wezterm
-        name: selene (modules/home/terminals/terminals/wezterm/wezterm)
+      - id: selene-modules-home-terminals-wezterm
+        name: selene (modules/home/terminals/wezterm)
         entry: selene
         language: system
-        files: ^modules/home/terminals/terminals/wezterm/wezterm/
+        files: ^modules/home/terminals/wezterm/
         types: [lua]
-        args: [--config, modules/home/terminals/terminals/wezterm/wezterm/selene.toml]
+        args: [--config, modules/home/terminals/wezterm/selene.toml]
 
       - id: statix
         name: statix

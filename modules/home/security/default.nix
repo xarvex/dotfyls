@@ -1,12 +1,10 @@
-_:
-
 {
   imports = [
     ./gnome-keyring
     ./pgp
     ./proton
-    ./ssh
-    ./wireshark
-    ./yubikey
+
+    ./ssh.nix
+    ./yubikey.nix
   ];
 }

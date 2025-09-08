@@ -4,15 +4,13 @@
   imports = [
     self.homeModules.file
 
-    ./nemo
-    ./neovim
-    ./obsidian
-    ./systems
-
     ./file-roller.nix
     ./gvfs.nix
     ./localsend.nix
+    ./nemo.nix
+    ./obsidian.nix
     ./sync.nix
+    ./torrent.nix
   ];
 
   dotfyls.file = {

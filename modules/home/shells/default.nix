@@ -2,6 +2,7 @@
   config,
   lib,
   self,
+  osConfig ? null,
   ...
 }:
 
@@ -10,31 +11,33 @@ let
 in
 {
   imports = [
-    ./programs
-    ./shells
-
-    (self.lib.mkSelectorModule [ "dotfyls" "shells" ] {
-      name = "default";
-      default = "fish";
-      example = "zsh";
-      description = "Default shell to use.";
-    })
+    ./bash
+    ./fish
+    ./tools
+    ./zsh
   ];
 
   options.dotfyls.shells = {
+    default = lib.mkOption {
+      type = lib.types.enum [
+        "bash"
+        "fish"
+        "zsh"
+      ];
+      default = "fish";
+      example = "zsh";
+      description = "Default shell to use.";
+    };
     historySize = lib.mkOption {
       type = lib.types.int;
       default = 256000;
       example = 128000;
       description = "Number of history lines.";
     };
-
     greet = lib.mkOption {
       type = lib.types.lines;
       default = "";
-      example = lib.literalExpression ''
-        ''${lib.getExe pkgs.fastfetch}
-      '';
+      example = lib.literalExpression "\${lib.getExe pkgs.fastfetch}";
       description = ''
         Commands that should be run to greet the user.
         Note that these commands will run for any shell.
@@ -43,12 +46,23 @@ in
   };
 
   config = {
+    dotfyls.shells =
+      self.lib.enableSelected cfg.default [
+        "bash"
+        "fish"
+        "zsh"
+      ]
+      // {
+        bash.enable = lib.mkDefault true;
+      };
+
     home = {
-      sessionVariables.SHELL =
-        let
-          sCfg = cfg.shells.${cfg.default};
-        in
-        lib.mkIf (sCfg ? package) (self.lib.getCfgExe sCfg);
+      sessionVariables.SHELL = "${
+        if osConfig == null then
+          "/etc/profiles/per-user/${config.home.username}"
+        else
+          "/run/current-system/sw"
+      }/bin/${cfg.default}";
 
       shellAliases = {
         ".." = "cd ..";

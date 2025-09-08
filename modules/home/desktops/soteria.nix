@@ -31,5 +31,12 @@ in
 
       Install.WantedBy = [ "graphical-session.target" ];
     };
+
+    wayland.windowManager.hyprland.settings.windowrule = [
+      "tag +important-prompt, class:(?:${lib.escapeRegex "gay.vaskel."})?soteria"
+
+      "noscreenshare, class:(?:${lib.escapeRegex "gay.vaskel."})?soteria"
+      "dimaround, class:(?:${lib.escapeRegex "gay.vaskel."})?soteria, floating:1"
+    ];
   };
 }

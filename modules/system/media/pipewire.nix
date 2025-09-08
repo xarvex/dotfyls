@@ -3,30 +3,23 @@
 let
   cfg' = config.dotfyls.media;
   cfg = cfg'.pipewire;
-  hmCfg = config.hm.dotfyls.media.pipewire;
 in
 {
-  options.dotfyls.media.pipewire = {
-    enable = lib.mkEnableOption "PipeWire" // {
-      default = hmCfg.enable;
-    };
-    audio.enable = lib.mkEnableOption "PipeWire audio" // {
-      default = hmCfg.audio.enable;
-    };
+  options.dotfyls.media.pipewire.enable = lib.mkEnableOption "PipeWire" // {
+    default = config.dotfyls.desktops.enable;
   };
 
   config = lib.mkIf (cfg'.enable && cfg.enable) {
-    services.pipewire =
-      {
+    services.pipewire = {
+      enable = true;
+
+      alsa = {
         enable = true;
-      }
-      // lib.optionalAttrs cfg.audio.enable {
-        wireplumber.enable = true;
-        pulse.enable = true;
-        alsa = {
-          enable = true;
-          support32Bit = true;
-        };
+        support32Bit = true;
       };
+      pulse.enable = true;
+
+      wireplumber.enable = true;
+    };
   };
 }

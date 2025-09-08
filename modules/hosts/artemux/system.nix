@@ -1,7 +1,12 @@
-_:
+{ lib, pkgs, ... }:
 
 {
   dotfyls = {
+    meta = {
+      machine.type = "laptop";
+      hardware.threads = 8;
+    };
+
     boot = {
       kernel.variant = "xanmod";
       console = {
@@ -25,16 +30,29 @@ _:
       };
     };
 
+    filesystems.drives."1tb-samsung-pssd-t9".enable = true;
+
     graphics = {
       provider = "intel";
-      graphics.intel.forceFullRGB = [
+      intel.forceFullRGB = [
         322
         356
       ];
     };
-
-    management.power.battery = true;
-
-    security.harden.kernel.packages = false;
   };
+
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "temp-no-dnscrypt" ''
+      current_system=$(${lib.getExe' pkgs.coreutils "readlink"} -f /run/current-system)
+      no_dnscrypt_system=$(${lib.getExe' pkgs.coreutils "readlink"} -f /run/current-system/specialisation/no-dnscrypt)
+
+      if [ "''${current_system}" != "''${no_dnscrypt_system}" ]; then
+          sudo "''${no_dnscrypt_system}"/bin/switch-to-configuration test
+            ${lib.getExe' pkgs.coreutils "sleep"} 10
+          sudo "''${current_system}"/bin/switch-to-configuration test
+      fi
+    '')
+  ];
+
+  specialisation.no-dnscrypt.configuration.dotfyls.networking.dnscrypt.enable = false;
 }
