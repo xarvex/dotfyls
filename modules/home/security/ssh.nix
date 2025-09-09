@@ -51,7 +51,6 @@ in
                   PermitLocalCommand = "no";
                   Protocol = "2";
                   StrictHostKeyChecking = "yes";
-                  UsePrivilegedPort = "no";
                   VerifyHostKeyDNS = "yes";
                 };
               };
