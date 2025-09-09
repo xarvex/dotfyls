@@ -40,7 +40,7 @@ in
       editors.neovim.lsp = {
         astro = { };
         biome = {
-          settings.biome.configurationPath = "${config.xdg.configHome}/biome/biome.json";
+          settings.biome.configurationPath = config.home.sessionVariables.BIOME_CONFIG_PATH;
           workspace_required = false;
         };
         ts_ls = {
@@ -79,44 +79,61 @@ in
 
       ASTRO_TELEMETRY_DISABLED = lib.mkIf cfg.frameworks.astro 1;
 
-      BIOME_CONFIG_PATH = "${config.xdg.configHome}/biome";
+      BIOME_CONFIG_PATH = "${config.xdg.configHome}/biome/biome.json";
     };
 
     xdg.configFile = {
       "npm/npmrc".source = ./npmrc;
 
-      "biome/biome.json".source = jsonFormat.generate "biome-json" {
-        formatter = {
-          indentStyle = "space";
-          indentWidth = 4;
-          lineWidth = 120;
-          useEditorconfig = true;
-        };
-        css = {
-          parser.cssModules = true;
-          linter.enabled = true;
-        };
-        # https://biomejs.dev/internals/language-support/#html-super-languages-support
-        overrides = [
-          {
+      "biome/biome.json".source =
+        let
+          formatter = {
+            indentStyle = "space";
+            indentWidth = 4;
+            lineWidth = 120;
+          };
+        in
+        jsonFormat.generate "biome-json" {
+          files.includes = [ "**" ] ++ map (dir: "!**/${dir}") cfg''.ignoreDirs;
+          formatter = formatter // {
             includes = [
-              "**/*.astro"
-              "**/*.svelte"
-              "**/*.vue"
+              "**"
+              "!**/.obsidian"
             ];
-            linter.rules = {
-              style = {
-                useConst = "off";
-                useImportType = "off";
-              };
-              correctness = {
-                noUnusedVariables = "off";
-                noUnusedImports = "off";
-              };
+            useEditorconfig = true;
+          };
+          javascript = {
+            parser.jsxEverywhere = false;
+            formatter = formatter // {
+              operatorLinebreak = "before";
             };
-          }
-        ];
-      };
+          };
+          json.formatter = formatter;
+          css = {
+            parser.cssModules = true;
+            inherit formatter;
+          };
+          # https://biomejs.dev/internals/language-support/#html-super-languages-support
+          overrides = [
+            {
+              includes = [
+                "**/*.astro"
+                "**/*.svelte"
+                "**/*.vue"
+              ];
+              linter.rules = {
+                style = {
+                  useConst = "off";
+                  useImportType = "off";
+                };
+                correctness = {
+                  noUnusedVariables = "off";
+                  noUnusedImports = "off";
+                };
+              };
+            }
+          ];
+        };
     };
   };
 }
