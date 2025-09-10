@@ -20,9 +20,12 @@ lib.mkIf (cfg'.enable && cfg.enable) {
 
     master.new_status = "master";
 
-    input.touchpad = {
-      natural_scroll = true;
-      clickfinger_behavior = true;
+    input = {
+      numlock_by_default = true;
+      touchpad = {
+        natural_scroll = true;
+        clickfinger_behavior = true;
+      };
     };
 
     gestures = {
