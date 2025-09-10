@@ -22,6 +22,9 @@ in
 
     home.packages = [ (lib.hiPrio pkgs.protonmail-desktop) ];
 
-    xdg.mimeApps.defaultApplications."x-scheme-handler/mailto" = "proton-mail.desktop";
+    xdg.mimeApps.defaultApplications = lib.genAttrs [
+      "x-scheme-handler/mailto"
+      "x-scheme-handler/webcal"
+    ] (_: "proton-mail.desktop");
   };
 }

@@ -51,8 +51,8 @@ in
         "x-scheme-handler/http"
         "x-scheme-handler/https"
       ] (_: desktopFiles.${cfg.default}))
-      // {
-        "x-scheme-handler/mailto" = lib.mkAfter desktopFiles.${cfg.default};
-      };
+      // lib.genAttrs [ "x-scheme-handler/mailto" "x-scheme-handler/webcal" ] (
+        _: lib.mkAfter desktopFiles.${cfg.default}
+      );
   };
 }

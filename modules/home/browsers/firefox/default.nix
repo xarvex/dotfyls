@@ -49,6 +49,8 @@ in
       '';
     };
 
+    xdg.mimeApps.associations.added."x-scheme-handler/webcal" = "firefox.desktop";
+
     wayland.windowManager.hyprland.settings = {
       bind = [ "SUPER, W, exec, ${self.lib.getCfgExe config.programs.firefox}" ];
       windowrule = [
