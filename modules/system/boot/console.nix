@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   cfg' = config.dotfyls.boot;
@@ -65,35 +60,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot = {
-      kernelParams =
-        # https://docs.kernel.org/fb/efifb.html
-        lib.optional (cfg.efi != null) "video=efifb:${toString cfg.efi.width}x${toString cfg.efi.height}"
-        # https://docs.kernel.org/fb/modedb.html
-        ++ lib.optionals (cfg.displays != [ ]) (
-          lib.mapAttrsToList (
-            connector: display:
-            "video=${connector}:${toString display.width}x${toString display.height}@${toString display.refresh}"
-          ) cfg.displays
-        );
-
-      # https://discourse.nixos.org/t/how-to-show-characters-for-disk-encryption-passphrase/50181/4
-      initrd.systemd = {
-        extraBin.setleds = lib.getExe' pkgs.kbd "setleds";
-        services.dotfyls-tty-numlock = {
-          description = "dotfyls - TTY Numlock";
-          before = [ "systemd-udevd.service" ];
-          unitConfig.DefaultDependencies = false;
-
-          serviceConfig.Type = "oneshot";
-          script = builtins.concatStringsSep "\n" (
-            builtins.genList (tty: "/bin/setleds -D +num </dev/tty${toString (tty + 1)}") 6
-          );
-
-          wantedBy = [ "initrd.target" ];
-        };
-      };
-    };
+    boot.kernelParams =
+      # https://docs.kernel.org/fb/efifb.html
+      lib.optional (cfg.efi != null) "video=efifb:${toString cfg.efi.width}x${toString cfg.efi.height}"
+      # https://docs.kernel.org/fb/modedb.html
+      ++ lib.optionals (cfg.displays != [ ]) (
+        lib.mapAttrsToList (
+          connector: display:
+          "video=${connector}:${toString display.width}x${toString display.height}@${toString display.refresh}"
+        ) cfg.displays
+      );
 
     console = {
       earlySetup = true;

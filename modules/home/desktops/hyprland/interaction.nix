@@ -21,7 +21,7 @@ lib.mkIf (cfg'.enable && cfg.enable) {
     master.new_status = "master";
 
     input = {
-      numlock_by_default = true;
+      numlock_by_default = config.dotfyls.management.input.numlockDefault;
       touchpad = {
         natural_scroll = true;
         clickfinger_behavior = true;
