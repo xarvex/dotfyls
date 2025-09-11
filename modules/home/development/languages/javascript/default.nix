@@ -70,6 +70,8 @@ in
         ".cache/yarn".cache = true;
 
         ".cache/typescript".cache = true;
+
+        ".cache/biome/biome-logs".cache = true;
       };
     };
 
