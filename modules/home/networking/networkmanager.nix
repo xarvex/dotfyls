@@ -35,6 +35,14 @@ in
         home.packages = with pkgs; [ networkmanagerapplet ];
 
         services.network-manager-applet.enable = true;
+
+        wayland.windowManager.hyprland.settings.windowrule = [
+          "noscreenshare, class:nm-connection-editor"
+
+          "tag +picker, class:nm-connection-editor, title:Choose a CA Certificate"
+
+          "noscreenshare, class:nm-connection-editor, title:Choose a CA Certificate"
+        ];
       })
     ]
   );
