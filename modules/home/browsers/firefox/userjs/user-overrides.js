@@ -88,10 +88,7 @@ user_pref("browser.safebrowsing.malware.enabled", false);
 user_pref("browser.safebrowsing.phishing.enabled", false);
 user_pref("browser.safebrowsing.downloads.enabled", false);
 user_pref("browser.safebrowsing.downloads.remote.url", "");
-user_pref(
-	"browser.safebrowsing.downloads.remote.block_potentially_unwanted",
-	false,
-);
+user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
 user_pref("browser.safebrowsing.downloads.remote.block_uncommon", false);
 user_pref("browser.safebrowsing.allowOverride", false);
 user_pref("browser.safebrowsing.downloads.remote.block_dangerous", false);
@@ -252,24 +249,12 @@ user_pref("clipboard.autocopy", false);
 // 0=none, 1-multi-line, 2=multi-line & single-line
 user_pref("layout.spellcheckDefault", 0);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
-user_pref(
-	"browser.newtabpage.activity-stream.section.highlights.includePocket",
-	false,
-);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false);
 user_pref("browser.newtabpage.activity-stream.showSearch", false);
-user_pref(
-	"browser.newtabpage.activity-stream.section.highlights.includeBookmarks",
-	false,
-);
-user_pref(
-	"browser.newtabpage.activity-stream.section.highlights.includeDownloads",
-	false,
-);
-user_pref(
-	"browser.newtabpage.activity-stream.section.highlights.includeVisited",
-	false,
-);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includeBookmarks", false);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includeDownloads", false);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includeVisited", false);
 user_pref("extensions.pocket.enabled", false);
 user_pref("extensions.screenshots.disabled", true);
 user_pref("reader.parse-on-load.enabled", false);

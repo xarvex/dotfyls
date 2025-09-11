@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   self,
   ...
 }:
@@ -13,6 +12,7 @@ in
 {
   imports = [
     ./extensions
+    ./userjs
 
     ./containers.nix
     ./search.nix
@@ -42,11 +42,6 @@ in
         "en-US"
         "sv-SE"
       ];
-      profiles.${config.home.username}.extraConfig = ''
-        ${builtins.readFile "${pkgs.arkenfox-userjs}/user.js"}
-
-        ${builtins.readFile ./user-overrides.js}
-      '';
     };
 
     xdg.mimeApps.associations.added."x-scheme-handler/webcal" = "firefox.desktop";
