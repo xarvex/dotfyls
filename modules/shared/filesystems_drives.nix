@@ -24,6 +24,14 @@ in
               default = osCfg != null && osCfg.${name}.enable;
             };
 
+            id = lib.mkOption {
+              readOnly = true;
+              type = lib.types.str;
+              default = name;
+              defaultText = lib.literalExpression "name";
+              description = "The id used to refer to the drive.";
+            };
+
             name = lib.mkOption {
               readOnly = osCfg != null;
               type = lib.types.str;
