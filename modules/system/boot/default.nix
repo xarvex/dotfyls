@@ -8,6 +8,7 @@ in
     ./kernel
 
     ./console.nix
+    ./firmware.nix
     ./loader.nix
     ./plymouth.nix
   ];
@@ -15,11 +16,7 @@ in
   options.dotfyls.boot.silent = lib.mkEnableOption "silent boot";
 
   config = lib.mkMerge [
-    {
-      hardware.enableRedistributableFirmware = true;
-
-      boot.initrd.systemd.enable = true;
-    }
+    { boot.initrd.systemd.enable = true; }
 
     (lib.mkIf cfg.silent {
       boot = {
