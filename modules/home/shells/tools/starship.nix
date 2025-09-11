@@ -74,9 +74,12 @@ in
             ];
 
             character = {
-              success_symbol = "[${lib.trimWith { end = true; } iCfg.general.prompt}](purple)";
+              success_symbol = "[${lib.trimWith { end = true; } iCfg.general.prompt}](bold green)";
               error_symbol = "[${lib.trimWith { end = true; } iCfg.general.prompt}](bold red)";
-              vimcmd_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](green)";
+              vimcmd_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](bold blue)";
+              vimcmd_replace_one_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](bold yellow)";
+              vimcmd_replace_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](bold yellow)";
+              vimcmd_visual_symbol = "[${lib.trimWith { end = true; } iCfg.general.vim}](bold purple)";
             };
             cmd_duration = {
               min_time = 10000;
