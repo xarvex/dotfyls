@@ -30,6 +30,6 @@ in
 
     home.packages = with pkgs; [ prismlauncher ];
 
-    xdg.mimeApps.associations.removed."application/zip" = "prismlauncher.desktop";
+    xdg.mimeApps.associations.removed."application/zip" = "org.prismlauncher.PrismLauncher.desktop";
   };
 }
