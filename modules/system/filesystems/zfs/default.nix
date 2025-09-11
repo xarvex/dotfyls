@@ -76,16 +76,13 @@ in
         };
       in
       if cfg'.impermanence.enable then
-        lib.mkMerge [
-          (builtins.listToAttrs (
-            map (mountpoint: lib.nameValuePair "/${mountpoint}" (mkPoolFS mountpoint)) [
-              "nix"
-              "persist"
-              "cache"
-            ]
-          ))
-          { "/nix".options = [ "noatime" ]; }
-        ]
+        builtins.listToAttrs (
+          map (mountpoint: lib.nameValuePair "/${mountpoint}" (mkPoolFS mountpoint)) [
+            "nix"
+            "persist"
+            "cache"
+          ]
+        )
       else
         { "/" = mkPoolFS "root"; }
     );

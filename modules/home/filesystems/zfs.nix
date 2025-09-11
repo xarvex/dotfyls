@@ -17,6 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     home.shellAliases = {
       zfs-compress = "zfs list -o name,used,compressratio,lused,avail";
+      zfs-crypt = "zfs list -o name,encryptionroot,encryption";
       zfs-snaps = "zfs list -t snapshot -S creation -o name,creation,used,written,refer";
     };
   };

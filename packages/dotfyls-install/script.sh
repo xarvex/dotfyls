@@ -441,11 +441,10 @@ _part_main_format_zfs() {
     run_sudo zpool create -f \
         -o ashift=12 \
         -o autotrim=on \
+        -O acltype=posixacl -O xattr=sa -O dnodesize=auto \
         -O compression=zstd \
-        -O acltype=posixacl \
-        -O atime=off \
-        -O xattr=sa \
         -O normalization=formD \
+        -O relatime=on \
         -O mountpoint=none \
         "${@}" zroot "${part_main}"
 }
@@ -457,13 +456,13 @@ part_main_format() {
     case ${filesystem} in
     zfs)
         if get_filesystems_encrypt; then
-            _part_main_format_zfs -O encryption=aes-256-gcm -O keyformat=passphrase -O keylocation=prompt
+            _part_main_format_zfs -O encryption=aes-256-gcm -O keylocation=prompt -O keyformat=passphrase
         else
             _part_main_format_zfs
         fi
 
         display 'Creating ZFS volume /nix...'
-        run_sudo zfs create -o mountpoint=legacy "${label_main}/nix"
+        run_sudo zfs create -o atime=off -o mountpoint=legacy "${label_main}/nix"
 
         display 'Creating ZFS volume /persist...'
         run_sudo zfs create -o mountpoint=legacy "${label_main}/persist"

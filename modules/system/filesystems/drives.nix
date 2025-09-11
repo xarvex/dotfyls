@@ -56,7 +56,11 @@ in
             ${drive.mountpoint} = {
               inherit (drive) label;
               fsType = "xfs";
-              options = [ "x-systemd.device-timeout=5s" ] ++ commonOptions;
+              options = [
+                "noatime"
+                "x-systemd.device-timeout=5s"
+              ]
+              ++ commonOptions;
             };
           }
           // (builtins.listToAttrs (

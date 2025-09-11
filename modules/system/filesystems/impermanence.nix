@@ -77,12 +77,24 @@ in
         fsType = "tmpfs";
         options = [
           "defaults"
+          "noatime"
+          "mode=0755"
           "size=1G"
-          "mode=755"
         ];
       };
-      "/persist".neededForBoot = true;
-      "/cache".neededForBoot = true;
+
+      "/nix" = {
+        options = [ "noatime" ];
+        neededForBoot = true;
+      };
+      "/persist" = {
+        options = [ "relatime" ];
+        neededForBoot = true;
+      };
+      "/cache" = {
+        options = [ "relatime" ];
+        neededForBoot = true;
+      };
     };
   };
 }
