@@ -9,9 +9,11 @@ return {
             function(plugin)
                 local cargo_target_dir = vim.env.CARGO_TARGET_DIR
                 if cargo_target_dir ~= nil then
+                    local plugin_lib_dir = vim.fs.joinpath(plugin.dir, "target", "release")
+                    vim.fn.mkdir(plugin_lib_dir, "p")
                     vim.fn.filecopy(
                         vim.fs.joinpath(cargo_target_dir, "release", "libblink_cmp_fuzzy.so"),
-                        vim.fs.joinpath(plugin.dir, "target", "release", "libblink_cmp_fuzzy.so")
+                        vim.fs.joinpath(plugin_lib_dir, "libblink_cmp_fuzzy.so")
                     )
                 end
             end,
