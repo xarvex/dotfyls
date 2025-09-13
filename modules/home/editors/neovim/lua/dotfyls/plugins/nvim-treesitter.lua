@@ -88,6 +88,7 @@ return {
             "typst",
             "udev",
             "vala",
+            "vhs",
             "vim",
             "vimdoc",
             "vue",
