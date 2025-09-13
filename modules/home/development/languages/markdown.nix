@@ -20,6 +20,9 @@ in
   };
 
   config = lib.mkIf (cfg''.enable && cfg.enable) {
-    dotfyls.development.tools = with pkgs; [ markdownlint-cli2 ];
+    dotfyls.development.tools = with pkgs; [
+      markdownlint-cli2
+      mdformat
+    ];
   };
 }

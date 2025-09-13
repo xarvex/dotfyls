@@ -19,6 +19,7 @@ return {
             bash = { "shfmt", "shellcheck" },
             fish = { "fish_indent" },
             lua = { "stylua" },
+            markdown = { "mdformat" },
             nix = { "nixfmt" },
             python = { "ruff_fix", "ruff_format" },
             sh = { "shfmt", "shellcheck" },

@@ -4,7 +4,6 @@ Personal [Neovim] configuration I use.
 
 I really enjoy lazy loading. Everything is lazy loaded if possible.
 
-
 ## Prerequisites
 
 - [Neovim] >= 0.11.0
@@ -17,4 +16,4 @@ I really enjoy lazy loading. Everything is lazy loaded if possible.
 - [hpjansson/chafa](https://github.com/hpjansson/chafa)
 - [sharkdp/fd](https://github.com/sharkdp/fd)
 
-[Neovim]: https://neovim.io
+[neovim]: https://neovim.io
