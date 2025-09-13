@@ -5,6 +5,13 @@ pkgs.mkShell {
     cargo
     rustc
 
+    cargo-deny
+    cargo-edit
+    cargo-expand
+    cargo-msrv
+    cargo-sort
+    cargo-udeps
+
     clippy
     deadnix
     flake-checker
@@ -13,13 +20,6 @@ pkgs.mkShell {
     rust-analyzer
     rustfmt
     statix
-
-    cargo-deny
-    cargo-edit
-    cargo-expand
-    cargo-msrv
-    cargo-sort
-    cargo-udeps
   ];
 
   env = {
