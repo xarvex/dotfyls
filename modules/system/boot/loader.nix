@@ -13,6 +13,7 @@
         interface.branding = config.dotfyls.meta.name;
         wallpaperStyle = "centered";
       };
+      maxGenerations = 10;
 
       additionalFiles."efi/memtest86/memtest86.efi" = pkgs.memtest86plus.efi;
       extraEntries = ''
