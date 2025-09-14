@@ -16,6 +16,7 @@
     ./html.nix
     ./java.nix
     ./json.nix
+    ./just.nix
     ./kotlin.nix
     ./lua.nix
     ./markdown.nix
