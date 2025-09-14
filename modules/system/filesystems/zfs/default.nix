@@ -46,45 +46,45 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    dotfyls.boot.kernel.filterBroken = [ config.boot.zfs.package.kernelModuleAttribute ];
+  config = lib.mkMerge [
+    { boot.supportedFilesystems.zfs = cfg.enable; }
 
-    services.zfs = {
-      autoScrub.enable = true;
-      trim.enable = true;
-    };
+    (lib.mkIf cfg.enable {
+      dotfyls.boot.kernel.filterBroken = [ config.boot.zfs.package.kernelModuleAttribute ];
 
-    boot = {
-      supportedFilesystems.zfs = true;
+      services.zfs = {
+        autoScrub.enable = true;
+        trim.enable = true;
+      };
 
-      zfs = {
+      boot.zfs = {
         package = lib.mkIf cfg.unstable pkgs.zfs_unstable;
 
         devNodes = "/dev/disk/${cfg.nodes}";
         requestEncryptionCredentials = cfg'.encrypt;
       };
-    };
 
-    # https://github.com/openzfs/zfs/issues/10891
-    systemd.services.systemd-udev-settle.enable = false;
+      # https://github.com/openzfs/zfs/issues/10891
+      systemd.services.systemd-udev-settle.enable = false;
 
-    fileSystems = lib.mkIf cfg.enableMain (
-      let
-        mkPoolFS = mountpoint: {
-          device = "${cfg.pool}/${mountpoint}";
-          fsType = "zfs";
-        };
-      in
-      if cfg'.impermanence.enable then
-        builtins.listToAttrs (
-          map (mountpoint: lib.nameValuePair "/${mountpoint}" (mkPoolFS mountpoint)) [
-            "nix"
-            "persist"
-            "cache"
-          ]
-        )
-      else
-        { "/" = mkPoolFS "root"; }
-    );
-  };
+      fileSystems = lib.mkIf cfg.enableMain (
+        let
+          mkPoolFS = mountpoint: {
+            device = "${cfg.pool}/${mountpoint}";
+            fsType = "zfs";
+          };
+        in
+        if cfg'.impermanence.enable then
+          builtins.listToAttrs (
+            map (mountpoint: lib.nameValuePair "/${mountpoint}" (mkPoolFS mountpoint)) [
+              "nix"
+              "persist"
+              "cache"
+            ]
+          )
+        else
+          { "/" = mkPoolFS "root"; }
+      );
+    })
+  ];
 }

@@ -18,8 +18,6 @@ in
 
   config = lib.mkMerge [
     (withDrive "1tb-samsung-pssd-t9" (drive: {
-      dotfyls.filesystems.xfs.enable = true;
-
       systemd.services."dotfyls-after-mount-${lib.strings.sanitizeDerivationName drive.id}" =
         let
           mount = "${utils.escapeSystemdPath drive.mountpoint}.mount";
@@ -65,6 +63,7 @@ in
               mountpoint:
               lib.nameValuePair "${home}/${mountpoint}" {
                 device = "${drive.mountpoint}/${mountpoint}";
+                fsType = "none";
                 options = [
                   "bind"
                   "X-fstrim.notrim"

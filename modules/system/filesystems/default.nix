@@ -16,7 +16,6 @@ in
     ./drives.nix
     ./impermanence.nix
     ./swap.nix
-    ./xfs.nix
   ];
 
   options.dotfyls.filesystems = {
@@ -29,11 +28,11 @@ in
       default = !config.dotfyls.meta.machine.isVirtual;
       defaultText = lib.literalExpression "!config.dotfyls.meta.machine.isVirtual";
     };
-    bootLabel = lib.mkOption {
+    efiLabel = lib.mkOption {
       type = lib.types.str;
-      default = "NIXBOOT";
-      example = "boot";
-      description = "Label of the boot partition.";
+      default = "efi";
+      example = "efi";
+      description = "Label of the EFI partition.";
     };
   };
 
@@ -50,8 +49,10 @@ in
       ) config.dotfyls.meta.location;
     };
 
-    fileSystems."/boot" = {
-      label = cfg.bootLabel;
+    boot.loader.efi.efiSysMountPoint = "/efi";
+
+    fileSystems."/efi" = {
+      label = cfg.efiLabel;
       fsType = "vfat";
       options = [
         "fmask=0077"

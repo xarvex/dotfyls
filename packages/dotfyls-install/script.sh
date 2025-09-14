@@ -229,7 +229,7 @@ get_filesystems() {
     mkdir -p "${runtime_dir}"
     run nix eval --json "${flake}"#nixosConfigurations."${host}".config.dotfyls.filesystems >"${filesystems}"
 
-    filesystems_boot_label=
+    filesystems_efi_label=
     filesystems_encrypt=
     filesystems_impermanence_enable=
     filesystems_main=
@@ -264,12 +264,12 @@ _get_filesystems_option() {
     fi
 }
 
-get_filesystems_boot_label() {
-    if [ -z "${filesystems_boot_label:-}" ]; then
-        filesystems_boot_label=$(_get_filesystems_option bootLabel || prompt 'Enter boot label')
+get_filesystems_efi_label() {
+    if [ -z "${filesystems_efi_label:-}" ]; then
+        filesystems_efi_label=$(_get_filesystems_option efiLabel || prompt 'Enter EFI label')
     fi
 
-    printf '%s' "${filesystems_boot_label}"
+    printf '%s' "${filesystems_efi_label}"
 }
 
 get_filesystems_encrypt() {
@@ -342,38 +342,39 @@ get_filesystems_zfs_pool() {
 #   See `get_filesystems`
 # Modified variables:
 #   disk: path to selected block device, or `/dev/vda` if found
-#   label_boot: string holding the label of the boot partition
+#   label_efi: string holding the label of the EFI partition
 #   label_main: string holding the label of the main partition
 #   label_swap: string holding the label of the swap partition
-#   part_boot: path to boot partition of `disk`
+#   part_efi: path to efi partition of `disk`
 #   part_main: path to main partition of `disk`
 #   part_swap: nullable path to swap partition of `disk`, unset if swap is not enabled, unless guessed
 # Outputs:
 #   None
 select_disk() {
-    num_main=1
+    num_efi=1
     if get_filesystems_swap_enable; then
-        num_boot=3
         num_swap=2
+        num_main=3
     else
-        num_boot=2
+        num_main=2
+        :
     fi
 
     case "$(get_filesystems_main)" in
     zfs) label_main=$(get_filesystems_zfs_pool) ;;
     esac
     get_filesystems_swap_enable && label_swap=$(get_filesystems_swap_label)
-    label_boot=$(get_filesystems_boot_label)
+    label_efi=$(get_filesystems_efi_label)
 
     if [ -b "/dev/disk/by-label/${label_main}" ]; then
         part_main=$(readlink -f "/dev/disk/by-label/${label_main}")
         display "Main partition found, selecting ${part_main}"
         disk_main=$(lsblk --nodeps --noheadings --output pkname "/dev/disk/by-label/${label_main}" --paths)
 
-        if [ -b "/dev/disk/by-label/${label_boot}" ]; then
-            part_boot=$(readlink -f "/dev/disk/by-label/${label_boot}")
-            display "Boot partition found, selecting ${part_boot}"
-            disk_boot=$(lsblk --nodeps --noheadings --output pkname "/dev/disk/by-label/${label_boot}" --paths)
+        if [ -b "/dev/disk/by-label/${label_efi}" ]; then
+            part_efi=$(readlink -f "/dev/disk/by-label/${label_efi}")
+            display "EFI partition found, selecting ${part_efi}"
+            disk_efi=$(lsblk --nodeps --noheadings --output pkname "/dev/disk/by-label/${label_efi}" --paths)
         fi
         if [ -b "/dev/disk/by-label/${label_swap}" ]; then
             part_swap=$(readlink -f "/dev/disk/by-label/${label_swap}")
@@ -381,9 +382,9 @@ select_disk() {
             disk_swap=$(lsblk --nodeps --noheadings --output pkname "/dev/disk/by-label/${label_swap}" --paths)
         fi
 
-        if { [ "${disk_main:-}" != "" ] && [ "${disk_boot:-}" != "" ] && [ "${disk_main}" != "${disk_boot}" ]; } ||
+        if { [ "${disk_main:-}" != "" ] && [ "${disk_efi:-}" != "" ] && [ "${disk_main}" != "${disk_efi}" ]; } ||
             { [ "${disk_main:-}" != "" ] && [ "${disk_swap:-}" != "" ] && [ "${disk_main}" != "${disk_swap}" ]; } ||
-            { [ "${disk_boot:-}" != "" ] && [ "${disk_swap:-}" != "" ] && [ "${disk_boot}" != "${disk_swap}" ]; }; then
+            { [ "${disk_efi:-}" != "" ] && [ "${disk_swap:-}" != "" ] && [ "${disk_efi}" != "${disk_swap}" ]; }; then
             display 'Multi-disk system setups are not currently supported, aborting.' red >&2
             exit 1
         fi
@@ -393,7 +394,7 @@ select_disk() {
 
         disk=/dev/vda
         part_main=${disk}${num_main}
-        part_boot=${disk}${num_boot}
+        part_efi=${disk}${num_efi}
         get_filesystems_swap_enable && part_swap=${disk}${num_swap}
     fi
 
@@ -412,7 +413,7 @@ select_disk() {
             disk=/dev/disk/by-id/${disk_id}
         done
         part_main=${disk}-part${num_main}
-        part_boot=${disk}-part${num_boot}
+        part_efi=${disk}-part${num_efi}
         get_filesystems_swap_enable && part_swap=${disk}-part${num_swap}
 
         printf '\n'
@@ -431,7 +432,7 @@ part_main_erase() {
     label_real=${label_main}
     [ ! -b "/dev/disk/by-label/${label_real}" ] && label_real=$(prompt 'Enter label used for main partition')
 
-    part_boot=$(readlink -f "/dev/disk/by-label/${label_real}")
+    part_main=$(readlink -f "/dev/disk/by-label/${label_real}")
 
     display 'Wiping main partition...'
     run_sudo wipefs --all "/dev/disk/by-label/${label_real}"
@@ -496,38 +497,38 @@ part_main_mount() {
     esac
 }
 
-part_boot_create() {
-    display 'Creating boot partition...'
-    run_sudo sgdisk "-n${num_boot}:1M:+1G -t${num_boot}:EF00" "${disk}"
+part_efi_create() {
+    display 'Creating EFI partition...'
+    run_sudo sgdisk "-n${num_efi}:1M:+1G -t${num_efi}:EF00" "${disk}"
 }
 
-part_boot_erase() {
-    display 'Erasing boot partition...'
+part_efi_erase() {
+    display 'Erasing EFI partition...'
 
-    label_real=${label_boot}
+    label_real=${label_efi}
     [ ! -b "/dev/disk/by-label/${label_real}" ] &&
-        label_real=$(prompt 'Enter label used for boot partition')
+        label_real=$(prompt 'Enter label used for EFI partition')
 
-    part_boot=$(readlink -f "/dev/disk/by-label/${label_real}")
+    part_efi=$(readlink -f "/dev/disk/by-label/${label_real}")
 
-    display 'Wiping boot partition...'
+    display 'Wiping EFI partition...'
     run_sudo wipefs --all "/dev/disk/by-label/${label_real}"
 }
 
-part_boot_format() {
+part_efi_format() {
     do_mount=${1:-}
 
-    display 'Formatting boot partition...'
-    run_sudo mkfs.fat -F 32 -n "${label_boot}" "${part_boot}"
+    display 'Formatting EFI partition...'
+    run_sudo mkfs.fat -F 32 -n "${label_efi}" "${part_efi}"
 
-    if value_bool "${do_mount:-}" || confirm 'Mount boot partition now?'; then
-        part_boot_mount
+    if value_bool "${do_mount:-}" || confirm 'Mount EFI partition now?'; then
+        part_efi_mount
     fi
 }
 
-part_boot_mount() {
-    display 'Mounting boot partition...'
-    run_sudo mount -o umask=0077 --mkdir "${part_boot}" "${mountpoint}/boot"
+part_efi_mount() {
+    display 'Mounting EFI partition...'
+    run_sudo mount -o umask=0077 --mkdir "${part_efi}" "${mountpoint}/efi"
 }
 
 part_swap_create() {
@@ -584,7 +585,7 @@ part_swap_format() {
             # Dirs  - 0700
             umask 0077
 
-            run_sudo mkdir -p "${cryptsetup_keys}"
+            ! is_dryrunning && mkdir -p "${cryptsetup_keys}"
             run_sudo dd bs=4096 count=1 iflag=fullblock status=none if=/dev/random of="${cryptsetup_swap_key}"
 
             umask "${old_umask}"
@@ -620,7 +621,7 @@ parts_erase() {
 
 parts_create() {
     display 'Creating partitions...'
-    part_boot_create
+    part_efi_create
     get_filesystems_swap_enable && part_swap_create
     part_main_create
 
@@ -641,7 +642,7 @@ parts_format() {
     fi
 
     display 'Formatting partitions...'
-    part_boot_format "${do_mount}"
+    part_efi_format "${do_mount}"
     part_main_format "${do_mount}"
     get_filesystems_swap_enable && part_swap_format "${do_mount}"
 }
@@ -649,7 +650,7 @@ parts_format() {
 parts_mount() {
     display 'Mounting partitions...'
     part_main_mount
-    part_boot_mount
+    part_efi_mount
     get_filesystems_swap_enable && part_swap_mount
 }
 
@@ -658,7 +659,7 @@ execute_install() {
     # Set the build dir as the mounted system.
     # Otherwise, may run into cases where the build is too big for the ISO's tmpfs.
     build_dir=${mountpoint}/nix/var/nix/builds
-    mkdir -p "${build_dir}"
+    ! is_dryrunning && mkdir -p "${build_dir}"
     run_sudo nixos-install --root "${mountpoint}" --flake "${flake}#${host}" --no-root-password --option build-dir "${build_dir}"
 
     display 'Executing persistwd for initial population...'
@@ -678,7 +679,7 @@ menu_partition() {
     cat >&2 <<EOF
 
 ${ascii_cyan}1) Main partition
-2) Boot partition
+2) EFI partition
 3) Swap partition
 a) All partitions
 b) Back${ascii_reset}
@@ -717,7 +718,7 @@ install_system() {
         display 'Proceeding...' green
     fi
 
-    if [ -n "${mountpoint:-}" ] && [ -d "${mountpoint}/boot" ] && confirm 'It looks like partitions are created and mounted, proceed with ONLY executing the flake install?'; then
+    if [ -n "${mountpoint:-}" ] && [ -d "${mountpoint}/efi" ] && confirm 'It looks like partitions are created and mounted, proceed with ONLY executing the flake install?'; then
         get_flake
         get_host
         execute_install
@@ -767,7 +768,7 @@ create_partitions() {
             get_filesystems
             select_disk
 
-            part_boot_create
+            part_efi_create
             parts_notify
 
             display 'Operation complete.' green
@@ -824,8 +825,8 @@ format_partitions() {
             get_filesystems
             select_disk
 
-            part_boot_erase
-            part_boot_format
+            part_efi_erase
+            part_efi_format
 
             display 'Operation complete.' green
             return
@@ -898,7 +899,7 @@ mount_partitions() {
             get_filesystems
             select_disk
 
-            part_boot_mount
+            part_efi_mount
 
             display 'Operation complete.' green
             return

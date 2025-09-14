@@ -27,7 +27,7 @@ in
         cpu_single_graph = true;
         disks_filter = builtins.concatStringsSep " " (
           lib.mapAttrsToList (_: drive: drive.mountpoint) config.dotfyls.filesystems.drives
-          ++ [ "/boot" ]
+          ++ [ "/efi" ]
           ++ (
             if config.dotfyls.filesystems.impermanence.enable then
               [
