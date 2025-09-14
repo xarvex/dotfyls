@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   self,
   ...
 }:
@@ -17,29 +18,36 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    dotfyls.shells.bash.blesh.initExtra =
+      let
+        tput = lib.getExe' pkgs.ncurses "tput";
+      in
+      # bash
+      ''
+        bleopt prompt_ps1_final="$(${tput} setaf 2)${config.dotfyls.icon.general.prompt}$(${tput} sgr0) "
+      '';
+
     programs = {
-      fish = {
-        interactiveShellInit = lib.mkAfter (
-          let
-            starship = self.lib.getCfgExe config.programs.starship;
-          in
-          # fish
-          ''
-            function starship_transient_prompt_func
-                ${starship} module character
-            end
+      fish.interactiveShellInit = lib.mkAfter (
+        let
+          starship = self.lib.getCfgExe config.programs.starship;
+        in
+        # fish
+        ''
+          function starship_transient_prompt_func
+              ${starship} module character
+          end
 
-            if functions -q transient_execute
-                functions -c transient_execute _starship_transient_execute
+          if functions -q transient_execute
+              functions -c transient_execute _starship_transient_execute
 
-                function transient_execute
-                    commandline -f expand-abbr
-                    _starship_transient_execute
-                end
-            end
-          ''
-        );
-      };
+              function transient_execute
+                  commandline -f expand-abbr
+                  _starship_transient_execute
+              end
+          end
+        ''
+      );
 
       starship = {
         enable = true;
