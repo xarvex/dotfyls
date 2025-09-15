@@ -49,7 +49,16 @@ in
       ) config.dotfyls.meta.location;
     };
 
-    boot.loader.efi.efiSysMountPoint = "/efi";
+    boot = {
+      supportedFilesystems =
+        lib.mkIf (config.dotfyls.meta.machine.isDesktop || config.dotfyls.meta.machine.isLaptop)
+          {
+            exfat = lib.mkDefault true;
+            ext4 = lib.mkDefault true;
+            vfat = lib.mkDefault true;
+          };
+      loader.efi.efiSysMountPoint = "/efi";
+    };
 
     fileSystems."/efi" = {
       label = cfg.efiLabel;
