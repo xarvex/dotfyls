@@ -26,6 +26,8 @@ in
   };
 
   config = {
+    dotfyls.file."/etc/ssl/certs" = lib.mkIf cfg.enable { cache = true; };
+
     networking = {
       inherit (cfg) enableIPv6;
 
