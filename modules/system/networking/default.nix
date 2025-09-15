@@ -37,5 +37,7 @@ in
       tempAddresses = "default";
       wireless.enable = false;
     };
+
+    boot.kernelParams = lib.optional (!cfg.enableIPv6) "ipv6.disable=1";
   };
 }
