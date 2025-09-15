@@ -42,7 +42,8 @@ in
           EGL_BACKEND = "wayland";
           GDK_BACKEND = "wayland,x11,*";
           QT_QPA_PLATFORM = "wayland;xcb";
-          SDL_VIDEODRIVER = "wayland,x11,windows";
+          SDL_VIDEO_DRIVER = "wayland,x11,windows"; # SDL3
+          SDL_VIDEODRIVER = "wayland,x11,windows"; # SDL2
           CLUTTER_BACKEND = "wayland";
 
           NIXOS_OZONE_WL = 1;
