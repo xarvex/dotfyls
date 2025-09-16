@@ -43,6 +43,25 @@
       };
     };
 
+    # See: https://gitlab.freedesktop.org/pipewire/wireplumber/-/issues/634#note_2444019
+    # See: https://wiki.archlinux.org/title/Bluetooth_headset#Disable_PipeWire_HSP/HFP_profile
+    media.pipewire.wireplumber.extraConfig."90-sony-wh-1000xm3"."monitor.bluez.rules" = [
+      {
+        matches = [
+          {
+            "device.name" = "~bluez_card.*";
+            "device.product.id" = "0x0cd3";
+            "device.vendor.id" = "usb:054c";
+          }
+        ];
+        actions.update-props = {
+          "bluez5.auto-connect" = [ "a2dp_sink" ];
+          "bluez5.a2dp.ldac.quality" = "hq";
+          "device.profile" = "a2dp-sink";
+        };
+      }
+    ];
+
     shells.zsh.enable = true;
 
     terminals = {
