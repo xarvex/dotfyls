@@ -86,6 +86,7 @@ in
         tree = "log --all --graph";
         unpushed = "log @{push}.. --patch --ext-diff";
         unstage = "restore --staged";
+        resign = "rebase --exec 'git commit --no-verify --no-edit --amend --gpg-sign'";
       };
 
       extraConfig = {
